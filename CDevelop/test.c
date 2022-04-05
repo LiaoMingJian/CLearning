@@ -122,5 +122,32 @@ void test07() {
 	printf("str2 = %s\n", str2);
 }
 
+//test strcpy_s
+void test08() {
+	char str1[6] = "we go";
+	char *str = NULL;
+	int i = 0;
 
+	str = (char *)malloc(sizeof(str1));
 
+	strcpy_s(str, sizeof(str1), str1);
+
+	printf("str = %s\n", str);
+
+	for (i = 0; i < sizeof(str1); ++i) {
+		printf("str[%d] = %c\n", i, str[i]);
+	}
+
+	free(str);
+	str = NULL;
+}
+
+//test strcpy_s overflow
+void test09() {
+	char str1[6] = "we go";
+	char str2[2];
+
+	strcpy_s(str2, sizeof(str1), str1);
+
+	printf("str = %s\n", str2);	
+}

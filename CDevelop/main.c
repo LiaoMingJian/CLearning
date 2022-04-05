@@ -37,7 +37,8 @@ int main() {
 	//test05();
 	//test06();
 	//test07();
-	test08();
+	//test08();
+	test09();
 
 	getchar();
 	return 0;
