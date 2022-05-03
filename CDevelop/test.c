@@ -3,7 +3,6 @@
 #include <malloc.h>
 #include "test.h"
 
-
 //Test overflow access in malloc
 void test01() {
 	char *str = NULL;
@@ -150,4 +149,132 @@ void test09() {
 	strcpy_s(str2, sizeof(str1), str1);
 
 	printf("str = %s\n", str2);	
+}
+
+void PointFunc() {
+	int i = 0;
+	char str01[4] = "we\n";
+	char str02[4] = "go\n";
+	int str[2] = { str01, str02 };
+
+	for (i = 0; i < sizeof(str) / sizeof(str[0]); ++i) {
+		printf("str[%d] = %s\n", i, str[i]);
+	}
+}
+
+void testGetchar() {
+	char a;
+	a = getchar();
+
+	putchar(a);
+	printf("\n");
+}
+
+void testGets() {
+	char str[3];
+
+	gets(str);
+	puts(str);
+
+	printf("\n");
+}
+
+void TestWriteChar() {
+	FILE *fp = NULL;
+	int ErrFlag = -1;
+	char a = 'a';
+
+	ErrFlag = fopen_s(&fp, "D:\\TestFile\\TestFile03.txt", "w+");
+	if (ErrFlag == 0) {
+		printf("File open succeed\n");
+	}
+	else {
+		printf("File open filed\n");
+	}
+
+	fputc(a, fp);
+	fclose(fp);
+}
+
+void TestWritStr() {
+	FILE *fp = NULL;
+	int ErrFlag = -1;
+	
+	char str01[4] = "we\n";
+	char str02[4] = "go\n";
+
+	ErrFlag = fopen_s(&fp, "D:\\TestFile\\TestFile04.txt", "w+");
+	if (ErrFlag == 0 ) {
+		printf("File open succeed\n");
+	} else {
+		printf("File open filed\n");
+	}
+
+	fputs(str01, fp);
+	fprintf(fp, str02);
+
+	fclose(fp);
+}
+
+void TestWritStr02() {
+	FILE *fp = NULL;
+	int ErrFlag = -1;
+	int i = 0; 
+	char str01[10] = "let's go\n";
+	char str02[7] = "we go\n";
+	int str[2] = {str01, str02};
+
+	ErrFlag = fopen_s(&fp, "D:\\TestFile\\TestFile07.txt", "w+");
+	if (ErrFlag == 0) {
+		printf("File open succeed\n");
+	}
+	else {
+		printf("File open filed\n");
+	}
+	
+	fputs(str[0], fp);
+	printf("str[0] = %s\n", str[0]);
+	fclose(fp);
+
+	ErrFlag = fopen_s(&fp, "D:\\TestFile\\TestFile07.txt", "a");
+	if (ErrFlag == 0) {
+		printf("File open succeed\n");
+	}
+	else {
+		printf("File open filed\n");
+	}
+
+	fputs(str[1], fp);
+	printf("str[1] = %s\n", str[1]);
+	fclose(fp);
+
+	/*
+	for (i = 0; i < sizeof(str) / sizeof(str[0]); ++i) {
+		printf("Write str[%d] = %s\n", i, str[i]);
+		fputs(str[i], fp);
+	}
+	*/
+	
+}
+
+void TestReadFile() {
+	FILE *fp;
+	int FileOpenFlag = -1;
+	char buff[20];
+	int a = EOF;
+	FileOpenFlag = fopen_s(&fp, "D:\\TestFile\\TestFile04.txt", "r+");
+	if (0 == FileOpenFlag) {
+		printf("File open succeed\n");
+	} else {
+		printf("File open filed\n");
+	}
+
+	fscanf_s(fp, "%s", buff, 10);
+	printf("buff = %s\n", buff);	
+	fgets(buff, 10, fp);
+	printf("buff = %s\n", buff);	
+	fgets(buff, 10, fp);
+	printf("buff = %s\n", buff);
+	
+	fclose(fp);
 }
