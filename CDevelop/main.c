@@ -4,6 +4,7 @@
 #include "main.h"
 #include "StringFunction.h"
 #include "test.h"
+#include <stdlib.h>
 
 int main() {
 	//char *str1 = NULL;
@@ -38,8 +39,18 @@ int main() {
 	//test06();
 	//test07();
 	//test08();
-	test09();
+	//test09();
+	//testGetchar();	
+	//testGets();
 
-	getchar();
+	//testFile();
+
+	//TestWritStr();
+
+	TestWritStr02();
+
+	//TestReadFile();
+
+	system("pause");	
 	return 0;
 }
