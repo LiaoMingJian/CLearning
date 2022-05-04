@@ -1,5 +1,11 @@
 #ifndef _TEST_H
 #define _TEST_H
+//Create link
+typedef struct Node {
+	int Data;
+	struct Node *Next;
+}MyNode;
+
 //Test overflow access 
 void test01();
 
@@ -42,5 +48,23 @@ void TestWritStr();
 void TestWritStr02();
 
 void TestReadFile();
+
+void TestCreateLink01();
+
+void TestCreateLink02();
+
+void OperateLink();
+
+MyNode* DeleteHeadNode(MyNode *);
+
+MyNode* DeleteTailNode(MyNode *);
+
+MyNode* DeletMiddleNode(MyNode *, int );
+
+MyNode* AddHeadNode(MyNode *, MyNode *);
+
+MyNode* AddTailNode(MyNode *, MyNode *);
+
+MyNode* TestAddMiddleNode(MyNode *, MyNode *, MyNode *);
 
 #endif
