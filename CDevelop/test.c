@@ -278,3 +278,243 @@ void TestReadFile() {
 	
 	fclose(fp);
 }
+
+void TestCreateLink01() {
+	typedef struct Node{
+		int Date;
+		struct Node *Next;
+	}MyNode;
+
+	//Node N1, N2, N3;		
+	MyNode N1;
+	MyNode N2;
+	MyNode N3;
+	MyNode *PN = NULL;
+
+	N1.Date = 1;
+	N1.Next = &N2;
+	N2.Date = 2;
+	N2.Next = &N3;
+	N3.Date = 3;
+	N3.Next = NULL;	
+
+	PN = &N1;
+	while (PN != NULL) {
+		printf("Node.Date = %d\n", PN->Date);
+		PN = PN->Next;
+	}
+}
+
+void TestCreateLink02() {
+	typedef struct MyNode {
+		int Data;
+		struct MyNode *Next;
+	}Node;
+
+	Node N3 = {3, NULL};
+	Node N2 = {2, &N3};
+	Node N1 = {1, &N2};
+	Node *PN = NULL;
+
+	printf("Link:\n");
+	for (PN = &N1; PN != NULL; PN = PN->Next) {		
+		printf("Node.Data = %d\n", PN->Data);	
+	}
+}
+
+void OperateLink() {
+	MyNode N3 = { 3, NULL };
+	MyNode N2 = { 2, &N3 };
+	MyNode N1 = { 1, &N2 };
+	MyNode *PN = NULL;	
+	MyNode *PNReturnHeadNode = NULL;
+	MyNode HeadNode = {0, NULL};
+	MyNode TailNode = { 4, NULL };
+	MyNode MiddleNode = {23, NULL};
+	int DeleteDate = 2;
+	
+	//Print link
+	printf("Print the created link:\n");
+	for (PN = &N1; PN != NULL; PN = PN->Next) {
+		printf("Node.Data = %d\n", PN->Data);
+	}
+	
+	//Add head node
+	//PNReturnHeadNode = AddHeadNode(&N1, &HeadNode);
+
+	//Add tail node
+	//PNReturnHeadNode = AddTailNode(&N1, &TailNode);
+
+	//Add middle node
+	PNReturnHeadNode = TestAddMiddleNode(&N1, &N2, &MiddleNode);
+
+	//Delete head node
+	//PNReturnHeadNode = DeleteHeadNode(&N1);
+	
+	//Delete tail node
+	//PNReturnHeadNode = DeleteTailNode(&N1);
+	
+	//Delete middle node
+	//PNReturnHeadNode = DeletMiddleNode(&N1, DeleteDate);
+
+	//Reverse link
+	//PNReturnHeadNode = ReverseLink(&N1);
+
+	//Printf link
+	if (NULL != PNReturnHeadNode) {
+		printf("Operate succeed!\n");
+		printf("Print operated link:\n");
+		for (PN = PNReturnHeadNode; PN != NULL; PN = PN->Next) {
+			printf("Node.Data = %d\n", PN->Data);
+		}
+	} else {
+		printf("Operate filed!\n");
+	}
+}
+
+MyNode* AddHeadNode(MyNode *LNode, MyNode *HeadNode) {
+	//Judge node
+	if (NULL == LNode) {
+		if (NULL == HeadNode) {
+			return NULL;
+		} else {		
+			return HeadNode;
+		}
+	}
+	
+	//Add head node
+	HeadNode->Next = HeadNode;
+
+	return HeadNode;
+}
+
+MyNode* AddTailNode(MyNode *LNode, MyNode *TailNode) {
+	MyNode *PN = NULL;
+
+	//Judge node
+	if (NULL == LNode) {
+		if (NULL == TailNode) {
+			return NULL;
+		} else {
+			return TailNode;
+		}
+	}
+
+	//Move PN to N3
+	for (PN = LNode; PN->Next != NULL; PN = PN->Next) {
+	}
+
+	//Add N4
+	if (PN->Next == NULL) {
+		PN->Next = TailNode;
+		PN->Next->Next = NULL;
+	}
+
+	return LNode;
+}
+
+MyNode* TestAddMiddleNode(MyNode *LNode, MyNode *PreNode, MyNode *MiddleNode) {
+	MyNode *PN = NULL;
+	MyNode *PNTemp = NULL;
+
+	//Judge
+	if (NULL == LNode) {
+		return MiddleNode;
+	}
+
+	//Move PN to PreNode
+	for (PN = LNode; PN->Next != PreNode; PN = PN->Next) {
+	}
+
+	//Add MiddleNode
+	if (PN->Next == PreNode) {
+		PNTemp = PN->Next;
+		PN->Next = MiddleNode;
+		PN->Next->Next = PNTemp;
+	}
+}
+
+MyNode* DeleteHeadNode(MyNode *LNode) {
+	MyNode *PNRt = NULL;	
+	
+	//Judge LNode
+	if (LNode == NULL) {
+		return NULL;	
+	} else if(LNode->Next == NULL) {
+		return LNode;
+	} 	
+
+	//Delete head node
+	PNRt = LNode->Next;
+	LNode->Next = NULL;
+	
+	return PNRt;
+}
+
+MyNode* DeleteTailNode(MyNode *LNode) {
+	MyNode *PNtemp = LNode;	
+
+	//Judge LNode
+	if (NULL == LNode ) {
+		return NULL;
+	} else if(NULL == LNode->Next) {
+		return LNode;
+	}
+	
+	//Move PNRt to N2
+	for (PNtemp = LNode; PNtemp->Next->Next != NULL; PNtemp = PNtemp->Next) {
+	}
+	
+	//Delete tail node
+	PNtemp->Next = NULL;
+	
+	return LNode;
+}
+
+MyNode* DeletMiddleNode(MyNode *LNode, int DeleteDate) {
+	MyNode *PN = LNode;
+	MyNode *PNTemp = NULL;
+
+	//Judge node
+	if (NULL == LNode) {
+		return NULL;
+	}else if (NULL == LNode->Next) {
+		return LNode;
+	}
+	
+	//Move PN to N1
+	for (PN = LNode; PN->Next->Data != DeleteDate; PN = PN->Next) {	
+	}
+	
+	//Delete N2
+	PNTemp = PN->Next;
+	PN->Next = PN->Next->Next;
+	PNTemp->Next = NULL;
+	
+	return LNode;
+}
+
+MyNode* ReverseLink(MyNode *LNode) {
+	MyNode *PCur = NULL;
+	MyNode *PNext = NULL;
+	MyNode *PTemp = NULL;
+
+	if (NULL == LNode) {
+		return NULL;
+	} else if (NULL == LNode->Next) {
+		return LNode;
+	}
+
+	PCur = NULL;
+	PNext = LNode;	
+	while (PNext != NULL) {
+		PTemp = PNext->Next;		
+		//Reverse
+		PNext->Next = PCur;
+		//Iterate
+		PCur = PNext;
+		PNext = PTemp;		
+	}
+
+	return PCur;
+}
