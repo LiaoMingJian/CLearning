@@ -37,7 +37,19 @@ int main() {
 
 	//TestAddMiddleNode();
 
-	OperateLink();
+	//OperateLink();
+
+	//FabByLoop01();
+
+	//FabByLoop02();
+
+	//FabByRec();
+
+	//AddValByRec01();
+
+	//AddValByRec02();
+
+	FabByRec02();
 
 	system("pause");	
 	return 0;

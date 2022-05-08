@@ -67,4 +67,18 @@ MyNode* AddTailNode(MyNode *, MyNode *);
 
 MyNode* TestAddMiddleNode(MyNode *, MyNode *, MyNode *);
 
+void Rec();
+
+void FabByLoop01();
+
+void FabByLoop02();
+
+void FabByRec();
+
+void FabByRec02();
+
+void AddValByRec01();
+
+void AddValByRec02();
+
 #endif
