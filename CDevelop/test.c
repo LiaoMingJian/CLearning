@@ -518,3 +518,168 @@ MyNode* ReverseLink(MyNode *LNode) {
 
 	return PCur;
 }
+
+
+
+void Rec() {
+	int a[3] = {1, 2, 3};
+	//Add 3 numbers a[0], a[1], a[2]
+	int p;
+	int q;
+	int i;
+	int sum;
+
+	//origin 
+	p = a[0];
+	q = a[1];
+	
+	//cycle
+	sum = p + q;
+
+	//iterte
+	p = sum;	
+ CDevelop/test.c	q = a[2];//q must be next element 
+
+	for (i = 0, p = 0; i < 3; ++i) {
+		q = a[i];//iterate
+
+		sum = p + q;
+
+		p = sum;		
+	}
+
+	for (i = 0, p = 0; i < 3; ++i) {
+		q = a[i];//iterate
+
+		p += q;//大鱼吃小鱼的意向，迭代与循环体结合
+	}
+
+	for (i = 0, p = 0; i < 3; ++i) {
+		q = a[i];//iterate
+
+		p += q;//大鱼吃小鱼的意向，迭代与循环体结合
+	}
+
+	//数组的最后简化版本
+	for (i = 0, p = 0; i < 3; ++i) {
+		p += a[i];//大鱼吃小鱼的意向，迭代与循环体结合
+	}
+}
+
+void FabByLoop01() {
+	int i = 0;
+	int a[5];
+	int p = 0;
+	a[0] = 1;
+	a[1] = 1;
+	
+	//1,1,2,3,5
+	for (i = 2; i < 5; ++i) {		
+		a[i] = a[i - 2]+ a[i - 1];
+		printf("a[%d] = %d\n", i, a[i]);
+	}
+}
+
+void FabByLoop02() {
+	int i = 0;
+	int a[5];
+	
+	//1,1,2,3,5
+	for (i = 0; i < 5; ++i) {		
+		if (0 == i) {
+			a[i] = 1;		
+		} else if (1 == i) {
+			a[i] = 1;
+		} else {
+			a[i] = a[i - 2] + a[i - 1];
+		}
+
+		printf("a[%d] = %d\n", i, a[i]);
+	}
+}
+
+int RecFab(int i) {
+	if (1 == i) {
+		return 1;
+	} else if (2 == i) {
+		return 1;
+	} 
+		
+	return RecFab(i - 2) + RecFab(i - 1);		
+}
+
+void FabByRec() {
+	int i = 0;
+	int n = 5;
+	for (i = 1; i <= 5; ++i) {
+		printf("RecFab(%d) = %d\n", i, RecFab(i));
+	}
+}
+
+int RecFab02(int * const a, const int i) {
+	//1, 1, 2, 3, 5
+	//Exit condition
+	if (1 == i) {
+		a[i - 1] = 1;
+		return 1;
+	} else if (2 == i) {
+		a[i - 1] = 1;
+		return 1;
+	}
+	
+	//Finish operation in this level
+	a[i - 1] = RecFab02(a, i - 2) + RecFab02(a, i - 1);
+
+	//Next level
+	return RecFab02(a, i - 2) + RecFab02(a, i - 1);
+}
+
+void FabByRec02() {
+	int i = 5;
+	int a[5];
+
+	RecFab02(a, i);
+
+	for (i = 0; i < 5; ++i) {
+		printf("a[%d] = %d\n", i, a[i]);
+	}
+}
+
+
+int  RecAdd01(int i) {	
+	if (1 == i) {
+		return 1;
+	}
+
+	return i + RecAdd01(i - 1);
+}
+
+void AddValByRec01() {
+	int i = 3;
+
+	//1, 2, 3
+	printf("sum = %d\n", RecAdd01(i));
+}
+
+//Finsh once add
+int RecAdd02(int sum, const int i) {
+	//Exit condition
+	if (1 == i) {
+		return 1;	
+	}
+
+	//Finish add in this level
+	sum += i;
+
+	return sum + RecAdd02(sum, i - 1);//Next level
+}
+
+void AddValByRec02() {
+	int i = 3;
+	int sum = 0;
+
+	//1, 2, 3
+	sum = RecAdd02(sum, i);
+	printf("sum = %d\n", sum);
+}
+
