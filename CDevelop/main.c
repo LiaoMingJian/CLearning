@@ -5,6 +5,8 @@
 #include "StringFunction.h"
 #include "test.h"
 #include <stdlib.h>
+#include "DataStruct.h"
+
 
 int main() {
 	//test01();
@@ -51,7 +53,10 @@ int main() {
 
 	//AddValByRec02();
 
-	FabByRec02();
+	//FabByRec02();
+
+	OperatorList();
+
 
 	system("pause");	
 	return 0;

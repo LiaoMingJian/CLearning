@@ -538,7 +538,7 @@ void Rec() {
 
 	//iterte
 	p = sum;	
- CDevelop/test.c	q = a[2];//q must be next element 
+ 	q = a[2];//q must be next element 
 
 	for (i = 0, p = 0; i < 3; ++i) {
 		q = a[i];//iterate
@@ -644,7 +644,6 @@ void FabByRec02() {
 		printf("a[%d] = %d\n", i, a[i]);
 	}
 }
-
 
 int  RecAdd01(int i) {	
 	if (1 == i) {
