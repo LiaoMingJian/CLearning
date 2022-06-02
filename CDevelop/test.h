@@ -1,10 +1,21 @@
 #ifndef _TEST_H
 #define _TEST_H
+
 //Create link
 typedef struct Node {
 	int Data;
 	struct Node *Next;
 }MyNode;
+
+//SqList
+#define MAXSIZE 20
+typedef int ElemType;
+
+typedef struct {
+	ElemType Data[MAXSIZE];
+	int Len;
+}SqList;
+
 
 //Test overflow access 
 void test01();
