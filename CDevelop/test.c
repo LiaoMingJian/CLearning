@@ -643,7 +643,6 @@ void FabByRec02() {
 	}
 }
 
-
 int  RecAdd01(int i) {	
 	if (1 == i) {
 		return 1;
@@ -680,3 +679,6 @@ void AddValByRec02() {
 	sum = RecAdd02(sum, i);
 	printf("sum = %d\n", sum);
 }
+
+
+//void 
