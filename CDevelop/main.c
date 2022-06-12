@@ -1,60 +1,30 @@
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
+#include <stdlib.h>
 #include "main.h"
 #include "StringFunction.h"
 #include "test.h"
-#include <stdlib.h>
 #include "DataStruct.h"
-
+#include "TestDataStruct.h"
 
 int main() {
-	//test01();
-	//test02();
-	//test03();
-	//test04();
-	//test05();
-	//test06();
-	//test07();
-	//test08();
-	//test09();
-	//testGetchar();	
-	//testGets();
 
-	//testFile();
+	//OperatorList();
 
-	//TestWritStr();
+	/*
+	TestArrCreatList();
+	TestGetElem();
+	TestLocateElem();
+	
+	TestInsertElem01();
+	TestInsertElem02();
 
-	//TestWritStr02();
+	TestDeleteElem01();
+	TestDeleteElem02();
+	*/
 
-	//TestReadFile();
-
-	//TestCreateLink01();
-
-	//TestCreateLink02();
-
-	//TestAddTailNode();
-
-	//TestAddHeadNode();
-
-	//TestAddMiddleNode();
-
-	//OperateLink();
-
-	//FabByLoop01();
-
-	//FabByLoop02();
-
-	//FabByRec();
-
-	//AddValByRec01();
-
-	//AddValByRec02();
-
-	//FabByRec02();
-
-	OperatorList();
-
+	OperateLinkList();
 
 	system("pause");	
 	return 0;
