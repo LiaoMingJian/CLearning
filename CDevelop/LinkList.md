@@ -36,20 +36,77 @@ typedef struct _Node *LinkList;
 
 ```c
 LIST_STATUS OperateLinkList(void) {
-​     LinkList L = NULL;
-​     LIST_STATUS Status;
-​     int n = 5;
-​     L = (LinkList)malloc(sizeof(Node));
+	LinkList L = NULL;
+	LIST_STATUS Status;
+	unsigned int n = 5;
+	unsigned int AddIndex = 4;
+	int AddNodeData = 25;
+	unsigned int DeleteIndex = 4;
 
-​     Status = CreatLinkListHead(L, n);
+	LinkList RevList;
 
-​     if (SUCCESS == Status) {
-​         printf("CreatLinkListHead succeed!\n");
-​     }  else {
-​         printf("CreatLinkListHead filed!\n");
-​     }
+	L = (LinkList)malloc(sizeof(Node));
 
-​     PrintLinkList(L);
+	/*
+	Status = CreatLinkListHead(L, n);
+	if (SUCCESS == Status) {
+		printf("CreatLinkListHead succeed!\n");
+	} else {
+		printf("CreatLinkListHead filed!\n");
+	}
+	*/
+
+	Status = CreatLinkListTail(L, n);
+	if (SUCCESS == Status) {
+		printf("CreatLinkListTail succeed!\n");
+	} else {
+		printf("CreatLinkListTail filed!\n");
+	}
+
+	PrintLinkList(L);
+
+	/*
+	Status = DeleteLinkList(L);
+	if (SUCCESS == Status) {
+		printf("DeleteLinkList succeed!\n");
+	}
+	else {
+		printf("DeleteLinkList filed!\n");
+	}
+	*/
+
+	/*
+	Status = AddLinkListNode01(L, AddIndex, AddNodeData);
+	if (SUCCESS == Status) {
+		printf("AddLinkListNode01 succeed!\n");
+	} else {
+		printf("AddLinkListNode01 filed!\n");
+	}
+	*/
+
+	/*
+	Status = AddLinkListNode02(L, AddIndex, AddNodeData);
+	if (SUCCESS == Status) {
+		printf("AddLinkListNode02 succeed!\n");
+	}
+	else {
+		printf("AddLinkListNode02 filed!\n");
+	}
+	*/
+
+	/*
+	Status = DeleteLinkListNode(L, DeleteIndex);
+	if (SUCCESS == Status) {
+		printf("DeleteLinkListNode succeed!\n");
+	}
+	else {
+		printf("DeleteLinkListNode filed!\n");
+	}
+	*/
+
+	RevList = ReverseLinkListNode(L);
+
+	PrintLinkList(RevList);
 }
 ```
 
@@ -607,3 +664,85 @@ LIST_STATUS DeleteLinkListNode(const LinkList L, const unsigned int DeleteIndex)
 > L->Data = 4
 >
 > PrintLinkList end
+
+
+
+#### 5.3.3.7 链表逆转
+
+**输入：**链表的头指针
+
+**分析：**双指针法。一个指向一个结点，一个指向当前结点，完成逆转后，不断往前移动。
+
+**代码：**
+
+```c
+LinkList ReverseLinkListNode(const LinkList L) {
+​     LinkList Pre, Cur, Temp, Temp02;
+    
+​     printf("ReverseLinkListNode start\n");
+​     if (NULL == L || NULL == L->Next) {
+​         return NULL;
+​     }
+    
+​     Pre = NULL;
+​     Cur = L;
+
+​     while (Cur != NULL) {
+​         Temp = Cur->Next;
+    
+​         Cur->Next = Pre;
+    
+​         Pre = Cur;
+​         Cur = Temp;
+​     }
+
+     printf("ReverseLinkListNode end\n");
+    
+​     return Pre;
+}
+```
+
+ 
+
+**结果：**
+
+> CreatLinkListTail start
+>
+> CreatLinkListTail end
+>
+> CreatLinkListTail filed!
+>
+> PrintLinkList start
+>
+> L->Data = 5
+>
+> L->Data = 0
+>
+> L->Data = 1
+>
+> L->Data = 2
+>
+> L->Data = 3
+>
+> L->Data = 4
+>
+> PrintLinkList end
+>
+> ReverseLinkListNode start
+>
+> PrintLinkList start
+>
+> L->Data = 4
+>
+> L->Data = 3
+>
+> L->Data = 2
+>
+> L->Data = 1
+>
+> L->Data = 0
+>
+> L->Data = 5
+>
+> PrintLinkList end
+

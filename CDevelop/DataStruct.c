@@ -246,6 +246,30 @@ LIST_STATUS DeleteElem02(SQ_LIST * const L, const int DeleteIndex) {
 }
 
 
+LinkList ReverseLinkListNode(const LinkList L) {
+	LinkList Pre, Cur, Temp, Temp02;
+
+	printf("ReverseLinkListNode start\n");
+
+	if (NULL == L || NULL == L->Next) {
+		return NULL;
+	}
+
+	Pre = NULL;
+	Cur = L;
+
+	while (Cur != NULL) {
+		Temp = Cur->Next;
+
+		Cur->Next = Pre;
+
+		Pre = Cur;
+		Cur = Temp;
+	}
+
+	return Pre;
+}
+
 LIST_STATUS OperateLinkList(void) {
 	LinkList L = NULL;
 	LIST_STATUS Status;
@@ -253,6 +277,8 @@ LIST_STATUS OperateLinkList(void) {
 	unsigned int AddIndex = 4;
 	int AddNodeData = 25;
 	unsigned int DeleteIndex = 4;
+
+	LinkList RevList;
 
 	L = (LinkList)malloc(sizeof(Node));
 
@@ -303,6 +329,7 @@ LIST_STATUS OperateLinkList(void) {
 	}
 	*/
 
+	/*
 	Status = DeleteLinkListNode(L, DeleteIndex);
 	if (SUCCESS == Status) {
 		printf("DeleteLinkListNode succeed!\n");
@@ -310,8 +337,11 @@ LIST_STATUS OperateLinkList(void) {
 	else {
 		printf("DeleteLinkListNode filed!\n");
 	}
+	*/
 
-	PrintLinkList(L);
+	RevList = ReverseLinkListNode(L);
+
+	PrintLinkList(RevList);
 }
 
 LIST_STATUS PrintLinkList(const LinkList L) {
