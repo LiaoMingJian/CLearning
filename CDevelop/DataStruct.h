@@ -55,6 +55,8 @@ LIST_STATUS DeleteLinkList(LinkList L);
 
 LIST_STATUS AddLinkListNode01(const LinkList L, const unsigned int AddIndex, const int AddNodeData);
 
-LIST_STATUS DeleteLinkListNode01(const LinkList L, const unsigned int DeleteIndex);
+LIST_STATUS DeleteLinkListNode(const LinkList L, const unsigned int DeleteIndex);
+
+LinkList ReverseLinkListNode(const LinkList L);
 
 #endif
