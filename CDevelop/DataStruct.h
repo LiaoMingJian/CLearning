@@ -21,6 +21,14 @@ typedef struct _Node {
 
 typedef struct _Node *LinkList;
 
+typedef struct {
+	ElemType Data;
+	int Cur;
+}StNode;
+
+
+
+
 LIST_STATUS OperatorList();
 
 LIST_STATUS CreatList(SQ_LIST *const L);
@@ -58,5 +66,11 @@ LIST_STATUS AddLinkListNode01(const LinkList L, const unsigned int AddIndex, con
 LIST_STATUS DeleteLinkListNode(const LinkList L, const unsigned int DeleteIndex);
 
 LinkList ReverseLinkListNode(const LinkList L);
+
+LIST_STATUS OperatorStaticLinkList(void);
+
+LIST_STATUS CreateStaticLinkList(StNode SL[], int CreateStNodeNum);
+
+LIST_STATUS PrintStaticLinkList(const StNode SL[]);
 
 #endif

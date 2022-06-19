@@ -559,4 +559,80 @@ LIST_STATUS DeleteLinkListNode(const LinkList L, const unsigned int DeleteIndex)
 }
 
 
+LIST_STATUS OperatorStaticLinkList(void) {
+	LIST_STATUS Status;	
+	StNode SL[MAXSIZE];
+	int StNodeNum = 5;
+	
+	Status = CreateStaticLinkList(SL, StNodeNum);
+	if (SUCCESS == Status) {
+		printf("CreateStaticLinkList succeed!\n");
+	} else {
+		printf("CreateStaticLinkList failed!\n");
+	}
+
+	PrintStaticLinkList(SL);
+}
+
+LIST_STATUS CreateStaticLinkList(StNode SL[], int StNodeNum) {
+	int i = 0;
+
+	printf("CreateStaticLinkList start\n");
+
+	if (NULL == SL || 0 == SL[0].Cur) {
+		return ERROR;
+	}
+
+	for (i = 0; i < MAXSIZE - 1 ; ++i) {		
+		if (i > 0 && i < StNodeNum + 1) {
+			SL[i].Data = i;
+		}
+
+		if (0 == i) {
+			SL[i].Cur = StNodeNum + 1;
+		} else {
+			SL[i].Cur = i + 1;
+		}
+
+	}
+	
+	SL[StNodeNum].Cur = 0;
+
+	SL[MAXSIZE - 1].Cur = 1;
+	
+	printf("CreateStaticLinkList end\n");
+
+	return SUCCESS;
+}
+
+LIST_STATUS PrintStaticLinkList(const StNode SL[]) {
+	int i = 0;
+
+	printf("PrintStaticLinkList start\n");
+
+	if (NULL == SL || 0 == SL[0].Cur || 0 == SL[MAXSIZE - 1].Cur) {
+		return ERROR;
+	}
+
+	if (0 == i) {
+		printf("SL[%d].Cur = %d\n", i, SL[i].Cur);
+	}
+
+	i = SL[MAXSIZE - 1].Cur;
+
+	while (i < MAXSIZE - 1) {
+		if (0 != SL[i].Cur) {
+			printf("SL[%d].Data = %d, SL[%d].Cur = %d\n", i, SL[i].Data, i, SL[i].Cur);
+		} else {
+			printf("SL[%d].Data = %d, SL[%d].Cur = %d\n", i, SL[i].Data, i, SL[i].Cur);
+			break;
+		}
+
+		i = SL[i].Cur;
+	}
+
+	printf("PrintStaticLinkList end\n");
+}
+
+
 
