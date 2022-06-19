@@ -24,7 +24,9 @@ int main() {
 	TestDeleteElem02();
 	*/
 
-	OperateLinkList();
+	//OperateLinkList();
+
+	OperatorStaticLinkList();
 
 	system("pause");	
 	return 0;
