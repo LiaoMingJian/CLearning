@@ -559,10 +559,14 @@ LIST_STATUS DeleteLinkListNode(const LinkList L, const unsigned int DeleteIndex)
 }
 
 
+/*StaticLinkList*/
 LIST_STATUS OperatorStaticLinkList(void) {
-	LIST_STATUS Status;	
+	LIST_STATUS Status;
 	StNode SL[MAXSIZE];
 	int StNodeNum = 5;
+	int AddIndex = 3;
+	int AddData = 25;
+	int DeleteIndex = 1;
 	
 	Status = CreateStaticLinkList(SL, StNodeNum);
 	if (SUCCESS == Status) {
@@ -571,6 +575,31 @@ LIST_STATUS OperatorStaticLinkList(void) {
 		printf("CreateStaticLinkList failed!\n");
 	}
 
+	PrintStaticArr(SL);
+	StaticLinkLenth(SL);
+	PrintStaticLinkList(SL);
+
+	
+	Status = AddStaticLinkListNode(SL, AddIndex, AddData);
+	if (SUCCESS == Status) {
+		printf("AddStaticLinkListNode succeed!\n");
+	}
+	else {
+		printf("AddStaticLinkListNode failed!\n");
+	}
+		
+	/*
+	Status = DeleteStaticLinkListNode(SL, DeleteIndex);
+	if (SUCCESS == Status) {
+		printf("DeleteStaticLinkListNode succeed!\n");
+	}
+	else {
+		printf("DeleteStaticLinkListNode failed!\n");
+	}
+	*/
+
+	PrintStaticArr(SL);
+	StaticLinkLenth(SL);
 	PrintStaticLinkList(SL);
 }
 
@@ -631,8 +660,135 @@ LIST_STATUS PrintStaticLinkList(const StNode SL[]) {
 		i = SL[i].Cur;
 	}
 
-	printf("PrintStaticLinkList end\n");
+	printf("PrintStaticLinkList end\n\n");
 }
 
+LIST_STATUS PrintStaticArr(const StNode SL[]) {
+	int i = 0;
 
+	printf("PrintStaticArr start\n");
 
+	for (i = 0; i < MAXSIZE; ++i) {
+		printf("SL[%d].Data = %d, SL[%d].Cur = %d\n", i, SL[i].Data, i, SL[i].Cur);	
+	}
+
+	printf("PrintStaticArr end\n");
+}
+
+int StaticLinkLenth(const StNode SL[]) {
+	int i = 0;
+	int SLLenth = 0;
+	
+	if (NULL == SL || 0 == SL[MAXSIZE - 1].Cur) {
+		return 0;
+	}
+	
+	i = SL[MAXSIZE - 1].Cur;
+
+	/*The Cur is the judgement standard*/
+	/*
+	while (SL[i].Cur != 0) {
+		SLLenth++;
+		i = SL[i].Cur;
+	}
+	SLLenth++;
+	*/
+
+	/*The following is the judgment standard*/
+	while (i != 0) {
+		SLLenth++;
+		i = SL[i].Cur;
+	}
+
+	printf("StaticLinkLenth = %d\n", SLLenth);
+
+	return SLLenth;
+}
+
+int IfSLMalloc(StNode SL[]) {
+	int Index = SL[0].Cur;
+
+	if (Index) {
+		SL[0].Cur = SL[Index].Cur;
+	}
+
+	return Index;
+}
+
+int FreeSL(StNode SL[], int FreeIndex) {
+	SL[FreeIndex].Cur = SL[0].Cur;
+	SL[0].Cur = FreeIndex;
+}
+
+LIST_STATUS AddStaticLinkListNode(StNode SL[], const int AddIndex, const ElemType AddData) {
+	LIST_STATUS SLStatus = SUCCESS;
+	int SLMallocIndex;
+	int LoopIndex = 0, SLIndex = 0;
+
+	printf("AddStaticLinkListNode start\n");
+
+	if ( NULL == SL || AddIndex < 1 || AddIndex > (StaticLinkLenth(SL) + 1) ) {
+		printf("Invalid AddIndex");
+		return ERROR;
+	}
+
+	/*
+	if ( StaticLinkLenth(SL) == (MAXSIZE - 2) ) {
+		printf("Space is full");
+		return ERROR;
+	}
+	*/
+
+	SLIndex = MAXSIZE - 1;
+
+	SLMallocIndex = IfSLMalloc(SL);
+
+	if (SLMallocIndex) {		
+		SL[SLMallocIndex].Data = AddData;
+
+		/*Move to the previous of the AddIndex*/
+		for (LoopIndex = 0; LoopIndex < AddIndex - 1; ++LoopIndex) {
+			SLIndex = SL[SLIndex].Cur;
+		}
+		
+		/*Modify Cur*/
+		SL[SLMallocIndex].Cur = SL[SLIndex].Cur;
+		SL[SLIndex].Cur = SLMallocIndex;
+
+		printf("AddStaticLinkListNode success\n");
+		SLStatus = SUCCESS;
+	}
+	else {
+		printf("Space is full");
+		SLStatus = ERROR;
+	}	
+
+	printf("AddStaticLinkListNode end\n");
+	return SLStatus;
+}
+
+LIST_STATUS DeleteStaticLinkListNode(StNode SL[], const int DeleteIndex) {
+	int LoopIndex = 1;
+	int SLIndex = MAXSIZE - 1;
+
+	printf("DeleteStaticLinkListNode start\n");
+
+	if (NULL == SL || DeleteIndex < 1 || DeleteIndex > StaticLinkLenth(SL)) {
+		printf("Invalid DeleteIndex!\n");
+		return ERROR;
+	}
+
+	/*Move to the Previous Index of AddIndex*/
+	for (LoopIndex = 1; LoopIndex <= DeleteIndex - 1; ++LoopIndex) {
+		SLIndex = SL[SLIndex].Cur;	
+	}
+
+	/*Modify Cur*/
+	SL[SLIndex].Cur = SL[LoopIndex].Cur;
+
+	FreeSL(SL, LoopIndex);
+
+	printf("DeleteStaticLinkListNode end\n");
+
+	return SUCCESS;
+}
