@@ -73,4 +73,8 @@ LIST_STATUS CreateStaticLinkList(StNode SL[], int CreateStNodeNum);
 
 LIST_STATUS PrintStaticLinkList(const StNode SL[]);
 
+LIST_STATUS AddStaticLinkListNode(StNode SL[], const int AddIndex, const ElemType AddData);
+
+LIST_STATUS DeleteStaticLinkListNode(StNode SL[], const int DeleteIndex);
+
 #endif
