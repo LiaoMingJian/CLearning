@@ -792,3 +792,86 @@ LIST_STATUS DeleteStaticLinkListNode(StNode SL[], const int DeleteIndex) {
 
 	return SUCCESS;
 }
+
+
+LIST_STATUS OperatorLoopLinkList(void) {
+	Node *LoopHead;
+	int CreateNum = 3;
+	
+	LIST_STATUS Status;
+
+	/*Create empty link list*/
+	LoopHead = (Node *)malloc(sizeof(Node));
+
+	Status = CreateLoopLinkList(LoopHead, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateLoopLinkList succeed!\n");
+	} else {
+		printf("CreateLoopLinkList failed!\n");
+	}
+
+	PrintLoopLinkList(LoopHead);
+}
+
+
+LIST_STATUS CreateLoopLinkList(Node *LoopHead, int CreateNum) {
+	int i = 0;
+	Node *TraNode;
+	Node *CreateNode;
+
+	printf("CreateLoopLinkList start\n");
+
+	if (NULL == LoopHead) {
+		return ERROR;
+	}
+
+	/*Create TailNode*/
+	LoopHead->Data = CreateNum;
+	LoopHead->Next = NULL;
+
+	TraNode= LoopHead;
+
+	for (i = 1; i <= CreateNum; ++i) {
+		CreateNode = (Node *)malloc(sizeof(Node));
+		CreateNode->Data = i;
+		
+		/*Insert Node in the tail of link list*/
+		CreateNode->Next = TraNode->Next;
+		TraNode->Next = CreateNode;
+
+		/*Move TraNode*/
+		TraNode = TraNode->Next;
+	}
+
+	/*Deal with the last Node*/
+	if (NULL == TraNode->Next) {
+		TraNode->Next = LoopHead;
+	}
+
+	printf("CreateLoopLinkList end\n");
+	return SUCCESS;
+}
+
+LIST_STATUS PrintLoopLinkList(Node *LoopHead) {
+	Node *TraNode;
+
+	printf("PrintLoopLinkList start\n");
+
+	TraNode = LoopHead;
+
+	if (NULL == LoopHead) {
+		return ERROR;
+	}
+
+	while (TraNode->Next != LoopHead) {
+		printf("TraNode->Data = %d\n", TraNode->Data);
+		TraNode = TraNode->Next;
+	}
+	
+	if (TraNode->Next == LoopHead) {
+		printf("TraNode->Data = %d\n", TraNode->Data);	
+	}
+
+	printf("PrintLoopLinkList end\n");
+}
+

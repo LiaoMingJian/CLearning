@@ -77,4 +77,6 @@ LIST_STATUS AddStaticLinkListNode(StNode SL[], const int AddIndex, const ElemTyp
 
 LIST_STATUS DeleteStaticLinkListNode(StNode SL[], const int DeleteIndex);
 
+
+LIST_STATUS OperatorLoopLinkList(void);
 #endif
