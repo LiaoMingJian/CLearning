@@ -794,27 +794,45 @@ LIST_STATUS DeleteStaticLinkListNode(StNode SL[], const int DeleteIndex) {
 }
 
 
+/*LoopLinkList*/
 LIST_STATUS OperatorLoopLinkList(void) {
-	Node *LoopHead;
+	Node *LoopHead01;
+	Node *LoopHead02;
+	Node *MergeLoopHead;
 	int CreateNum = 3;
 	
 	LIST_STATUS Status;
 
 	/*Create empty link list*/
-	LoopHead = (Node *)malloc(sizeof(Node));
+	LoopHead01 = (Node *)malloc(sizeof(Node));
+	LoopHead02 = (Node *)malloc(sizeof(Node));
 
-	Status = CreateLoopLinkList(LoopHead, CreateNum);
+
+	Status = CreateLoopLinkList01(LoopHead01, CreateNum);
 	if (SUCCESS == Status) {
-		printf("CreateLoopLinkList succeed!\n");
+		printf("CreateLoopLinkList01 succeed!\n");
 	} else {
-		printf("CreateLoopLinkList failed!\n");
+		printf("CreateLoopLinkList01 failed!\n");
 	}
 
-	PrintLoopLinkList(LoopHead);
+	PrintLoopLinkList(LoopHead01);
+
+	Status = CreateLoopLinkList02(LoopHead02, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateLoopLinkList02 succeed!\n");
+	}
+	else {
+		printf("CreateLoopLinkList02 failed!\n");
+	}
+
+	PrintLoopLinkList(LoopHead02);
+
+	MergeLoopHead = MergeTwoLoopLinkList(LoopHead01, LoopHead02);
+
+	PrintLoopLinkList(MergeLoopHead);
 }
 
-
-LIST_STATUS CreateLoopLinkList(Node *LoopHead, int CreateNum) {
+LIST_STATUS CreateLoopLinkList01(Node *LoopHead, int CreateNum) {
 	int i = 0;
 	Node *TraNode;
 	Node *CreateNode;
@@ -835,6 +853,44 @@ LIST_STATUS CreateLoopLinkList(Node *LoopHead, int CreateNum) {
 		CreateNode = (Node *)malloc(sizeof(Node));
 		CreateNode->Data = i;
 		
+		/*Insert Node in the tail of link list*/
+		CreateNode->Next = TraNode->Next;
+		TraNode->Next = CreateNode;
+
+		/*Move TraNode*/
+		TraNode = TraNode->Next;
+	}
+
+	/*Deal with the last Node*/
+	if (NULL == TraNode->Next) {
+		TraNode->Next = LoopHead;
+	}
+
+	printf("CreateLoopLinkList end\n");
+	return SUCCESS;
+}
+
+LIST_STATUS CreateLoopLinkList02(Node *LoopHead, int CreateNum) {
+	int i = 0;
+	Node *TraNode;
+	Node *CreateNode;
+
+	printf("CreateLoopLinkList start\n");
+
+	if (NULL == LoopHead) {
+		return ERROR;
+	}
+
+	/*Create TailNode*/
+	LoopHead->Data = CreateNum;
+	LoopHead->Next = NULL;
+
+	TraNode = LoopHead;
+
+	for (i = 1; i <= CreateNum; ++i) {
+		CreateNode = (Node *)malloc(sizeof(Node));
+		CreateNode->Data = i + 3;
+
 		/*Insert Node in the tail of link list*/
 		CreateNode->Next = TraNode->Next;
 		TraNode->Next = CreateNode;
@@ -874,4 +930,52 @@ LIST_STATUS PrintLoopLinkList(Node *LoopHead) {
 
 	printf("PrintLoopLinkList end\n");
 }
+
+Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02) {
+	Node *TraNode01;
+	Node *TraNode02;
+
+	printf("MergeTwoLoopLinkList start\n");
+
+	if (NULL == LoopHead01) {
+		return LoopHead02;
+	}
+
+	if (NULL == LoopHead02) {
+		return LoopHead01;
+	}
+
+	LoopHead01->Data += LoopHead02->Data;\
+
+	TraNode01 = LoopHead01;
+	TraNode02 = LoopHead02;
+
+	/*Find the tail01*/
+	while (TraNode01->Next != LoopHead01) {
+		TraNode01 = TraNode01->Next;
+	}
+
+	/*Find the tail02*/
+	while (TraNode02->Next != LoopHead02) {
+		TraNode02 = TraNode02->Next;
+	}
+
+	/*Link with tail01 with LoopHead01->Next*/
+	if (TraNode01->Next == LoopHead01) {
+		TraNode01->Next = LoopHead02->Next;	
+	}
+
+	/*Link with tail02 with LoopHead01*/
+	if (TraNode02->Next == LoopHead02) {
+		TraNode02->Next = LoopHead01;
+	}
+
+	/*Free LoopHead02*/
+	free(LoopHead02);
+
+	printf("MergeTwoLoopLinkList end\n");
+
+	return LoopHead01;
+}
+
 
