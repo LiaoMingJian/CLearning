@@ -979,3 +979,142 @@ Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02) {
 }
 
 
+/*DoubleLinkedList*/
+void OperateDoubleLinkList(void) {
+	Double_Link_Node *DoubleHead;
+	LIST_STATUS Status;
+	int CreateNum = 5;
+	int AddNodeIndex = 2;
+	int AddNodeData = 15;
+
+	DoubleHead = (Double_Link_Node *)malloc(sizeof(Double_Link_Node));
+	
+	Status = CreateDoubleLinkList(DoubleHead, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateDoubleLinkList succeed!\n");
+	}
+	else {
+		printf("CreateDoubleLinkList failed!\n");
+	}
+
+	GetDoubleLinkListLenth(DoubleHead);
+	PrintDoubleLinkList(DoubleHead);
+
+	Status = AddDoubleLinkList(DoubleHead, AddNodeIndex, AddNodeData);
+	if (SUCCESS == Status) {
+		printf("AddDoubleLinkList succeed!\n");
+	}
+	else {
+		printf("AddDoubleLinkList failed!\n");
+	}
+
+	GetDoubleLinkListLenth(DoubleHead);
+	PrintDoubleLinkList(DoubleHead);
+}
+
+LIST_STATUS CreateDoubleLinkList(Double_Link_Node *DoubleHead, int CreateNum) {
+	int i = 0;	
+	Double_Link_Node *CreateNode;
+	Double_Link_Node *TraNode;
+
+	printf("CreateDoubleLinkList start!\n");
+
+	if (NULL == DoubleHead) {
+		return ERROR;
+	}
+
+	/*Creat empty double link list*/
+	DoubleHead->Data = CreateNum;
+	DoubleHead->Next = NULL;
+	DoubleHead->Prior = NULL;
+
+	TraNode = DoubleHead;
+
+	for (i = 1; i <= CreateNum; ++i) {
+		CreateNode = (Double_Link_Node *)malloc(sizeof(Double_Link_Node));
+		CreateNode->Data = i;
+
+		CreateNode->Next = TraNode->Next;
+		CreateNode->Prior = TraNode;
+		TraNode->Next = CreateNode;
+
+		TraNode = TraNode->Next;
+	}
+
+	printf("CreateDoubleLinkList end!\n");
+	
+	return SUCCESS;
+}
+
+
+LIST_STATUS PrintDoubleLinkList(Double_Link_Node * const DoubleHead) {
+	Double_Link_Node *TraNode;
+
+	printf("CreateDoubleLinkList start!\n");
+
+	if (NULL == DoubleHead) {
+		return ERROR;	
+	}
+
+	TraNode = DoubleHead;
+
+	while (TraNode != NULL) {
+		printf("TraNode->Data = %d\n", TraNode->Data);
+
+		TraNode = TraNode->Next;
+	}
+
+	printf("CreateDoubleLinkList end!\n");
+}
+
+int GetDoubleLinkListLenth(Double_Link_Node * const DoubleHead) {
+	Double_Link_Node * TraNode;
+	
+	int DoubleLinkListLenth = 0;
+
+	if (NULL == DoubleHead) {
+		return 0;
+	}
+	
+	TraNode = DoubleHead->Next;
+	
+	/*DoubleLinkListLenth is not incluede of DoubleHead*/
+	while (TraNode != NULL) {
+		++DoubleLinkListLenth;
+		TraNode = TraNode->Next;
+	}
+	
+	printf("DoubleLinkListLenth = %d\n", DoubleLinkListLenth);
+
+	return DoubleLinkListLenth;
+}
+
+LIST_STATUS AddDoubleLinkList(Double_Link_Node *DoubleHead, int AddNodeIndex, int AddNodeData) {
+	Double_Link_Node *AddNode;
+	Double_Link_Node *TraNode;
+	int TraIndex = 0;
+
+	printf("AddDoubleLinkList start!\n");
+
+	if (NULL == DoubleHead || AddNodeIndex < 1 || AddNodeIndex > GetDoubleLinkListLenth(DoubleHead) + 1) {
+		return ERROR;	
+	}
+
+	TraNode = DoubleHead;
+	
+	/*Find the previous node of AddNodeIndex*/
+	for (TraIndex = 1; TraIndex <= AddNodeIndex - 1 ; ++AddNodeIndex) {
+		TraNode = TraNode->Next;	
+	}
+
+	AddNode = (Double_Link_Node *)malloc(sizeof(Double_Link_Node));
+	
+	AddNode->Data = 15;
+	AddNode->Next = TraNode->Next;
+	AddNode->Prior = TraNode;
+	AddNode->Next->Prior = TraNode;
+	AddNode->Next = TraNode;
+
+	printf("AddDoubleLinkList end!\n");
+	return SUCCESS;
+}

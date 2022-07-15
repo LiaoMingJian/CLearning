@@ -26,7 +26,11 @@ typedef struct {
 	int Cur;
 }StNode;
 
-
+typedef struct _Double_link_Node {
+	ElemType Data;
+	struct _Double_link_Node *Next;
+	struct _Double_link_Node *Prior;
+}Double_Link_Node;
 
 
 LIST_STATUS OperatorList();
@@ -80,7 +84,9 @@ LIST_STATUS DeleteStaticLinkListNode(StNode SL[], const int DeleteIndex);
 /*Loop Link list*/
 LIST_STATUS OperatorLoopLinkList(void);
 
-
 Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02);
+
+/*Double Link list*/
+void OperateDoubleLinkList(void);
 
 #endif

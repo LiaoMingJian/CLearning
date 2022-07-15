@@ -28,7 +28,9 @@ int main() {
 
 	//OperatorStaticLinkList();
 
-	OperatorLoopLinkList();
+	//OperatorLoopLinkList();
+
+	OperateDoubleLinkList();
 
 	system("pause");	
 	return 0;
