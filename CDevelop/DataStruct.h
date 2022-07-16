@@ -38,6 +38,11 @@ typedef struct _SQ_STACK {
 	int Top;
 }SQ_STACK;
 
+typedef struct _SQ_DOUBLE_STACK {
+	ElemType Data[MAXSIZE];
+	int Top1;
+	int Top2;
+}SQ_DOUBLE_STACK;
 
 LIST_STATUS OperatorList();
 
@@ -96,8 +101,11 @@ Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02);
 void OperateDoubleLinkList(void);
 
 
-
 /*SqStack*/
 void OperateSqStack(void);
+
+
+/*SQDoubleStack*/
+void OperateSQDoubleStack(void);
 
 #endif
