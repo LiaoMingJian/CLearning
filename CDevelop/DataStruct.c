@@ -986,6 +986,7 @@ void OperateDoubleLinkList(void) {
 	int CreateNum = 5;
 	int AddNodeIndex = 2;
 	int AddNodeData = 15;
+	int DeleteNodeIndex = 3;
 
 	DoubleHead = (Double_Link_Node *)malloc(sizeof(Double_Link_Node));
 	
@@ -998,18 +999,38 @@ void OperateDoubleLinkList(void) {
 	}
 
 	GetDoubleLinkListLenth(DoubleHead);
-	PrintDoubleLinkList(DoubleHead);
-
-	Status = AddDoubleLinkList(DoubleHead, AddNodeIndex, AddNodeData);
+	PrintDoubleLinkList(DoubleHead);	
+	
+	Status = AddDoubleLinkListNode(DoubleHead, AddNodeIndex, AddNodeData);
 	if (SUCCESS == Status) {
-		printf("AddDoubleLinkList succeed!\n");
+		printf("AddDoubleLinkListNode succeed!\n");
 	}
 	else {
-		printf("AddDoubleLinkList failed!\n");
+		printf("AddDoubleLinkListNode failed!\n");
+	}	
+
+	/*
+	Status = DeleteDoubleLinkListNode(DoubleHead, DeleteNodeIndex);
+	if (SUCCESS == Status) {
+		printf("DeleteDoubleLinkListNode succeed!\n");
+	}
+	else {
+		printf("DeleteDoubleLinkListNode failed!\n");
+	}
+	*/
+
+	/*
+	Status = DeleteWholeDoubleLinkList(DoubleHead);
+	if (SUCCESS == Status) {
+		printf("DeleteWholeDoubleLinkList succeed!\n");
+	}
+	else {
+		printf("DeleteWholeDoubleLinkList failed!\n");
 	}
 
 	GetDoubleLinkListLenth(DoubleHead);
 	PrintDoubleLinkList(DoubleHead);
+	*/
 }
 
 LIST_STATUS CreateDoubleLinkList(Double_Link_Node *DoubleHead, int CreateNum) {
@@ -1046,9 +1067,9 @@ LIST_STATUS CreateDoubleLinkList(Double_Link_Node *DoubleHead, int CreateNum) {
 	return SUCCESS;
 }
 
-
 LIST_STATUS PrintDoubleLinkList(Double_Link_Node * const DoubleHead) {
 	Double_Link_Node *TraNode;
+	int TraIndex = 0;
 
 	printf("CreateDoubleLinkList start!\n");
 
@@ -1059,12 +1080,13 @@ LIST_STATUS PrintDoubleLinkList(Double_Link_Node * const DoubleHead) {
 	TraNode = DoubleHead;
 
 	while (TraNode != NULL) {
-		printf("TraNode->Data = %d\n", TraNode->Data);
+		printf("The Index = %d, TraNode = 0x%x, TraNode->Data = %d, TraNode->Prior = 0x%x, TraNode->Next = 0x%x\n", TraIndex, TraNode, TraNode->Data, TraNode->Prior, TraNode->Next);
+		++TraIndex;
 
 		TraNode = TraNode->Next;
 	}
 
-	printf("CreateDoubleLinkList end!\n");
+	printf("CreateDoubleLinkList end!\n\n");
 }
 
 int GetDoubleLinkListLenth(Double_Link_Node * const DoubleHead) {
@@ -1073,6 +1095,10 @@ int GetDoubleLinkListLenth(Double_Link_Node * const DoubleHead) {
 	int DoubleLinkListLenth = 0;
 
 	if (NULL == DoubleHead) {
+		return 0;
+	}
+	
+	if (NULL == DoubleHead->Next) {
 		return 0;
 	}
 	
@@ -1089,10 +1115,10 @@ int GetDoubleLinkListLenth(Double_Link_Node * const DoubleHead) {
 	return DoubleLinkListLenth;
 }
 
-LIST_STATUS AddDoubleLinkList(Double_Link_Node *DoubleHead, int AddNodeIndex, int AddNodeData) {
+LIST_STATUS AddDoubleLinkListNode(Double_Link_Node *DoubleHead, int AddNodeIndex, int AddNodeData) {
 	Double_Link_Node *AddNode;
 	Double_Link_Node *TraNode;
-	int TraIndex = 0;
+	int TraIndex = 1;
 
 	printf("AddDoubleLinkList start!\n");
 
@@ -1102,19 +1128,82 @@ LIST_STATUS AddDoubleLinkList(Double_Link_Node *DoubleHead, int AddNodeIndex, in
 
 	TraNode = DoubleHead;
 	
+	printf("TraNode = 0x%x\n", TraNode);
+
 	/*Find the previous node of AddNodeIndex*/
-	for (TraIndex = 1; TraIndex <= AddNodeIndex - 1 ; ++AddNodeIndex) {
-		TraNode = TraNode->Next;	
+	for (TraIndex = 1; TraIndex <= AddNodeIndex - 1 ; ++TraIndex) {
+		TraNode = TraNode->Next;
+		printf("TraIndex = %d, TraNode = 0x%x\n", TraIndex, TraNode);
 	}
+
+	printf("TraIndex = %d, TraNode = 0x%x\n", TraIndex, TraNode);
 
 	AddNode = (Double_Link_Node *)malloc(sizeof(Double_Link_Node));
 	
 	AddNode->Data = 15;
 	AddNode->Next = TraNode->Next;
 	AddNode->Prior = TraNode;
-	AddNode->Next->Prior = TraNode;
-	AddNode->Next = TraNode;
+
+	TraNode->Next->Prior = AddNode;
+	TraNode->Next = AddNode;
+
+	DoubleHead->Data++;
 
 	printf("AddDoubleLinkList end!\n");
 	return SUCCESS;
 }
+
+LIST_STATUS DeleteDoubleLinkListNode(Double_Link_Node *DoubleHead, int DeleteNodeIndex) {
+	Double_Link_Node *TraNode;
+	int TraIndex;
+
+	printf("DeleteDoubleLinkListNode start!\n");
+
+	if (NULL == DoubleHead || DeleteNodeIndex < 1 || DeleteNodeIndex > GetDoubleLinkListLenth(DoubleHead)) {
+		return ERROR;	
+	}
+
+	TraNode = DoubleHead;
+
+	for (TraIndex = 1; TraIndex <= DeleteNodeIndex; ++TraIndex) {
+		TraNode = TraNode->Next;	
+	}
+
+	TraNode->Prior->Next = TraNode->Next;
+	TraNode->Next->Prior = TraNode->Prior;		
+
+	free(TraNode);
+	DoubleHead->Data--;
+
+	printf("DeleteDoubleLinkListNode start!\n");
+
+	return SUCCESS;
+}
+
+LIST_STATUS DeleteWholeDoubleLinkList(Double_Link_Node *DoubleHead) {
+	Double_Link_Node *TraNode = DoubleHead->Next;
+	Double_Link_Node *DeleteNode = TraNode;
+
+	printf("DeleteWholeDoubleLinkList start!\n");
+
+	if (NULL == DoubleHead) {
+		return ERROR;
+	}
+	
+	while (TraNode != NULL) {
+		DeleteNode = TraNode;		
+		TraNode = TraNode->Next;
+
+		free(DeleteNode);
+		DoubleHead->Data--;
+	}
+
+	if (DoubleHead->Data == 0) {
+		DoubleHead->Next = NULL;
+	}
+
+	printf("DeleteWholeDoubleLinkList end!\n");
+
+	return SUCCESS;
+}
+
