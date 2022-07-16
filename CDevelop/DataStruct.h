@@ -4,7 +4,7 @@
 
 #define SUCCESS			1
 #define ERROR			0
-#define MAXSIZE			10
+#define MAXSIZE			5
 
 typedef int ElemType;
 typedef int LIST_STATUS;
@@ -31,6 +31,12 @@ typedef struct _Double_link_Node {
 	struct _Double_link_Node *Next;
 	struct _Double_link_Node *Prior;
 }Double_Link_Node;
+
+
+typedef struct _SQ_STACK {
+	ElemType Data[MAXSIZE];
+	int Top;
+}SQ_STACK;
 
 
 LIST_STATUS OperatorList();
@@ -88,5 +94,10 @@ Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02);
 
 /*Double Link list*/
 void OperateDoubleLinkList(void);
+
+
+
+/*SqStack*/
+void OperateSqStack(void);
 
 #endif

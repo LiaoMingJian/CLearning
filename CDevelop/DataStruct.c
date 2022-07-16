@@ -978,7 +978,6 @@ Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02) {
 	return LoopHead01;
 }
 
-
 /*DoubleLinkedList*/
 void OperateDoubleLinkList(void) {
 	Double_Link_Node *DoubleHead;
@@ -1206,4 +1205,106 @@ LIST_STATUS DeleteWholeDoubleLinkList(Double_Link_Node *DoubleHead) {
 
 	return SUCCESS;
 }
+
+
+/*SQ_STACK*/
+LIST_STATUS CreateSQStack(SQ_STACK *SqStack, int CreateNum) {
+	int TraIndex;
+
+	printf("CreateSQStack start\n");
+
+	if (NULL == SqStack || CreateNum > MAXSIZE) {
+		return ERROR;
+	}
+
+	for (TraIndex = 0; TraIndex < CreateNum; ++TraIndex) {
+		SqStack->Data[TraIndex] = TraIndex;
+	}
+
+	SqStack->Top = CreateNum - 1;
+
+	printf("CreateSQStack end\n");
+	return SUCCESS;
+}
+
+void PrintSQStack(SQ_STACK * const SqStack) {
+	SQ_STACK *TraStack = SqStack;
+	int TraIndex;
+
+	printf("CreateSQStack start\n");
+
+	printf("TraStack->Top = %d\n", TraStack->Top);
+	for (TraIndex = 0; TraIndex < MAXSIZE; ++TraIndex) {
+		printf("TraStack->Data[TraIndex] = %d\n", TraStack->Data[TraIndex]);
+	}
+
+	printf("CreateSQStack end\n\n");
+}
+
+LIST_STATUS PushSQStack(SQ_STACK *SqStack, int PushData) {	
+	printf("PushSQStack start\n");
+
+	if (NULL == SqStack || SqStack->Top == MAXSIZE - 1) {
+		return ERROR;
+	}
+
+	SqStack->Top++;
+	SqStack->Data[SqStack->Top] = PushData;
+
+	printf("PushSQStack end\n");
+
+	return SUCCESS;
+}
+
+LIST_STATUS PopSQStack(SQ_STACK *SqStack, int *PopData) {
+	printf("PopSQStack start\n");
+
+	if (NULL == SqStack || SqStack->Top == -1) {
+		return ERROR;	
+	}
+
+	*PopData = SqStack->Data[SqStack->Top];
+	SqStack->Top--;
+
+	printf("PopSQStack end\n");
+}
+
+void OperateSqStack(void) {
+	LIST_STATUS Status;
+	SQ_STACK *SqStack = (SQ_STACK *)malloc(sizeof(SQ_STACK));
+	int CreateNum = 3;
+	int PushData = 3;
+	int *PopData = (int *)malloc(sizeof(int));
+	
+	Status = CreateSQStack(SqStack, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateSQStack succeed!\n");
+	}
+	else {
+		printf("CreateSQStack failed!\n");
+	}
+
+	PrintSQStack(SqStack);
+
+	/*
+	Status = PushSQStack(SqStack, PushData);
+	if (SUCCESS == Status) {
+		printf("PushSQStack succeed!\n");
+	}
+	else {
+		printf("PushSQStack failed!\n");
+	}
+	*/
+
+	PopSQStack(SqStack, PopData);
+	if (SUCCESS == Status) {
+		printf("PushSQStack succeed!\n");
+	}
+	else {
+		printf("PushSQStack failed!\n");
+	}
+
+	PrintSQStack(SqStack);
+}
+
 
