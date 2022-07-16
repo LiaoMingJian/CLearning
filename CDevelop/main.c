@@ -27,7 +27,9 @@ int main() {
 
 	//OperatorLoopLinkList();
 
-	OperateDoubleLinkList();
+	//OperateDoubleLinkList();
+
+	OperateSqStack();
 
 	system("pause");	
 	return 0;
