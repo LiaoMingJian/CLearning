@@ -1231,14 +1231,14 @@ void PrintSQStack(SQ_STACK * const SqStack) {
 	SQ_STACK *TraStack = SqStack;
 	int TraIndex;
 
-	printf("CreateSQStack start\n");
+	printf("PrintSQStack start\n");
 
 	printf("TraStack->Top = %d\n", TraStack->Top);
 	for (TraIndex = 0; TraIndex < MAXSIZE; ++TraIndex) {
 		printf("TraStack->Data[TraIndex] = %d\n", TraStack->Data[TraIndex]);
 	}
 
-	printf("CreateSQStack end\n\n");
+	printf("PrintSQStack end\n\n");
 }
 
 LIST_STATUS PushSQStack(SQ_STACK *SqStack, int PushData) {	
@@ -1308,3 +1308,58 @@ void OperateSqStack(void) {
 }
 
 
+/*SQ_DOUBLE_STACK*/
+LIST_STATUS CreateSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int CreateNum) {
+	SQ_DOUBLE_STACK *TraDbStack;
+	int TraIndex;
+
+	printf("CreateSQDoubleStack start\n");
+
+	if (NULL == SqDbStack || CreateNum > MAXSIZE) {
+		return ERROR;	
+	}
+
+	for (TraIndex = 0; TraIndex < MAXSIZE; ++TraIndex) {
+		if (TraIndex <=1 || TraIndex > 2) {
+			SqDbStack->Data[TraIndex] = TraIndex;
+		}
+	}
+
+	SqDbStack->Top1 = 1;
+	SqDbStack->Top2 = 3;
+
+	printf("CreateSQDoubleStack start\n");
+	return SUCCESS;
+}
+
+void PrintSQDoubleStack(SQ_DOUBLE_STACK * const SqDbStack) {
+	SQ_DOUBLE_STACK *TraDbStack = SqDbStack;
+	int TraIndex;
+
+	printf("PrintSQDoubleStack start\n");
+
+	printf("TraDbStack->Top1 = %d\n", TraDbStack->Top1);
+	printf("TraDbStack->Top2 = %d\n", TraDbStack->Top2);
+	for (TraIndex = 0; TraIndex < MAXSIZE; ++TraIndex) {
+		printf("PrintSQDoubleStack->Data[TraIndex] = %d\n", TraDbStack->Data[TraIndex]);
+	}
+
+	printf("PrintSQDoubleStack end\n\n");
+}
+
+
+void OperateSQDoubleStack(void) {
+	LIST_STATUS Status;
+	SQ_DOUBLE_STACK  *SqDbStack = (SQ_DOUBLE_STACK *)malloc(sizeof(SQ_DOUBLE_STACK));
+	int CreateNum = 4;
+
+	Status = CreateSQDoubleStack(SqDbStack, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateSQDoubleStack succeed!\n");
+	}
+	else {
+		printf("CreateSQDoubleStack failed!\n");
+	}
+
+	PrintSQDoubleStack(SqDbStack);
+}
