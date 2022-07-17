@@ -1433,3 +1433,144 @@ void OperateSQDoubleStack(void) {
 
 	PrintSQDoubleStack(SqDbStack);
 }
+
+
+/*LinkStack*/
+LIST_STATUS CreateLinkStack(LINK_STACK *LinkStack, Node *LinkHead, int CreateNum) {
+	LINK_STACK *TraStack = LinkStack;
+	Node *TraNode = LinkHead;
+	Node *CreateNode;
+	int TraIndex = 0;
+	
+	printf("CreateLinkStack start\n");
+
+	if (NULL == LinkStack || NULL == LinkHead) {
+		return ERROR;
+	}
+
+	/*Create empty link*/
+	LinkHead->Data = 4;
+	LinkHead->Next = NULL;
+
+	LinkStack->Top = LinkHead;
+	LinkStack->Count = CreateNum;
+	
+	for (TraIndex = 1; TraIndex <= CreateNum - 1; ++TraIndex) {
+		CreateNode = (Node *)malloc(sizeof(Node));
+		CreateNode->Data = TraIndex;
+
+		CreateNode->Next = TraNode->Next;
+		TraNode->Next = CreateNode;
+
+		TraNode = TraNode->Next;
+	}
+
+	printf("CreateLinkStack end\n");
+	return SUCCESS;
+}
+
+LIST_STATUS PrintLinkStack(LINK_STACK * const LinkStack) {
+	Node *TraStackNode;
+
+	printf("PrintLinkStack start\n");
+
+	if (NULL == LinkStack || NULL == LinkStack->Top) {
+		return ERROR;
+	}
+
+	printf("LinkStack->Top = 0x%x\n", LinkStack->Top);
+	printf("LinkStack->Count = %d\n", LinkStack->Count);
+
+	TraStackNode = LinkStack->Top;
+
+	while (TraStackNode != NULL) {
+		printf("TraStackNode = 0x%x, TraStackNode->Data = %d\n", TraStackNode, TraStackNode->Data);
+		TraStackNode = TraStackNode->Next;
+	}
+
+	printf("PrintLinkStack end\n\n");
+	return SUCCESS;
+}
+
+LIST_STATUS PushLinkStack(LINK_STACK *LinkStack, int PushData) {
+	LINK_STACK *TraLinkStack = LinkStack;
+	Node *PushNode;
+
+	printf("PushLinkStack start\n");
+
+	if (NULL == LinkStack || NULL == LinkStack->Top ) {
+		return ERROR;	
+	}
+
+	PushNode = (Node *)malloc(sizeof(Node));
+	PushNode->Data = PushData;
+	PushNode->Next = TraLinkStack->Top;
+
+	TraLinkStack->Top = PushNode;
+	TraLinkStack->Count++;
+
+	printf("PushLinkStack end\n");
+	return SUCCESS;
+}
+
+LIST_STATUS PopLinkStack(LINK_STACK *LinkStack, int *PopData) {
+	LINK_STACK *TraLinkStack = LinkStack;
+	LINK_STACK *DeleteNode;
+
+	printf("PopLinkStack start\n");
+
+	if (NULL == LinkStack || NULL == LinkStack->Top) {
+		return ERROR;
+	}
+
+	*PopData = TraLinkStack->Top->Data;
+
+	DeleteNode = TraLinkStack->Top;
+	TraLinkStack->Top = TraLinkStack->Top->Next;
+	TraLinkStack->Count--;
+	free(DeleteNode);
+
+	printf("PopLinkStack end\n");
+	return SUCCESS;
+}
+
+
+void OperateLinkStack(void) {
+	LIST_STATUS Status;
+	LINK_STACK *LinkStack = (LINK_STACK *)malloc(sizeof(LINK_STACK));
+	Node *LinkHead = (Node *)malloc(sizeof(Node));
+	int CreateNum = 4;
+	int PushData = 5;
+	int *PopData = (int *)malloc(sizeof(int));
+	
+	Status = CreateLinkStack(LinkStack, LinkHead, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateLinkStack succeed!\n");
+	}
+	else {
+		printf("CreateLinkStack failed!\n");
+	}
+
+	PrintLinkStack(LinkStack);
+
+	/*
+	Status = PushLinkStack(LinkStack, PushData);
+	if (SUCCESS == Status) {
+		printf("PushLinkStack succeed!\n");
+	}
+	else {
+		printf("PushLinkStack failed!\n");
+	}
+	*/
+
+	Status = PopLinkStack(LinkStack, PopData);
+	if (SUCCESS == Status) {
+		printf("PopLinkStack succeed!\n");
+		printf("*PopData = %d\n", *PopData);
+	}
+	else {
+		printf("PopLinkStack failed!\n");
+	}
+
+	PrintLinkStack(LinkStack);
+}

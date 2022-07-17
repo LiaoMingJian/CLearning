@@ -31,7 +31,9 @@ int main() {
 
 	//OperateSqStack();
 
-	OperateSQDoubleStack();
+	//OperateSQDoubleStack();
+
+	OperateLinkStack();
 
 	system("pause");	
 	return 0;

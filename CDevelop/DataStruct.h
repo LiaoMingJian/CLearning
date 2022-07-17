@@ -44,6 +44,12 @@ typedef struct _SQ_DOUBLE_STACK {
 	int Top2;
 }SQ_DOUBLE_STACK;
 
+typedef struct _LINK_STACK {
+	Node * Top;
+	int Count;
+}LINK_STACK;
+
+
 LIST_STATUS OperatorList();
 
 LIST_STATUS CreatList(SQ_LIST *const L);
@@ -107,5 +113,9 @@ void OperateSqStack(void);
 
 /*SQDoubleStack*/
 void OperateSQDoubleStack(void);
+
+
+/*LinkStack*/
+void OperateLinkStack(void);
 
 #endif
