@@ -978,6 +978,7 @@ Node* MergeTwoLoopLinkList(Node *LoopHead01, Node *LoopHead02) {
 	return LoopHead01;
 }
 
+
 /*DoubleLinkedList*/
 void OperateDoubleLinkList(void) {
 	Double_Link_Node *DoubleHead;
@@ -1347,11 +1348,59 @@ void PrintSQDoubleStack(SQ_DOUBLE_STACK * const SqDbStack) {
 	printf("PrintSQDoubleStack end\n\n");
 }
 
+LIST_STATUS PushSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int PushData, int PushStackNum) {
+	printf("PushSQDoubleStack start\n");
+
+	if (NULL == SqDbStack || SqDbStack->Top1 + 1 == SqDbStack->Top2) {
+		return ERROR;	
+	}
+
+	if (1 == PushStackNum) {
+		SqDbStack->Data[++SqDbStack->Top1] = PushData;
+	
+	} else if (2 == PushStackNum) {
+		SqDbStack->Data[--SqDbStack->Top2] = PushData;
+	}
+
+	printf("PushSQDoubleStack end\n");
+	return SUCCESS;
+}
+
+LIST_STATUS PopSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int *PopData, int PopStackNum) {
+	printf("PopSQDoubleStack start\n");
+
+	if (NULL == SqDbStack) {
+		return ERROR;
+	}
+
+	if (1 == PopStackNum) {
+		if (SqDbStack->Top1 == -1) {
+			return ERROR;
+		} else {
+			*PopData = SqDbStack->Data[SqDbStack->Top1--];
+		}
+	}
+	else if (2 == PopStackNum) {
+		if (SqDbStack->Top2 == MAXSIZE) {
+			return ERROR;
+		} else {
+			*PopData = SqDbStack->Data[SqDbStack->Top2++];
+		}
+	}
+
+	printf("PopSQDoubleStack end\n");
+	return SUCCESS;
+}
 
 void OperateSQDoubleStack(void) {
 	LIST_STATUS Status;
 	SQ_DOUBLE_STACK  *SqDbStack = (SQ_DOUBLE_STACK *)malloc(sizeof(SQ_DOUBLE_STACK));
 	int CreateNum = 4;
+	int PushData = 10;
+	int PushStackNum = 1;
+
+	int PopStackNum = 1;
+	int *PopData = (int *)malloc(sizeof(int));
 
 	Status = CreateSQDoubleStack(SqDbStack, CreateNum);
 	if (SUCCESS == Status) {
@@ -1359,6 +1408,27 @@ void OperateSQDoubleStack(void) {
 	}
 	else {
 		printf("CreateSQDoubleStack failed!\n");
+	}
+
+	PrintSQDoubleStack(SqDbStack);
+
+	/*
+	Status = PushSQDoubleStack(SqDbStack, PushData, PushStackNum);
+	if (SUCCESS == Status) {
+		printf("PushSQDoubleStack succeed!\n");
+	}
+	else {
+		printf("PushSQDoubleStack failed!\n");
+	}
+	*/
+
+	Status = PopSQDoubleStack(SqDbStack, PopData, PopStackNum);
+	if (SUCCESS == Status) {
+		printf("PopSQDoubleStack succeed!\n");
+		printf("*PopData = %d\n", *PopData);
+	}
+	else {
+		printf("PopSQDoubleStack failed!\n");
 	}
 
 	PrintSQDoubleStack(SqDbStack);
