@@ -134,3 +134,181 @@ void PrintSQDoubleStack(SQ_DOUBLE_STACK * const SqDbStack) {
 
 ```
 
+
+
+## 5 共享栈——入栈
+
+```c
+LIST_STATUS PushSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int PushData, int StackNum)
+```
+
+​    通过StackNum编号来判断要入栈的编号。
+
+**代码：**
+
+```c
+LIST_STATUS PushSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int PushData, int PushStackNum) {
+	printf("PushSQDoubleStack start\n");
+
+	if (NULL == SqDbStack || SqDbStack->Top1 + 1 == SqDbStack->Top2) {
+		return ERROR;	
+	}
+
+	if (1 == PushStackNum) {
+		SqDbStack->Data[++SqDbStack->Top1] = PushData;
+	
+	} else if (2 == PushStackNum) {
+		SqDbStack->Data[--SqDbStack->Top2] = PushData;
+	}
+
+	printf("PushSQDoubleStack end\n");
+	return SUCCESS;
+}
+```
+
+**结果：**
+
+> CreateSQDoubleStack start
+>
+> CreateSQDoubleStack start
+>
+> CreateSQDoubleStack succeed!
+>
+> PrintSQDoubleStack start
+>
+> TraDbStack->Top1 = 1
+>
+> TraDbStack->Top2 = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 0
+>
+> PrintSQDoubleStack->Data[TraIndex] = 1
+>
+> PrintSQDoubleStack->Data[TraIndex] = -842150451
+>
+> PrintSQDoubleStack->Data[TraIndex] = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 4
+>
+> PrintSQDoubleStack end
+>
+>  
+>
+> PushSQDoubleStack start
+>
+> PushSQDoubleStack end
+>
+> CreateSQDoubleStack succeed!
+>
+> PrintSQDoubleStack start
+>
+> TraDbStack->Top1 = 2
+>
+> TraDbStack->Top2 = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 0
+>
+> PrintSQDoubleStack->Data[TraIndex] = 1
+>
+> PrintSQDoubleStack->Data[TraIndex] = 10
+>
+> PrintSQDoubleStack->Data[TraIndex] = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 4
+>
+> PrintSQDoubleStack end
+
+ 
+
+## 6  共享栈——出栈
+
+```c
+LIST_STATUS PopSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int *PopData, int PopStackNum)
+```
+
+​    通过PopStackNum编号来判断要出栈的编号
+
+**代码：**
+
+```c
+LIST_STATUS PopSQDoubleStack(SQ_DOUBLE_STACK *SqDbStack, int *PopData, int PopStackNum) {
+	printf("PopSQDoubleStack start\n");
+
+	if (NULL == SqDbStack) {
+		return ERROR;
+	}
+
+	if (1 == PopStackNum) {
+		if (SqDbStack->Top1 == -1) {
+			return ERROR;
+		} else {
+			*PopData = SqDbStack->Data[SqDbStack->Top1--];
+		}
+	}
+	else if (2 == PopStackNum) {
+		if (SqDbStack->Top2 == MAXSIZE) {
+			return ERROR;
+		} else {
+			*PopData = SqDbStack->Data[SqDbStack->Top2++];
+		}
+	}
+
+	printf("PopSQDoubleStack end\n");
+	return SUCCESS;
+}
+```
+
+**结果：**
+
+> CreateSQDoubleStack start
+>
+> CreateSQDoubleStack start
+>
+> CreateSQDoubleStack succeed!
+>
+> PrintSQDoubleStack start
+>
+> TraDbStack->Top1 = 1
+>
+> TraDbStack->Top2 = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 0
+>
+> PrintSQDoubleStack->Data[TraIndex] = 1
+>
+> PrintSQDoubleStack->Data[TraIndex] = -842150451
+>
+> PrintSQDoubleStack->Data[TraIndex] = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 4
+>
+> PrintSQDoubleStack end
+>
+>  
+>
+> PopSQDoubleStack start
+>
+> PopSQDoubleStack end
+>
+> PopSQDoubleStack succeed!
+>
+> *PopData = 1
+>
+> PrintSQDoubleStack start
+>
+> TraDbStack->Top1 = 0
+>
+> TraDbStack->Top2 = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 0
+>
+> PrintSQDoubleStack->Data[TraIndex] = 1
+>
+> PrintSQDoubleStack->Data[TraIndex] = -842150451
+>
+> PrintSQDoubleStack->Data[TraIndex] = 3
+>
+> PrintSQDoubleStack->Data[TraIndex] = 4
+>
+> PrintSQDoubleStack end
+
