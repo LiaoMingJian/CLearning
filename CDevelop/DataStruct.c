@@ -1534,7 +1534,6 @@ LIST_STATUS PopLinkStack(LINK_STACK *LinkStack, int *PopData) {
 	return SUCCESS;
 }
 
-
 void OperateLinkStack(void) {
 	LIST_STATUS Status;
 	LINK_STACK *LinkStack = (LINK_STACK *)malloc(sizeof(LINK_STACK));
@@ -1574,3 +1573,41 @@ void OperateLinkStack(void) {
 
 	PrintLinkStack(LinkStack);
 }
+
+
+/*recurrence*/
+void FabByArr(void) {
+	int i;
+	int RecArr[5];
+
+	RecArr[0] = 0;
+	RecArr[1] = 1;	
+
+	for (i = 2; i < 5; ++i) {
+		RecArr[i] = RecArr[i - 2] + RecArr[i - 1];	
+	}
+
+	for (i = 0; i < 5; ++i) {
+		printf("RecArr[%d] = %d\n", i, RecArr[i]);
+	}
+}
+
+int FabRec(int i) {
+	if (0 == i) {
+		return 0;
+	}
+	else if (1 == i) {
+		return 1; 
+	}
+	
+	return FabRec(i - 2) + FabRec(i - 1);
+}
+
+void PrintFabByRec(void) {
+	int i = 0;
+
+	for (i = 0; i < 5; ++i) {
+		printf("The %d value = %d\n", i, FabRec(i));
+	}
+}
+
