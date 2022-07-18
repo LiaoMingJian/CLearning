@@ -33,7 +33,11 @@ int main() {
 
 	//OperateSQDoubleStack();
 
-	OperateLinkStack();
+	//OperateLinkStack();
+
+	//FabByArr();
+
+	PrintFabByRec();
 
 	system("pause");	
 	return 0;

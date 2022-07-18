@@ -118,4 +118,10 @@ void OperateSQDoubleStack(void);
 /*LinkStack*/
 void OperateLinkStack(void);
 
+/*recurrence*/
+void FabByArr(void);
+
+
+void PrintFabByRec(void);
+
 #endif
