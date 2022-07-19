@@ -1611,3 +1611,11 @@ void PrintFabByRec(void) {
 	}
 }
 
+
+/*RPN*/
+void RPNString() {
+	char OringinString[] = "9+(3-1)¡Á3+10¡Â2";
+	printf("Oringin = %s\n", OringinString);
+
+
+}
