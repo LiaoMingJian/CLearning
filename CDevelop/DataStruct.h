@@ -124,4 +124,8 @@ void FabByArr(void);
 
 void PrintFabByRec(void);
 
+
+/*RPN*/
+void RPNString();
+
 #endif

@@ -40,8 +40,9 @@ int main() {
 
 	//FabByArr();
 
-	PrintFabByRec();
+	//PrintFabByRec();
 
+	RPNString();
 	system("pause");	
 	return 0;
 }
