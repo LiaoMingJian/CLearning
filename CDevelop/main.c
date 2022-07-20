@@ -39,7 +39,12 @@ int main() {
 
 	//PrintFabByRec();
 
-	RPNString();
+	//OperateCharLinkStack();
+
+	//RPNString();
+
+	testChar();
+
 	system("pause");	
 	return 0;
 }

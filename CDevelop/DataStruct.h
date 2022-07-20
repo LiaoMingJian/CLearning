@@ -8,6 +8,7 @@
 
 typedef int ElemType;
 typedef int LIST_STATUS;
+typedef char ElemCharType;
 
 typedef struct SQ_LIST_ {
 	ElemType Data[MAXSIZE];
@@ -18,6 +19,11 @@ typedef struct _Node {
 	ElemType Data;
 	struct _Node *Next;
 }Node;
+
+typedef struct _CHAR_NODE {
+	ElemCharType Data;
+	struct _CHAR_NODE *Next;
+}CHAR_NODE;
 
 typedef struct _Node *LinkList;
 
@@ -48,6 +54,12 @@ typedef struct _LINK_STACK {
 	Node * Top;
 	int Count;
 }LINK_STACK;
+
+typedef struct _CHAR_LINK_STACK {
+	CHAR_NODE * Top;
+	int Count;
+}CHAR_LINK_STACK;
+
 
 
 LIST_STATUS OperatorList();
@@ -124,8 +136,12 @@ void FabByArr(void);
 
 void PrintFabByRec(void);
 
+/*CHAR_LINK_STACK*/
+void OperateCharLinkStack(void);
 
 /*RPN*/
 void RPNString();
+
+void testChar(void);
 
 #endif
