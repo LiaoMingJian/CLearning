@@ -43,7 +43,13 @@ int main() {
 
 	//RPNString();
 
-	testChar();
+	//testChar();
+
+	//test02();
+
+	//test03();
+
+	test04();
 
 	system("pause");	
 	return 0;
