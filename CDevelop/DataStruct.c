@@ -1612,14 +1612,14 @@ void PrintFabByRec(void) {
 }
 
 
-/*CHAR_LINK_STACK*/
-LIST_STATUS CreateCharLinkStack(CHAR_LINK_STACK *LinkStack, CHAR_NODE *LinkHead, int CreateNum) {
-	CHAR_LINK_STACK *TraStack = LinkStack;
-	CHAR_NODE *TraNode = LinkHead;
-	CHAR_NODE *CreateNode;
+/*LINK_STACK*/
+LIST_STATUS CreateRNPLinkStack(LINK_STACK *LinkStack, Node *LinkHead, int CreateNum) {
+	LINK_STACK *TraStack = LinkStack;
+	Node *TraNode = LinkHead;
+	Node *CreateNode;
 	int TraIndex = 0;
 
-	printf("CreateCharLinkStack start\n");
+	printf("CreateRNPLinkStack start\n");
 
 	if (NULL == LinkStack || NULL == LinkHead) {
 		return ERROR;
@@ -1633,10 +1633,8 @@ LIST_STATUS CreateCharLinkStack(CHAR_LINK_STACK *LinkStack, CHAR_NODE *LinkHead,
 	LinkStack->Count = CreateNum;
 
 	for (TraIndex = 1; TraIndex <= CreateNum - 1; ++TraIndex) {
-		CreateNode = (CHAR_NODE *)malloc(sizeof(CHAR_NODE));
-		printf("TraNode = 0x%x\n", TraNode);
-		printf("TraNode->Data = %c\n", TraNode->Data);
-		CreateNode->Data = TraNode->Data + TraIndex;
+		CreateNode = (Node *)malloc(sizeof(Node));
+		CreateNode->Data = TraNode->Data + 1;
 
 		CreateNode->Next = TraNode->Next;
 		TraNode->Next = CreateNode;
@@ -1644,12 +1642,12 @@ LIST_STATUS CreateCharLinkStack(CHAR_LINK_STACK *LinkStack, CHAR_NODE *LinkHead,
 		TraNode = TraNode->Next;
 	}
 
-	printf("CreateCharLinkStack end\n");
+	printf("CreateRNPLinkStack end\n");
 	return SUCCESS;
 }
 
-LIST_STATUS PrintCharLinkStack(CHAR_LINK_STACK * const LinkStack) {
-	CHAR_NODE *TraStackNode;
+LIST_STATUS PrintCharLinkStack(LINK_STACK * const LinkStack) {
+	Node *TraStackNode;
 
 	printf("PrintCharLinkStack start\n");
 
@@ -1671,97 +1669,76 @@ LIST_STATUS PrintCharLinkStack(CHAR_LINK_STACK * const LinkStack) {
 	return SUCCESS;
 }
 
-LIST_STATUS PushCharLinkStack(CHAR_LINK_STACK *LinkStack, int PushData) {
-	CHAR_LINK_STACK *TraLinkStack = LinkStack;
-	Node *PushNode;
-
-	printf("PushLinkStack start\n");
-
-	if (NULL == LinkStack || NULL == LinkStack->Top) {
-		return ERROR;
-	}
-
-	PushNode = (Node *)malloc(sizeof(Node));
-	PushNode->Data = PushData;
-	PushNode->Next = TraLinkStack->Top;
-
-	TraLinkStack->Top = PushNode;
-	TraLinkStack->Count++;
-
-	printf("PushLinkStack end\n");
-	return SUCCESS;
-}
-
-LIST_STATUS PopCharLinkStack(LINK_STACK *LinkStack, int *PopData) {
-	LINK_STACK *TraLinkStack = LinkStack;
-	LINK_STACK *DeleteNode;
-
-	printf("PopLinkStack start\n");
-
-	if (NULL == LinkStack || NULL == LinkStack->Top) {
-		return ERROR;
-	}
-
-	*PopData = TraLinkStack->Top->Data;
-
-	DeleteNode = TraLinkStack->Top;
-	TraLinkStack->Top = TraLinkStack->Top->Next;
-	TraLinkStack->Count--;
-	free(DeleteNode);
-
-	printf("PopLinkStack end\n");
-	return SUCCESS;
-}
-
 void OperateCharLinkStack(void) {
 	LIST_STATUS Status;
-	CHAR_LINK_STACK *LinkStack = (CHAR_LINK_STACK *)malloc(sizeof(CHAR_LINK_STACK));
-	CHAR_NODE *LinkHead = (CHAR_NODE *)malloc(sizeof(CHAR_NODE));
-	int CreateNum = 4;
-	char PushCharData = 'i';
-	char *PopData = (char *)malloc(sizeof(char));
+	LINK_STACK *LinkStack = (LINK_STACK *)malloc(sizeof(LINK_STACK));
+	Node *LinkHead = (Node *)malloc(sizeof(Node));
+	int CreateNum = 5;
+	int PushData = 'i';
+	int *PopData = (int *)malloc(sizeof(int));
 
-	Status = CreateCharLinkStack(LinkStack, LinkHead, CreateNum);
+	Status = CreateRNPLinkStack(LinkStack, LinkHead, CreateNum);
 	if (SUCCESS == Status) {
-		printf("CreateCharLinkStack succeed!\n");
+		printf("CreateRNPLinkStack succeed!\n");
 	}
 	else {
-		printf("CreateCharLinkStack failed!\n");
+		printf("CreateRNPLinkStack failed!\n");
 	}
 
 	PrintCharLinkStack(LinkStack);
 
 	/*
-	Status = PushCharLinkStack(LinkStack, PushData);
+	Status = PushLinkStack(LinkStack, PushData);
 	if (SUCCESS == Status) {
-		printf("PushCharLinkStack succeed!\n");
+		printf("PushLinkStack succeed!\n");
 	}
 	else {
-		printf("PushCharLinkStack failed!\n");
-	}
+		printf("PushLinkStack failed!\n");
+	}	
 	*/
-
-	/*
-	Status = PopCharLinkStack(LinkStack, PopData);
+	
+	Status = PopLinkStack(LinkStack, PopData);
 	if (SUCCESS == Status) {
-		printf("PopCharLinkStack succeed!\n");
+		printf("PopLinkStack succeed!\n");
 		printf("*PopData = %d\n", *PopData);
 	}
 	else {
-		printf("PopCharLinkStack failed!\n");
+		printf("PopLinkStack failed!\n");
 	}
 
 	PrintCharLinkStack(LinkStack);
-	*/
+	
 }
+
+
 
 
 /*RPN*/
 void RPNString() {
-	char OringinString[] = "9+(3-1)¡Á3+10¡Â2";
-	printf("Oringin = %s\n", OringinString);
+	char InfixExpression[] = "9+(3-1)¡Á3+10¡Â2";
+	char *PostfixExpression = (char *)malloc(sizeof(char) * sizeof(InfixExpression));
+	int PostEIndex = 0;
+	int TraIndex = 0;
+	
+	printf("InfixExpression = %s\n", InfixExpression);
+	
+	for (TraIndex = 0; TraIndex < strlen(InfixExpression); ++TraIndex) {
+		if (InfixExpression[TraIndex] >= '0' && InfixExpression[TraIndex] < '9') {
+			PostfixExpression[PostEIndex++] = InfixExpression[TraIndex];		
+		} else if (InfixExpression[TraIndex] == ')' || ) {
+			PopInfixExpression();
+		} else if () {
+			PushInfixExpression();
+		}
+	
+	}
+
+	
 
 
+
+
+	free(PostfixExpression);
 }
 
 
@@ -1769,10 +1746,32 @@ void testChar(void) {
 	char ch1[5];
 	ch1[0] = 'a';
 	int i = 0;
-	printf("a = %c\n", ++ch1[0]);
+	//printf("a = %c\n", ++ch1[0]);
 
+	printf("\n");
 	for (i = 1; i < 5; ++i) {
-		ch1[i] = ch1[i-1]++;
+		ch1[i] = ch1[i - 1] + 1;
 		printf("ch1[%d] = %c\n", i, ch1[i]);
-	}
+	}	
 }
+
+
+void test01(int ch1) {
+	printf("ch1 = %c\n", ch1);
+}
+
+void test02(void) {
+	int ch1 = 'd';
+	test01(ch1);
+}
+
+void test03(void) {
+	char ch1 = 100;
+	printf("ch1 = %d", ch1);
+}
+
+void test04(void) {
+	char Ch1[] = "hello";
+	printf("strlen(Ch1) = %d\n", strlen(Ch1));
+}
+

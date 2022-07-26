@@ -144,4 +144,10 @@ void RPNString();
 
 void testChar(void);
 
+void test02(void);
+
+void test03(void);
+
+void test04(void);
+
 #endif
