@@ -39,15 +39,9 @@ int main() {
 
 	//PrintFabByRec();
 
-	//OperateCharLinkStack();
+	OperateCharLinkStack();
 
 	//RPNString();
-
-	//testChar();
-
-	//test02();
-
-	//test03();
 
 	test04();
 

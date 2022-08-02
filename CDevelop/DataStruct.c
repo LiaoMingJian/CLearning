@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include "DataStruct.h"
+#include <string.h>
+#include <malloc.h>
+#include <math.h>
+#include <stdbool.h>
+
 
 LIST_STATUS OperatorList() {
 	SQ_LIST L;
@@ -1711,6 +1716,82 @@ void OperateCharLinkStack(void) {
 }
 
 
+bool IfNewCharPriorityNotHigh(LINK_STACK * const LinkStack, char NewChar) {
+	LINK_STACK *TraStackNode = LinkStack;
+
+	printf("IfNewCharPriorityNotHigh start\n");
+
+	/*Empty LinkStack*/
+	if (TraStackNode->Top == NULL && TraStackNode->Count == 0) {
+		return false;
+	}
+
+	if (NewChar == '(') {
+		return false;
+	}
+
+	if (NewChar == ')') {
+		return true;
+	}
+
+	if (TraStackNode->Top->Data == '¡Á' || TraStackNode->Top->Data == '¡Â' || TraStackNode->Top->Data == '*' || TraStackNode->Top->Data == '/') {
+		return true;
+	} 
+
+	printf("IfNewCharPriorityNotHigh end\n");
+
+	return false;
+}
+
+LIST_STATUS PushInfixExpression(LINK_STACK *LinkStack, char NewChar) {
+	LINK_STACK *TraStackNode = LinkStack;
+	Node *AddNode = (Node *)malloc(sizeof(Node));
+
+	LIST_STATUS Status;
+
+	printf("PushInfixExpression start\n");
+
+	/*Empty LinkStack*/
+	if (TraStackNode->Top == NULL && TraStackNode->Count == 0) {
+		AddNode->Data = NewChar;
+		AddNode->Next = TraStackNode->Top;
+
+		TraStackNode->Top = AddNode;
+		TraStackNode->Count++;
+
+		return SUCCESS;
+	}
+
+	Status = PushLinkStack(LinkStack, NewChar);
+
+	printf("PushInfixExpression end\n");
+
+	return Status;
+}
+
+LIST_STATUS PopInfixExpression(LINK_STACK *LinkStack, char NewChar, char *PostfixExpression, int PostEIndex) {
+	LINK_STACK *TraStackNode = LinkStack;
+	char *PopData = (char)malloc(sizeof(char));
+
+
+	if (NewChar == ')') {
+		while (TraStackNode->Top != NULL) {
+			if (TraStackNode->Top->Data != '(') {
+				PopLinkStack(TraStackNode->Top, PopData);
+				PostfixExpression[PostEIndex++] = *PopData;
+			}else if (TraStackNode->Top->Data == '(') {
+				PopLinkStack(TraStackNode->Top, PopData);
+				break;
+			}
+			TraStackNode->Top = TraStackNode->Top->Next;
+		}	
+	}
+
+	/*Other condition*/
+
+
+	free(PopData);
+}
 
 
 /*RPN*/
@@ -1720,25 +1801,31 @@ void RPNString() {
 	int PostEIndex = 0;
 	int TraIndex = 0;
 	
+	LINK_STACK *LinkStack = (LINK_STACK *)malloc(sizeof(LINK_STACK));
+	LinkStack->Top = NULL;
+	LinkStack->Count = 0;
+
+	char *PopData = (char *)malloc(sizeof(char));
+
 	printf("InfixExpression = %s\n", InfixExpression);
 	
 	for (TraIndex = 0; TraIndex < strlen(InfixExpression); ++TraIndex) {
 		if (InfixExpression[TraIndex] >= '0' && InfixExpression[TraIndex] < '9') {
-			PostfixExpression[PostEIndex++] = InfixExpression[TraIndex];		
-		} else if (InfixExpression[TraIndex] == ')' || ) {
-			PopInfixExpression();
-		} else if () {
-			PushInfixExpression();
+			PostfixExpression[PostEIndex++] = InfixExpression[TraIndex];
+		} else if (IfNewCharPriorityNotHigh(LinkStack, InfixExpression[TraIndex]) == true) {
+			
+			PopInfixExpression(LinkStack, PopData, PostfixExpression, PostEIndex);
+
+		} else if (IfNewCharPriorityNotHigh(LinkStack, InfixExpression[TraIndex]) == false) {
+			PushInfixExpression(LinkStack, InfixExpression[TraIndex]);
 		}
-	
 	}
-
-	
-
-
 
 
 	free(PostfixExpression);
+
+	
+
 }
 
 
