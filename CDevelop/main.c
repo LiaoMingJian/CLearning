@@ -19,9 +19,6 @@ int main() {
 	
 	TestInsertElem01();
 	TestInsertElem02();
-
-	TestDeleteElem01();
-	TestDeleteElem02();
 	*/
 
 	//OperateLinkList();
@@ -42,15 +39,9 @@ int main() {
 
 	//PrintFabByRec();
 
-	//OperateCharLinkStack();
+	OperateCharLinkStack();
 
 	//RPNString();
-
-	//testChar();
-
-	//test02();
-
-	//test03();
 
 	test04();
 

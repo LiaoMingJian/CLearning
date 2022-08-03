@@ -519,6 +519,8 @@ MyNode* ReverseLink(MyNode *LNode) {
 	return PCur;
 }
 
+
+
 void Rec() {
 	int a[3] = {1, 2, 3};
 	//Add 3 numbers a[0], a[1], a[2]
@@ -536,7 +538,7 @@ void Rec() {
 
 	//iterte
 	p = sum;	
-	q = a[2];//q must be next element 
+ 	q = a[2];//q must be next element 
 
 	for (i = 0, p = 0; i < 3; ++i) {
 		q = a[i];//iterate
@@ -680,5 +682,3 @@ void AddValByRec02() {
 	printf("sum = %d\n", sum);
 }
 
-
-//void 
