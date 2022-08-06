@@ -47,9 +47,9 @@ int main() {
 
 	//test05();
 
-	//OpPostfixFunc();
+	OpPostfixFunc();
 
-	test06();
+	//test06();
 
 	system("pause");	
 	return 0;

@@ -1479,7 +1479,7 @@ LIST_STATUS PrintLinkStack(LINK_STACK * const LinkStack) {
 
 	printf("PrintLinkStack start\n");
 
-	if (NULL == LinkStack || NULL == LinkStack->Top) {
+	if (NULL == LinkStack) {
 		return ERROR;
 	}
 
@@ -1824,7 +1824,8 @@ int OpPopDataFunc(char Op, int Data1, int Data2) {
 }
 
 void OpPostfixFunc(void) {	
-	char PostfixExpression[] = "931-*3+";
+	//char PostfixExpression[] = "1 2 + 10 +";
+	char PostfixExpression[] = "12+1+";
 	int Ret;
 	int TraIndex = 0;
 	
@@ -1839,15 +1840,20 @@ void OpPostfixFunc(void) {
 	int OpData;
 
 	for (TraIndex = 0; TraIndex < sizeof(PostfixExpression) - 1; ++TraIndex) {
-		if (PostfixExpression[TraIndex] >= '0' && PostfixExpression[TraIndex] <= '9') {
+		if (PostfixExpression[TraIndex] == ' ') {
+			continue;
+		} else if (PostfixExpression[TraIndex] >= '0' && PostfixExpression[TraIndex] <= '9') {
+
 			/*Push should make PostfixExpression[TraIndex] int type */
 			PushLinkStack(LinkStack, PostfixExpression[TraIndex] - 48);
 		} else if (PostfixExpression[TraIndex] == '+' || PostfixExpression[TraIndex] == '-' || PostfixExpression[TraIndex] == '*' || PostfixExpression[TraIndex] == '/') {
 			PopLinkStack(LinkStack, PopData1);
 			PopLinkStack(LinkStack, PopData2);
-
+			
+			/*
 			printf("*PopData1 = %d\n", *PopData1);
 			printf("*PopData2 = %d\n", *PopData2);
+			*/
 
 			OpData = OpPopDataFunc(PostfixExpression[TraIndex], *PopData1, *PopData2);
 
@@ -1857,6 +1863,8 @@ void OpPostfixFunc(void) {
 		}	
 	}
 
+	PrintLinkStack(LinkStack);
+
 	if (LinkStack->Count == 1) {
 		PopLinkStack(LinkStack, ResData1);
 
@@ -1865,7 +1873,7 @@ void OpPostfixFunc(void) {
 		ResData2 = *ResData1;
 	}
 
-
+	PrintLinkStack(LinkStack);
 
 	free(LinkStack);
 	free(ResData1);
