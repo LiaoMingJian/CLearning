@@ -1840,19 +1840,29 @@ void OpPostfixFunc(void) {
 	int OpData;
 
 	for (TraIndex = 0; TraIndex < sizeof(PostfixExpression) - 1; ++TraIndex) {
+<<<<<<< HEAD
 		if (PostfixExpression[TraIndex] == ' ') {
 			continue;
 		} else if (PostfixExpression[TraIndex] >= '0' && PostfixExpression[TraIndex] <= '9') {
+=======
+		if (PostfixExpression[TraIndex] >= '0' && PostfixExpression[TraIndex] <= '9') {
+>>>>>>> 2c8b9730a607048c8947153160ffb3becef24b2a
 			/*Push should make PostfixExpression[TraIndex] int type */
 			PushLinkStack(LinkStack, PostfixExpression[TraIndex] - 48);
 		} else if (PostfixExpression[TraIndex] == '+' || PostfixExpression[TraIndex] == '-' || PostfixExpression[TraIndex] == '*' || PostfixExpression[TraIndex] == '/') {
 			PopLinkStack(LinkStack, PopData1);
 			PopLinkStack(LinkStack, PopData2);
+<<<<<<< HEAD
 			
 			/*
 			printf("*PopData1 = %d\n", *PopData1);
 			printf("*PopData2 = %d\n", *PopData2);
 			*/
+=======
+
+			printf("*PopData1 = %d\n", *PopData1);
+			printf("*PopData2 = %d\n", *PopData2);
+>>>>>>> 2c8b9730a607048c8947153160ffb3becef24b2a
 
 			OpData = OpPopDataFunc(PostfixExpression[TraIndex], *PopData1, *PopData2);
 
@@ -1862,8 +1872,11 @@ void OpPostfixFunc(void) {
 		}	
 	}
 
+<<<<<<< HEAD
 	PrintLinkStack(LinkStack);
 
+=======
+>>>>>>> 2c8b9730a607048c8947153160ffb3becef24b2a
 	if (LinkStack->Count == 1) {
 		PopLinkStack(LinkStack, ResData1);
 
@@ -1872,7 +1885,11 @@ void OpPostfixFunc(void) {
 		ResData2 = *ResData1;
 	}
 
+<<<<<<< HEAD
 	PrintLinkStack(LinkStack);
+=======
+
+>>>>>>> 2c8b9730a607048c8947153160ffb3becef24b2a
 
 	free(LinkStack);
 	free(ResData1);
