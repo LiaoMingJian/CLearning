@@ -150,4 +150,10 @@ void test03(void);
 
 void test04(void);
 
+void test05(void);
+
+void OpPostfixFunc(void);
+
+void test06(void);
+
 #endif
