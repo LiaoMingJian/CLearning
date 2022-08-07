@@ -140,7 +140,7 @@ void PrintFabByRec(void);
 void OperateCharLinkStack(void);
 
 /*RPN*/
-void RPNString(void);
+void RPNExpression(void);
 
 void testChar(void);
 
@@ -152,7 +152,9 @@ void test04(void);
 
 void test05(void);
 
-void OpPostfixFunc(void);
+//void OpPostfixFunc(void);
+
+int OpPostfixFunc(char *PostfixExpressionInput, int PostfixExpressionInputSize);
 
 void test06(void);
 

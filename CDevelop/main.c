@@ -41,7 +41,7 @@ int main() {
 
 	//OperateCharLinkStack();
 
-	RPNString();
+	RPNExpression();
 
 	//test04();
 
