@@ -1503,12 +1503,6 @@ LIST_STATUS PushLinkStack(LINK_STACK *LinkStack, int PushData) {
 
 	printf("PushLinkStack start\n");
 
-	/*
-	if (NULL == LinkStack || NULL == LinkStack->Top ) {
-		return ERROR;	
-	}
-	*/
-
 	if (NULL == LinkStack) {
 		return ERROR;
 	}
@@ -1726,7 +1720,6 @@ void OperateCharLinkStack(void) {
 }
 
 
-/*IfNewCharPriorityNotHigh*/
 /*RPN*/
 bool IfPopValid(LINK_STACK * const LinkStack, char NewChar) {
 	LINK_STACK *TraStackNode = LinkStack;
@@ -1763,19 +1756,6 @@ LIST_STATUS PushInfixExpression(LINK_STACK *LinkStack, char NewChar) {
 
 	printf("PushInfixExpression start\n");
 	printf("In PushInfixExpression, NewChar = %c\n", NewChar);
-
-	/*Empty LinkStack*/
-	/*
-	if (TraStackNode->Top == NULL && TraStackNode->Count == 0) {
-		AddNode->Data = NewChar;
-		AddNode->Next = TraStackNode->Top;
-
-		TraStackNode->Top = AddNode;
-		TraStackNode->Count++;
-
-		return SUCCESS;
-	}
-	*/
 
 	Status = PushLinkStack(LinkStack, NewChar);
 
@@ -1858,14 +1838,15 @@ int OpPopDataFunc(char Op, int Data1, int Data2) {
 	}
 }
 
-void OpPostfixFunc(void) {	
+int OpPostfixFunc(char *PostfixExpressionInput, int PostfixExpressionInputSize) {
 	//char PostfixExpression[] = "1 10 + 234 - 10 *";
 	//char PostfixExpression[] = "2 1 +";
-	char PostfixExpression[] = "9 3 1 - 3 * + 10 2 / +";
+	//char PostfixExpression[] = "9 3 1 - 3 * + 10 2 / +";
+	char *PostfixExpression = PostfixExpressionInput;
 
 	int Ret;
-	int TraIndex = 0;		
-	
+	int TraIndex = 0;
+
 	LINK_STACK *LinkStack = (LINK_STACK *)malloc(sizeof(LINK_STACK));
 	LinkStack->Top = NULL;
 	LinkStack->Count = 0;
@@ -1874,12 +1855,15 @@ void OpPostfixFunc(void) {
 	int *PopData1 = (int *)malloc(sizeof(int));
 	int *PopData2 = (int *)malloc(sizeof(int));	
 	int *ResData1 = (int *)malloc(sizeof(int));
-	int ResData2;
+	int ResData2 = 0;
 	int OpData;	
 
-	for (TraIndex = 0; TraIndex < sizeof(PostfixExpression) - 1; ++TraIndex) {
-		printf("PostfixExpression[%d] = %c\n", TraIndex, PostfixExpression[TraIndex]);
+	printf("\nOpPostfixFunc start\n");
+	printf("In OpPostfixFunc, PostfixExpression = %s\n", PostfixExpression);
+	printf("PostfixExpressionInputSize = %d\n", PostfixExpressionInputSize);
 
+	for (TraIndex = 0; TraIndex < PostfixExpressionInputSize; ++TraIndex) {
+		printf("PostfixExpression[%d] = %c\n", TraIndex, PostfixExpression[TraIndex]);
 		if (PostfixExpression[TraIndex] == ' ') {
 			continue;
 		} else if (PostfixExpression[TraIndex] >= '0' && PostfixExpression[TraIndex] <= '9') {
@@ -1887,7 +1871,7 @@ void OpPostfixFunc(void) {
 			printf("PushData 01 = %d\n", PushData);
 
 			/*Judge wheather PostfixExpression[TraIndex] is long number*/
-			while ((TraIndex + 1 < sizeof(PostfixExpression) - 1) && (PostfixExpression[TraIndex + 1] != ' ')) {
+			while ((TraIndex + 1 < PostfixExpressionInputSize) && (PostfixExpression[TraIndex + 1] != ' ')) {
 				printf("In while, PostfixExpression[%d] = %c\n", TraIndex + 1, PostfixExpression[TraIndex + 1]);
 				PushData = PushData * 10 + (PostfixExpression[TraIndex + 1] - 48);
 				++TraIndex;				
@@ -1899,13 +1883,13 @@ void OpPostfixFunc(void) {
 			PrintLinkStack(LinkStack);
 		} else if (PostfixExpression[TraIndex] == '+' || PostfixExpression[TraIndex] == '-' || PostfixExpression[TraIndex] == '*' || PostfixExpression[TraIndex] == '/') {
 			PopLinkStack(LinkStack, PopData1);
-			PopLinkStack(LinkStack, PopData2);			
-						
+			PopLinkStack(LinkStack, PopData2);
+
+			/*
 			printf("*PopData1 = %d\n", *PopData1);
 			printf("*PopData2 = %d\n", *PopData2);			
-
+			*/
 			OpData = OpPopDataFunc(PostfixExpression[TraIndex], *PopData1, *PopData2);
-
 			printf("OpData = %d\n", OpData);
 
 			PushLinkStack(LinkStack, OpData);
@@ -1922,21 +1906,18 @@ void OpPostfixFunc(void) {
 		ResData2 = *ResData1;
 	}
 
-
-	//PrintLinkStack(LinkStack);
-
 	free(LinkStack);
 	free(ResData1);
 	free(PopData1);
 	free(PopData2);
 
-	printf("ResData2 = %d\n", ResData2);
+	printf("In OpPostfixFunc, ResData2 = %d\n", ResData2);
 
-	//return ResData2;
+	return ResData2;
 }
 
 /*RPN*/
-void RPNString(void) {
+void RPNExpression(void) {
 	char InfixExpression[] = "9+(3-1)*3+10/2";//9 3 1 - 3 * + 10 2 / +
 	//char InfixExpression[] = "9313102";//9313102
 	//char InfixExpression[] = "2+1*3+2/1";//2 1 3 * + 2 1 / +
@@ -1948,13 +1929,13 @@ void RPNString(void) {
 	char *PostfixExpression = (char *)malloc(sizeof(char) * sizeof(InfixExpression) * 2);
 	int PostEIndex = 0;
 	int TraIndex = 0;
+	int ResData;
 	
 	LINK_STACK *LinkStack = (LINK_STACK *)malloc(sizeof(LINK_STACK));
 	LinkStack->Top = NULL;
 	LinkStack->Count = 0;
 
 	LINK_STACK *TraStackNode = LinkStack;
-
 
 	char *PopData = (char *)malloc(sizeof(char));
 
@@ -1964,7 +1945,7 @@ void RPNString(void) {
 		printf("In RPNString, InfixExpression[%d] = %c\n", TraIndex, InfixExpression[TraIndex]);
 		if (InfixExpression[TraIndex] >= '0' && InfixExpression[TraIndex] <= '9') {
 			PostfixExpression[PostEIndex++] = InfixExpression[TraIndex];
-			/*Atten*/
+			/*long number*/
 			while ( (TraIndex + 1 < strlen(InfixExpression)) && ((InfixExpression[TraIndex + 1] >= '0' && InfixExpression[TraIndex + 1] <= '9')) ) {
 				PostfixExpression[PostEIndex++] = InfixExpression[++TraIndex];				
 			}
@@ -1995,7 +1976,12 @@ void RPNString(void) {
 
 	PostfixExpression[PostEIndex++] = '\0';
 	
-	printf("PostfixExpression = %s\n", PostfixExpression);
+	printf("In RPNString, PostfixExpression = %s\n\n", PostfixExpression);
+	
+	/*Operate PostfixExpression*/
+	ResData = OpPostfixFunc(PostfixExpression, strlen(PostfixExpression));
+
+	printf("In RPNString, ResData = %d\n", ResData);
 
 	free(PostfixExpression);
 	free(LinkStack);
