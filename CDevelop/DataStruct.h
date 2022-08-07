@@ -140,7 +140,7 @@ void PrintFabByRec(void);
 void OperateCharLinkStack(void);
 
 /*RPN*/
-void RPNString();
+void RPNString(void);
 
 void testChar(void);
 
@@ -155,5 +155,7 @@ void test05(void);
 void OpPostfixFunc(void);
 
 void test06(void);
+
+void test07(void);
 
 #endif

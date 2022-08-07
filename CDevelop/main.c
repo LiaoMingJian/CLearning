@@ -41,15 +41,17 @@ int main() {
 
 	//OperateCharLinkStack();
 
-	//RPNString();
+	RPNString();
 
 	//test04();
 
 	//test05();
 
-	OpPostfixFunc();
+	//OpPostfixFunc();
 
 	//test06();
+
+	//test07();
 
 	system("pause");	
 	return 0;
