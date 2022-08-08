@@ -60,7 +60,11 @@ typedef struct _CHAR_LINK_STACK {
 	int Count;
 }CHAR_LINK_STACK;
 
-
+typedef struct _SQ_QUEE {
+	int Data[MAXSIZE];
+	int front;
+	int Rear;
+};
 
 LIST_STATUS OperatorList();
 
