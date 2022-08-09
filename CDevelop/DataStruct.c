@@ -2038,3 +2038,38 @@ void test07(void) {
 	char Ch1 = '¡Á';
 	printf("Ch1 = %c\n", Ch1);
 }
+
+
+LIST_STATUS CreateSqQueue(SQ_QUEUE *SqSqQueue) {
+	SQ_QUEUE *TraSqSqQueue = SqSqQueue;
+	int TraIndex = 0;
+
+	/*Empty queue*/
+	TraSqSqQueue->front = 0;
+	TraSqSqQueue->Rear = 0;
+
+	/*Assignment*/
+	for (TraIndex = 0; TraIndex < 3; ++TraIndex) {
+		TraSqSqQueue->Data[TraIndex] = TraIndex;
+		TraSqSqQueue->Rear++;
+	}
+}
+
+
+void OperateQueue(void) {
+	LIST_STATUS Status;
+	
+	SQ_QUEUE *SqQueue = (SQ_QUEUE *)malloc(sizeof(SQ_QUEUE));
+	
+	Status = CreateSqQueue(SqQueue);
+	if (SUCCESS == Status) {
+		printf("CreateSqQueue succeed!\n");
+	}
+	else {
+		printf("CreateSqQueue failed!\n");
+	}
+
+
+
+
+}
