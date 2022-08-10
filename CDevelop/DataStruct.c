@@ -2040,6 +2040,7 @@ void test07(void) {
 }
 
 
+/*SqQueue*/
 LIST_STATUS CreateSqQueue(SQ_QUEUE *SqQueue) {
 	SQ_QUEUE *TraSqQueue = SqQueue;
 	int TraIndex = 0;
@@ -2176,4 +2177,44 @@ void OperateQueue(void) {
 
 	free(SqQueue);
 	free(ExitData);
+}
+
+
+/*LinkQueue*/
+
+LIST_STATUS CreateLinkQueue(LINK_QUEUE * LinkQueue, int CreateNum) {
+	LINK_QUEUE *TraLinkQueue = LinkQueue;
+	Node *AddNode;
+	int TraIndex = 0;
+
+	if (NULL == LinkQueue) {
+		return ERROR;	
+	}
+
+	/*Empty LinkQueue*/
+	TraLinkQueue->Front = AddNode;
+	TraLinkQueue->Rear = AddNode;
+
+	for (TraIndex = 0; TraIndex < CreateNum; ++TraIndex) {
+		
+	}
+
+}
+
+
+void OperateLinkQueue(void) {
+	LINK_QUEUE *LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
+	LIST_STATUS Status;
+
+	int CreateNum = 3;
+
+	Status = CreateLinkQueue(LinkQueue, CreateNum);
+	if (SUCCESS == Status) {
+		printf("CreateLinkQueue succeed!\n");
+	}
+	else {
+		printf("CreateLinkQueue failed!\n");
+	}
+	
+
 }
