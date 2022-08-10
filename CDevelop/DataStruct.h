@@ -66,6 +66,11 @@ typedef struct _SQ_QUEUE {
 	int Rear;
 }SQ_QUEUE;
 
+typedef struct _LINK_QUEUE {
+	Node *Front;
+	Node *Rear;
+}LINK_QUEUE;
+
 LIST_STATUS OperatorList();
 
 LIST_STATUS CreatList(SQ_LIST *const L);
