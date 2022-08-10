@@ -62,7 +62,7 @@ typedef struct _CHAR_LINK_STACK {
 
 typedef struct _SQ_QUEUE {
 	int Data[MAXSIZE];
-	int front;
+	int Front;
 	int Rear;
 }SQ_QUEUE;
 
@@ -163,5 +163,7 @@ int OpPostfixFunc(char *PostfixExpressionInput, int PostfixExpressionInputSize);
 void test06(void);
 
 void test07(void);
+
+void OperateQueue(void);
 
 #endif

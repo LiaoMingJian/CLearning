@@ -41,7 +41,7 @@ int main() {
 
 	//OperateCharLinkStack();
 
-	RPNExpression();
+	//RPNExpression();
 
 	//test04();
 
@@ -53,6 +53,8 @@ int main() {
 
 	//test07();
 
-	system("pause");	
+	OperateQueue();
+
+	system("pause");
 	return 0;
 }

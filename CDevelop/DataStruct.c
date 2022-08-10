@@ -2040,19 +2040,98 @@ void test07(void) {
 }
 
 
-LIST_STATUS CreateSqQueue(SQ_QUEUE *SqSqQueue) {
-	SQ_QUEUE *TraSqSqQueue = SqSqQueue;
+LIST_STATUS CreateSqQueue(SQ_QUEUE *SqQueue) {
+	SQ_QUEUE *TraSqQueue = SqQueue;
 	int TraIndex = 0;
 
+	printf("CreateSqQueue start\n");
+
+	if (NULL == TraSqQueue) {
+		return ERROR;
+	}
+
 	/*Empty queue*/
-	TraSqSqQueue->front = 0;
-	TraSqSqQueue->Rear = 0;
+	TraSqQueue->Front = 0;
+	TraSqQueue->Rear = 0;
 
 	/*Assignment*/
 	for (TraIndex = 0; TraIndex < 3; ++TraIndex) {
-		TraSqSqQueue->Data[TraIndex] = TraIndex;
-		TraSqSqQueue->Rear++;
+		TraSqQueue->Data[TraIndex] = TraIndex;
+		TraSqQueue->Rear++;
 	}
+
+	printf("CreateSqQueue end\n");
+
+	return SUCCESS;
+}
+
+LIST_STATUS PrintSqQueue(SQ_QUEUE *SqQueue) {
+	SQ_QUEUE *TraSqQueue = SqQueue;
+	int TraIndex = 0;
+
+	printf("PrintSqQueue start\n");
+
+	if (NULL == TraSqQueue) {
+		return ERROR;
+	}
+
+	printf("TraSqQueue->front = %d\n", TraSqQueue->Front);
+	printf("TraSqQueue->Rear = %d\n", TraSqQueue->Rear);
+
+	for (TraIndex = 0; TraIndex < MAXSIZE; ++TraIndex) {
+		printf("TraSqQueue->Data[%d] = %d\n", TraIndex, TraSqQueue->Data[TraIndex]);
+	}
+
+	printf("PrintSqueue end\n\n");
+
+	return SUCCESS;
+}
+
+int SqQueueLength(SQ_QUEUE *SqQueue) {
+	printf("SqQueueLength = %d\n", (SqQueue->Rear - SqQueue->Front + MAXSIZE) % MAXSIZE);
+	return (SqQueue->Rear - SqQueue->Front + MAXSIZE) % MAXSIZE;
+}
+
+LIST_STATUS EnterSqQueue(SQ_QUEUE *SqQueue, int EnterData) {
+	SQ_QUEUE *TraSqQueue = SqQueue;
+
+	printf("EnterSqQueue start\n");
+
+	if (NULL == TraSqQueue) {
+		return ERROR;
+	}
+
+	if ((TraSqQueue->Rear + 1 + MAXSIZE) % MAXSIZE == TraSqQueue->Front) {
+		return ERROR;	
+	}
+
+	TraSqQueue->Data[TraSqQueue->Rear] = EnterData;
+	TraSqQueue->Rear = (TraSqQueue->Rear + 1) % MAXSIZE;
+
+	printf("EnterSqQueue end\n");
+
+	return SUCCESS;
+}
+
+LIST_STATUS ExitSqQueue(SQ_QUEUE *SqQueue, int *ExitData) {
+	SQ_QUEUE *TraSqQueue = SqQueue;
+
+	printf("ExitSqQueue start\n");
+
+	if (NULL == TraSqQueue) {
+		return ERROR;
+	}
+
+	if (TraSqQueue->Rear == TraSqQueue->Front) {
+		return ERROR;
+	}
+
+	*ExitData = TraSqQueue->Data[TraSqQueue->Front];
+	TraSqQueue->Front = (TraSqQueue->Front + 1) % MAXSIZE;
+
+	printf("ExitSqQueue end\n");
+
+	return SUCCESS;
 }
 
 
@@ -2060,16 +2139,41 @@ void OperateQueue(void) {
 	LIST_STATUS Status;
 	
 	SQ_QUEUE *SqQueue = (SQ_QUEUE *)malloc(sizeof(SQ_QUEUE));
-	
+	int *ExitData = (int *)malloc(sizeof(int));
+	int EnterData = 3;
+
+
 	Status = CreateSqQueue(SqQueue);
 	if (SUCCESS == Status) {
 		printf("CreateSqQueue succeed!\n");
-	}
-	else {
+	} else {
 		printf("CreateSqQueue failed!\n");
 	}
 
+	SqQueueLength(SqQueue);
+	PrintSqQueue(SqQueue);
+	
+	Status  = EnterSqQueue(SqQueue, EnterData);
+	if (SUCCESS == Status) {
+		printf("EnterSqQueue succeed!\n");
+	} else {
+		printf("EnterSqQueue failed!\n");
+	}	
 
+	/*
+	Status = ExitSqQueue(SqQueue, ExitData);
+	if (SUCCESS == Status) {
+		printf("ExitSqQueue succeed!\n");
+	}
+	else {
+		printf("ExitSqQueue failed!\n");
+	}
+	*/
 
+	SqQueueLength(SqQueue);
+	PrintSqQueue(SqQueue);
+	
 
+	free(SqQueue);
+	free(ExitData);
 }
