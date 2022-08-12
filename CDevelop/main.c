@@ -53,7 +53,9 @@ int main() {
 
 	//test07();
 
-	OperateQueue();
+	//OperateQueue();
+
+	OperateLinkQueue();
 
 	system("pause");
 	return 0;

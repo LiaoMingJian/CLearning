@@ -171,4 +171,6 @@ void test07(void);
 
 void OperateQueue(void);
 
+/*LinkQueue*/
+void OperateLinkQueue(void);
 #endif
