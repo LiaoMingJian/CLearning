@@ -2184,29 +2184,110 @@ void OperateQueue(void) {
 
 LIST_STATUS CreateLinkQueue(LINK_QUEUE * LinkQueue, int CreateNum) {
 	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *AddNode;
+	Node *CreateNode = (Node *)malloc(sizeof(Node));
 	int TraIndex = 0;
+
+	printf("CreateLinkQueue start!\n");
 
 	if (NULL == LinkQueue) {
 		return ERROR;	
 	}
 
 	/*Empty LinkQueue*/
-	TraLinkQueue->Front = AddNode;
-	TraLinkQueue->Rear = AddNode;
+	CreateNode->Data = CreateNum;
+	CreateNode->Next = NULL;
+	
+	TraLinkQueue->Front = CreateNode;
+	TraLinkQueue->Rear = CreateNode;
 
-	for (TraIndex = 0; TraIndex < CreateNum; ++TraIndex) {
+	for (TraIndex = 0; TraIndex < CreateNum - 1; ++TraIndex) {
+		CreateNode = (Node *)malloc(sizeof(Node));
+		CreateNode->Data = TraIndex;
+		CreateNode->Next = NULL;
 		
+		TraLinkQueue->Rear->Next = CreateNode;
+		TraLinkQueue->Rear = TraLinkQueue->Rear->Next;
 	}
 
+	printf("CreateLinkQueue end!\n");
+	return SUCCESS;
 }
 
+LIST_STATUS PrintLinkQueue(LINK_QUEUE * LinkQueue) {
+	LINK_QUEUE *TraLinkQueue = LinkQueue;
+	Node *NodeHead = LinkQueue->Front;
+
+	printf("PrintLinkQueue start!\n");
+
+	if (NULL == TraLinkQueue) {
+		printf("LinkQueue = NULL\n");
+		return ERROR;
+	}
+
+	printf("TraLinkQueue->Front = %x\n",TraLinkQueue->Front);
+	printf("TraLinkQueue->Rear = %x\n", TraLinkQueue->Rear);
+
+	while (NodeHead != NULL) {
+		printf("NodeHead = 0x%lx, NodeHead->Data = %d, NodeHead->Next = 0x%lx\n", NodeHead, NodeHead->Data, NodeHead->Next);
+		NodeHead = NodeHead->Next;
+	}
+
+	printf("PrintLinkQueue end!\n\n");
+	return SUCCESS;
+}
+
+LIST_STATUS EnterLinkQueue(LINK_QUEUE * LinkQueue, int AddData) {
+	LINK_QUEUE *TraLinkQueue = LinkQueue;
+	Node *AddNode = (Node *)malloc(sizeof(Node));
+
+	printf("EnterLinkQueue start!\n");
+
+	if (NULL == TraLinkQueue) {
+		return ERROR;
+	}
+
+	AddNode->Data = AddData;
+	AddNode->Next = NULL;
+
+	TraLinkQueue->Rear->Next = AddNode;
+	TraLinkQueue->Rear = AddNode;
+
+	printf("EnterLinkQueue end!\n");
+	return SUCCESS;
+}
+
+LIST_STATUS ExitLinkQueue(LINK_QUEUE * LinkQueue, int *DelData) {
+	LINK_QUEUE *TraLinkQueue = LinkQueue;
+	Node *DelNode;
+
+	printf("ExitLinkQueue start!\n");
+
+	if (NULL == TraLinkQueue) {
+		return ERROR;
+	}
+	
+	if (TraLinkQueue->Front == TraLinkQueue->Rear) {
+		printf("LinkQueue is empty!\n");
+		return ERROR;	
+	}
+
+	*DelData = TraLinkQueue->Front->Data;
+	DelNode = TraLinkQueue->Front;
+
+	TraLinkQueue->Front = TraLinkQueue->Front->Next;
+	free(DelNode);
+
+	printf("ExitLinkQueue end!\n");
+	return SUCCESS;
+}
 
 void OperateLinkQueue(void) {
 	LINK_QUEUE *LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
 	LIST_STATUS Status;
 
 	int CreateNum = 3;
+	int AddData = 4;
+	int *DelData = (int *)malloc(sizeof(int));
 
 	Status = CreateLinkQueue(LinkQueue, CreateNum);
 	if (SUCCESS == Status) {
@@ -2216,5 +2297,25 @@ void OperateLinkQueue(void) {
 		printf("CreateLinkQueue failed!\n");
 	}
 	
+	PrintLinkQueue(LinkQueue);
 
+	/*
+	Status = EnterLinkQueue(LinkQueue, AddData);
+	if (SUCCESS == Status) {
+		printf("EnterLinkQueue succeed!\n");
+	}
+	else {
+		printf("EnterLinkQueue failed!\n");
+	}
+	*/
+
+	Status = ExitLinkQueue(LinkQueue, DelData);
+	if (SUCCESS == Status) {
+		printf("ExitLinkQueue succeed!\n");
+	}
+	else {
+		printf("ExitLinkQueue failed!\n");
+	}
+
+	PrintLinkQueue(LinkQueue);
 }
