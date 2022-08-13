@@ -1,4 +1,4 @@
-#  队列的链式存储结构——链队列
+#  队列的链式存储结构——链队列——C语言描述
 
 [toc]
 
@@ -6,7 +6,7 @@
 
 # 1.操作链队列
 
-​	创建，打印，入队，出队
+​	创建，打印，入队，出队，清除队列。
 
 代码：
 
@@ -19,7 +19,14 @@ void OperateLinkQueue(void) {
 	int AddData = 4;
 	int *DelData = (int *)malloc(sizeof(int));
 
-	Status = CreateLinkQueue(LinkQueue, CreateNum);
+	/*Create empty linkQueue*/
+	Node *HeadNode = (Node *)malloc(sizeof(Node));
+	HeadNode->Data = CreateNum;
+	HeadNode->Next = NULL;
+	LinkQueue->Front = HeadNode;
+	LinkQueue->Rear = HeadNode;
+
+	Status = CreateLinkQueue(LinkQueue, HeadNode, CreateNum);
 	if (SUCCESS == Status) {
 		printf("CreateLinkQueue succeed!\n");
 	}
@@ -29,7 +36,7 @@ void OperateLinkQueue(void) {
 	
 	PrintLinkQueue(LinkQueue);
 
-	/*
+	
 	Status = EnterLinkQueue(LinkQueue, AddData);
 	if (SUCCESS == Status) {
 		printf("EnterLinkQueue succeed!\n");
@@ -37,8 +44,11 @@ void OperateLinkQueue(void) {
 	else {
 		printf("EnterLinkQueue failed!\n");
 	}
-	*/
+	
+	PrintLinkQueue(LinkQueue);
+	
 
+	/*
 	Status = ExitLinkQueue(LinkQueue, DelData);
 	if (SUCCESS == Status) {
 		printf("ExitLinkQueue succeed!\n");
@@ -48,6 +58,27 @@ void OperateLinkQueue(void) {
 	}
 
 	PrintLinkQueue(LinkQueue);
+	*/
+
+	/*
+	Status = DelLinkQueue(LinkQueue, HeadNode);
+	if (SUCCESS == Status) {
+		printf("DelLinkQueue succeed!\n");
+	}
+	else {
+		printf("DelLinkQueue failed!\n");
+	}
+
+	PrintLinkQueue(LinkQueue);
+	*/
+
+	free(LinkQueue);
+	free(DelData);
+	free(HeadNode);
+
+	LinkQueue = NULL;
+	DelData = NULL;
+	HeadNode = NULL;
 }
 ```
 
@@ -58,31 +89,27 @@ void OperateLinkQueue(void) {
 **代码：**
 
 ```c
-LIST_STATUS CreateLinkQueue(LINK_QUEUE * LinkQueue, int CreateNum) {
+LIST_STATUS CreateLinkQueue(LINK_QUEUE *LinkQueue, Node *HeadNode, int CreateNum) {
 	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *CreateNode = (Node *)malloc(sizeof(Node));
-	int TraIndex = 0;
+	Node *TraNode = HeadNode;
+	Node *CreateNode;
+	int TraIndex = 0;	
 
 	printf("CreateLinkQueue start!\n");
 
-	if (NULL == LinkQueue) {
-		return ERROR;	
+	if (NULL == LinkQueue || NULL == HeadNode) {
+		return ERROR;
 	}
-
-	/*Empty LinkQueue*/
-	CreateNode->Data = CreateNum;
-	CreateNode->Next = NULL;
-	
-	TraLinkQueue->Front = CreateNode;
-	TraLinkQueue->Rear = CreateNode;
 
 	for (TraIndex = 0; TraIndex < CreateNum - 1; ++TraIndex) {
 		CreateNode = (Node *)malloc(sizeof(Node));
 		CreateNode->Data = TraIndex;
-		CreateNode->Next = NULL;
-		
-		TraLinkQueue->Rear->Next = CreateNode;
-		TraLinkQueue->Rear = TraLinkQueue->Rear->Next;
+
+		CreateNode->Next = TraNode->Next;
+		TraNode->Next = CreateNode;
+
+		TraLinkQueue->Rear = CreateNode;		
+		TraNode = TraNode->Next;
 	}
 
 	printf("CreateLinkQueue end!\n");
@@ -112,7 +139,86 @@ LIST_STATUS CreateLinkQueue(LINK_QUEUE * LinkQueue, int CreateNum) {
 >
 > PrintLinkQueue end!
 
-# 3.打印链队列
+
+
+# 3.删除链队列
+
+​     除了头结点外，其它结点均删除。
+
+**代码：**
+
+```c
+LIST_STATUS CreateLinkQueue(LINK_QUEUE *LinkQueue, Node *HeadNode, int CreateNum) {
+	LINK_QUEUE *TraLinkQueue = LinkQueue;
+	Node *TraNode = HeadNode;
+	Node *CreateNode;
+	int TraIndex = 0;	
+
+	printf("CreateLinkQueue start!\n");
+
+	if (NULL == LinkQueue || NULL == HeadNode) {
+		return ERROR;
+	}
+
+	for (TraIndex = 0; TraIndex < CreateNum - 1; ++TraIndex) {
+		CreateNode = (Node *)malloc(sizeof(Node));
+		CreateNode->Data = TraIndex;
+
+		CreateNode->Next = TraNode->Next;
+		TraNode->Next = CreateNode;
+
+		TraLinkQueue->Rear = CreateNode;		
+		TraNode = TraNode->Next;
+	}
+
+	printf("CreateLinkQueue end!\n");
+	return SUCCESS;
+}
+```
+
+
+
+**结果：**
+
+> CreateLinkQueue start!
+>
+> CreateLinkQueue end!
+>
+> CreateLinkQueue succeed!
+>
+> PrintLinkQueue start!
+>
+> TraLinkQueue->Front = b66060
+>
+> TraLinkQueue->Rear = b6f848
+>
+> NodeHead = 0xb66060, NodeHead->Data = 3, NodeHead->Next = 0xb66098
+>
+> NodeHead = 0xb66098, NodeHead->Data = 0, NodeHead->Next = 0xb6f848
+>
+> NodeHead = 0xb6f848, NodeHead->Data = 1, NodeHead->Next = 0x0
+>
+> PrintLinkQueue end!
+>
+>  
+>
+> DelLinkQueue start!
+>
+> DelLinkQueue end!
+>
+> DelLinkQueue succeed!
+>
+> PrintLinkQueue start!
+>
+> TraLinkQueue->Front = b66060
+>
+> TraLinkQueue->Rear = b66060
+>
+> NodeHead = 0xb66060, NodeHead->Data = 3, NodeHead->Next = 0x0
+>
+> PrintLinkQueue end!
+
+# 4.打印链队列
 
 **代码：**
 
@@ -141,7 +247,7 @@ LIST_STATUS PrintLinkQueue(LINK_QUEUE * LinkQueue) {
 }
 ```
 
-# 4.链队列——入队
+# 5.链队列——入队
 
 **代码：**
 
@@ -215,7 +321,7 @@ LIST_STATUS EnterLinkQueue(LINK_QUEUE * LinkQueue, int AddData) {
 
 
 
-# 5.链队列——出队
+# 6.链队列——出队
 
 **代码：**
 
