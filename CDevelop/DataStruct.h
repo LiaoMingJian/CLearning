@@ -173,4 +173,10 @@ void OperateQueue(void);
 
 /*LinkQueue*/
 void OperateLinkQueue(void);
+
+
+/*String*/
+void OperateString(void);
+
+
 #endif

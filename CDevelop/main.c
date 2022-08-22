@@ -55,7 +55,9 @@ int main() {
 
 	//OperateQueue();
 
-	OperateLinkQueue();
+	//OperateLinkQueue();
+
+	OperateString();
 
 	system("pause");
 	return 0;

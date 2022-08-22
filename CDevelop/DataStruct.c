@@ -2001,7 +2001,6 @@ void testChar(void) {
 	}	
 }
 
-
 void test01(int ch1) {
 	printf("ch1 = %c\n", ch1);
 }
@@ -2177,11 +2176,13 @@ void OperateQueue(void) {
 
 	free(SqQueue);
 	free(ExitData);
+
+	SqQueue = NULL;
+	ExitData = NULL;
 }
 
 
 /*LinkQueue*/
-
 LIST_STATUS CreateLinkQueue(LINK_QUEUE *LinkQueue, Node *HeadNode, int CreateNum) {
 	LINK_QUEUE *TraLinkQueue = LinkQueue;
 	Node *TraNode = HeadNode;
@@ -2227,7 +2228,9 @@ LIST_STATUS DelLinkQueue(LINK_QUEUE * LinkQueue, Node *HeadNode) {
 	while (TraNode != NULL) {
 		DelNode = TraNode;
 		TraNode = TraNode->Next;
+		
 		free(DelNode);
+		DelNode = NULL;
 	}
 
 	HeadNode->Next = NULL;
@@ -2299,11 +2302,11 @@ LIST_STATUS ExitLinkQueue(LINK_QUEUE * LinkQueue, int *DelData) {
 
 	TraLinkQueue->Front = TraLinkQueue->Front->Next;
 	free(DelNode);
+	DelNode = NULL;
 
 	printf("ExitLinkQueue end!\n");
 	return SUCCESS;
 }
-
 
 void OperateLinkQueue(void) {
 	LINK_QUEUE *LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
@@ -2365,12 +2368,77 @@ void OperateLinkQueue(void) {
 
 	PrintLinkQueue(LinkQueue);
 	*/
-
-	free(LinkQueue);
+	
 	free(DelData);
-	free(HeadNode);
 
 	LinkQueue = NULL;
 	DelData = NULL;
 	HeadNode = NULL;
 }
+
+
+
+
+/*String*/
+int StringLen(const char * const Str) {
+	char *TraStr = Str;
+	int StrLen = 0;
+
+	printf("StringLen start\n");
+	if (NULL == Str) {
+		return 0;	
+	}
+
+	while (*TraStr != '\0') {
+		StrLen++;
+		TraStr++;
+	}	
+
+	printf("StringLen end\n");	
+	return StrLen;
+}
+
+LIST_STATUS StrCopy(char *T, char *S) {
+	char *TraS = S;
+	char *TraT = T;
+
+	printf("StrCopy start\n");
+
+	if (T == NULL || S == NULL ) {
+		return ERROR;	
+	}
+
+	while (*TraS != '\0') {
+		*TraT = *TraS;
+		TraT++;
+		TraS++;
+	}
+
+	*TraT = '\0';
+
+	printf("StrCopy end\n");
+
+	return SUCCESS;
+}
+
+
+void OperateString(void) {
+	LIST_STATUS Status;
+	char Str1[] = "hello";
+	int Str1Len;
+	char *T = (char *)malloc(sizeof(Str1));
+
+	Str1Len = StringLen(Str1);
+	printf("Str1Len = 0x%x\n", Str1Len);
+
+	Status = StrCopy(T, Str1);
+	if (Status == SUCCESS) {
+		printf("StrCopy successful!\n");
+	}else {
+		printf("StrCopy failed!\n");
+	}
+	
+	printf("T = %s\n", T);
+}
+
+
