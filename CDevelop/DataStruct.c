@@ -2422,6 +2422,33 @@ LIST_STATUS StrCopy(char *T, char *S) {
 }
 
 
+int StrComare(const char *Str1, const char *Str2) {
+	char *TraStr1 = Str1;
+	char *TraStr2 = Str2;
+
+	if (StringLen(TraStr1) == StringLen(TraStr2)) {
+		while (TraStr1 != '\0') {
+			if (*TraStr1 == *TraStr2) {
+				TraStr1++;
+				TraStr2++;
+			} else {
+				break;
+			}
+		}
+
+		if (TraStr1 == '\0') {
+			return 0;
+		}
+		
+
+	} else if(StringLen(TraStr1) > StringLen(TraStr2)) {
+		return 1;	
+	} else {
+		return -1;
+	}
+
+}
+
 void OperateString(void) {
 	LIST_STATUS Status;
 	char Str1[] = "hello";
