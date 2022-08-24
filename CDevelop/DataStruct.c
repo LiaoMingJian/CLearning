@@ -2426,29 +2426,31 @@ int StrComare(const char *Str1, const char *Str2) {
 	char *TraStr1 = Str1;
 	char *TraStr2 = Str2;
 
-	if (StringLen(TraStr1) == StringLen(TraStr2)) {
-		while (TraStr1 != '\0') {
-			if (*TraStr1 == *TraStr2) {
-				TraStr1++;
-				TraStr2++;
-			} else {
-				break;
-			}
-		}
+	int Str1Len = StringLen(TraStr1);
+	int Str2Len = StringLen(TraStr2);
 
-		if (TraStr1 == '\0') {
-			return 0;
+	while (TraStr1 != '\0' || TraStr2 != '\0') {
+		if (*TraStr1 == *TraStr2) {
+			TraStr1++;
+			TraStr2++;
+		} else {
+			break;
 		}
-		
+	}
 
-	} else if(StringLen(TraStr1) > StringLen(TraStr2)) {
-		return 1;	
-	} else {
+	if (TraStr1 == '\0' && TraStr2 == '\0' && Str1Len == Str2Len) {
+		return 0;
+	}	
+
+	if (TraStr1 == '\0' && Str1Len < Str2Len) {
 		return -1;
 	}
 
+	if (TraStr1 != '\0' && TraStr2 != '\0' && *TraStr1 < *TraStr2) {
+		return -1;
+	}
 
-
+	return 1;
 }
 
 void OperateString(void) {
