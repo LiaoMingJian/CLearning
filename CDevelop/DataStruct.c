@@ -2422,7 +2422,7 @@ LIST_STATUS StrCopy(char *T, char *S) {
 }
 
 
-int StrComare(const char *Str1, const char *Str2) {
+int StrCopmare(const char *Str1, const char *Str2) {
 	char *TraStr1 = Str1;
 	char *TraStr2 = Str2;
 
