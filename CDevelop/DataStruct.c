@@ -2426,18 +2426,15 @@ int StrCopmare(const char Str1[], const char Str2[]) {
 	char *TraStr1 = Str1;
 	char *TraStr2 = Str2;
 	int ret;
-
 	int Str1Len = StringLen(Str1);
 	int Str2Len = StringLen(Str2);
 
-	printf("TraStr1 = %s, Str1Len = %d\n", TraStr1, Str1Len);
-	printf("TraStr2 = %s, Str2Len = %d\n", TraStr2, Str2Len);
-
 	printf("StrCopmare start\n");
 
+	printf("Str1 = %s\n", Str1);
+	printf("Str2 = %s\n", Str2);
+
 	while (*TraStr1 != '\0' || *TraStr2 != '\0') {
-		printf("*TraStr1 = %c\n", *TraStr1);
-		printf("*TraStr2 = %c\n", *TraStr2);
 		if (*TraStr1 == *TraStr2) {
 			TraStr1++;
 			TraStr2++;
@@ -2448,30 +2445,21 @@ int StrCopmare(const char Str1[], const char Str2[]) {
 
 	}
 
-	printf("StrCopmare 00\n");
-	printf("*TraStr1 = %c\n", *TraStr1);
-	printf("*TraStr2 = %c\n", *TraStr2);
-
-
 	if (*TraStr1 == '\0' && *TraStr2 == '\0' && Str1Len == Str2Len) {
-		printf("StrCopmare 01\n");
 		ret = 0;
 		goto EXIT;
 	}	
 
 	if (*TraStr1 == '\0' && Str1Len < Str2Len) {
-		printf("StrCopmare 02\n");
 		ret = -1;
 		goto EXIT;
 	}
 
 	if (*TraStr1 != '\0' && *TraStr2 != '\0' && *TraStr1 < *TraStr2) {
-		printf("StrCopmare 03\n");
 		ret = -1;
 		goto EXIT;
 	}
 
-	printf("StrCopmare 04\n");
 	ret = 1;
 
 EXIT:
@@ -2499,7 +2487,6 @@ void OperateString(void) {
 	}
 	
 	printf("T = %s\n\n", T);
-
 
 	CmpResult = StrCopmare(Str1, Str2);
 
