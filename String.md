@@ -27,6 +27,10 @@ void OperateString(void) {
 	unsigned int Pos = 2;
 	unsigned int SubLen = 3;
 	
+	char FindStr[] = "lo";
+	unsigned int FindStrPos = 1;
+	unsigned int FindIndex;
+
 /*
 	Str1Len = StringLen(Str1);
 	printf("Str1Len = 0x%x\n", Str1Len);
@@ -60,7 +64,6 @@ void OperateString(void) {
 		free(ConcatStr);
 		ConcatStr = NULL;
 	}
-*/
 
 	Status = SubString(SubStr, Str1, Pos, SubLen);
 	if (Status == SUCCESS) {
@@ -70,6 +73,11 @@ void OperateString(void) {
 		printf("SubString failed!\n");
 	}
 	printf("SubStr = %s\n", SubStr);
+*/
+
+	FindIndex = FindStrIndex(Str1, FindStr, FindStrPos);
+
+	printf("FindIndex = %d\n", FindIndex);
 }
 ```
 
@@ -426,3 +434,116 @@ LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const 
 > SubString successful!
 >
 > SubStr = llo
+
+
+
+
+
+# 7 查找字符串
+
+```c
+unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int FindStrPos)
+```
+
+**需求：**在Str串的Pos位置之后，找第一个FinStr,找到返回Str的下标，找不到返回0。
+
+**方法：**
+
+1. 使用SubString函数截取字串，长度为FinStr的长度
+
+2. 使用截取的字串与FinStr进行比较
+
+**代码：**
+
+```c
+unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int FindStrPos) {
+	unsigned int StrLenth = StringLen(Str);
+	unsigned int FindStrLenth = StringLen(FindStr);
+	char *Sub = NULL;
+	unsigned int Index = 0;
+	unsigned int FindStrIndex = 0;
+
+	OP_STATUS  Status = SUCCESS;
+
+	printf("FindStrIndex start\n");
+	if (Str == NULL || FindStr == NULL || FindStrPos == 0 || FindStrPos > StrLenth - FindStrLenth + 1) {
+		FindStrIndex = 0;
+		goto EXIT;
+	}
+
+	Sub = (char *)malloc(StringLen(Str) + 1);
+	if (Sub == NULL) {
+		FindStrIndex = 0;
+		goto EXIT;
+	}	
+
+	for (Index = FindStrPos; Index <= StrLenth - FindStrLenth + 1; ++Index) {
+		Status = SubString(Sub, Str, Index, FindStrLenth);
+		if (Status == SUCCESS) {
+			if (StrCopmare(FindStr, Sub) == 0) {
+				FindStrIndex = Index;
+				goto EXIT;
+			}
+		}
+	}
+
+EXIT:	
+	if (Sub != NULL) {
+		free(Sub);
+		Sub = NULL;
+	}
+	
+	printf("FindStrIndex end\n");
+	return FindStrIndex;
+}
+```
+
+**结果：**
+
+> FindStrIndex start
+>
+> SubString start
+>
+> SubString end
+>
+> StrCopmare start
+>
+> Str1 = lo
+>
+> Str2 = el
+>
+> ret = 1
+>
+> StrCopmare end
+>
+> SubString start
+>
+> SubString end
+>
+> StrCopmare start
+>
+> Str1 = lo
+>
+> Str2 = ll
+>
+> ret = 1
+>
+> StrCopmare end
+>
+> SubString start
+>
+> SubString end
+>
+> StrCopmare start
+>
+> Str1 = lo
+>
+> Str2 = lo
+>
+> ret = 0
+>
+> StrCopmare end
+>
+> FindStrIndex end
+>
+> FindIndex = 3
