@@ -2421,8 +2421,7 @@ LIST_STATUS StrCopy(char *T, char *S) {
 	return SUCCESS;
 }
 
-
-int StrCopmare(const char Str1[], const char Str2[]) {
+int StrCopmare(const char *Str1, const char *Str2) {
 	char *TraStr1 = Str1;
 	char *TraStr2 = Str2;
 	int ret;
@@ -2468,27 +2467,128 @@ EXIT:
 
 }
 
+LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2) {
+	char *TraNewStr = NewStr;
+	char *TraStr1 = Str1;
+	char *TraStr2 = Str2;
+	
+	printf("StrConcat start\n");
+	if (TraNewStr == NULL || Str1 == NULL || Str2 == NULL) {
+		return ERROR;
+	}
+
+	while (*TraStr1 != '\0') {
+		*TraNewStr = *TraStr1;
+
+		TraNewStr++;
+		TraStr1++;
+	}
+	
+	while (*TraStr2 != '\0') {
+		*TraNewStr = *TraStr2;
+
+		TraNewStr++;
+		TraStr2++;
+	}
+
+	*TraNewStr = '\0';
+	
+	printf("StrConcat end\n");
+	return SUCCESS;
+}
+
+LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen) {
+	char *TraSub = Sub;
+	char *TraStr = Str;
+	unsigned int Index = 0;
+
+	printf("SubString start\n");
+	if (NULL == Str || NULL == Sub) {
+		return ERROR;
+	}
+
+	if (Pos < 1 || Pos > StringLen(Str)) {
+		return ERROR;
+	}
+
+	if (SubLen > StringLen(Str) - Pos + 1) {
+		return ERROR;
+	}
+
+	/*TraStr move to Pos*/
+	for (Index = 0; Index < Pos; ++Index) {
+		TraStr++;
+	}
+
+	/*Copy Str into Sub, lenth is SubLen*/
+	for (Index = 0; Index < SubLen; ++Index) {
+		*TraSub = *TraStr;
+		TraStr++;
+		TraSub++;
+	}
+
+	*TraSub = '\0';
+	
+	printf("SubString end\n");
+	return SUCCESS;
+}
+
+
 void OperateString(void) {
 	LIST_STATUS Status;
 	char Str1[] = "hello199";
 	char Str2[] = "hello200";
 	int Str1Len;
-	char *T = (char *)malloc(sizeof(Str1));
+	char *CpyStr = (char *)malloc(sizeof(Str1));
 	int CmpResult;
 
+	char *ConcatStr = (char *)malloc(sizeof(Str1) + sizeof(Str2) + 1);
+
+	char *SubStr = (char *)malloc(sizeof(Str1));
+	unsigned int Pos = 2;
+	unsigned int SubLen = 3;
+	
+/*
 	Str1Len = StringLen(Str1);
 	printf("Str1Len = 0x%x\n", Str1Len);
 
-	Status = StrCopy(T, Str1);
+	Status = StrCopy(CpyStr, Str1);
 	if (Status == SUCCESS) {
 		printf("StrCopy successful!\n");
 	}else {
 		printf("StrCopy failed!\n");
+	}	
+	printf("CpyStr = %s\n\n", CpyStr);
+
+	if (CpyStr != NULL) {
+		free(CpyStr);
+		CpyStr = NULL;
 	}
-	
-	printf("T = %s\n\n", T);
 
 	CmpResult = StrCopmare(Str1, Str2);
-
 	printf("CmpResult = %d\n", CmpResult);
+
+	Status = StrConcat(ConcatStr, Str1, Str2);
+	if (Status == SUCCESS) {
+		printf("StrConcat successful!\n");
+	}
+	else {
+		printf("StrConcat failed!\n");
+	}
+	printf("ConcatStr = %s\n", ConcatStr);	
+
+	if (ConcatStr != NULL) {
+		free(ConcatStr);
+		ConcatStr = NULL;
+	}
+*/
+
+	Status = SubString(SubStr, Str1, Pos, SubLen);
+	if (Status == SUCCESS) {
+		printf("SubString successful!\n");
+	}
+	else {
+		printf("SubString failed!\n");
+	}
+	printf("SubStr = %s\n", SubStr);
 }

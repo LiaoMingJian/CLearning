@@ -1,4 +1,4 @@
-# 字符串——创建，获取长度，复制，搜索——C语言描述
+# 字符串——创建，获取长度，复制，截取，搜索——C语言描述
 
 [toc]
 
@@ -15,21 +15,61 @@
 ```c
 void OperateString(void) {
 	LIST_STATUS Status;
-	char Str1[] = "hello";
+	char Str1[] = "hello199";
+	char Str2[] = "hello200";
 	int Str1Len;
-	char *T = (char *)malloc(sizeof(Str1));
+	char *CpyStr = (char *)malloc(sizeof(Str1));
+	int CmpResult;
 
+	char *ConcatStr = (char *)malloc(sizeof(Str1) + sizeof(Str2) + 1);
+
+	char *SubStr = (char *)malloc(sizeof(Str1));
+	unsigned int Pos = 2;
+	unsigned int SubLen = 3;
+	
+/*
 	Str1Len = StringLen(Str1);
 	printf("Str1Len = 0x%x\n", Str1Len);
 
-	Status = StrCopy(T, Str1);
+	Status = StrCopy(CpyStr, Str1);
 	if (Status == SUCCESS) {
 		printf("StrCopy successful!\n");
 	}else {
 		printf("StrCopy failed!\n");
+	}	
+	printf("CpyStr = %s\n\n", CpyStr);
+
+	if (CpyStr != NULL) {
+		free(CpyStr);
+		CpyStr = NULL;
 	}
-	
-	printf("T = %s\n", T);
+
+	CmpResult = StrCopmare(Str1, Str2);
+	printf("CmpResult = %d\n", CmpResult);
+
+	Status = StrConcat(ConcatStr, Str1, Str2);
+	if (Status == SUCCESS) {
+		printf("StrConcat successful!\n");
+	}
+	else {
+		printf("StrConcat failed!\n");
+	}
+	printf("ConcatStr = %s\n", ConcatStr);	
+
+	if (ConcatStr != NULL) {
+		free(ConcatStr);
+		ConcatStr = NULL;
+	}
+*/
+
+	Status = SubString(SubStr, Str1, Pos, SubLen);
+	if (Status == SUCCESS) {
+		printf("SubString successful!\n");
+	}
+	else {
+		printf("SubString failed!\n");
+	}
+	printf("SubStr = %s\n", SubStr);
 }
 ```
 
@@ -222,3 +262,167 @@ EXIT:
 > StrCopmare end
 >
 > CmpResult = -1
+
+# 6  拼接两个字符串
+
+```c
+LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2)
+```
+
+​     把字符串Str2拼接到Str1后面，并存到NewStr里面。
+
+**代码：**
+
+```c
+LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2) {
+	char *TraNewStr = NewStr;
+	char *TraStr1 = Str1;
+	char *TraStr2 = Str2;
+	
+	printf("StrConcat start\n");
+	if (TraNewStr == NULL || Str1 == NULL || Str2 == NULL) {
+		return ERROR;
+	}
+
+	while (*TraStr1 != '\0') {
+		*TraNewStr = *TraStr1;
+
+		TraNewStr++;
+		TraStr1++;
+	}
+	
+	while (*TraStr2 != '\0') {
+		*TraNewStr = *TraStr2;
+
+		TraNewStr++;
+		TraStr2++;
+	}
+
+	*TraNewStr = '\0';
+	
+	printf("StrConcat end\n");
+	return SUCCESS;
+}
+```
+
+
+
+**结果：**
+
+> StringLen start
+>
+> StringLen end
+>
+> Str1Len = 0x8
+>
+> StrCopy start
+>
+> StrCopy end
+>
+> StrCopy successful!
+>
+> T = hello199
+>
+>  
+>
+> StringLen start
+>
+> StringLen end
+>
+> StringLen start
+>
+> StringLen end
+>
+> StrCopmare start
+>
+> Str1 = hello199
+>
+> Str2 = hello200
+>
+> StrCopmare end
+>
+> CmpResult = -1
+>
+> StrConcat start
+>
+> StrConcat end
+>
+> StrConcat successful!
+>
+> ConcatStr = hello199hello200
+
+
+
+# 7 截取字符串
+
+```c
+LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen)
+```
+
+​	用Sub返回串Str的第Pos个字符起长度为SubLen的字串
+
+入参应该满足条件如下:其中“StrLen(Str) – Pos + 1”中“+ 1”是要把Pos的字符也算进去
+
+1 <= Pos <= StrLen(Str1)
+
+0 <= SubLen <= StrLen(Str) – Pos + 1
+
+**代码：**
+
+```c
+LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen) {
+	char *TraSub = Sub;
+	char *TraStr = Str;
+	unsigned int Index = 0;
+
+	printf("SubString start\n");
+	if (NULL == Str || NULL == Sub) {
+		return ERROR;
+	}
+
+	if (Pos < 1 || Pos > StringLen(Str)) {
+		return ERROR;
+	}
+
+	if (SubLen > StringLen(Str) - Pos + 1) {
+		return ERROR;
+	}
+
+	/*TraStr move to Pos*/
+	for (Index = 0; Index < Pos; ++Index) {
+		TraStr++;
+	}
+
+	/*Copy Str into Sub, lenth is SubLen*/
+	for (Index = 0; Index < SubLen; ++Index) {
+		*TraSub = *TraStr;
+		TraStr++;
+		TraSub++;
+	}
+
+	*TraSub = '\0';
+	
+	printf("SubString end\n");
+	return SUCCESS;
+}
+```
+
+
+
+**结果：**
+
+> SubString start
+>
+> StringLen start
+>
+> StringLen end
+>
+> StringLen start
+>
+> StringLen end
+>
+> SubString end
+>
+> SubString successful!
+>
+> SubStr = llo
