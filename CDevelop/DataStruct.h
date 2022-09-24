@@ -10,6 +10,8 @@ typedef int ElemType;
 typedef int LIST_STATUS;
 typedef char ElemCharType;
 
+typedef unsigned int OP_STATUS;
+
 typedef struct SQ_LIST_ {
 	ElemType Data[MAXSIZE];
 	int Len;

@@ -2384,7 +2384,7 @@ int StringLen(const char * const Str) {
 	char *TraStr = Str;
 	int StrLen = 0;
 
-	printf("StringLen start\n");
+	//printf("StringLen start\n");
 	if (NULL == Str) {
 		return 0;	
 	}
@@ -2394,7 +2394,7 @@ int StringLen(const char * const Str) {
 		TraStr++;
 	}	
 
-	printf("StringLen end\n");	
+	/*printf("StringLen end\n");	*/
 	return StrLen;
 }
 
@@ -2460,6 +2460,7 @@ int StrCopmare(const char *Str1, const char *Str2) {
 	ret = 1;
 
 EXIT:
+	printf("ret = %d\n", ret);
 	printf("StrCopmare end\n");
 	return ret;
 }
@@ -2530,6 +2531,47 @@ LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const 
 	return SUCCESS;
 }
 
+unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int FindStrPos) {
+	unsigned int StrLenth = StringLen(Str);
+	unsigned int FindStrLenth = StringLen(FindStr);
+	char *Sub = NULL;
+	unsigned int Index = 0;
+	unsigned int FindStrIndex = 0;
+
+	OP_STATUS  Status = SUCCESS;
+
+	printf("FindStrIndex start\n");
+	if (Str == NULL || FindStr == NULL || FindStrPos == 0 || FindStrPos > StrLenth - FindStrLenth + 1) {
+		FindStrIndex = 0;
+		goto EXIT;
+	}
+
+	Sub = (char *)malloc(StringLen(Str) + 1);
+	if (Sub == NULL) {
+		FindStrIndex = 0;
+		goto EXIT;
+	}	
+
+	for (Index = FindStrPos; Index <= StrLenth - FindStrLenth + 1; ++Index) {
+		Status = SubString(Sub, Str, Index, FindStrLenth);
+		if (Status == SUCCESS) {
+			if (StrCopmare(FindStr, Sub) == 0) {
+				FindStrIndex = Index;
+				goto EXIT;
+			}
+		}
+	}
+
+EXIT:	
+	if (Sub != NULL) {
+		free(Sub);
+		Sub = NULL;
+	}
+	
+	printf("FindStrIndex end\n");
+	return FindStrIndex;
+}
+
 
 void OperateString(void) {
 	LIST_STATUS Status;
@@ -2545,6 +2587,10 @@ void OperateString(void) {
 	unsigned int Pos = 2;
 	unsigned int SubLen = 3;
 	
+	char FindStr[] = "lo";
+	unsigned int FindStrPos = 1;
+	unsigned int FindIndex;
+
 /*
 	Str1Len = StringLen(Str1);
 	printf("Str1Len = 0x%x\n", Str1Len);
@@ -2578,7 +2624,6 @@ void OperateString(void) {
 		free(ConcatStr);
 		ConcatStr = NULL;
 	}
-*/
 
 	Status = SubString(SubStr, Str1, Pos, SubLen);
 	if (Status == SUCCESS) {
@@ -2588,8 +2633,9 @@ void OperateString(void) {
 		printf("SubString failed!\n");
 	}
 	printf("SubStr = %s\n", SubStr);
+*/
+
+	FindIndex = FindStrIndex(Str1, FindStr, FindStrPos);
+
+	printf("FindIndex = %d\n", FindIndex);
 }
-
-
-
-
