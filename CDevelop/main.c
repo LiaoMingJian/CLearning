@@ -57,7 +57,12 @@ int main() {
 
 	//OperateLinkQueue();
 
-	OperateString();
+	//OperateString();
+
+	//testPrinta();
+
+	TestMoveBackStr();
+
 
 	system("pause");
 	return 0;

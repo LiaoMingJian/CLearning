@@ -12,4 +12,8 @@ void TestInsertElem02(void);
 void TestDeleteElem01(void);
 void TestDeleteElem02(void);
 
+
+/*String*/
+void TestMoveBackStr(void);
+
 #endif
