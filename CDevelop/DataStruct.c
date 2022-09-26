@@ -2575,9 +2575,79 @@ EXIT:
 	return FindStrIndex;
 }
 
+void MoveBackStr(char *Str, const unsigned int Pos, const unsigned int MvLen) {
+	char *TraStr = Str;
+	unsigned int Index = Pos;
+
+	unsigned int TraStrLen = StringLen(TraStr);
+
+	/*
+	Pos  = 1
+	MvLen  = 2
+		Pos
+	0	1	2	3	4	5		6	 
+	a	b	c	\0		
+	a			b	c	\0		
+	a	b	c			c		\0
+	*/
+	for (Index = TraStrLen + 1 + MvLen; Index >= Pos + MvLen; --Index) {
+		TraStr[Index] = TraStr[Index - MvLen];
+	}
+
+}
+
+
+void CopyStrWhithoutTail(char *Str, const unsigned int Pos, const char *CpyStr) {
+	char *TraStr = Str;
+	char *TraCpyStr = CpyStr;
+	unsigned int TraCpStrLen = StringLen(TraCpyStr);
+
+	unsigned int Index = 0;
+
+	for (Index = Pos; Index <= Pos + TraCpStrLen; ++Index) {
+		TraStr[Index] = TraCpyStr[Index];
+	}
+}
+
+
+
+OP_STATUS StrReplace(char *Str1, const char *FindStr, const char *StrRep) {
+	char *TraStr1 = Str1;
+	char *TraFindStr = FindStr;
+	char *TraStrRep = StrRep;
+
+	unsigned int TraStr1Len = StringLen(TraStr1);
+	unsigned int FindStrLen = StringLen(TraFindStr);
+	unsigned int TraStrRepLen = StringLen(TraStrRep);
+
+	unsigned int Index = 0;
+	unsigned int FindRetPos;
+
+
+	if (TraStr1 == NULL || TraFindStr == NULL || TraStrRep == NULL) {
+		return SUCCESS;
+	}
+
+	for (Index = 0; Index < TraStr1Len - FindStrLen; ++Index) {
+		/*Find TraStrRep*/
+		FindRetPos = FindStrIndex(TraStr1, TraFindStr, Index);
+
+		
+		printf("FindRetPos = %d\n", FindRetPos);
+		/*Replace with TraNewStrRep*/
+		/*Move back*/
+		MoveBackStr(TraStr1, FindRetPos, FindStrLen);
+
+		CopyStrWhithoutTail(TraStr1, FindRetPos, TraStrRep);
+
+ 
+	}
+	
+}
+
 
 void OperateString(void) {
-	LIST_STATUS Status;
+	OP_STATUS Status;
 	char Str1[] = "hello199";
 	char Str2[] = "hello200";
 	int Str1Len;
@@ -2594,6 +2664,10 @@ void OperateString(void) {
 	unsigned int FindStrPos = 1;
 	unsigned int FindIndex;
 
+	char Str3[] = "12341236612";
+	char StrRep[] = "hello";
+	char *NewStrRep = NULL;
+
 /*
 	Str1Len = StringLen(Str1);
 	printf("Str1Len = 0x%x\n", Str1Len);
@@ -2606,11 +2680,6 @@ void OperateString(void) {
 	}	
 	printf("CpyStr = %s\n\n", CpyStr);
 
-	if (CpyStr != NULL) {
-		free(CpyStr);
-		CpyStr = NULL;
-	}
-
 	CmpResult = StrCopmare(Str1, Str2);
 	printf("CmpResult = %d\n", CmpResult);
 
@@ -2622,11 +2691,6 @@ void OperateString(void) {
 		printf("StrConcat failed!\n");
 	}
 	printf("ConcatStr = %s\n", ConcatStr);	
-
-	if (ConcatStr != NULL) {
-		free(ConcatStr);
-		ConcatStr = NULL;
-	}
 
 	Status = SubString(SubStr, Str1, Pos, SubLen);
 	if (Status == SUCCESS) {
@@ -2641,5 +2705,43 @@ void OperateString(void) {
 
 	FindIndex = FindStrIndex(Str1, FindStr, FindStrPos);
 
-	printf("FindIndex = %d\n", FindIndex);
+	
+	NewStrRep = (char *)malloc(sizeof(Str3) + sizeof(StrRep) * sizeof(Str3));
+	if (NewStrRep == NULL) {
+		goto EXIT;
+	}
+
+	Status = StrReplace(Str3, StrRep, NewStrRep);
+	if (Status == SUCCESS) {
+		printf("StrReplace successful!\n");
+	}
+	else {
+		printf("StrReplace failed!\n");
+	}
+
+	printf("NewStrRep = %s\n", NewStrRep);
+	
+EXIT:
+	if (CpyStr != NULL) {
+		free(CpyStr);
+		CpyStr = NULL;
+	}
+
+	if (ConcatStr != NULL) {
+		free(ConcatStr);
+		ConcatStr = NULL;
+	}
+
+	if (NewStrRep != NULL) {
+		free(NewStrRep);
+		NewStrRep = NULL;
+	}
+
+}
+
+
+void testPrinta(void) {
+	printf("["__FILE__"][Line: %d][%s]: error happened!\n", __LINE__, __func__);
+	printf("%s\n", __func__);
+	printf("hello\n");
 }

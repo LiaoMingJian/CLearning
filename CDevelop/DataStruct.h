@@ -2,8 +2,8 @@
 #ifndef _DATA_STRUCT_H
 #define _DATA_STRUCT_H
 
-#define SUCCESS			1
-#define ERROR			0
+#define SUCCESS			0
+#define ERROR			1
 #define MAXSIZE			5
 
 typedef int ElemType;
@@ -180,5 +180,13 @@ void OperateLinkQueue(void);
 /*String*/
 void OperateString(void);
 
+
+int StrCopmare(const char *Str1, const char *Str2);
+
+OP_STATUS StrReplace(const char *Str3, const char *StrRep, char *NewStrRep); 
+
+void MoveBackStr(char *Str, const unsigned int Pos, const unsigned int MvLen);
+
+void testPrinta(void);
 
 #endif

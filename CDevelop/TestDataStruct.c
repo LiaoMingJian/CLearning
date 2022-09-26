@@ -6,27 +6,49 @@ static int TestNum = 0;
 static int PassNum = 0;
 static int FaildNum = 0;
 
-LIST_STATUS StatusTest(LIST_STATUS Status1, LIST_STATUS Status2) {
-	TestNum++;
-
-	printf("StatusTest:\n");
-
-	if (Status1 == Status2) {
-		printf("Test succeed!\n");
-		PassNum++;
-
-		return SUCCESS;
-	} else {
-		printf("Test faild!\n");
-		FaildNum++;
-
-		return ERROR;
-	}
-} 
+void InitNum(void) {
+	TestNum = 0;
+	PassNum = 0;
+	FaildNum = 0;
+}
 
 void TestResult(void) {
 	printf("Print test result;\n");
 	printf("TestNum = %d, PassNum = %d, FaildNum = %d\n", TestNum, PassNum, FaildNum);
+}
+
+LIST_STATUS StatusTest(LIST_STATUS Status1, LIST_STATUS Status2) {
+	TestNum++;
+
+	printf("StatusTest:\n");
+	if (Status1 == Status2) {
+		printf("Test succeed!\n");
+		PassNum++;
+		return SUCCESS;
+	} else {
+		printf("%s test faild!\n", __func__);
+		FaildNum++;
+		return ERROR;
+	}
+} 
+
+void StringCompareTest(const char *TestStr1, const char *NewStrRep) {
+	int Res;
+	char *TraTestStr1 = TestStr1;
+	char *TraNewStrRep = NewStrRep;
+
+	Res = StrCopmare(TraTestStr1, TraNewStrRep);
+	
+	if (Res == 0) {
+		printf("%s test succeed!\n", __func__);
+		PassNum++;
+		return SUCCESS;
+	}
+	else {
+		printf("%s test faild!\n", __func__);
+		FaildNum++;
+		return ERROR;
+	}
 }
 
 void TestArrCreatList(void) {
@@ -143,4 +165,77 @@ void TestDeleteElem02(void) {
 
 	printf("TestDeleteElem02 end!\n");
 	TestResult();
+}
+
+
+void TestStrReplace(void) {
+	OP_STATUS Status;
+	char *Str1 = NULL;
+	char Str1cpy[] = "12341236612";
+	char Str3[] = "123";
+	char StrRep[] = "hello";
+
+	char TestStr1[] = "hello4hello6612";
+
+	Str1 = (char *)malloc(100);
+	if (Str1 == NULL) {
+		goto EXIT;
+	}
+
+	Status = StrCopy(Str1, Str1cpy);
+	if (Status == SUCCESS) {
+		printf("StrCopy successful!\n");		
+	}
+	else {
+		printf("StrCopy failed!\n");
+		goto EXIT;
+	}
+
+	InitNum();
+
+	Status = StrReplace(Str1, Str3, StrRep);
+	
+	/*Test*/
+	StatusTest(SUCCESS, Status);
+	StringCompareTest(TestStr1, Str1);
+
+EXIT:
+	if (Str1 != NULL) {
+		free(Str1);
+		Str1 = NULL;
+	}
+
+	TestResult();
+}
+
+void TestMoveBackStr(void) {
+	char Str1[20] = "abc";
+	unsigned int Pos1 = 1;
+	unsigned int MvLen1 = 2;
+	char CpmStr1[] = "aeebc";
+
+	char Str2[10] = "abc";
+	unsigned int Pos2 = 2;
+	unsigned int MvLen2 = 3;
+	char CpmStr2[] = "abcbc";
+
+	unsigned int i = 0;
+	
+	char CpyStr[] = "ee";
+
+	MoveBackStr(Str1, Pos1, MvLen1);
+	//MoveBackStr(Str2, Pos2, MvLen2);
+
+	printf("Str1 = %s\n", Str1);
+
+	CopyStrWhithoutTail(Str1, Pos1, CpyStr);
+	printf("Str1 = %s\n", Str1);
+
+
+	InitNum();
+	StringCompareTest(Str1, CpmStr1);
+
+	//StringCompareTest(Str2, CpmStr2);
+	TestResult();
+
 }
