@@ -63,6 +63,7 @@ int main() {
 
 	TestMoveBackStr();
 
+	//TestStrReplace();
 
 	system("pause");
 	return 0;
