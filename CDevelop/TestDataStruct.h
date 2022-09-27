@@ -16,4 +16,6 @@ void TestDeleteElem02(void);
 /*String*/
 void TestMoveBackStr(void);
 
+void TestStrReplace(void);
+
 #endif
