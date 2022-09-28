@@ -61,9 +61,13 @@ int main() {
 
 	//testPrinta();
 
-	TestMoveBackStr();
+	//TestMoveBackStr();
 
 	//TestStrReplace();
+
+	TestFindStrIndex();
+
+	//TestSubString();
 
 	system("pause");
 	return 0;

@@ -180,8 +180,11 @@ void OperateLinkQueue(void);
 /*String*/
 void OperateString(void);
 
-
 int StrCopmare(const char *Str1, const char *Str2);
+
+LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen);
+
+unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int FindStrPos);
 
 OP_STATUS StrReplace(const char *Str3, const char *StrRep, char *NewStrRep); 
 
