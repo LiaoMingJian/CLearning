@@ -2498,7 +2498,7 @@ LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2) {
 LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen) {
 	char *TraSub = Sub;
 	char *TraStr = Str;
-	unsigned int Index = 0;
+	unsigned int Num = 0;
 
 	printf("SubString start\n");
 	if (NULL == Str || NULL == Sub) {
@@ -2514,12 +2514,12 @@ LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const 
 	}
 
 	/*TraStr move to Pos*/
-	for (Index = 0; Index < Pos; ++Index) {
+	for (Num = 0; Num < Pos - 1; ++Num) {
 		TraStr++;
 	}
 
 	/*Copy Str into Sub, lenth is SubLen*/
-	for (Index = 0; Index < SubLen; ++Index) {
+	for (Num = 0; Num < SubLen; ++Num) {
 		*TraSub = *TraStr;
 		TraStr++;
 		TraSub++;
@@ -2552,7 +2552,7 @@ unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int Fin
 		goto EXIT;
 	}	
 
-	for (Index = FindStrPos; Index <= StrLenth - FindStrLenth + 1; ++Index) {
+	for (Index = FindStrPos - 1; Index <= StrLenth - FindStrLenth + 1; ++Index) {
 		Status = SubString(Sub, Str, Index, FindStrLenth);
 		if (Status == SUCCESS) {
 			if (StrCopmare(FindStr, Sub) == 0) {
@@ -2568,6 +2568,7 @@ EXIT:
 		Sub = NULL;
 	}
 	
+	printf("FindStrIndex = %d\n", FindStrIndex);
 	printf("FindStrIndex end\n");
 	return FindStrIndex;
 }
@@ -2577,23 +2578,30 @@ void MoveBackStr(char *Str, const unsigned int Pos, const unsigned int MvLen) {
 	unsigned int Index = Pos;
 	unsigned int TraStrLen = StringLen(TraStr);
 
-	printf("MoveBackStr start\n");
+	/*int mvlen = replen - trastrlen;*/
+
+	printf("MoveBackStr start\n");	
 
 	/*
 	Pos  = 1
-	MvLen  = 2
+	bc = 2
+	RepLen = 3
+	MvLen  = 3 - 2
+	
 		Pos
 	0	1	2	3	4	5		6	 
 	a	b	c	\0		
-	a			b	c	\0		
+	a				\0
+
 	*/
+
 	if (MvLen > 0) {
 		for (Index = TraStrLen + 1 + MvLen; Index >= Pos + MvLen; --Index) {
 			TraStr[Index] = TraStr[Index - MvLen];
 		}	
 	} else if (MvLen < 0) {
 		/*TODO*/
-		for (Index = TraStrLen + 1 + MvLen; Index >= Pos + MvLen; --Index) {
+		for (Index = Pos; Index < MvLen; ++Index) {
 			TraStr[Index] = TraStr[Index - MvLen];
 		}
 	}
@@ -2637,7 +2645,7 @@ OP_STATUS StrReplace(char *Str1, const char *FindStr, const char *StrRep) {
 	unsigned int Index = 0;
 	unsigned int FindRetPos;
 
-	int MvLen = TraStrRep - TraFindStr;
+	/*int MvLen = TraStrRep - TraFindStr;*/
 
 	if (TraStr1 == NULL || TraFindStr == NULL || TraStrRep == NULL) {
 		return SUCCESS;
@@ -2650,7 +2658,7 @@ OP_STATUS StrReplace(char *Str1, const char *FindStr, const char *StrRep) {
 		printf("FindRetPos = %d\n", FindRetPos);
 		/*Replace with TraNewStrRep*/
 		/*Move back*/
-		MoveBackStr(TraStr1, FindRetPos, MvLen);
+		MoveBackStr(TraStr1, FindRetPos + FindStrLen, TraStrRepLen);
 
 		CopyStrWhithoutTail(TraStr1, FindRetPos, TraStrRep); 
 	}
