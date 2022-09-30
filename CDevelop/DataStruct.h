@@ -2,9 +2,10 @@
 #ifndef _DATA_STRUCT_H
 #define _DATA_STRUCT_H
 
-#define SUCCESS			0
-#define ERROR			1
-#define MAXSIZE			5
+#define SUCCESS					0
+#define ERROR					1
+#define INVALID_PARAMETER 		1
+#define MAXSIZE					5
 
 typedef int ElemType;
 typedef int LIST_STATUS;
@@ -186,9 +187,11 @@ LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const 
 
 unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int FindStrPos);
 
-OP_STATUS StrReplace(const char *Str3, const char *StrRep, char *NewStrRep); 
+OP_STATUS MoveBackStr(char *Str, const unsigned int Pos, const int MvLen);
 
-void MoveBackStr(char *Str, const unsigned int Pos, const unsigned int MvLen);
+OP_STATUS CopyStrWhithoutTail(char *Str, const unsigned int Pos, const char *CpyStr);
+
+OP_STATUS StrReplace(const char *Str3, const char *StrRep, char *NewStrRep);
 
 void testPrinta(void);
 

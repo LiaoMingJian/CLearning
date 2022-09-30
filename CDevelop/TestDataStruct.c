@@ -51,6 +51,21 @@ void StringCompareTest(const char *TestStr1, const char *NewStrRep) {
 	}
 }
 
+void ValueTest(const unsigned int Value01, const unsigned int Value02) {
+	if (Value01 == Value02) {
+		printf("%s test succeed!\n", __func__);
+		PassNum++;
+		return SUCCESS;
+	}
+	else {
+		printf("%s test faild!\n", __func__);
+		FaildNum++;
+		return ERROR;
+	}
+}
+
+
+
 void TestArrCreatList(void) {
 	printf("\nTestArrCreatList start!\n");
 	SQ_LIST L;
@@ -168,6 +183,150 @@ void TestDeleteElem02(void) {
 }
 
 
+
+/*Test String*/
+void TestSubString(void) {
+	char Str1[] = "abc";
+	unsigned int SubPos1_01 = 1;
+	unsigned int SubLen1_01 = 1;
+	char *Sub1_01 = NULL;
+	char Res1_01[] = "a";
+
+	unsigned int SubPos1_02 = 2;
+	unsigned int SubLen1_02 = 2;
+	char *Sub1_02 = NULL;
+	char Res1_02[] = "bc";
+
+	Sub1_01 = (char *)malloc(SubLen1_01 + 1);
+	if (Sub1_01 == NULL) {
+		goto EXIT;
+	}
+	Sub1_02 = (char *)malloc(SubLen1_02 + 1);
+	if (Sub1_02 == NULL) {
+		goto EXIT;
+	}
+
+	SubString(Sub1_01, Str1, SubPos1_01, SubLen1_01);
+	printf("Sub1_01 = %s\n\n", Sub1_01);
+
+	SubString(Sub1_02, Str1, SubPos1_02, SubLen1_02);
+	printf("Sub1_02 = %s\n\n", Sub1_02);
+
+	InitNum();
+	StringCompareTest(Res1_01, Sub1_01);
+	StringCompareTest(Res1_02, Sub1_02);
+	TestResult();
+
+EXIT:
+	if (Sub1_01 != NULL) {
+		free(Sub1_01);
+		Sub1_01 = NULL;
+	}
+
+	if (Sub1_02 != NULL) {
+		free(Sub1_02);
+		Sub1_02 = NULL;
+	}
+}
+
+void TestFindStrIndex(void) {
+	char Str1[] = "abc";
+	char FindStr1_01[] = "a";
+	unsigned int FindStrPos1_01 = 1;
+	unsigned int FindRes1_01;
+	unsigned int ComPos1_01 = 1;
+
+	char FindStr1_02[] = "bc";
+	unsigned int FindRes1_02;
+	unsigned int ComPos1_02 = 2;
+
+	FindRes1_01 = FindStrIndex(Str1, FindStr1_01, FindStrPos1_01);
+	printf("\n\n");
+	FindRes1_02 = FindStrIndex(Str1, FindStr1_02, FindStrPos1_01);
+
+	printf("\n\n");
+	InitNum();
+	ValueTest(ComPos1_01, FindRes1_01);
+	ValueTest(ComPos1_02, FindRes1_02);
+	TestResult();
+}
+
+//TODO
+void TestMoveBackStr(void) {
+	char Str1[20] = "abc";
+	unsigned int Pos1_01 = 1;
+	int MvLen1_01 = 2;
+	char CpmStr1_01[] = "ababc";
+
+	char Str2[20] = "abcdef";
+	unsigned int Pos2_01 = 2;
+	int MvLen2_01 = -2;
+	char CpmStr2_01[] = "adef";
+
+	MoveBackStr(Str1, Pos1_01, MvLen1_01);
+	printf("Str1 = %s\n", Str1);
+
+	MoveBackStr(Str2, Pos2_01, MvLen2_01);
+	printf("Str2 = %s\n", Str2);
+	
+	printf("\n\n");
+	InitNum();
+	StringCompareTest(CpmStr1_01, Str1);
+	StringCompareTest(CpmStr2_01, Str2);
+	TestResult();
+}
+
+void TestCopyStrWhithoutTail(void) {
+	char Str1[20] = "ababc";
+	unsigned int Pos1_01 = 1;
+	char RepStr1_01[] = "1234";
+	char CpmStr1_01[] = "1234c";
+
+	CopyStrWhithoutTail(Str1, Pos1_01, RepStr1_01);
+	
+	printf("Str1 = %s\n", Str1);
+	
+	InitNum();
+	StringCompareTest(CpmStr1_01, Str1);
+	TestResult();
+}
+
+void TestMoveBackStrAndCopyStrWhithoutTail(void) {
+	/*Test01*/
+	char Str1[20] = "abc";
+	unsigned int Pos1_01 = 1;
+	int MvLen1_01 = 2;
+	char RepStr1_01[] = "1234";
+	char CpmStr1_01[] = "1234c";
+	
+	/*Test02*/
+	char Str2[20] = "abcdef";
+	unsigned int Pos2_01= 2;
+	int MvLen2_01 = -2;
+	char RepStr2_01[] = "12";
+	char CpmStr2_01[] = "a12f";
+
+	/*Test01*/
+	MoveBackStr(Str1, Pos1_01, MvLen1_01);
+	printf("Str1 = %s\n", Str1);
+	CopyStrWhithoutTail(Str1, Pos1_01, RepStr1_01);
+	printf("Str1 = %s\n", Str1);
+
+	/*Test02*/
+	MoveBackStr(Str2, Pos2_01, MvLen2_01);
+	printf("Str2 = %s\n", Str2);
+	CopyStrWhithoutTail(Str2, Pos2_01, RepStr2_01);
+	printf("Str2 = %s\n", Str2);
+
+	/*Test Result*/
+	printf("\n\n");
+	InitNum();
+	StringCompareTest(CpmStr1_01, Str1);
+	StringCompareTest(CpmStr2_01, Str2);
+	TestResult();
+}
+
+//TODO
 void TestStrReplace(void) {
 	OP_STATUS Status;
 	char *Str1 = NULL;
@@ -195,13 +354,11 @@ void TestStrReplace(void) {
 		goto EXIT;
 	}
 
-	InitNum();
-
 	Status = StrReplace(Str1, Str3, StrRep);
 	
+	InitNum();
 	/*Test*/
 	//StatusTest(SUCCESS, Status);
-
 	StringCompareTest(TestStr1, Str1);
 
 EXIT:
@@ -213,35 +370,3 @@ EXIT:
 	TestResult();
 }
 
-void TestMoveBackStr(void) {
-	char Str1[20] = "abc";
-	unsigned int Pos1 = 1;
-	unsigned int MvLen1 = 2;
-	char CpyStr[] = "ee";
-	char CpmStr1_01[] = "abcbc";
-	char CpmStr1_02[] = "aeebc";
-	char CpmStr1_03[] = "aee";	
-
-	//char Str2[10] = "abc";
-	//unsigned int Pos2 = 2;
-	//unsigned int MvLen2 = 3;
-	//char CpmStr2[] = "abcbc";
-
-	unsigned int i = 0;
-	
-
-	//MoveBackStr(Str1, Pos1, MvLen1);
-
-	printf("Str1 = %s\n", Str1);
-
-	InitNum();
-	//StringCompareTest(Str1, CpmStr1_01);
-
-	CopyStrWhithoutTail(Str1, Pos1, CpyStr);
-	printf("Str1 = %s\n", Str1);
-
-	StringCompareTest(Str1, CpmStr1_03);
-
-	//StringCompareTest(Str2, CpmStr2);
-	TestResult();
-}
