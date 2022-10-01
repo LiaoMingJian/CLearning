@@ -2542,6 +2542,7 @@ unsigned int FindStrIndex(char *Str, const char *FindStr, const unsigned int Fin
 
 	printf("FindStrIndex start\n");
 	if (Str == NULL || FindStr == NULL || FindStrPos == 0 || FindStrPos > StrLenth - FindStrLenth + 1) {
+		printf("Invaild parameter!\n");
 		FindStrIndex = 0;
 		goto EXIT;
 	}
@@ -2626,9 +2627,8 @@ OP_STATUS MoveBackStr(char *Str, const unsigned int Pos, const int MvLen) {
 	}
 
 	printf("TraStr = %s\n", TraStr);
-	printf("MoveBackStr end\n");
-
 EXIT:
+	printf("MoveBackStr end\n");
 	return Status;
 }
 
@@ -2659,9 +2659,8 @@ OP_STATUS CopyStrWhithoutTail(char *Str, const unsigned int Pos, const char *Cpy
 	//}
 
 	printf("TraStr = %s\n", TraStr);
-	printf("CopyStrWhithoutTail end\n");
-
 EXIT:
+	printf("CopyStrWhithoutTail end\n");
 	return Status;
 }
 
@@ -2675,28 +2674,75 @@ OP_STATUS StrReplace(char *Str1, const char *FindStr, const char *StrRep) {
 	unsigned int FindStrLen = StringLen(TraFindStr);
 	unsigned int TraStrRepLen = StringLen(TraStrRep);
 
-	unsigned int Index = 0;
-	unsigned int FindRetPos;
+	unsigned int Pos;
+	unsigned int FindPosRet = 0;
 
-	int MvLen = TraStrRep - TraFindStr;
+	int MvLen = TraStrRepLen - FindStrLen;
+	printf("MvLen = %d\n", MvLen);
 
 	if (TraStr1 == NULL || TraFindStr == NULL || TraStrRep == NULL) {
+		printf("Invaild parameter!\n");
 		Status =  INVALID_PARAMETER;
 		goto EXIT;
 	}
 
-	for (Index = 0; Index < TraStr1Len - FindStrLen; ++Index) {
+	//for (Pos = 1; Pos <= TraStr1Len - FindStrLen; Pos += TraStrRepLen) {
+	//	
+	//	/*Find TraStrRep*/
+	//	FindPosRet = FindStrIndex(TraStr1, TraFindStr, Pos);
+	//	printf("FindRetPos = %d\n", FindPosRet);
+	//	if (FindPosRet == 0) {
+	//		break;
+	//	}
+
+	//	/*Replace with TraNewStrRep*/
+	//	/*Move back*/
+	//	Status = MoveBackStr(TraStr1, FindPosRet, MvLen);
+	//	if (Status != SUCCESS ) {
+	//		printf("Invaild parameter!\n");
+	//		goto EXIT;
+	//	}
+
+	//	printf("TraStr1 = %s\n", TraStr1);
+	//	/*CopyStrWhithoutTail*/
+	//	Status = CopyStrWhithoutTail(TraStr1, FindPosRet, TraStrRep);
+	//	if (Status != SUCCESS) {
+	//		printf("Invaild parameter!\n");
+	//		goto EXIT;
+	//	}
+	//	printf("TraStr1 = %s\n", TraStr1);
+	//}
+	
+	Pos = 1;
+	do {
+		printf("Pos = %d\n", Pos);
 		/*Find TraStrRep*/
-		FindRetPos = FindStrIndex(TraStr1, TraFindStr, Index);		
-		printf("FindRetPos = %d\n", FindRetPos);
+		FindPosRet = FindStrIndex(TraStr1, TraFindStr, Pos);
+		printf("FindRetPos = %d\n", FindPosRet);
+		if (FindPosRet == 0) {
+			break;
+		}
+
 		/*Replace with TraNewStrRep*/
 		/*Move back*/
-		MoveBackStr(TraStr1, FindRetPos, MvLen);
+		Status = MoveBackStr(TraStr1, FindPosRet, MvLen);
+		if (Status != SUCCESS) {
+			printf("Invaild parameter!\n");
+			goto EXIT;
+		}
+
+		printf("TraStr1 = %s\n", TraStr1);
+		/*CopyStrWhithoutTail*/
+		Status = CopyStrWhithoutTail(TraStr1, FindPosRet, TraStrRep);
+		if (Status != SUCCESS) {
+			printf("Invaild parameter!\n");
+			goto EXIT;
+		}
 		printf("TraStr1 = %s\n", TraStr1);
 
-		CopyStrWhithoutTail(TraStr1, FindRetPos, TraStrRep); 
-		printf("TraStr1 = %s\n", TraStr1);
-	}
+		Pos += TraStrRepLen;
+	} while (FindPosRet != 0);
+
 
 EXIT:
 	return Status;

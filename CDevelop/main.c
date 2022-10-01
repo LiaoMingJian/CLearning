@@ -71,6 +71,8 @@ int main() {
 
 	//TestMoveBackStrAndCopyStrWhithoutTail();
 
+	//TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail();
+
 	TestStrReplace();
 
 	system("pause");
