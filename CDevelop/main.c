@@ -63,7 +63,7 @@ int main() {
 
 	//TestFindStrIndex();
 
-	//TestSubString();
+	TestSubString();
 
 	//TestMoveBackStr();
 
@@ -73,7 +73,7 @@ int main() {
 
 	//TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail();
 
-	TestStrReplace();
+	//TestStrReplace();
 
 	system("pause");
 	return 0;
