@@ -33,6 +33,7 @@ LIST_STATUS StatusTest(LIST_STATUS Status1, LIST_STATUS Status2) {
 } 
 
 void StringCompareTest(const char *TestStr1, const char *NewStrRep) {
+	TestNum++;
 	int Res;
 	char *TraTestStr1 = TestStr1;
 	char *TraNewStrRep = NewStrRep;
@@ -52,6 +53,7 @@ void StringCompareTest(const char *TestStr1, const char *NewStrRep) {
 }
 
 void ValueTest(const unsigned int Value01, const unsigned int Value02) {
+	TestNum++;
 	if (Value01 == Value02) {
 		printf("%s test succeed!\n", __func__);
 		PassNum++;
@@ -211,7 +213,7 @@ void TestSubString(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	SubString(Sub01, Str01, SubPos01, SubLen01);
 	printf("Sub01 = %s\n", Sub01);
 	StringCompareTest(Res01, Sub01);
@@ -256,7 +258,7 @@ void TestFindStrIndex(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	FindRes01 = FindStrIndex(Str01, FindStr01, FindStrPos01);
 	ValueTest(ComPos01, FindStrPos01);
 
@@ -286,7 +288,7 @@ void TestMoveBackStr(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	MoveBackStr(Str01, Pos01, MvLen01);
 	printf("Str01 = %s\n", Str01);
 	StringCompareTest(CpmStr01, Str01);
@@ -310,7 +312,7 @@ void TestCopyStrWhithoutTail(void) {
 
 	printf("-------Test start----------\n");
 	InitNum();
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	CopyStrWhithoutTail(Str01, Pos01, RepStr01);	
 	printf("Str01 = %s\n", Str01);
 	StringCompareTest(CpmStr01, Str01);
@@ -359,7 +361,7 @@ void TestMoveBackStrAndCopyStrWhithoutTail(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	MoveBackStr(Str01, Pos01, MvLen01);
 	printf("Str01 = %s\n", Str01);
 	CopyStrWhithoutTail(Str01, Pos01, RepStr01);
@@ -462,7 +464,7 @@ void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	RetPos01 = FindStrIndex(Str01, FindStr01, Pos01);
 	printf("RetPos01 = %d\n", RetPos01);
 	MoveBackStr(Str01, RetPos01, MvLen01);
@@ -586,7 +588,7 @@ void TestStrReplace(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("\n-------Test 01----------\n");
+	printf("-------Test 01----------\n");
 	StrReplace(Str01, FindStr01, RepStr01);
 	printf("Str01 = %s\n", Str01);
 	StringCompareTest(CmpStr01, Str01);

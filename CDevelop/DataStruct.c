@@ -2495,7 +2495,7 @@ LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2) {
 	return SUCCESS;
 }
 
-LIST_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen) {
+OP_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen) {
 	char *TraSub = Sub;
 	char *TraStr = Str;
 	unsigned int Num = 0;
