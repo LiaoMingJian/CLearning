@@ -25,4 +25,6 @@ void TestCopyStrWhithoutTail(void);
 void TestMoveBackStrAndCopyStrWhithoutTail(void);
 
 void TestStrReplace(void);
+
+void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void);
 #endif
