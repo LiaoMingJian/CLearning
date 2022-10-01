@@ -498,13 +498,7 @@ void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void) {
 }
 
 
-
-//TODO
 void TestStrReplace(void) {
-	//char Str1cpy[] = "12341236612";
-	//char Str3[] = "123";
-	//char StrRep[] = "hello";
-	//char TestStr1[] = "hello4hello6612";
 	OP_STATUS Status;
 	/*Test01*/
 	char Str01[30] = "abcdef";
@@ -542,12 +536,23 @@ void TestStrReplace(void) {
 	char RepStr06[] = "12";
 	char CmpStr06[] = "ab12";
 
-	///*Test07*/
-	//char str07[30] = "abcdefbc";
-	//char findstr07[] = "bc";
-	//char repstr07[] = "12";
-	//char cmpstr07[] = "a12def12";
+	/*Test07*/
+	char Str07[30] = "abcbcfbc";
+	char FindStr07[] = "bc";
+	char RepStr07[] = "12";
+	char CmpStr07[] = "a1212f12";
 
+	/*Test08*/
+	char Str08[30] = "abcbcfbc";
+	char FindStr08[] = "bc";
+	char RepStr08[] = "1234";
+	char CmpStr08[] = "a12341234f1234";
+
+	/*Test09*/
+	char Str09[30] = "abcbcfbc";
+	char FindStr09[] = "bc";
+	char RepStr09[] = "1";
+	char CmpStr09[] = "a11f1";
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -587,9 +592,23 @@ void TestStrReplace(void) {
 	printf("Str06 = %s\n", Str06);
 	StringCompareTest(CmpStr06, Str06);
 
+	/*Test07*/
+	printf("\n-------Test 07----------\n");
+	StrReplace(Str07, FindStr07, RepStr07);
+	printf("Str07 = %s\n", Str07);
+	StringCompareTest(CmpStr07, Str07);
 
+	/*Test08*/
+	printf("\n-------Test 08----------\n");
+	StrReplace(Str08, FindStr08, RepStr08);
+	printf("Str08 = %s\n", Str08);
+	StringCompareTest(CmpStr08, Str08);
 
-
+	/*Test09*/
+	printf("\n-------Test 09----------\n");
+	StrReplace(Str09, FindStr09, RepStr09);
+	printf("Str09 = %s\n", Str09);
+	StringCompareTest(CmpStr09, Str09);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
