@@ -2685,33 +2685,6 @@ OP_STATUS StrReplace(char *Str1, const char *FindStr, const char *StrRep) {
 		Status =  INVALID_PARAMETER;
 		goto EXIT;
 	}
-
-	//for (Pos = 1; Pos <= TraStr1Len - FindStrLen; Pos += TraStrRepLen) {
-	//	
-	//	/*Find TraStrRep*/
-	//	FindPosRet = FindStrIndex(TraStr1, TraFindStr, Pos);
-	//	printf("FindRetPos = %d\n", FindPosRet);
-	//	if (FindPosRet == 0) {
-	//		break;
-	//	}
-
-	//	/*Replace with TraNewStrRep*/
-	//	/*Move back*/
-	//	Status = MoveBackStr(TraStr1, FindPosRet, MvLen);
-	//	if (Status != SUCCESS ) {
-	//		printf("Invaild parameter!\n");
-	//		goto EXIT;
-	//	}
-
-	//	printf("TraStr1 = %s\n", TraStr1);
-	//	/*CopyStrWhithoutTail*/
-	//	Status = CopyStrWhithoutTail(TraStr1, FindPosRet, TraStrRep);
-	//	if (Status != SUCCESS) {
-	//		printf("Invaild parameter!\n");
-	//		goto EXIT;
-	//	}
-	//	printf("TraStr1 = %s\n", TraStr1);
-	//}
 	
 	Pos = 1;
 	do {
@@ -2740,7 +2713,7 @@ OP_STATUS StrReplace(char *Str1, const char *FindStr, const char *StrRep) {
 		}
 		printf("TraStr1 = %s\n", TraStr1);
 
-		Pos += TraStrRepLen;
+		Pos = FindPosRet + TraStrRepLen;
 	} while (FindPosRet != 0);
 
 
