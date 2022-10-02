@@ -2435,11 +2435,9 @@ int StrCopmare(const char *Str1, const char *Str2) {
 		if (*TraStr1 == *TraStr2) {
 			TraStr1++;
 			TraStr2++;
-		}
-		else {
+		} else {
 			break;
 		}
-
 	}
 
 	if (*TraStr1 == '\0' && *TraStr2 == '\0' && Str1Len == Str2Len) {
@@ -2463,7 +2461,6 @@ EXIT:
 	printf("ret = %d\n", ret);
 	printf("StrCopmare end\n");
 	return ret;
-
 }
 
 LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2) {
