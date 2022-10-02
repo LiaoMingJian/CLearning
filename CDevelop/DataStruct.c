@@ -2817,7 +2817,6 @@ EXIT:
 	return Status;
 }
 
-
 OP_STATUS StrInsert(char *Str, const unsigned int InSertPos, const char *InsertStr) {
 	OP_STATUS Status = SUCCESS;
 	char *TraStr = Str;
