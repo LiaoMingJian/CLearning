@@ -690,3 +690,48 @@ void TestStrInsert(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+void TestStrNormalFindIndex(void) {
+	/*Test01*/
+	char Str01[20] = "abcdef";
+	char FindStr01[] = "bc";
+	unsigned int RetPos01;
+	unsigned int CmpFindPos01 = 2;
+
+	/*Test02*/
+	char Str02[20] = "abcdef";
+	char FindStr02[] = "ef";
+	unsigned int RetPos02;
+	unsigned int CmpFindPos02 = 5;
+
+	/*Test03*/
+	char Str03[20] = "abcdef";
+	char FindStr03[] = "ee";
+	unsigned int RetPos03;
+	unsigned int CmpFindPos03 = 0;
+
+	printf("-------Test start----------\n");
+	InitNum();
+	/*Test01*/
+	printf("-------Test 01----------\n");
+	RetPos01 = StrNormalFindIndex(Str01, FindStr01);
+	printf("RetPos01 = %d\n", RetPos01);
+	ValueTest(CmpFindPos01, RetPos01);
+	
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	RetPos02 = StrNormalFindIndex(Str02, FindStr02);
+	printf("RetPos02 = %d\n", RetPos02);
+	ValueTest(CmpFindPos02, RetPos02);
+	
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	RetPos03 = StrNormalFindIndex(Str03, FindStr03);
+	printf("RetPos03 = %d\n", RetPos03);
+	ValueTest(CmpFindPos03, RetPos03);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}

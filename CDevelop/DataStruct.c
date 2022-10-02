@@ -2846,3 +2846,43 @@ EXIT:
 	printf("StrInsert end\n");
 	return Status;
 }
+
+unsigned int StrNormalFindIndex(char *Str, char *FindStr) {
+	unsigned int RetPos = 0;	
+	char *TraStr = Str;
+	char *TraFindStr = FindStr;
+
+	unsigned int TraStrLen = StringLen(TraStr);
+	unsigned int TraFindStrLen = StringLen(TraFindStr);
+
+	unsigned int StrIndexOut = 0;
+	unsigned int StrIndexIn = 0;
+	unsigned int FindStrIndex = 0;	
+
+	printf("StrNormalFindIndex start\n");
+	if (TraStr == NULL || TraFindStr == NULL || TraStrLen < TraFindStrLen) {
+		goto EXIT;
+	}
+
+	for (StrIndexOut = 0; StrIndexOut <= TraStrLen - TraFindStrLen; ++StrIndexOut) {
+		for (StrIndexIn = StrIndexOut; StrIndexIn < StrIndexOut + TraFindStrLen; ++StrIndexIn) {
+			if (TraStr[StrIndexIn] == TraFindStr[FindStrIndex]) {
+				++FindStrIndex;
+			} else {
+				FindStrIndex = 0;
+				break;
+			}
+		}
+	
+		if (StrIndexIn == StrIndexOut + TraFindStrLen) {
+			printf("Find Success!\n");			
+			RetPos = StrIndexOut + 1;
+			break;
+		}
+	}
+
+EXIT:
+	printf("RetPos = %d\n", RetPos);
+	printf("StrNormalFindIndex end\n");	
+	return RetPos;
+}

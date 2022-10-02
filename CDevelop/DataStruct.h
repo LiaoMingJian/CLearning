@@ -197,4 +197,5 @@ void testPrinta(void);
 
 OP_STATUS StrInsert(char *Str1, const unsigned int FindStr, const char *InsertStr);
 
+OP_STATUS StrNormalFindIndex(char *Str, char *FindStr);
 #endif
