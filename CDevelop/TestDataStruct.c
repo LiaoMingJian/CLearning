@@ -646,3 +646,47 @@ void TestStrReplace(void) {
 	TestResult();
 }
 
+
+void TestStrInsert(void) {
+	/*Test01*/
+	char Str01[30] = "abcdef";
+	unsigned int InSertPos01 = 2;
+	char InsertStr01[] = "123";
+	char CmpSetr01[] = "a123bcdef";
+
+	/*Test02*/
+	char Str02[30] = "abcdef";
+	unsigned int InSertPos02 = 6;
+	char InsertStr02[] = "123";
+	char CmpSetr02[] = "abcde123f";
+
+	/*Test03*/
+	char Str03[30] = "abcdef";
+	unsigned int InSertPos03 = 7;
+	char InsertStr03[] = "123";
+	char CmpSetr03[] = "abcdef123";
+
+	printf("-------Test start----------\n");
+	InitNum();
+	/*Test01*/
+	printf("-------Test 01----------\n");
+	StrInsert(Str01, InSertPos01, InsertStr01);
+	printf("Str01 = %s\n", Str01);
+	StringCompareTest(CmpSetr01, Str01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	StrInsert(Str02, InSertPos02, InsertStr02);
+	printf("Str02 = %s\n", Str02);
+	StringCompareTest(CmpSetr02, Str02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	StrInsert(Str03, InSertPos03, InsertStr03);
+	printf("Str03 = %s\n", Str03);
+	StringCompareTest(CmpSetr03, Str03);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}

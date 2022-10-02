@@ -106,6 +106,7 @@ void StringCompareTest(const char *TestStr1, const char *NewStrRep) {
 	char *TraTestStr1 = TestStr1;
 	char *TraNewStrRep = NewStrRep;
 
+    TestNum++;
 	Res = StrCopmare(TraTestStr1, TraNewStrRep);
 	
 	if (Res == 0) {
@@ -125,7 +126,8 @@ void StringCompareTest(const char *TestStr1, const char *NewStrRep) {
 
 ```c
 void ValueTest(const unsigned int Value01, const unsigned int Value02) {
-	if (Value01 == Value02) {
+	TestNum++;
+    if (Value01 == Value02) {
 		printf("%s test succeed!\n", __func__);
 		PassNum++;
 		return SUCCESS;
