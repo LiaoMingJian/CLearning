@@ -247,24 +247,46 @@ EXIT:
 
 ```c
 void TestFindStrIndex(void) {
-	char Str1[] = "abc";
-	char FindStr1_01[] = "a";
-	unsigned int FindStrPos1_01 = 1;
-	unsigned int FindRes1_01;
-	unsigned int ComPos1_01 = 1;
+	/*Test01*/
+	char Str01[] = "abcdef";
+	char FindStr01[] = "bc";
+	unsigned int FindStrPos01 = 1;
+	unsigned int FindRes01;
+	unsigned int ComPos01 = 2;
 
-	char FindStr1_02[] = "bc";
-	unsigned int FindRes1_02;
-	unsigned int ComPos1_02 = 2;
+	/*Test02*/
+	char Str02[] = "abcdef";
+	char FindStr02[] = "ef";
+	unsigned int FindStrPos02 = 2;
+	unsigned int FindRes02;
+	unsigned int ComPos02 = 5;
 
-	FindRes1_01 = FindStrIndex(Str1, FindStr1_01, FindStrPos1_01);
-	printf("\n\n");
-	FindRes1_02 = FindStrIndex(Str1, FindStr1_02, FindStrPos1_01);
+	/*Test03*/
+	char Str03[] = "abcdef";
+	char FindStr03[] = "ee";
+	unsigned int FindStrPos03 = 1;
+	unsigned int FindRes03;
+	unsigned int ComPos03 = 0;
 
-	printf("\n\n");
+	printf("-------Test start----------\n");
 	InitNum();
-	ValueTest(ComPos1_01, FindRes1_01);
-	ValueTest(ComPos1_02, FindRes1_02);
+	/*Test01*/
+	printf("-------Test 01----------\n");
+	FindRes01 = FindStrIndex(Str01, FindStr01, FindStrPos01);
+	ValueTest(ComPos01, FindRes01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	FindRes02 = FindStrIndex(Str02, FindStr02, FindStrPos02);
+	ValueTest(ComPos02, FindRes02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	FindRes03 = FindStrIndex(Str03, FindStr03, FindStrPos03);
+	ValueTest(ComPos03, FindRes03);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
 	TestResult();
 }
 ```
@@ -274,82 +296,113 @@ void TestFindStrIndex(void) {
 **结果：**
 
 > -------Test start----------
->
 > -------Test 01----------
->
 > FindStrIndex start
->
 > SubString start
->
 > SubString start
->
 > SubString end
->
 > StrCopmare start
->
-> Str1 = a
->
-> Str2 = a
->
-> ret = 0
->
+> Str1 = bc
+> Str2 = ab
+> ret = 1
 > StrCopmare end
->
-> FindStrIndex = 1
->
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = bc
+> Str2 = bc
+> ret = 0
+> StrCopmare end
+> FindStrIndex = 2
 > FindStrIndex end
->
 > ValueTest test succeed!
->
->  
 >
 > -------Test 02----------
->
 > FindStrIndex start
->
 > SubString start
->
-> SubString start
->
 > SubString end
->
 > StrCopmare start
->
-> Str1 = bc
->
+> Str1 = ef
 > Str2 = ab
->
 > ret = 1
->
 > StrCopmare end
->
 > SubString start
->
 > SubString end
->
 > StrCopmare start
->
-> Str1 = bc
->
+> Str1 = ef
 > Str2 = bc
->
-> ret = 0
->
+> ret = 1
 > StrCopmare end
->
-> FindStrIndex = 2
->
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ef
+> Str2 = cd
+> ret = 1
+> StrCopmare end
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ef
+> Str2 = de
+> ret = 1
+> StrCopmare end
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ef
+> Str2 = ef
+> ret = 0
+> StrCopmare end
+> FindStrIndex = 5
 > FindStrIndex end
->
 > ValueTest test succeed!
 >
->  
+> -------Test 03----------
+> FindStrIndex start
+> SubString start
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ee
+> Str2 = ab
+> ret = 1
+> StrCopmare end
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ee
+> Str2 = bc
+> ret = 1
+> StrCopmare end
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ee
+> Str2 = cd
+> ret = 1
+> StrCopmare end
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ee
+> Str2 = de
+> ret = 1
+> StrCopmare end
+> SubString start
+> SubString end
+> StrCopmare start
+> Str1 = ee
+> Str2 = ef
+> ret = -1
+> StrCopmare end
+> FindStrIndex = 0
+> FindStrIndex end
+> ValueTest test succeed!
 >
 > -------Test result----------
->
 > Print test result;
->
-> TestNum = 2, PassNum = 2, FaildNum = 0
+> TestNum = 3, PassNum = 3, FaildNum = 0
 
 # 3 替换字符串
 
