@@ -29,4 +29,6 @@ void TestStrReplace(void);
 void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void);
 
 void TestStrInsert(void);
+
+void TestStrNormalFindIndex(void);
 #endif

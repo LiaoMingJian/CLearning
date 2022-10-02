@@ -61,7 +61,7 @@ int main() {
 
 	//testPrinta();
 
-	//TestFindStrIndex();
+	TestFindStrIndex();
 
 	//TestSubString();
 
@@ -75,7 +75,9 @@ int main() {
 
 	//TestStrReplace();
 
-	TestStrInsert();
+	//TestStrInsert();
+
+	//TestStrNormalFindIndex();
 
 	system("pause");
 	return 0;
