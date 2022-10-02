@@ -195,4 +195,6 @@ OP_STATUS StrReplace(const char *Str3, const char *StrRep, char *NewStrRep);
 
 void testPrinta(void);
 
+OP_STATUS StrInsert(char *Str1, const unsigned int FindStr, const char *InsertStr);
+
 #endif

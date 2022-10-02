@@ -2377,8 +2377,6 @@ void OperateLinkQueue(void) {
 }
 
 
-
-
 /*String*/
 int StringLen(const char * const Str) {
 	char *TraStr = Str;
@@ -2493,6 +2491,104 @@ LIST_STATUS StrConcat(char *NewStr, const char *Str1, const char *Str2) {
 	
 	printf("StrConcat end\n");
 	return SUCCESS;
+}
+
+void OperateString(void) {
+	OP_STATUS Status;
+	char Str1[] = "hello199";
+	char Str2[] = "hello200";
+	int Str1Len;
+	char *CpyStr = (char *)malloc(sizeof(Str1));
+	int CmpResult;
+
+	char *ConcatStr = (char *)malloc(sizeof(Str1) + sizeof(Str2) + 1);
+
+	char *SubStr = (char *)malloc(sizeof(Str1));
+	unsigned int Pos = 2;
+	unsigned int SubLen = 3;
+
+	char FindStr[] = "lo";
+	unsigned int FindStrPos = 1;
+	unsigned int FindIndex;
+
+	char Str3[] = "12341236612";
+	char StrRep[] = "hello";
+	char *NewStrRep = NULL;
+
+	/*
+		Str1Len = StringLen(Str1);
+		printf("Str1Len = 0x%x\n", Str1Len);
+
+		Status = StrCopy(CpyStr, Str1);
+		if (Status == SUCCESS) {
+			printf("StrCopy successful!\n");
+		}else {
+			printf("StrCopy failed!\n");
+		}
+		printf("CpyStr = %s\n\n", CpyStr);
+
+		CmpResult = StrCopmare(Str1, Str2);
+		printf("CmpResult = %d\n", CmpResult);
+
+		Status = StrConcat(ConcatStr, Str1, Str2);
+		if (Status == SUCCESS) {
+			printf("StrConcat successful!\n");
+		}
+		else {
+			printf("StrConcat failed!\n");
+		}
+		printf("ConcatStr = %s\n", ConcatStr);
+
+		Status = SubString(SubStr, Str1, Pos, SubLen);
+		if (Status == SUCCESS) {
+			printf("SubString successful!\n");
+		}
+		else {
+			printf("SubString failed!\n");
+		}
+		printf("SubStr = %s\n", SubStr);
+
+
+		FindIndex = FindStrIndex(Str1, FindStr, FindStrPos);
+	*/
+
+	NewStrRep = (char *)malloc(sizeof(Str3) + sizeof(StrRep) * sizeof(Str3));
+	if (NewStrRep == NULL) {
+		goto EXIT;
+	}
+
+	Status = StrReplace(Str3, StrRep, NewStrRep);
+	if (Status == SUCCESS) {
+		printf("StrReplace successful!\n");
+	}
+	else {
+		printf("StrReplace failed!\n");
+	}
+
+	printf("NewStrRep = %s\n", NewStrRep);
+
+EXIT:
+	if (CpyStr != NULL) {
+		free(CpyStr);
+		CpyStr = NULL;
+	}
+
+	if (ConcatStr != NULL) {
+		free(ConcatStr);
+		ConcatStr = NULL;
+	}
+
+	if (NewStrRep != NULL) {
+		free(NewStrRep);
+		NewStrRep = NULL;
+	}
+
+}
+
+void testPrinta(void) {
+	printf("["__FILE__"][Line: %d][%s]: error happened!\n", __LINE__, __func__);
+	printf("%s\n", __func__);
+	printf("hello\n");
 }
 
 OP_STATUS SubString(char *Sub, const char *Str, const unsigned int Pos, const unsigned int SubLen) {
@@ -2722,101 +2818,32 @@ EXIT:
 }
 
 
-void OperateString(void) {
-	OP_STATUS Status;
-	char Str1[] = "hello199";
-	char Str2[] = "hello200";
-	int Str1Len;
-	char *CpyStr = (char *)malloc(sizeof(Str1));
-	int CmpResult;
+OP_STATUS StrInsert(char *Str, const unsigned int InSertPos, const char *InsertStr) {
+	OP_STATUS Status = SUCCESS;
+	char *TraStr = Str;
+	unsigned int TraInSertPos = InSertPos;
+	char *TraInserStr = InsertStr;
+	unsigned int TraInsertLen = StringLen(TraInserStr);
 
-	char *ConcatStr = (char *)malloc(sizeof(Str1) + sizeof(Str2) + 1);
+	printf("StrInsert start\n");
 
-	char *SubStr = (char *)malloc(sizeof(Str1));
-	unsigned int Pos = 2;
-	unsigned int SubLen = 3;
-	
-	char FindStr[] = "lo";
-	unsigned int FindStrPos = 1;
-	unsigned int FindIndex;
-
-	char Str3[] = "12341236612";
-	char StrRep[] = "hello";
-	char *NewStrRep = NULL;
-
-/*
-	Str1Len = StringLen(Str1);
-	printf("Str1Len = 0x%x\n", Str1Len);
-
-	Status = StrCopy(CpyStr, Str1);
-	if (Status == SUCCESS) {
-		printf("StrCopy successful!\n");
-	}else {
-		printf("StrCopy failed!\n");
-	}	
-	printf("CpyStr = %s\n\n", CpyStr);
-
-	CmpResult = StrCopmare(Str1, Str2);
-	printf("CmpResult = %d\n", CmpResult);
-
-	Status = StrConcat(ConcatStr, Str1, Str2);
-	if (Status == SUCCESS) {
-		printf("StrConcat successful!\n");
-	}
-	else {
-		printf("StrConcat failed!\n");
-	}
-	printf("ConcatStr = %s\n", ConcatStr);	
-
-	Status = SubString(SubStr, Str1, Pos, SubLen);
-	if (Status == SUCCESS) {
-		printf("SubString successful!\n");
-	}
-	else {
-		printf("SubString failed!\n");
-	}
-	printf("SubStr = %s\n", SubStr);
-
-
-	FindIndex = FindStrIndex(Str1, FindStr, FindStrPos);
-*/
-	
-	NewStrRep = (char *)malloc(sizeof(Str3) + sizeof(StrRep) * sizeof(Str3));
-	if (NewStrRep == NULL) {
+	if (TraStr == NULL || TraInSertPos > StringLen(TraStr) + 1 || InsertStr == NULL) {
+		Status = INVALID_PARAMETER;
 		goto EXIT;
 	}
 
-	Status = StrReplace(Str3, StrRep, NewStrRep);
-	if (Status == SUCCESS) {
-		printf("StrReplace successful!\n");
-	}
-	else {
-		printf("StrReplace failed!\n");
+	printf("TraInsertLen = %d\n", TraInsertLen);
+
+	Status = MoveBackStr(TraStr, TraInSertPos, TraInsertLen);
+	printf("TraStr = %s\n", TraStr);
+	if (Status != SUCCESS) {
+		goto EXIT;
 	}
 
-	printf("NewStrRep = %s\n", NewStrRep);
-	
+	Status = CopyStrWhithoutTail(TraStr, TraInSertPos, TraInserStr);
+	printf("TraStr = %s\n", TraStr);
+
 EXIT:
-	if (CpyStr != NULL) {
-		free(CpyStr);
-		CpyStr = NULL;
-	}
-
-	if (ConcatStr != NULL) {
-		free(ConcatStr);
-		ConcatStr = NULL;
-	}
-
-	if (NewStrRep != NULL) {
-		free(NewStrRep);
-		NewStrRep = NULL;
-	}
-
-}
-
-
-void testPrinta(void) {
-	printf("["__FILE__"][Line: %d][%s]: error happened!\n", __LINE__, __func__);
-	printf("%s\n", __func__);
-	printf("hello\n");
+	printf("StrInsert end\n");
+	return Status;
 }

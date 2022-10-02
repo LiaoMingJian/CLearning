@@ -73,7 +73,9 @@ int main() {
 
 	//TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail();
 
-	TestStrReplace();
+	//TestStrReplace();
+
+	TestStrInsert();
 
 	system("pause");
 	return 0;
