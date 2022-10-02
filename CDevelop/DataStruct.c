@@ -2855,7 +2855,7 @@ unsigned int StrNormalFindIndex(const char *Str, const char *FindStr, const unsi
 
 	unsigned int TraStrLen = StringLen(TraStr);
 	unsigned int TraFindStrLen = StringLen(TraFindStr);
-
+	
 	unsigned int StrIndexOut = TraFindFos;
 	unsigned int StrIndexIn = 0;
 	unsigned int FindStrIndex = 0;	
