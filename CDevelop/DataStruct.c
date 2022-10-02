@@ -2847,24 +2847,25 @@ EXIT:
 	return Status;
 }
 
-unsigned int StrNormalFindIndex(char *Str, char *FindStr) {
+unsigned int StrNormalFindIndex(const char *Str, const char *FindStr, const unsigned int FindPos) {
 	unsigned int RetPos = 0;	
 	char *TraStr = Str;
 	char *TraFindStr = FindStr;
+	unsigned int TraFindFos = FindPos;
 
 	unsigned int TraStrLen = StringLen(TraStr);
 	unsigned int TraFindStrLen = StringLen(TraFindStr);
 
-	unsigned int StrIndexOut = 0;
+	unsigned int StrIndexOut = TraFindFos;
 	unsigned int StrIndexIn = 0;
 	unsigned int FindStrIndex = 0;	
 
 	printf("StrNormalFindIndex start\n");
-	if (TraStr == NULL || TraFindStr == NULL || TraStrLen < TraFindStrLen) {
+	if (TraStr == NULL || TraFindStr == NULL || TraStrLen < TraFindStrLen || FindPos > TraStrLen) {
 		goto EXIT;
 	}
 
-	for (StrIndexOut = 0; StrIndexOut <= TraStrLen - TraFindStrLen; ++StrIndexOut) {
+	for (StrIndexOut = TraFindFos - 1; StrIndexOut <= TraStrLen - TraFindStrLen; ++StrIndexOut) {
 		for (StrIndexIn = StrIndexOut; StrIndexIn < StrIndexOut + TraFindStrLen; ++StrIndexIn) {
 			if (TraStr[StrIndexIn] == TraFindStr[FindStrIndex]) {
 				++FindStrIndex;

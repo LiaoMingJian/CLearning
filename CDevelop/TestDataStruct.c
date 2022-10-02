@@ -242,30 +242,42 @@ EXIT:
 
 void TestFindStrIndex(void) {
 	/*Test01*/
-	char Str01[] = "abc";
-	char FindStr01[] = "a";
+	char Str01[] = "abcdef";
+	char FindStr01[] = "bc";
 	unsigned int FindStrPos01 = 1;
 	unsigned int FindRes01;
-	unsigned int ComPos01 = 1;
+	unsigned int ComPos01 = 2;
 
 	/*Test02*/
-	char Str02[] = "abc";
-	char FindStr02[] = "bc";
-	unsigned int FindStrPos02 = 1;
+	char Str02[] = "abcdef";
+	char FindStr02[] = "ef";
+	unsigned int FindStrPos02 = 2;
 	unsigned int FindRes02;
-	unsigned int ComPos02 = 2;
+	unsigned int ComPos02 = 5;
+
+	/*Test03*/
+	char Str03[] = "abcdef";
+	char FindStr03[] = "ee";
+	unsigned int FindStrPos03 = 1;
+	unsigned int FindRes03;
+	unsigned int ComPos03 = 0;
 
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
 	printf("-------Test 01----------\n");
 	FindRes01 = FindStrIndex(Str01, FindStr01, FindStrPos01);
-	ValueTest(ComPos01, FindStrPos01);
+	ValueTest(ComPos01, FindRes01);
 
 	/*Test02*/
 	printf("\n-------Test 02----------\n");
 	FindRes02 = FindStrIndex(Str02, FindStr02, FindStrPos02);
 	ValueTest(ComPos02, FindRes02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	FindRes03 = FindStrIndex(Str03, FindStr03, FindStrPos03);
+	ValueTest(ComPos03, FindRes03);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -696,18 +708,21 @@ void TestStrNormalFindIndex(void) {
 	/*Test01*/
 	char Str01[20] = "abcdef";
 	char FindStr01[] = "bc";
+	unsigned int FindPos01 = 1;
 	unsigned int RetPos01;
 	unsigned int CmpFindPos01 = 2;
 
 	/*Test02*/
 	char Str02[20] = "abcdef";
 	char FindStr02[] = "ef";
+	unsigned int FindPos02 = 2;
 	unsigned int RetPos02;
 	unsigned int CmpFindPos02 = 5;
 
 	/*Test03*/
 	char Str03[20] = "abcdef";
 	char FindStr03[] = "ee";
+	unsigned int FindPos03 = 1;
 	unsigned int RetPos03;
 	unsigned int CmpFindPos03 = 0;
 
@@ -715,19 +730,19 @@ void TestStrNormalFindIndex(void) {
 	InitNum();
 	/*Test01*/
 	printf("-------Test 01----------\n");
-	RetPos01 = StrNormalFindIndex(Str01, FindStr01);
+	RetPos01 = StrNormalFindIndex(Str01, FindStr01, FindPos01);
 	printf("RetPos01 = %d\n", RetPos01);
 	ValueTest(CmpFindPos01, RetPos01);
 	
 	/*Test02*/
 	printf("\n-------Test 02----------\n");
-	RetPos02 = StrNormalFindIndex(Str02, FindStr02);
+	RetPos02 = StrNormalFindIndex(Str02, FindStr02, FindPos02);
 	printf("RetPos02 = %d\n", RetPos02);
 	ValueTest(CmpFindPos02, RetPos02);
 	
 	/*Test03*/
 	printf("\n-------Test 03----------\n");
-	RetPos03 = StrNormalFindIndex(Str03, FindStr03);
+	RetPos03 = StrNormalFindIndex(Str03, FindStr03, FindPos03);
 	printf("RetPos03 = %d\n", RetPos03);
 	ValueTest(CmpFindPos03, RetPos03);
 
