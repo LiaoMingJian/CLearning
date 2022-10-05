@@ -5,7 +5,9 @@
 #define SUCCESS					0
 #define ERROR					1
 #define INVALID_PARAMETER 		1
-#define MAXSIZE					5
+#define MAXSIZE					7
+
+#define PT_TREE_MAXSIZE			100
 
 typedef int ElemType;
 typedef int LIST_STATUS;
@@ -73,6 +75,20 @@ typedef struct _LINK_QUEUE {
 	Node *Front;
 	Node *Rear;
 }LINK_QUEUE;
+
+
+/*Tree*/
+/*PTree*/
+typedef struct {
+	int Data;
+	int Parent;
+}PTNode;
+
+typedef struct {
+	PTNode Node[PT_TREE_MAXSIZE];
+	int Root;
+	int Num;
+}PTree;
 
 LIST_STATUS OperatorList();
 
@@ -198,4 +214,9 @@ void testPrinta(void);
 OP_STATUS StrInsert(char *Str1, const unsigned int FindStr, const char *InsertStr);
 
 unsigned int StrNormalFindIndex(const char *Str, const char *FindStr, const unsigned int FindPos);
+
+
+/*Tree*/
+/*PTree*/
+OP_STATUS BuildPTree(PTree *PTreeNode, const int PTNodeNum, const int *PTNodeData);
 #endif
