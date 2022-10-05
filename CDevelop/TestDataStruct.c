@@ -776,21 +776,34 @@ OP_STATUS PTreeCmpTest(const PTree *PT01, const PTree *PT02, const unsigned int 
 
 
 void TestBuildPTree(void) {
+	/*Test01*/
 	PTree PTree01;
 	unsigned int PTNodeNum01 = 7;
 	int PTNodeData01[7] = { 0, 10, 20, 30, 40, 50, 60 };
-	int PTNodeParent[7] = {-1, 0, 0, 1, 1, 2, 2};
+	int PTNodeParent01[7] = {-1, 0, 0, 1, 1, 2, 2};
+	PTree CmpPTree01 = { {{0, -1}, {10, 0}, {20, 0}, {30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
 
-	PTree CmpPTree = { {{0, -1}, {10, 0}, {20, 0}, {30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
+	PTree PTree02;
+	unsigned int PTNodeNum02 = 10;
+	int PTNodeData02[10] = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+	int PTNodeParent02[10] = { -1, 0, 0, 1, 2, 2, 3, 3, 3, 4 };
+	PTree CmpPTree02 = { {{0, -1}, {10, 0}, {20, 0}, {30, 1}, {40, 2}, {50, 2}, {60, 3}, {70, 3}, {80, 3}, {90, 4}}, 0, 10 };
 
-	BuildPTree(&PTree01, PTNodeNum01, PTNodeData01, PTNodeParent);
-	
+
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
 	printf("-------Test 01----------\n");
-	PTreeCmpTest(&CmpPTree, &PTree01, PTNodeNum01);
+	BuildPTree(&PTree01, PTNodeNum01, PTNodeData01, PTNodeParent01);
+	PTreeCmpTest(&CmpPTree01, &PTree01, PTNodeNum01);
 	PrintPTree(&PTree01, PTNodeNum01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildPTree(&PTree02, PTNodeNum02, PTNodeData02, PTNodeParent02);
+	PTreeCmpTest(&CmpPTree02, &PTree02, PTNodeNum02);
+	PrintPTree(&PTree02, PTNodeNum02);
+
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
