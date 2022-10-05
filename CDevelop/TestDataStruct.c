@@ -68,6 +68,7 @@ void ValueTest(const unsigned int Value01, const unsigned int Value02) {
 
 
 
+
 void TestArrCreatList(void) {
 	printf("\nTestArrCreatList start!\n");
 	SQ_LIST L;
@@ -417,7 +418,6 @@ void TestMoveBackStrAndCopyStrWhithoutTail(void) {
 	TestResult();
 }
 
-
 void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void) {
 	/*Test01*/
 	char Str01[20] = "abcdef";
@@ -540,7 +540,6 @@ void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void) {
 	TestResult();
 }
 
-
 void TestStrReplace(void) {
 	OP_STATUS Status;
 	/*Test01*/
@@ -658,7 +657,6 @@ void TestStrReplace(void) {
 	TestResult();
 }
 
-
 void TestStrInsert(void) {
 	/*Test01*/
 	char Str01[30] = "abcdef";
@@ -703,7 +701,6 @@ void TestStrInsert(void) {
 	TestResult();
 }
 
-
 void TestStrNormalFindIndex(void) {
 	/*Test01*/
 	char Str01[20] = "abcdef";
@@ -745,6 +742,55 @@ void TestStrNormalFindIndex(void) {
 	RetPos03 = StrNormalFindIndex(Str03, FindStr03, FindPos03);
 	printf("RetPos03 = %d\n", RetPos03);
 	ValueTest(CmpFindPos03, RetPos03);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+
+/*Tree*/
+/*PTree*/
+OP_STATUS PTreeCmpTest(const PTree *PT01, const PTree *PT02, const unsigned int PTNodeNum01) {
+	PTree *TraPT01 = PT01;
+	PTree *TraPT02 = PT02;
+	unsigned int Index = 0;
+
+	TestNum++;
+	
+	if (TraPT01->Num != TraPT02->Num || TraPT01->Root != TraPT02->Root) {
+		FaildNum++;
+		return ERROR;
+	}
+
+	for (Index = 0; Index < PTNodeNum01; ++Index) {
+		if (TraPT01->Node[Index].Data != TraPT02->Node[Index].Data || TraPT01->Node[Index].Parent != TraPT02->Node[Index].Parent) {
+			FaildNum++;
+			return ERROR;
+		}
+	}
+
+	PassNum++;
+	return SUCCESS;
+}
+
+
+void TestBuildPTree(void) {
+	PTree PTree01;
+	unsigned int PTNodeNum01 = 7;
+	int PTNodeData01[7] = { 0, 10, 20, 30, 40, 50, 60 };
+	int PTNodeParent[7] = {-1, 0, 0, 1, 1, 2, 2};
+
+	PTree CmpPTree = { {{0, -1}, {10, 0}, {20, 0}, {30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
+
+	BuildPTree(&PTree01, PTNodeNum01, PTNodeData01, PTNodeParent);
+	
+	printf("-------Test start----------\n");
+	InitNum();
+	/*Test01*/
+	printf("-------Test 01----------\n");
+	PTreeCmpTest(&CmpPTree, &PTree01, PTNodeNum01);
+	PrintPTree(&PTree01, PTNodeNum01);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");

@@ -2888,3 +2888,44 @@ EXIT:
 	printf("StrNormalFindIndex end\n");	
 	return RetPos;
 }
+
+
+/*Tree*/
+/*PTree*/
+OP_STATUS BuildPTree(PTree *PTree01, const unsigned int PTNodeNum, const int *PTNodeData, const int *PTNodeParent) {
+	OP_STATUS Status = SUCCESS;
+	PTree *TraPTree01 = PTree01;
+	int *TraPTNodeData = PTNodeData;
+	int *TraPTNodeParent = PTNodeParent;
+
+	unsigned int Index = 0;
+
+	printf("BuildPTree start\n");
+
+	if (TraPTree01 == NULL || TraPTNodeData == NULL || TraPTNodeParent == NULL) {
+		return ERROR;
+	}
+
+	TraPTree01->Num = PTNodeNum;
+	TraPTree01->Root = 0;
+
+	for (Index = 0; Index < PTNodeNum; ++Index) {
+		//printf("TraPTNodeData[%d] = %d, TraPTNodeParent[%d] = %d\n", Index, TraPTNodeData[Index], Index, TraPTNodeParent[Index]);
+		TraPTree01->Node[Index].Data = TraPTNodeData[Index];
+		TraPTree01->Node[Index].Parent = TraPTNodeParent[Index];
+	}	
+
+	printf("BuildPTree end\n");
+	return SUCCESS;
+}
+
+void PrintPTree(const PTree *PTree01, const int PTNodeNum) {
+	PTree *TraPTree01 = PTree01;
+	unsigned int Index = 0;
+	
+	printf("TraPTree01->Root = %d, TraPTree01->Num = %d\n", TraPTree01->Root, TraPTree01->Num);
+
+	for (Index = 0; Index < PTNodeNum; ++Index) {
+		printf("TraPTree01->Node[%d].Data = %d, TraPTree01->Node[%d].Parent = %d\n", Index, TraPTree01->Node[Index].Data, Index, TraPTree01->Node[Index].Parent);
+	}
+}

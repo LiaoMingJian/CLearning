@@ -31,4 +31,6 @@ void TestFindStrIndexToMoveBackStrToCopyStrWhithoutTail(void);
 void TestStrInsert(void);
 
 void TestStrNormalFindIndex(void);
+
+void TestBuildPTree(void);
 #endif
