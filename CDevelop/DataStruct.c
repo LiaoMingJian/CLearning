@@ -2927,7 +2927,6 @@ void PrintPTree(const PARENT_TREE *PTree01, const int PTNodeNum) {
 	}
 }
 
-
 /*ChildParentTree*/
 OP_STATUS BuildChildParentTree(CHILD_PARTENT_TREE *CPTree, const CHILD_PARENT_TREE_ROOT_NODENUM_DATA *CPTreeRootNodeNum, const CHILD_PARENT_TREE_NODE_DATA *CPTreeData) {
 	OP_STATUS Status = SUCCESS;
@@ -3002,7 +3001,6 @@ EXIT:
 	return Status;
 }
 
-
 void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree) {
 	CHILD_PARTENT_TREE *TraCPTree = CPTree;
 	unsigned int Index = 0;
@@ -3026,3 +3024,43 @@ void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree) {
 	printf("PrintChildParentTree end\n");
 }
 
+/*CHILD_SIBLING_PARENT_TREE*/
+OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTree, const CHILD_SIBLING_PARENT_TREE_NODE_DATA *CSPTreeData, const unsigned int NodeNum) {
+	OP_STATUS Status = SUCCESS;
+	CHILD_SIBLING_PARENT_TREE_NODE *TraCSPTreeNode = CSPTree;
+	CHILD_SIBLING_PARENT_TREE_NODE_DATA *TraCSPTreeData = CSPTreeData;
+	CHILD_SIBLING_PARENT_TREE_NODE *AddCSPTreeNode = NULL;
+
+	unsigned int Index = 0;
+	unsigned int IfExistFirstChildFlag = 1;
+	unsigned int IfExistRightSibFlag = 0;
+	
+
+	if (TraCSPTreeNode == NULL || TraCSPTreeData == NULL) {
+		Status = ERROR;
+		goto EXIT;
+	}
+
+	for (Index = 0; Index < NodeNum; ++Index) {
+		if (IfExistFirstChildFlag == 1) {
+			AddCSPTreeNode = (CHILD_SIBLING_PARENT_TREE_NODE *)malloc(sizeof(CHILD_SIBLING_PARENT_TREE_NODE));
+			if (AddCSPTreeNode == NULL) {
+				Status = ERROR;
+				goto EXIT;
+			}
+
+			AddCSPTreeNode->Data = TraCSPTreeData[Index].Data;
+			AddCSPTreeNode->Parent = TraCSPTreeData[Index].Parent;
+			AddCSPTreeNode->FirstChild = TraCSPTreeData->IfExistFirstChild;
+			
+			TraCSPTreeData->IfExistFirstChild = AddCSPTreeNode;			
+		}
+		
+		IfExistFirstChildFlag = TraCSPTreeData[Index].IfExistFirstChild;
+		IfExistRightSibFlag = TraCSPTreeData[Index].IfExistRightSib;
+	}
+
+EXIT:
+
+	return Status;
+}

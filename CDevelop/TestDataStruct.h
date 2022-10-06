@@ -35,4 +35,7 @@ void TestStrNormalFindIndex(void);
 void TestBuildPTree(void);
 
 void TestBuildChildParentTree(void);
+
+/*CHILD_BILING_TREE*/
+void TestBuildChildSibParentTree(void);
 #endif

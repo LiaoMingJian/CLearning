@@ -82,7 +82,7 @@ typedef struct _LINK_QUEUE {
 
 
 /*Tree*/
-/*PTree*/
+/*PARENT_TREE*/
 typedef struct {
 	int Data;
 	int Parent;
@@ -94,7 +94,7 @@ typedef struct {
 	int Num;
 }PARENT_TREE;
 
-/*CTree*/
+/*CHILD_PARTENT_TREE*/
 typedef struct _CHILD_NODE{
 	int ChildIndex;
 	struct _CHILD_NODE *Next;
@@ -124,6 +124,20 @@ typedef struct {
 	int NodeNum;	
 }CHILD_PARENT_TREE_ROOT_NODENUM_DATA;
 
+/*CHILD_SIBLING_PARENT_TREE*/
+typedef struct _CHILD_SIBLING_PARENT_TREE {
+	int Data;
+	int Parent;
+	struct _CHILD_SIBLING_PARENT_TREE *FirstChild;
+	struct _CHILD_SIBLING_PARENT_TREE *RightSib;
+}CHILD_SIBLING_PARENT_TREE_NODE;
+
+typedef struct {
+	int Data;
+	int Parent;
+	int IfExistFirstChild;
+	int IfExistRightSib;
+}CHILD_SIBLING_PARENT_TREE_NODE_DATA;
 
 
 LIST_STATUS OperatorList();
@@ -258,5 +272,9 @@ OP_STATUS BuildPTree(PARENT_TREE *PTree01, const unsigned int PTNodeNum, const i
 
 /*CHILD_PARTENT_TREE*/
 OP_STATUS BuildChildParentTree(CHILD_PARTENT_TREE *CPTree, const CHILD_PARENT_TREE_ROOT_NODENUM_DATA *CPTreeRootNodeNum, const CHILD_PARENT_TREE_NODE_DATA *CPTreeData);
+
 void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree);
+
+/*CHILD_SIBLING_PARENT_TREE*/
+OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE *CSPTree, const CHILD_SIBLING_PARENT_TREE_DADA *CSPTreeData, const unsigned int NodeNum);
 #endif
