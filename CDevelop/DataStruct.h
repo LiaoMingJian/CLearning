@@ -7,7 +7,11 @@
 #define INVALID_PARAMETER 		1
 #define MAXSIZE					7
 
-#define PT_TREE_MAXSIZE			100
+#define PARENT_TREE_MAXSIZE					100
+
+/*ChildParentTree*/
+#define CHILDE_PARENT_TREE_MAXSIZE			100
+#define CHILD_TREE_CHILE_INDEX_SIZE			10
 
 typedef int ElemType;
 typedef int LIST_STATUS;
@@ -82,13 +86,45 @@ typedef struct _LINK_QUEUE {
 typedef struct {
 	int Data;
 	int Parent;
-}PTNode;
+}PT_NODE;
 
 typedef struct {
-	PTNode Node[PT_TREE_MAXSIZE];
+	PT_NODE Node[PARENT_TREE_MAXSIZE];
 	int Root;
 	int Num;
-}PTree;
+}PARENT_TREE;
+
+/*CTree*/
+typedef struct _CHILD_NODE{
+	int ChildIndex;
+	struct _CHILD_NODE *Next;
+}CHILD_NODE;
+
+typedef struct {
+	int Data;
+	int Parent;
+	CHILD_NODE *FirstChildIndex;
+}CT_BOX;
+
+typedef struct {
+	CT_BOX Node[CHILDE_PARENT_TREE_MAXSIZE];
+	int Root;
+	int NodeNum;
+}CHILD_PARTENT_TREE;
+
+typedef struct {
+	int Data;
+	int Parent;
+	int ChildNum;
+	int ChildIndex[CHILD_TREE_CHILE_INDEX_SIZE];
+}CHILD_PARENT_TREE_NODE_DATA;
+
+typedef struct {
+	int Root;
+	int NodeNum;	
+}CHILD_PARENT_TREE_ROOT_NODENUM_DATA;
+
+
 
 LIST_STATUS OperatorList();
 
@@ -217,6 +253,10 @@ unsigned int StrNormalFindIndex(const char *Str, const char *FindStr, const unsi
 
 
 /*Tree*/
-/*PTree*/
-OP_STATUS BuildPTree(PTree *PTreeNode, const int PTNodeNum, const int *PTNodeData);
+/*PARENT_TREE*/
+OP_STATUS BuildPTree(PARENT_TREE *PTree01, const unsigned int PTNodeNum, const int *PTNodeData, const int *PTNodeParent);
+
+/*CHILD_PARTENT_TREE*/
+OP_STATUS BuildChildParentTree(CHILD_PARTENT_TREE *CPTree, const CHILD_PARENT_TREE_ROOT_NODENUM_DATA *CPTreeRootNodeNum, const CHILD_PARENT_TREE_NODE_DATA *CPTreeData);
+void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree);
 #endif

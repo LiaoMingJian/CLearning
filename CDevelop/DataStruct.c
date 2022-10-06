@@ -2892,16 +2892,14 @@ EXIT:
 
 /*Tree*/
 /*PTree*/
-OP_STATUS BuildPTree(PTree *PTree01, const unsigned int PTNodeNum, const int *PTNodeData, const int *PTNodeParent) {
+OP_STATUS BuildPTree(PARENT_TREE *PTree01, const unsigned int PTNodeNum, const int *PTNodeData, const int *PTNodeParent) {
 	OP_STATUS Status = SUCCESS;
-	PTree *TraPTree01 = PTree01;
+	PARENT_TREE *TraPTree01 = PTree01;
 	int *TraPTNodeData = PTNodeData;
 	int *TraPTNodeParent = PTNodeParent;
-
 	unsigned int Index = 0;
 
 	printf("BuildPTree start\n");
-
 	if (TraPTree01 == NULL || TraPTNodeData == NULL || TraPTNodeParent == NULL) {
 		return ERROR;
 	}
@@ -2919,8 +2917,8 @@ OP_STATUS BuildPTree(PTree *PTree01, const unsigned int PTNodeNum, const int *PT
 	return SUCCESS;
 }
 
-void PrintPTree(const PTree *PTree01, const int PTNodeNum) {
-	PTree *TraPTree01 = PTree01;
+void PrintPTree(const PARENT_TREE *PTree01, const int PTNodeNum) {
+	PARENT_TREE *TraPTree01 = PTree01;
 	unsigned int Index = 0;
 	
 	printf("TraPTree01->Root = %d, TraPTree01->Num = %d\n", TraPTree01->Root, TraPTree01->Num);
@@ -2929,3 +2927,103 @@ void PrintPTree(const PTree *PTree01, const int PTNodeNum) {
 		printf("TraPTree01->Node[%d].Data = %d, TraPTree01->Node[%d].Parent = %d\n", Index, TraPTree01->Node[Index].Data, Index, TraPTree01->Node[Index].Parent);
 	}
 }
+
+
+/*ChildParentTree*/
+OP_STATUS BuildChildParentTree(CHILD_PARTENT_TREE *CPTree, const CHILD_PARENT_TREE_ROOT_NODENUM_DATA *CPTreeRootNodeNum, const CHILD_PARENT_TREE_NODE_DATA *CPTreeData) {
+	OP_STATUS Status = SUCCESS;
+	CHILD_PARTENT_TREE *TraCPTree = CPTree;
+	CHILD_PARENT_TREE_ROOT_NODENUM_DATA *TraCPTreeRootNodeNum = CPTreeRootNodeNum;
+	CHILD_PARENT_TREE_NODE_DATA *TraCPTreeData = CPTreeData;
+
+	unsigned int Index = 0;
+	unsigned int NodeNum = TraCPTreeRootNodeNum->NodeNum;
+	unsigned int ChildNumIndex = 0;
+
+	CHILD_NODE	*ChildHeadNode = NULL;
+	CHILD_NODE	*TraChildHeadNode = NULL;
+	CHILD_NODE	*AddChildNode = NULL;
+	//CHILD_NODE  *TraPrintChildNode = NULL;
+
+	printf("BuildChildTree start\n");
+	
+	if (TraCPTree == NULL || TraCPTreeData == NULL) {
+		Status = ERROR;
+		goto EXIT;
+	}
+
+	TraCPTree->Root = TraCPTreeRootNodeNum->Root;
+	TraCPTree->NodeNum = TraCPTreeRootNodeNum->NodeNum;
+
+	for (Index = 0; Index < NodeNum; ++Index) {
+		TraCPTree->Node[Index].Data = TraCPTreeData[Index].Data;
+		TraCPTree->Node[Index].Parent = TraCPTreeData[Index].Parent;
+
+		ChildHeadNode = (CHILD_NODE *)malloc(sizeof(CHILD_NODE));
+		if (ChildHeadNode == NULL) {
+			Status = ERROR;
+			goto EXIT;
+		}
+		ChildHeadNode->Next = NULL;
+
+		TraChildHeadNode = ChildHeadNode;
+
+		/*Create CHILD_NODE Link*/
+		//printf("\nTraCPTreeData[%d].ChildNum = %d\n", Index, TraCPTreeData[Index].ChildNum);
+		for (ChildNumIndex = 0; ChildNumIndex < TraCPTreeData[Index].ChildNum; ++ChildNumIndex) {
+			AddChildNode = (CHILD_NODE *)malloc(sizeof(CHILD_NODE));
+			if (AddChildNode == NULL) {
+				Status = ERROR;
+				goto EXIT;
+			}
+
+			//printf("TraCPTreeData[%d].ChildIndex[%d] = %d\n", Index, ChildNumIndex, TraCPTreeData[Index].ChildIndex[ChildNumIndex]);
+			AddChildNode->ChildIndex = TraCPTreeData[Index].ChildIndex[ChildNumIndex];
+			AddChildNode->Next = TraChildHeadNode->Next;
+			TraChildHeadNode->Next = AddChildNode;
+			
+			TraChildHeadNode = TraChildHeadNode->Next;
+		}
+
+		TraCPTree->Node[Index].FirstChildIndex = ChildHeadNode->Next;
+
+		/*Print Link*/
+		/*printf("\nPrint Link start\n");
+		TraPrintChildNode = ChildHeadNode->Next;
+
+		while (TraPrintChildNode != NULL) {
+			printf("TraPrintChildNode->ChildIndex = %d\n", TraPrintChildNode->ChildIndex);
+			TraPrintChildNode = TraPrintChildNode->Next;
+		}
+		printf("Print Link end\n");*/
+	}
+
+EXIT:
+	printf("BuildChildTree end\n");
+	return Status;
+}
+
+
+void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree) {
+	CHILD_PARTENT_TREE *TraCPTree = CPTree;
+	unsigned int Index = 0;
+	unsigned int ChildNumIndex = 0;
+
+	CHILD_NODE *TraChildNode = NULL;
+
+	printf("PrintChildParentTree start\n");
+	printf("TraCPTree->Root = %d, TraCPTree->NodeNum = %d\n", TraCPTree->Root, TraCPTree->NodeNum);
+	for (Index = 0; Index < TraCPTree->NodeNum; ++Index) {
+		printf("TraCPTree->Node[%d].Data = %d, TraCPTree->Node[%d].Parent = %d\n", Index, TraCPTree->Node[Index].Data, Index, TraCPTree->Node[Index].Parent);
+
+		TraChildNode = TraCPTree->Node[Index].FirstChildIndex;
+
+		while (TraChildNode != NULL) {
+			printf("TraChildNode->ChildIndex = %d\n", TraChildNode->ChildIndex);
+			TraChildNode = TraChildNode->Next;
+		}			
+	}
+	
+	printf("PrintChildParentTree end\n");
+}
+

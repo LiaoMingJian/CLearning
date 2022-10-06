@@ -81,7 +81,10 @@ int main() {
 
 	/*Tree*/
 	/*PTree*/
-	TestBuildPTree();
+	//TestBuildPTree();
+
+	/*CPTree*/
+	TestBuildChildParentTree();
 
 	system("pause");
 	return 0;
