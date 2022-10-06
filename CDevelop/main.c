@@ -86,6 +86,9 @@ int main() {
 	/*CPTree*/
 	TestBuildChildParentTree();
 
+	/*CHILD_SIBILING_PARENT_TREE*/
+	TestBuildChildSibParentTree();
+
 	system("pause");
 	return 0;
 }
