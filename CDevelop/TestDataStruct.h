@@ -33,4 +33,6 @@ void TestStrInsert(void);
 void TestStrNormalFindIndex(void);
 
 void TestBuildPTree(void);
+
+void TestBuildChildParentTree(void);
 #endif

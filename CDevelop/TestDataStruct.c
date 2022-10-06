@@ -68,7 +68,6 @@ void ValueTest(const unsigned int Value01, const unsigned int Value02) {
 
 
 
-
 void TestArrCreatList(void) {
 	printf("\nTestArrCreatList start!\n");
 	SQ_LIST L;
@@ -750,10 +749,10 @@ void TestStrNormalFindIndex(void) {
 
 
 /*Tree*/
-/*PTree*/
-OP_STATUS PTreeCmpTest(const PTree *PT01, const PTree *PT02, const unsigned int PTNodeNum01) {
-	PTree *TraPT01 = PT01;
-	PTree *TraPT02 = PT02;
+/*PARENT_TREE*/
+OP_STATUS PTreeCmpTest(const PARENT_TREE *PT01, const PARENT_TREE *PT02, const unsigned int PTNodeNum01) {
+	PARENT_TREE *TraPT01 = PT01;
+	PARENT_TREE *TraPT02 = PT02;
 	unsigned int Index = 0;
 
 	TestNum++;
@@ -774,21 +773,37 @@ OP_STATUS PTreeCmpTest(const PTree *PT01, const PTree *PT02, const unsigned int 
 	return SUCCESS;
 }
 
-
 void TestBuildPTree(void) {
 	/*Test01*/
-	PTree PTree01;
+	PARENT_TREE PTree01;
 	unsigned int PTNodeNum01 = 7;
-	int PTNodeData01[7] = { 0, 10, 20, 30, 40, 50, 60 };
-	int PTNodeParent01[7] = {-1, 0, 0, 1, 1, 2, 2};
-	PTree CmpPTree01 = { {{0, -1}, {10, 0}, {20, 0}, {30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
+	int PTNodeData01[7] = { 0, 
+							10, 20, 
+							30, 40, 50, 60 };
+	int PTNodeParent01[7] = {-1, 
+							0, 0, 
+							1, 1, 2, 2};
+	PARENT_TREE CmpPTree01 = { {{0, -1}, 
+								{10, 0}, {20, 0}, 
+								{30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
 
-	PTree PTree02;
+	/*Test02*/
+	PARENT_TREE PTree02;
 	unsigned int PTNodeNum02 = 10;
-	int PTNodeData02[10] = { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
-	int PTNodeParent02[10] = { -1, 0, 0, 1, 2, 2, 3, 3, 3, 4 };
-	PTree CmpPTree02 = { {{0, -1}, {10, 0}, {20, 0}, {30, 1}, {40, 2}, {50, 2}, {60, 3}, {70, 3}, {80, 3}, {90, 4}}, 0, 10 };
+	int PTNodeData02[10] = { 0, 
+							10, 20, 
+							30, 40, 50, 
+							60, 70, 80, 90 };
 
+	int PTNodeParent02[10] = { -1, 
+								0, 0, 
+								1, 2, 2, 
+								3, 3, 3, 4 };
+
+	PARENT_TREE CmpPTree02 = { {{0, -1}, 
+								{10, 0}, {20, 0}, 
+								{30, 1}, {40, 2}, {50, 2}, 
+								{60, 3}, {70, 3}, {80, 3}, {90, 4}}, 0, 10 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -805,6 +820,78 @@ void TestBuildPTree(void) {
 	PrintPTree(&PTree02, PTNodeNum02);
 
 
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+/*CHILD_PARTENT_TREE*/
+OP_STATUS CPTreeCmpTest(PARENT_TREE *PTree, CHILD_PARTENT_TREE *CPTree, const unsigned int NodeNum) {
+	PARENT_TREE *TraPTree = PTree;
+	CHILD_PARTENT_TREE *TraCPTree = CPTree;
+	unsigned int Index = 0;
+
+	//printf("CPTreeCmpTest start\n");
+	TestNum++;
+	if (TraPTree->Num != TraCPTree->NodeNum || TraPTree->Root != TraCPTree->Root) {
+		//printf("TraPTree->Num = %d, TraCPTree->NodeNum = %d\n", TraPTree->Num, TraCPTree->NodeNum);
+		//printf("TraPTree->Root = %d, TraCPTree->Root = %d\n", TraPTree->Root, TraCPTree->Root);
+		FaildNum++;
+		return ERROR;
+	}
+
+	for (Index = 0; Index < NodeNum; ++Index) {
+		/*printf("TraPTree->Node[%d].Parent = %d, TraCPTree->Node[%d].Parent = %d\n", Index, TraPTree->Node[Index].Parent, Index, TraCPTree->Node[Index].Parent);*/
+		if (TraPTree->Node[Index].Parent != TraCPTree->Node[Index].Parent || TraPTree->Node[Index].Data != TraCPTree->Node[Index].Data) {
+			FaildNum++;
+			return ERROR;
+		}
+	}
+
+	/*printf("CPTreeCmpTest end\n");*/
+	PassNum++;
+	return SUCCESS;
+}
+
+void TestBuildChildParentTree(void) {
+	/*Test01*/
+	CHILD_PARTENT_TREE CPTree01;
+	CHILD_PARENT_TREE_ROOT_NODENUM_DATA CPTreeRootNodeNumData01 = { 0, 7 };
+	CHILD_PARENT_TREE_NODE_DATA CPTreeNodeData01[7] = { {0, -1, 2, {1, 2}},
+														{10, 0, 2, {3, 4}}, {20, 0, 2, {5, 6}},
+														{30, 1, 0}, {40, 1, 0}, {50, 2, 0},{60, 2, 0} };
+
+	PARENT_TREE CmpPTree01 = { {{0, -1},
+								{10, 0}, {20, 0},
+								{30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
+	
+	/*Test02*/
+	CHILD_PARTENT_TREE CPTree02;
+	CHILD_PARENT_TREE_ROOT_NODENUM_DATA CPTreeRootNodeNumData02 = {0, 10};
+	CHILD_PARENT_TREE_NODE_DATA CPTreeNodeData02[10] = { {0, -1, 2, {1, 2}},
+														{10, 0, 1, {3}}, {20, 0, 2, {4, 5}}, 
+														{30, 1, 3, {6, 7, 8}}, {40, 2, 1, {9}}, {50, 2, 0}, 
+														{60, 3, 0}, {70, 3, 0}, {80, 3, 0}, {90, 4, 0} };
+
+	PARENT_TREE CmpPTree02 = { {{0, -1},
+							{10, 0}, {20, 0},
+							{30, 1}, {40, 2}, {50, 2},
+							{60, 3}, {70, 3}, {80, 3}, {90, 4}}, 0, 10 };	
+
+	printf("-------Test start----------\n");
+	InitNum();
+	/*Test01*/
+	printf("-------Test 01----------\n");
+	BuildChildParentTree(&CPTree01, &CPTreeRootNodeNumData01, CPTreeNodeData01);
+	PrintChildParentTree(&CPTree01);
+	CPTreeCmpTest(&CmpPTree01, &CPTree01, CPTreeRootNodeNumData01.NodeNum);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildChildParentTree(&CPTree02, &CPTreeRootNodeNumData02, CPTreeNodeData02);
+	PrintChildParentTree(&CPTree02);
+	CPTreeCmpTest(&CmpPTree02, &CPTree02, CPTreeRootNodeNumData02.NodeNum);
+	
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();

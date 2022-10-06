@@ -1,4 +1,4 @@
-# 树的存储结构（双亲表示法，孩子表示法，孩子兄弟表示法）——C语言描述
+# 树的存储结构（双亲表示法，孩子双亲表示法，孩子兄弟表示法）——C语言描述
 
 [toc]
 
@@ -528,179 +528,265 @@ void TestFindStrIndex(void) {
 
 
 
-# 2 查找字符串——朴素匹配方法
+# 4 树的孩子双亲表示法
+
+## 4.1 存储结构代码
+
+采用多重链表方法。结点及它的数据和双亲采用数组方法，结点的孩子采用单链表的方法。
+
+**代码：**
 
 ```c
-unsigned int StrNormalFindIndex(const char *Str, const char *FindStr, const unsigned int FindPos)
+/*ChildParentTree*/
+#define CHILDE_PARENT_TREE_MAXSIZE			100
+#define CHILD_TREE_CHILE_INDEX_SIZE			10
+
+/*CTree*/
+typedef struct _CHILD_NODE{
+	int ChildIndex;
+	struct _CHILD_NODE *Next;
+}CHILD_NODE;
+
+typedef struct {
+	int Data;
+	int Parent;
+	CHILD_NODE *FirstChildIndex;
+}CT_BOX;
+
+typedef struct {
+	CT_BOX Node[CHILDE_PARENT_TREE_MAXSIZE];
+	int Root;
+	int NodeNum;
+}CHILD_PARTENT_TREE;
+
+typedef struct {
+	int Data;
+	int Parent;
+	int ChildNum;
+	int ChildIndex[CHILD_TREE_CHILE_INDEX_SIZE];
+}CHILD_PARENT_TREE_NODE_DATA;
+
+typedef struct {
+	int Root;
+	int NodeNum;	
+}CHILD_PARENT_TREE_ROOT_NODENUM_DATA;
 ```
 
-## 2.1 功能需求：
-
-Str为主串，FindStr为要找的子串，FindPos为从主串Str的第FindPos个位置开始找子串FindStr,找到返回主串的位置，找不到返回0.
-
- 
-
-## 2.2 条件
-
-​     Str与FindStr非空，且FindPos <= StrLen
 
 
-
-## 2.3 代码
-
-**①StrNormalFindIndex函数**
+## 4.2 构建树
 
 ```c
-unsigned int StrNormalFindIndex(const char *Str, const char *FindStr, const unsigned int FindPos) {
-	unsigned int RetPos = 0;	
-	char *TraStr = Str;
-	char *TraFindStr = FindStr;
-	unsigned int TraFindFos = FindPos;
+OP_STATUS BuildChildParentTree(CHILD_PARTENT_TREE *CPTree, const CHILD_PARENT_TREE_ROOT_NODENUM_DATA *CPTreeRootNodeNum, const CHILD_PARENT_TREE_NODE_DATA *CPTreeData) 
+```
 
-	unsigned int TraStrLen = StringLen(TraStr);
-	unsigned int TraFindStrLen = StringLen(TraFindStr);
+CPTree表示树，CPTreeRootNodeNum表示根的位置和结点数量，CPTreeData表示结点的数据。
 
-	unsigned int StrIndexOut = TraFindFos;
-	unsigned int StrIndexIn = 0;
-	unsigned int FindStrIndex = 0;	
+**（1）构建树代码**
 
-	printf("StrNormalFindIndex start\n");
-	if (TraStr == NULL || TraFindStr == NULL || TraStrLen < TraFindStrLen || FindPos > TraStrLen) {
+```c
+/*ChildParentTree*/
+OP_STATUS BuildChildParentTree(CHILD_PARTENT_TREE *CPTree, const CHILD_PARENT_TREE_ROOT_NODENUM_DATA *CPTreeRootNodeNum, const CHILD_PARENT_TREE_NODE_DATA *CPTreeData) {
+	OP_STATUS Status = SUCCESS;
+	CHILD_PARTENT_TREE *TraCPTree = CPTree;
+	CHILD_PARENT_TREE_ROOT_NODENUM_DATA *TraCPTreeRootNodeNum = CPTreeRootNodeNum;
+	CHILD_PARENT_TREE_NODE_DATA *TraCPTreeData = CPTreeData;
+
+	unsigned int Index = 0;
+	unsigned int NodeNum = TraCPTreeRootNodeNum->NodeNum;
+	unsigned int ChildNumIndex = 0;
+
+	CHILD_NODE	*ChildHeadNode = NULL;
+	CHILD_NODE	*TraChildHeadNode = NULL;
+	CHILD_NODE	*AddChildNode = NULL;
+	//CHILD_NODE  *TraPrintChildNode = NULL;
+
+	printf("BuildChildTree start\n");
+	
+	if (TraCPTree == NULL || TraCPTreeData == NULL) {
+		Status = ERROR;
 		goto EXIT;
 	}
 
-	for (StrIndexOut = TraFindFos - 1; StrIndexOut <= TraStrLen - TraFindStrLen; ++StrIndexOut) {
-		for (StrIndexIn = StrIndexOut; StrIndexIn < StrIndexOut + TraFindStrLen; ++StrIndexIn) {
-			if (TraStr[StrIndexIn] == TraFindStr[FindStrIndex]) {
-				++FindStrIndex;
-			} else {
-				FindStrIndex = 0;
-				break;
+	TraCPTree->Root = TraCPTreeRootNodeNum->Root;
+	TraCPTree->NodeNum = TraCPTreeRootNodeNum->NodeNum;
+
+	for (Index = 0; Index < NodeNum; ++Index) {
+		TraCPTree->Node[Index].Data = TraCPTreeData[Index].Data;
+		TraCPTree->Node[Index].Parent = TraCPTreeData[Index].Parent;
+
+		ChildHeadNode = (CHILD_NODE *)malloc(sizeof(CHILD_NODE));
+		if (ChildHeadNode == NULL) {
+			Status = ERROR;
+			goto EXIT;
+		}
+		ChildHeadNode->Next = NULL;
+
+		TraChildHeadNode = ChildHeadNode;
+
+		/*Create CHILD_NODE Link*/
+		//printf("\nTraCPTreeData[%d].ChildNum = %d\n", Index, TraCPTreeData[Index].ChildNum);
+		for (ChildNumIndex = 0; ChildNumIndex < TraCPTreeData[Index].ChildNum; ++ChildNumIndex) {
+			AddChildNode = (CHILD_NODE *)malloc(sizeof(CHILD_NODE));
+			if (AddChildNode == NULL) {
+				Status = ERROR;
+				goto EXIT;
 			}
+
+			//printf("TraCPTreeData[%d].ChildIndex[%d] = %d\n", Index, ChildNumIndex, TraCPTreeData[Index].ChildIndex[ChildNumIndex]);
+			AddChildNode->ChildIndex = TraCPTreeData[Index].ChildIndex[ChildNumIndex];
+			AddChildNode->Next = TraChildHeadNode->Next;
+			TraChildHeadNode->Next = AddChildNode;
+			
+			TraChildHeadNode = TraChildHeadNode->Next;
 		}
-	
-		if (StrIndexIn == StrIndexOut + TraFindStrLen) {
-			printf("Find Success!\n");			
-			RetPos = StrIndexOut + 1;
-			break;
+
+		TraCPTree->Node[Index].FirstChildIndex = ChildHeadNode->Next;
+
+		/*Print Link*/
+		/*printf("\nPrint Link start\n");
+		TraPrintChildNode = ChildHeadNode->Next;
+
+		while (TraPrintChildNode != NULL) {
+			printf("TraPrintChildNode->ChildIndex = %d\n", TraPrintChildNode->ChildIndex);
+			TraPrintChildNode = TraPrintChildNode->Next;
 		}
+		printf("Print Link end\n");*/
 	}
 
 EXIT:
-	printf("RetPos = %d\n", RetPos);
-	printf("StrNormalFindIndex end\n");	
-	return RetPos;
+	printf("BuildChildTree end\n\n");
+	return Status;
 }
 ```
 
-
-
-**②测试用例代码**
+**（2）打印树代码**
 
 ```c
-void TestStrNormalFindIndex(void) {
+void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree) {
+	CHILD_PARTENT_TREE *TraCPTree = CPTree;
+	unsigned int Index = 0;
+	unsigned int ChildNumIndex = 0;
+
+	CHILD_NODE *TraChildNode = NULL;
+
+	printf("PrintChildParentTree start\n");
+	printf("TraCPTree->Root = %d, TraCPTree->NodeNum = %d\n", TraCPTree->Root, TraCPTree->NodeNum);
+	for (Index = 0; Index < TraCPTree->NodeNum; ++Index) {
+		printf("TraCPTree->Node[%d].Data = %d, TraCPTree->Node[%d].Parent = %d\n", Index, TraCPTree->Node[Index].Data, Index, TraCPTree->Node[Index].Parent);
+
+		TraChildNode = TraCPTree->Node[Index].FirstChildIndex;
+
+		while (TraChildNode != NULL) {
+			printf("TraChildNode->ChildIndex = %d\n", TraChildNode->ChildIndex);
+			TraChildNode = TraChildNode->Next;
+		}			
+	}
+	
+	printf("PrintChildParentTree end\n");
+}
+```
+
+**(3)测试用例代码**
+
+```c
+void TestBuildChildParentTree(void) {
 	/*Test01*/
-	char Str01[20] = "abcdef";
-	char FindStr01[] = "bc";
-	unsigned int FindPos01 = 1;
-	unsigned int RetPos01;
-	unsigned int CmpFindPos01 = 2;
+	CHILD_PARTENT_TREE CPTree01;
+	CHILD_PARENT_TREE_ROOT_NODENUM_DATA CPTreeRootNodeNumData01 = { 0, 7 };
+	CHILD_PARENT_TREE_NODE_DATA CPTreeNodeData01[7] = { {0, -1, 2, {1, 2}},
+														{10, 0, 2, {3, 4}}, {20, 0, 2, {5, 6}},
+														{30, 1, 0}, {40, 1, 0}, {50, 2, 0},{60, 2, 0} };
 
+	PARENT_TREE CmpPTree01 = { {{0, -1},
+								{10, 0}, {20, 0},
+								{30, 1}, {40, 1}, {50, 2}, {60, 2}}, 0, 7 };
+	
 	/*Test02*/
-	char Str02[20] = "abcdef";
-	char FindStr02[] = "ef";
-	unsigned int FindPos02 = 2;
-	unsigned int RetPos02;
-	unsigned int CmpFindPos02 = 5;
+	CHILD_PARTENT_TREE CPTree02;
+	CHILD_PARENT_TREE_ROOT_NODENUM_DATA CPTreeRootNodeNumData02 = {0, 10};
+	CHILD_PARENT_TREE_NODE_DATA CPTreeNodeData02[10] = { {0, -1, 2, {1, 2}},
+														{10, 0, 1, {3}}, {20, 0, 2, {4, 5}}, 
+														{30, 1, 3, {6, 7, 8}}, {40, 2, 1, {9}}, {50, 2, 0}, 
+														{60, 3, 0}, {70, 3, 0}, {80, 3, 0}, {90, 4, 0} };
 
-	/*Test03*/
-	char Str03[20] = "abcdef";
-	char FindStr03[] = "ee";
-	unsigned int FindPos03 = 1;
-	unsigned int RetPos03;
-	unsigned int CmpFindPos03 = 0;
+	PARENT_TREE CmpPTree02 = { {{0, -1},
+							{10, 0}, {20, 0},
+							{30, 1}, {40, 2}, {50, 2},
+							{60, 3}, {70, 3}, {80, 3}, {90, 4}}, 0, 10 };	
 
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
 	printf("-------Test 01----------\n");
-	RetPos01 = StrNormalFindIndex(Str01, FindStr01, FindPos01);
-	printf("RetPos01 = %d\n", RetPos01);
-	ValueTest(CmpFindPos01, RetPos01);
-	
-	/*Test02*/
-	printf("\n-------Test 02----------\n");
-	RetPos02 = StrNormalFindIndex(Str02, FindStr02, FindPos02);
-	printf("RetPos02 = %d\n", RetPos02);
-	ValueTest(CmpFindPos02, RetPos02);
-	
-	/*Test03*/
-	printf("\n-------Test 03----------\n");
-	RetPos03 = StrNormalFindIndex(Str03, FindStr03, FindPos03);
-	printf("RetPos03 = %d\n", RetPos03);
-	ValueTest(CmpFindPos03, RetPos03);
+	BuildChildParentTree(&CPTree01, &CPTreeRootNodeNumData01, CPTreeNodeData01);
+	PrintChildParentTree(&CPTree01);
+	CPTreeCmpTest(&CmpPTree01, &CPTree01, CPTreeRootNodeNumData01.NodeNum);
 
+	/*Test02*/
+	printf("-------Test 02----------\n");
+	BuildChildParentTree(&CPTree02, &CPTreeRootNodeNumData02, CPTreeNodeData02);
+	PrintChildParentTree(&CPTree02);
+	CPTreeCmpTest(&CmpPTree02, &CPTree02, CPTreeRootNodeNumData02.NodeNum);
+	
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
 ```
 
-
-
-**结果：**
+**（4）结果：**
 
 > -------Test start----------
->
 > -------Test 01----------
->
-> StrNormalFindIndex start
->
-> Find Success!
->
-> RetPos = 2
->
-> StrNormalFindIndex end
->
-> RetPos01 = 2
->
-> ValueTest test succeed!
->
->  
+> BuildChildTree start
+> BuildChildTree end
+> PrintChildParentTree start
+> TraCPTree->Root = 0, TraCPTree->NodeNum = 7
+> TraCPTree->Node[0].Data = 0, TraCPTree->Node[0].Parent = -1
+> TraChildNode->ChildIndex = 1
+> TraChildNode->ChildIndex = 2
+> TraCPTree->Node[1].Data = 10, TraCPTree->Node[1].Parent = 0
+> TraChildNode->ChildIndex = 3
+> TraChildNode->ChildIndex = 4
+> TraCPTree->Node[2].Data = 20, TraCPTree->Node[2].Parent = 0
+> TraChildNode->ChildIndex = 5
+> TraChildNode->ChildIndex = 6
+> TraCPTree->Node[3].Data = 30, TraCPTree->Node[3].Parent = 1
+> TraCPTree->Node[4].Data = 40, TraCPTree->Node[4].Parent = 1
+> TraCPTree->Node[5].Data = 50, TraCPTree->Node[5].Parent = 2
+> TraCPTree->Node[6].Data = 60, TraCPTree->Node[6].Parent = 2
+> PrintChildParentTree end
 >
 > -------Test 02----------
->
-> StrNormalFindIndex start
->
-> Find Success!
->
-> RetPos = 5
->
-> StrNormalFindIndex end
->
-> RetPos02 = 5
->
-> ValueTest test succeed!
->
->  
->
-> -------Test 03----------
->
-> StrNormalFindIndex start
->
-> RetPos = 0
->
-> StrNormalFindIndex end
->
-> RetPos03 = 0
->
-> ValueTest test succeed!
->
->  
+> BuildChildTree start
+> BuildChildTree end
+> PrintChildParentTree start
+> TraCPTree->Root = 0, TraCPTree->NodeNum = 10
+> TraCPTree->Node[0].Data = 0, TraCPTree->Node[0].Parent = -1
+> TraChildNode->ChildIndex = 1
+> TraChildNode->ChildIndex = 2
+> TraCPTree->Node[1].Data = 10, TraCPTree->Node[1].Parent = 0
+> TraChildNode->ChildIndex = 3
+> TraCPTree->Node[2].Data = 20, TraCPTree->Node[2].Parent = 0
+> TraChildNode->ChildIndex = 4
+> TraChildNode->ChildIndex = 5
+> TraCPTree->Node[3].Data = 30, TraCPTree->Node[3].Parent = 1
+> TraChildNode->ChildIndex = 6
+> TraChildNode->ChildIndex = 7
+> TraChildNode->ChildIndex = 8
+> TraCPTree->Node[4].Data = 40, TraCPTree->Node[4].Parent = 2
+> TraChildNode->ChildIndex = 9
+> TraCPTree->Node[5].Data = 50, TraCPTree->Node[5].Parent = 2
+> TraCPTree->Node[6].Data = 60, TraCPTree->Node[6].Parent = 3
+> TraCPTree->Node[7].Data = 70, TraCPTree->Node[7].Parent = 3
+> TraCPTree->Node[8].Data = 80, TraCPTree->Node[8].Parent = 3
+> TraCPTree->Node[9].Data = 90, TraCPTree->Node[9].Parent = 4
+> PrintChildParentTree end
 >
 > -------Test result----------
->
 > Print test result;
->
-> TestNum = 3, PassNum = 3, FaildNum = 0
+> TestNum = 2, PassNum = 2, FaildNum = 0
+
+
 
