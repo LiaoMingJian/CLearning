@@ -278,4 +278,6 @@ void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree);
 /*CHILD_SIBLING_PARENT_TREE*/
 //OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE *CSPTree, const CHILD_SIBLING_PARENT_TREE_DADA *CSPTreeData, const unsigned int NodeNum);
 OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, const CHILD_SIBLING_PARENT_TREE_NODE_DATA *CSPTreeNodeData, unsigned int IfExistFirstChildFlag, unsigned int IfExistRightSibFlag);
+
+void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode);
 #endif
