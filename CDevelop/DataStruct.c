@@ -3071,6 +3071,13 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 	CHILD_SIBLING_PARENT_TREE_NODE_DATA *TraCSPTreeNodeData = CSPTreeNodeData;
 	CHILD_SIBLING_PARENT_TREE_NODE *AddCSPTreeNode = NULL;
 
+	printf("BuildChildSibParentTree start\n");
+	/*printf("In start, Num = %d\n", Num);*/
+	printf("In start, TraCSPTreeNode = 0x%x, TraCSPTreeNode->Data = %d, TraCSPTreeNode->Parent = %d, TraCSPTreeNode->FirstChild = 0x%x, TraCSPTreeNode->RightSib = 0x%x\n", \
+									TraCSPTreeNode, TraCSPTreeNode->Data, TraCSPTreeNode->Parent, TraCSPTreeNode->FirstChild, TraCSPTreeNode->RightSib);
+
+	printf("In start, IfExistFirstChildFlag = %d, IfExistRightSibFlag = %d\n", IfExistFirstChildFlag, IfExistRightSibFlag);
+
 	if (TraCSPTreeNode == NULL || TraCSPTreeNodeData == NULL) {
 		return ERROR;
 	}
@@ -3091,7 +3098,13 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 		AddCSPTreeNode->Parent = TraCSPTreeNodeData->Parent;
 
 		AddCSPTreeNode->FirstChild = TraCSPTreeNode->FirstChild;
+		AddCSPTreeNode->RightSib = TraCSPTreeNode->RightSib;
 		TraCSPTreeNode->FirstChild = AddCSPTreeNode;
+
+		//Num++;
+		//printf("In firstChild, Num = %d\n", Num);
+
+		printf("In firstChild, AddCSPTreeNode = 0x%x, AddCSPTreeNode->Data = %d, AddCSPTreeNode->Parent = %d\n", AddCSPTreeNode, AddCSPTreeNode->Data, AddCSPTreeNode->Parent);
 
 		/*For Next Level*/
 		TraCSPTreeNode = TraCSPTreeNode->FirstChild;			
@@ -3099,8 +3112,13 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 		IfExistRightSibFlag = TraCSPTreeNodeData->IfExistRightSib;
 		TraCSPTreeNodeData++;
 
+		printf("In firstChild, IfExistFirstChildFlag = %d, IfExistRightSibFlag = %d\n\n", IfExistFirstChildFlag, IfExistRightSibFlag);
+
 		BuildChildSibParentTree(TraCSPTreeNode, TraCSPTreeNodeData, IfExistFirstChildFlag, IfExistRightSibFlag);
 	}
+
+	printf("In Middle, TraCSPTreeNode = 0x%x, TraCSPTreeNode->Data = %d, TraCSPTreeNode->Parent = %d, TraCSPTreeNode->FirstChild = 0x%x, TraCSPTreeNode->RightSib = 0x%x\n", \
+		TraCSPTreeNode, TraCSPTreeNode->Data, TraCSPTreeNode->Parent, TraCSPTreeNode->FirstChild, TraCSPTreeNode->RightSib);
 
 	if (IfExistRightSibFlag == 1) {
 		AddCSPTreeNode = (CHILD_SIBLING_PARENT_TREE_NODE *)malloc(sizeof(CHILD_SIBLING_PARENT_TREE_NODE));
@@ -3111,8 +3129,14 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 		AddCSPTreeNode->Data = TraCSPTreeNodeData->Data;
 		AddCSPTreeNode->Parent = TraCSPTreeNodeData->Parent;
 
+		AddCSPTreeNode->FirstChild = TraCSPTreeNode->FirstChild;
 		AddCSPTreeNode->RightSib = TraCSPTreeNode->RightSib;
 		TraCSPTreeNode->RightSib = AddCSPTreeNode;
+
+		/*printf("In Sib, Num = %d\n", Num);
+		Num++;*/
+
+		printf("In Sib, AddCSPTreeNode = 0x%x, AddCSPTreeNode->Data = %d, AddCSPTreeNode->Parent = %d\n", AddCSPTreeNode, AddCSPTreeNode->Data, AddCSPTreeNode->Parent);
 
 		/*For Next Level*/
 		TraCSPTreeNode = TraCSPTreeNode->RightSib;
@@ -3120,16 +3144,40 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 		IfExistRightSibFlag = TraCSPTreeNodeData->IfExistRightSib;
 		TraCSPTreeNodeData++;
 
+		printf("In Sib, IfExistFirstChildFlag = %d, IfExistRightSibFlag = %d\n\n", IfExistFirstChildFlag, IfExistRightSibFlag);
+
 		BuildChildSibParentTree(TraCSPTreeNode, TraCSPTreeNodeData, IfExistFirstChildFlag, IfExistRightSibFlag);
 	}
 
+	printf("In Taile, TraCSPTreeNode = 0x%x, TraCSPTreeNode->Data = %d, TraCSPTreeNode->Parent = %d, TraCSPTreeNode->FirstChild = 0x%x, TraCSPTreeNode->RightSib = 0x%x\n", \
+		TraCSPTreeNode, TraCSPTreeNode->Data, TraCSPTreeNode->Parent, TraCSPTreeNode->FirstChild, TraCSPTreeNode->RightSib);
+	printf("BuildChildSibParentTree end\n\n");
 	return SUCCESS;
 }
 
 void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode) {
-	CHILD_SIBLING_PARENT_TREE_NODE *TraCSPTreeNode = CSPTreeNode;
+	CHILD_SIBLING_PARENT_TREE_NODE *TraCSPTreeNode = CSPTreeNode;	
 
+	if (TraCSPTreeNode == NULL) {
+		return ERROR;
+	}
 
+	printf("TraCSPTreeNode = 0x%x\n", TraCSPTreeNode);
+	printf("TraCSPTreeNode = 0x%x, TraCSPTreeNode->Data = %d, TraCSPTreeNode->Parent = %d\n", TraCSPTreeNode, TraCSPTreeNode->Data, TraCSPTreeNode->Parent);
+
+	if (TraCSPTreeNode->FirstChild == NULL && TraCSPTreeNode->RightSib == NULL) {
+		return;
+	}
+
+	if (TraCSPTreeNode->FirstChild != NULL) {
+		TraCSPTreeNode = TraCSPTreeNode->FirstChild;
+		PrintChildSibParentTree(TraCSPTreeNode);
+	}
+
+	if (TraCSPTreeNode->RightSib != NULL) {
+		TraCSPTreeNode = TraCSPTreeNode->RightSib;
+		PrintChildSibParentTree(TraCSPTreeNode);
+	}
 }
 
 
