@@ -36,6 +36,6 @@ void TestBuildPTree(void);
 
 void TestBuildChildParentTree(void);
 
-/*CHILD_BILING_TREE*/
+/*CHILD_BILING_PARENT_TREE*/
 void TestBuildChildSibParentTree(void);
 #endif

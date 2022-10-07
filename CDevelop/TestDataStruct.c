@@ -900,7 +900,7 @@ void TestBuildChildParentTree(void) {
 /*CHILD_SIBILING_PARENT_TREE*/
 OP_STATUS CSPTreeCmpTest(PARENT_TREE *PTree, CHILD_SIBLING_PARENT_TREE_NODE *CSPTree, const unsigned int NodeNum) {
 	PARENT_TREE *TraPTree = PTree;
-	CHILD_SIBLING_PARENT_TREE *TraCSPTree = CSPTree;
+	CHILD_SIBLING_PARENT_TREE_NODE *TraCSPTree = CSPTree;
 	unsigned int Index = 0;
 
 	if (TraPTree->Num != NodeNum) {
@@ -924,15 +924,29 @@ void TestBuildChildSibParentTree(void) {
 	/*Test01*/
 	CHILD_SIBLING_PARENT_TREE_NODE *CSPTree01 = NULL;
 	unsigned int CSPTreeNodeNum01 = 10;
-	CHILD_SIBLING_PARENT_TREE_NODE_DATA CSPTreeData01[10] = { {0, -1, 1, 0},
+	/*CHILD_SIBLING_PARENT_TREE_NODE_DATA CSPTreeData01[10] = { {0, -1, 1, 0},
 														{10, 0, 1, 1}, {20, 0, 1, 0}, 
 														{30, 1, 1, 1}, {40, 2, 1, 1}, {50, 2, 0, 0}, 
-														{60, 3, 0, 1}, {70, 3, 0, 1}, {80, 3, 0, 1}, {90, 4, 0, 0} };
+														{60, 3, 0, 1}, {70, 3, 0, 1}, {80, 3, 0, 1}, {90, 4, 0, 0} };*/
+
+	CHILD_SIBLING_PARENT_TREE_NODE_DATA CSPTreeData01[10] = { {0, -1, 1, 0},
+															{10, 0, 1, 1}, 
+															{30, 1, 1, 0}, 
+															{60, 3, 0, 1}, 
+															{70, 3, 0, 1}, {80, 3, 0, 0}, 
+															{20, 0, 1, 0}, 
+															{40, 2, 1, 1}, 
+															{90, 4, 0, 0}, 
+															{50, 2, 0, 0} };
+
 
 	PARENT_TREE CmpPTree01 = { {{0, -1},
 								{10, 0}, {20, 0},
 								{30, 1}, {40, 2}, {50, 2},
 								{60, 3}, {70, 3}, {80, 3}, {90, 4}}, 0, 10 };
+	
+	unsigned int IfExistFirstChildFlag01 = 1;
+	unsigned int IfExistRightSibFlag01 = 0;
 
 	CSPTree01 = (CHILD_SIBLING_PARENT_TREE_NODE *)malloc(sizeof(CHILD_SIBLING_PARENT_TREE_NODE));
 	if (CSPTree01 == NULL) {
@@ -941,11 +955,13 @@ void TestBuildChildSibParentTree(void) {
 	CSPTree01->FirstChild = NULL;
 	CSPTree01->Parent = NULL;
 
+
+
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
 	printf("-------Test 01----------\n");
-	BuildChildSibParentTree(CSPTree01, CSPTreeData01, CSPTreeNodeNum01);
+	BuildChildSibParentTree(CSPTree01, CSPTreeData01, IfExistFirstChildFlag01, IfExistRightSibFlag01);
 	CSPTreeCmpTest(&CmpPTree01, CSPTree01, CSPTreeNodeNum01);
 
 
