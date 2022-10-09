@@ -140,6 +140,16 @@ typedef struct {
 }CHILD_SIBLING_PARENT_TREE_NODE_DATA;
 
 
+/*BinaryTree*/
+typedef struct _BINARY_TREE_NODE {
+	int Data;
+	struct _BINARY_TREE_NODE *LeftChild;
+	struct _BINARY_TREE_NODE *RightChild;
+}BINARY_TREE_NODE;
+
+
+
+
 LIST_STATUS OperatorList();
 
 LIST_STATUS CreatList(SQ_LIST *const L);
