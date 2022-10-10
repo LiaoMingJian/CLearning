@@ -3181,3 +3181,7 @@ void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode) {
 
 
 
+/*BINARY_TREE_NODE*/
+void BuildBinaryTree(void) {
+
+}
