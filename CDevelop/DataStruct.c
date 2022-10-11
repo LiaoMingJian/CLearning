@@ -3182,6 +3182,20 @@ void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode) {
 
 
 /*BINARY_TREE_NODE*/
-void BuildBinaryTree(void) {
+void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr) {
+	BINARY_TREE_NODE **TraBiTreeNodePtr = BiTreeNodePtr;	
+
+	if (*DataPtr == 0) {
+		DataPtr++;
+		return ;	
+	} else {
+		*BiTreeNodePtr = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+
+		(*BiTreeNodePtr)->Data = *DataPtr;
+		DataPtr++;
+
+		BuildBinaryTree(&((*BiTreeNodePtr)->LeftChild), DataPtr);
+		BuildBinaryTree(&((*BiTreeNodePtr)->RightChild), DataPtr);	
+	}
 
 }

@@ -971,3 +971,12 @@ EXIT:
 	TestResult();
 }
 
+
+
+
+void TestBuildBinaryTree(void) {
+	
+
+
+
+}
