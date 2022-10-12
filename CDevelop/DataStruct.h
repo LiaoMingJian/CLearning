@@ -290,4 +290,8 @@ void PrintChildParentTree(const CHILD_PARTENT_TREE *CPTree);
 OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, const CHILD_SIBLING_PARENT_TREE_NODE_DATA *CSPTreeNodeData, unsigned int IfExistFirstChildFlag, unsigned int IfExistRightSibFlag);
 
 void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode);
+
+/*BINARY_TREE_NODE*/
+void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr);
+
 #endif
