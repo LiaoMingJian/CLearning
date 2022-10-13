@@ -292,6 +292,6 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode);
 
 /*BINARY_TREE_NODE*/
-void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr);
-
+void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
+void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
 #endif

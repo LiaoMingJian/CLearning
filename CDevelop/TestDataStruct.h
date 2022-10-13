@@ -38,4 +38,7 @@ void TestBuildChildParentTree(void);
 
 /*CHILD_BILING_PARENT_TREE*/
 void TestBuildChildSibParentTree(void);
+
+/*BINARY_TREE_NODE*/
+void TestBuildBinaryTree(void);
 #endif
