@@ -87,8 +87,10 @@ int main() {
 	//TestBuildChildParentTree();
 
 	/*CHILD_SIBILING_PARENT_TREE*/
-	TestBuildChildSibParentTree();
+	//TestBuildChildSibParentTree();
 
+	/*BINARY_TREE_NODE*/
+	TestBuildBinaryTree();
 	system("pause");
 	return 0;
 }

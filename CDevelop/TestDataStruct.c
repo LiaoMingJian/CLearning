@@ -972,11 +972,29 @@ EXIT:
 }
 
 
-
-
+/*BINARY_TREE_NODE*/
 void TestBuildBinaryTree(void) {
-	
+	/*Test01*/
+	BINARY_TREE_NODE *BiTreeNodePtr01 = NULL;
+	int Data01[] = {10, 20, 0, 40, 0, 0, 30, 0, 0};
+	int i = 0;
+	int *DataPtr = Data01;
+	int Index = 0;
+
+	//for (i = 0; i < 9; ++i) {
+	//	printf("i = %d, *DataPtr = %d\n", i, *DataPtr);
+	//	DataPtr++;
+	//}
 
 
+	printf("-------Test start----------\n");
+	InitNum();
+	/*Test01*/
+	printf("-------Test 01----------\n");
+	BuildBinaryTree(&BiTreeNodePtr01, Data01, Index);
+	PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
 
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
 }
