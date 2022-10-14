@@ -972,27 +972,41 @@ EXIT:
 }
 
 
+
 /*BINARY_TREE_NODE*/
+void CmpBuildBinaryTree(const int *CmpNode, const BINARY_TREE_NODE *BiTreeNode, int Index) {
+
+
+
+}
+
 void TestBuildBinaryTree(void) {
 	/*Test01*/
 	BINARY_TREE_NODE *BiTreeNodePtr01 = NULL;
 	int Data01[] = {10, 20, 0, 40, 0, 0, 30, 0, 0};
-	int i = 0;
-	int *DataPtr = Data01;
-	int Index = 0;
+	int Index01 = 0;
 
-	//for (i = 0; i < 9; ++i) {
-	//	printf("i = %d, *DataPtr = %d\n", i, *DataPtr);
-	//	DataPtr++;
-	//}
+	/*Test02*/
+	BINARY_TREE_NODE *BiTreeNodePtr02 = NULL;
+	BINARY_TREE_NODE_DATA Data02[] = { {10, 1, 1}, {20, 0, 1}, {40, 0, 0}, {30, 0, 0} };
+	int Index02 = 0;
+	int IfExistNodeFlag02 = 1;
+	int CmpBiTreeNodeData02[] = {10, 20, 40, 30};
 
 
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
 	printf("-------Test 01----------\n");
-	BuildBinaryTree(&BiTreeNodePtr01, Data01, Index);
-	PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	//BuildBinaryTree01(&BiTreeNodePtr01, Data01, Index01);
+	//PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildBinaryTree02(&BiTreeNodePtr02, Data02, Index02, IfExistNodeFlag02);
+	PreOrderTraversePrintBinaryTree(BiTreeNodePtr02);
+
+
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
