@@ -147,7 +147,11 @@ typedef struct _BINARY_TREE_NODE {
 	struct _BINARY_TREE_NODE *RightChild;
 }BINARY_TREE_NODE;
 
-
+typedef struct _BINARY_TREE_NODE_DATA {
+	int BiTreeNodeData;
+	int IsExistLeftChildFlag;
+	int IsExistRightChildFlag;
+}BINARY_TREE_NODE_DATA;
 
 
 LIST_STATUS OperatorList();
@@ -292,6 +296,9 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode);
 
 /*BINARY_TREE_NODE*/
-void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
+void BuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
 void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+
+void BuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
+
 #endif

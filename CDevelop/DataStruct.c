@@ -3182,8 +3182,8 @@ void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode) {
 
 
 /*BINARY_TREE_NODE*/
-void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index) {
-	BINARY_TREE_NODE **TraBiTreeNodePtr = BiTreeNodePtr;
+void BuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index) {
+	//BINARY_TREE_NODE **TraBiTreeNodePtr = BiTreeNodePtr;
 
 	static int TraIndex = 0;
 
@@ -3193,24 +3193,55 @@ void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index) 
 	if (DataPtr[TraIndex] == 0) {
 		*BiTreeNodePtr = NULL;
 		TraIndex++;
-		return ;	
+		return ;
 	} else {
 		*BiTreeNodePtr = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
 		printf("In else, DataPtr[TraIndex] = %d\n", DataPtr[TraIndex]);
 		(*BiTreeNodePtr)->Data = DataPtr[TraIndex];
 		TraIndex++;
 
-		BuildBinaryTree(&((*BiTreeNodePtr)->LeftChild), DataPtr, TraIndex);
-		BuildBinaryTree(&((*BiTreeNodePtr)->RightChild), DataPtr, TraIndex);
+		BuildBinaryTree01(&((*BiTreeNodePtr)->LeftChild), DataPtr, TraIndex);
+		BuildBinaryTree01(&((*BiTreeNodePtr)->RightChild), DataPtr, TraIndex);
+	}
+
+	printf("BuildBinaryTree end\n\n");
+}
+
+void BuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag) {
+	//BINARY_TREE_NODE **TraBiTreeNodePtr = BiTreeNodePtr;
+
+	static int TraIndex = 0;
+	int IfExistLeftChildNodeFlag;
+	int IfExistRightChildNodeFlag;
+	
+	printf("BuildBinaryTree start\n");
+
+	if (IfExistNodeFlag == 0) {
+		*BiTreeNodePtr = NULL;
+		//TraIndex++;
+		return;
+	} else {
+		*BiTreeNodePtr = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		printf("In else, DataPtr[%d] = %d\n", TraIndex, DataPtr[TraIndex]);
+		(*BiTreeNodePtr)->Data = DataPtr[TraIndex].BiTreeNodeData;
+		IfExistLeftChildNodeFlag = DataPtr[TraIndex].IsExistLeftChildFlag;
+		IfExistRightChildNodeFlag = DataPtr[TraIndex].IsExistRightChildFlag;
+		printf("IfExistLeftChildNodeFlag = %d, IfExistRightChildNodeFlag = %d\n", IfExistLeftChildNodeFlag, IfExistRightChildNodeFlag);
+
+		TraIndex++;
+
+		BuildBinaryTree02(&((*BiTreeNodePtr)->LeftChild), DataPtr, TraIndex, IfExistLeftChildNodeFlag);
+
+		printf("In Right, TraIndex = %d\n", TraIndex);
+		BuildBinaryTree02(&((*BiTreeNodePtr)->RightChild), DataPtr, TraIndex, IfExistRightChildNodeFlag);
 	}
 
 	printf("BuildBinaryTree end\n\n");
 }
 
 
-void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
-	//BINARY_TREE_NODE *TraBiTreeNode = BiTreeNode;
 
+void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {	
 	if (BiTreeNode == NULL) {
 		return;
 	} else {
@@ -3218,6 +3249,5 @@ void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 		PreOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
 		PreOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
 	}
-
 }
 
