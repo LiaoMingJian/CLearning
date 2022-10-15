@@ -40,5 +40,5 @@ void TestBuildChildParentTree(void);
 void TestBuildChildSibParentTree(void);
 
 /*BINARY_TREE_NODE*/
-void TestBuildBinaryTree(void);
+void TestPreOderBuildBinaryTree(void);
 #endif
