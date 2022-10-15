@@ -1018,13 +1018,6 @@ void TestPreOderBuildBinaryTree(void) {
 	int IfExistNodeFlag02 = 1;
 	int CmpBiTreeNodeData02[] = {10, 20, 40, 30};
 
-	/*Test03*/
-	BINARY_TREE_NODE *BiTreeNodePtr03 = NULL;
-	int Data03[] = { 0, 10, 0, 40, 0, 10, 0, 10, 0 };
-	int Index03 = 0;
-	int CmpBiTreeNodeData03[] = { 20, 40, 10, 30 };
-
-
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
@@ -1048,7 +1041,6 @@ void TestPreOderBuildBinaryTree(void) {
 	printf("PostOrderTraversePrintBinaryTree\n");
 	PostOrderTraversePrintBinaryTree(BiTreeNodePtr02);
 	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData02, BiTreeNodePtr02, Index02);
-
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");

@@ -3219,7 +3219,7 @@ void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 void PreOderBuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index) {
 	static int TraIndex = 0;
 
-	printf("BuildBinaryTree start\n");
+	printf("PreOderBuildBinaryTree01 start\n");
 
 	if (DataPtr[TraIndex] == 0) {
 		*BiTreeNodePtr = NULL;
@@ -3235,7 +3235,7 @@ void PreOderBuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, in
 		PreOderBuildBinaryTree01(&((*BiTreeNodePtr)->RightChild), DataPtr, TraIndex);
 	}
 
-	printf("BuildBinaryTree end\n\n");
+	printf("PreOderBuildBinaryTree01 end\n\n");
 }
 
 void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag) {
@@ -3243,7 +3243,7 @@ void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE
 	int IfExistLeftChildNodeFlag;
 	int IfExistRightChildNodeFlag;
 	
-	printf("BuildBinaryTree start\n");
+	printf("PreOderBuildBinaryTree02 start\n");
 
 	if (IfExistNodeFlag == 0) {
 		*BiTreeNodePtr = NULL;
@@ -3265,5 +3265,9 @@ void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE
 		PreOderBuildBinaryTree02(&((*BiTreeNodePtr)->RightChild), DataPtr, TraIndex, IfExistRightChildNodeFlag);
 	}
 
-	printf("BuildBinaryTree end\n\n");
+	printf("PreOderBuildBinaryTree02 end\n\n");
 }
+
+
+
+
