@@ -3181,7 +3181,6 @@ void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode) {
 }
 
 
-
 /*BINARY_TREE_NODE*/
 void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 	if (BiTreeNode == NULL) {
@@ -3267,7 +3266,4 @@ void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE
 
 	printf("PreOderBuildBinaryTree02 end\n\n");
 }
-
-
-
 
