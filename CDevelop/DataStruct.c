@@ -2817,6 +2817,7 @@ EXIT:
 	return Status;
 }
 
+
 OP_STATUS StrInsert(char *Str, const unsigned int InSertPos, const char *InsertStr) {
 	OP_STATUS Status = SUCCESS;
 	char *TraStr = Str;
@@ -3266,3 +3267,12 @@ void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE
 	printf("PreOderBuildBinaryTree02 end\n\n");
 }
 
+
+
+/*BINARY_THREAD_TREE_NODE*/
+
+void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index) {
+	
+
+
+}
