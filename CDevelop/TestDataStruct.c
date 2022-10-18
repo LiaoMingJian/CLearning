@@ -1064,11 +1064,11 @@ void TestPreOderBuildBinaryThreadTree(void) {
 	printf("-------Test 01----------\n");
 	PreOderBuildBinaryThreadTree01(&BiTreeNodePtr01, Data01, Index01);
 	printf("PreOrderTraversePrintBinaryTree\n");
-	PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	PreOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
 	printf("InOrderTraversePrintBinaryTree\n");
-	InOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	InOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
 	printf("PostOrderTraversePrintBinaryTree\n");
-	PostOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	PostOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
 	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
 
 	/*Test Result*/

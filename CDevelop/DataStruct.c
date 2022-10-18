@@ -3270,7 +3270,6 @@ void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE
 
 
 /*BINARY_THREAD_TREE_NODE*/
-
 void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index) {
 	
 
