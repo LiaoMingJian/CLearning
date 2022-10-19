@@ -153,7 +153,6 @@ typedef struct _BINARY_TREE_NODE_DATA {
 	int IsExistRightChildFlag;
 }BINARY_TREE_NODE_DATA;
 
-
 /*BINARY_THREAD_TREE_NODE*/
 typedef enum _POINTER_TAG {
 	LINK,
@@ -320,6 +319,7 @@ void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
 void PreOderBuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
 void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
 
+void InOrderBuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
 
 /*BINARY_THREAD_TREE_NODE*/
 void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index);

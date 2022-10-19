@@ -1048,6 +1048,27 @@ void TestPreOderBuildBinaryTree(void) {
 }
 
 
+void TestInOrderBuildBinaryTree(void) {
+	/*Test01*/
+	BINARY_TREE_NODE *BiTreeNodePtr01 = NULL;
+	BINARY_TREE_NODE_DATA Data01[] = { {20, 0, 1}, {40, 0, 0}, {10, 1, 1}, {30, 0, 0} };
+	int Index01 = 0;
+	int IfExistNodeFlag01 = 1;
+	int CmpBiTreeNodeData01[] = { 20, 40, 10, 30 };
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	InOrderBuildBinaryTree(&BiTreeNodePtr01, Data01, Index01, IfExistNodeFlag01);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	printf("InOrderTraversePrintBinaryTree\n");
+	InOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
 
 
 /*BINARY_THREAD_TREE_NODE*/
@@ -1061,15 +1082,18 @@ void TestPreOderBuildBinaryThreadTree(void) {
 	printf("-------Test start----------\n");
 	InitNum();
 	/*Test01*/
-	printf("-------Test 01----------\n");
-	PreOderBuildBinaryThreadTree01(&BiTreeNodePtr01, Data01, Index01);
-	printf("PreOrderTraversePrintBinaryTree\n");
-	PreOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
-	printf("InOrderTraversePrintBinaryTree\n");
-	InOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
-	printf("PostOrderTraversePrintBinaryTree\n");
-	PostOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
-	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
+	//printf("-------Test 01----------\n");
+	//PreOderBuildBinaryThreadTree01(&BiTreeNodePtr01, Data01, Index01);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
+	//printf("InOrderTraversePrintBinaryTree\n");
+	//InOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
+	//printf("PostOrderTraversePrintBinaryTree\n");
+	//PostOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
+	//CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
+
+
+
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");

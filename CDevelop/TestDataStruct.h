@@ -42,6 +42,8 @@ void TestBuildChildSibParentTree(void);
 /*BINARY_TREE_NODE*/
 void TestPreOderBuildBinaryTree(void);
 
+void TestInOrderBuildBinaryTree(void);
+
 /*BINARY_THREAD_TREE_NODE*/
 void TestPreOderBuildBinaryThreadTree(void);
 #endif
