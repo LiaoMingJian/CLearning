@@ -3268,10 +3268,37 @@ void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE
 }
 
 
+void InOrderBuildBinaryTree(BINARY_TREE_NODE **BiTreeNode, BINARY_TREE_NODE_DATA *Data, int Index, int IfExistNodeFlag) {	
+	static int TraIndex = 0;
+	int IfExistLeftChildNodeFlag;
+	int IfExistRightChildNodeFlag;
+
+	printf("InOrderBuildBinaryTree start\n");
+
+	if (IfExistNodeFlag == 0) {
+		*BiTreeNode = NULL;
+		return;
+	} else {
+
+		IfExistLeftChildNodeFlag = Data[Index].IsExistLeftChildFlag;
+		InOrderBuildBinaryTree(BiTreeNode, Data, Index, IfExistLeftChildNodeFlag);
+		
+		printf("In else, DataPtr[%d] = %d\n", TraIndex, Data[TraIndex]);
+		*BiTreeNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		(*BiTreeNode)->Data = Data[TraIndex].BiTreeNodeData;
+		
+		IfExistRightChildNodeFlag = Data[TraIndex].IsExistLeftChildFlag;
+		TraIndex++;
+		printf("In Right, TraIndex = %d\n", TraIndex);
+		InOrderBuildBinaryTree(BiTreeNode, Data, Index, IfExistRightChildNodeFlag);		
+	}
+
+	printf("InOrderBuildBinaryTree end\n");
+}
+
 
 /*BINARY_THREAD_TREE_NODE*/
 void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index) {
-	
 
 
 }

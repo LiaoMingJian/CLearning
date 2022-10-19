@@ -89,8 +89,11 @@ int main() {
 	/*CHILD_SIBILING_PARENT_TREE*/
 	//TestBuildChildSibParentTree();
 
+	//TestInOrderBuildBinaryTree();
+	TestInOrderBuildBinaryTree();
+
 	/*BINARY_TREE_NODE*/
-	TestPreOderBuildBinaryTree();
+	//TestPreOderBuildBinaryTree();
 
 	system("pause");
 	return 0;
