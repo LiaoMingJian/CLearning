@@ -3302,6 +3302,8 @@ void InOrderBuildBinaryTree(BINARY_TREE_NODE **BiTreeNode, BINARY_TREE_NODE_DATA
 void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index) {
 
 
+
+
 }
 
 
