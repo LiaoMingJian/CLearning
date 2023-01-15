@@ -140,33 +140,55 @@ typedef struct {
 }CHILD_SIBLING_PARENT_TREE_NODE_DATA;
 
 
-/*BinaryTree*/
+/*BINARY_TREE_NODE*/
+#pragma pack(1)
 typedef struct _BINARY_TREE_NODE {
-	int Data;
+	char Data;
 	struct _BINARY_TREE_NODE *LeftChild;
 	struct _BINARY_TREE_NODE *RightChild;
 }BINARY_TREE_NODE;
 
 typedef struct _BINARY_TREE_NODE_DATA {
-	int BiTreeNodeData;
-	int IsExistLeftChildFlag;
-	int IsExistRightChildFlag;
+	char BiTreeNodeData;
+	char IsExistLeftChildFlag;
+	char IsExistRightChildFlag;
 }BINARY_TREE_NODE_DATA;
 
 /*BINARY_THREAD_TREE_NODE*/
-typedef enum _POINTER_TAG {
-	LINK,
-	THREAD
-}POINTER_TAG;
-
-
 typedef struct _BINARY_THREAD_TREE_NODE {
 	char Data;
+	char IfExistDirectLeftNodeFlag;
+	char IfExistDirectRightNodeFlag;
 	struct _BINARY_THREAD_TREE_NODE *LeftChild;
 	struct _BINARY_THREAD_TREE_NODE *RightChild;
-	POINTER_TAG LeftTag;
-	POINTER_TAG RightTag;
 }BINARY_THREAD_TREE_NODE;
+
+typedef struct _BINARY_THREAD_TREE_NODE_DATA {
+	char BiThrTreeData;
+	char IfExistDirectLeftNodeFlag;
+	char IfExistDirectRightNodeFlag;
+	char IsExistLeftChildFlag;
+	char IsExistRightChildFlag;
+}BINARY_THREAD_TREE_NODE_DATA;
+#pragma pack()
+
+/*BINARY_TREE_NODE*/
+void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+void InOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+
+void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, char IfExistNodeFlag);
+
+/*BINARY_THREAD_TREE_NODE*/
+void PreOrderTraversePrintBinaryThreadTree(const BINARY_THREAD_TREE_NODE *BiThrTreeNode);
+void InOrderTraversePrintBinaryThreadTree(const BINARY_THREAD_TREE_NODE *BiThrTreeNode);
+void PostOrderTraversePrintBinaryThreadTree(const BINARY_THREAD_TREE_NODE *BiThrTreeNode);
+void PreOrderBuildBiThrTree(BINARY_THREAD_TREE_NODE **BiThrTreeNodePtr, BINARY_THREAD_TREE_NODE_DATA *DataPtr, char IfExistNodeFlag);
+void BuildBinaryThreadTree(BINARY_THREAD_TREE_NODE **BiThrTreeNode, BINARY_THREAD_TREE_NODE_DATA *DataPtr);
+
+
+
+
 
 
 
@@ -311,16 +333,16 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 
 void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode);
 
-/*BINARY_TREE_NODE*/
-void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
-void InOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
-void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
-
-void PreOderBuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
-void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
-
-void InOrderBuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
-
-/*BINARY_THREAD_TREE_NODE*/
-void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index);
+///*BINARY_TREE_NODE*/
+//void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+//void InOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+//void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
+//
+//void PreOderBuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
+//void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
+//
+//void InOrderBuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
+//
+///*BINARY_THREAD_TREE_NODE*/
+//void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index);
 #endif

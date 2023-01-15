@@ -90,10 +90,13 @@ int main() {
 	//TestBuildChildSibParentTree();
 
 	//TestInOrderBuildBinaryTree();
-	TestInOrderBuildBinaryTree();
+	//TestInOrderBuildBinaryTree();
 
 	/*BINARY_TREE_NODE*/
-	//TestPreOderBuildBinaryTree();
+	TestPreOderBuildBinaryTree();
+
+	/*BINARY_THREAD_TREE_NODE*/
+	//TestBuildBinaryThreadTree();
 
 	system("pause");
 	return 0;
