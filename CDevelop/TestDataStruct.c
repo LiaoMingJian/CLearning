@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <malloc.h>
 #include "TestDataStruct.h"
 #include "DataStruct.h"
 
@@ -973,127 +975,228 @@ EXIT:
 
 
 
-/*BINARY_TREE_NODE*/
+/*BINARY_TREE*/
 static int PreOrderTraverseCompareNum = 0;
-
-void PreOrderTraverseCompare(const int *CmpNode, const BINARY_TREE_NODE *BiTreeNode, unsigned int Index) {	
+static int BiIndex = 0;
+void PreOrderTraverseCompare(const char *CmpNode, const BINARY_TREE_NODE *BiTreeNode) {
 	if (BiTreeNode == NULL) {
 		return;
-	} else {
-		if (BiTreeNode->Data == CmpNode[Index]) {
+	}
+	else {
+		printf("BiTreeNode->Data = %c , CmpNode[%d] = %c\n", BiTreeNode->Data, BiIndex, CmpNode[BiIndex]);
+		if (BiTreeNode->Data == CmpNode[BiIndex]) {
+			//printf("BiTreeNode->Data = %c , CmpNode[%d] = %c\n", BiTreeNode->Data, Index, CmpNode[Index]);
 			PreOrderTraverseCompareNum++;
 		}
-	
-		Index++;
-		PreOrderTraverseCompare(CmpNode, BiTreeNode->LeftChild, Index);
-		PreOrderTraverseCompare(CmpNode, BiTreeNode->RightChild, Index);	
-	} 
+
+		BiIndex++;
+		PreOrderTraverseCompare(CmpNode, BiTreeNode->LeftChild);
+		PreOrderTraverseCompare(CmpNode, BiTreeNode->RightChild);
+	}
 }
 
-void CmpPreOderBuildBinaryTree(const int *CmpNode, const BINARY_TREE_NODE *BiTreeNode, int Num) {
-	unsigned int Index = 0;
-	
+void CmpPreOderBuildBinaryTree(const char *CmpNode, const BINARY_TREE_NODE *BiTreeNode, char NodeNum) {
+	//unsigned char Index = 0;
+	BiIndex = 0;
+	PreOrderTraverseCompareNum = 0;
+
 	TestNum++;
 
-	PreOrderTraverseCompare(CmpNode, BiTreeNode, Index);	
-
-	if (PreOrderTraverseCompareNum != PreOrderTraverseCompareNum) {
+	PreOrderTraverseCompare(CmpNode, BiTreeNode);
+	printf("PreOrderTraverseCompareNum = %d, NodeNum = %d\n", PreOrderTraverseCompareNum, NodeNum);
+	if (PreOrderTraverseCompareNum != NodeNum) {
 		FaildNum++;
-	} else {
+	}
+	else {
 		PassNum++;
 	}
 }
 
+
+/*BINARY_THREAD_TREE*/
+int PreOrderTraverseCmpPreOderBuildBiThrTree(const BINARY_THREAD_TREE_NODE_DATA *CmpNode, int Index, const BINARY_THREAD_TREE_NODE *BiThrTreeNode, int PreOrderTraverseCmpBiThrTreeNum) {
+	BINARY_THREAD_TREE_NODE *BiThrTrNodeTemp = BiThrTreeNode->LeftChild;
+
+	printf("\n\nTest PreOrderTraverseCmpPreOderBuildBiThrTree start\n");
+	//printf("Root Node, BiThrTrNodeTemp = 0x%lx, BiThrTrNodeTemp->Data = %c, BiThrTrNodeTemp->LeftChild = 0x%lx, BiThrTrNodeTemp->RightChild = 0x%lx\n", (long unsigned int)BiThrTrNodeTemp, BiThrTrNodeTemp->Data, (long unsigned int)BiThrTrNodeTemp->LeftChild, (long unsigned int)BiThrTrNodeTemp->RightChild);
+	while (BiThrTrNodeTemp != BiThrTreeNode) {
+		//printf("test01\n");
+		while (BiThrTrNodeTemp->IfExistDirectLeftNodeFlag != 0) {
+			BiThrTrNodeTemp = BiThrTrNodeTemp->LeftChild;
+		}
+
+		printf("BiThrTrNodeTemp = 0x%lx, BiThrTrNodeTemp->Data = %c, BiThrTrNodeTemp->LeftChild = 0x%lx, BiThrTrNodeTemp->RightChild = 0x%lx\n", (long unsigned int)BiThrTrNodeTemp, BiThrTrNodeTemp->Data, (long unsigned int)BiThrTrNodeTemp->LeftChild, (long unsigned int)BiThrTrNodeTemp->RightChild);
+		printf("CmpNode[Index].BiThrTreeData = %c\n", CmpNode[Index].BiThrTreeData);
+		if (CmpNode[Index++].BiThrTreeData == BiThrTrNodeTemp->Data) {
+			PreOrderTraverseCmpBiThrTreeNum++;
+		}
+
+		while ((BiThrTrNodeTemp->IfExistDirectRightNodeFlag == 0) && (BiThrTrNodeTemp->RightChild != BiThrTreeNode)) {
+			BiThrTrNodeTemp = BiThrTrNodeTemp->RightChild;
+			printf("BiThrTrNodeTemp = 0x%lx, BiThrTrNodeTemp->Data = %c, BiThrTrNodeTemp->LeftChild = 0x%lx, BiThrTrNodeTemp->RightChild = 0x%lx\n", (long unsigned int)BiThrTrNodeTemp, BiThrTrNodeTemp->Data, (long unsigned int)BiThrTrNodeTemp->LeftChild, (long unsigned int)BiThrTrNodeTemp->RightChild);
+			printf("CmpNode[Index].BiThrTreeData = %c\n", CmpNode[Index].BiThrTreeData);
+			if (CmpNode[Index++].BiThrTreeData == BiThrTrNodeTemp->Data) {
+				PreOrderTraverseCmpBiThrTreeNum++;
+			}
+		}
+
+		BiThrTrNodeTemp = BiThrTrNodeTemp->RightChild;
+		//printf("BiThrTrNodeTemp = 0x%lx, BiThrTrNodeTemp->RightChild = 0x%lx\n", (long unsigned int )BiThrTrNodeTemp, (long unsigned int )BiThrTrNodeTemp->RightChild);
+	}
+
+	printf("PreOrderTraverseCompareBinaryThreadTree03 end\n");
+	return PreOrderTraverseCmpBiThrTreeNum;
+}
+
+void CmpPreOderBuildBiThrTree(const BINARY_THREAD_TREE_NODE_DATA *CmpNode, int Index, const BINARY_THREAD_TREE_NODE *BiThrTreeNode, int NodeNum) {
+	//unsigned char Index = 0;
+	int PreOrderTraverseCmpBiThrTreeNum = 0;
+	//Index = 0;
+
+	TestNum++;
+
+	PreOrderTraverseCmpBiThrTreeNum = PreOrderTraverseCmpPreOderBuildBiThrTree(CmpNode, Index, BiThrTreeNode, PreOrderTraverseCmpBiThrTreeNum);
+	printf("PreOrderTraverseCmpBiThrTreeNum = %d, NodeNum = %d\n", PreOrderTraverseCmpBiThrTreeNum, NodeNum);
+	if (PreOrderTraverseCmpBiThrTreeNum != NodeNum) {
+		FaildNum++;
+	}
+	else {
+		PassNum++;
+	}
+}
+
+/*BINARY_TREE*/
 void TestPreOderBuildBinaryTree(void) {
 	/*Test01*/
+	//    A
+	//  B    C
 	BINARY_TREE_NODE *BiTreeNodePtr01 = NULL;
-	int Data01[] = {10, 20, 0, 40, 0, 0, 30, 0, 0};
-	int Index01 = 0;
-	int CmpBiTreeNodeData01[] = { 10, 20, 40, 30 };
+	BINARY_TREE_NODE_DATA Data01[] = { {'A', 1, 1}, {'B', 0, 0}, {'C', 0, 0} };
+	char Index01 = 0;
+	char NodeNum01 = 3;
+	char IfExistNodeFlag01 = 1;
+	char CmpBiTreeNodeData01[] = { 'A', 'B', 'C' };
 
 	/*Test02*/
+	//    A
+	//  B    c
+	//   D  
 	BINARY_TREE_NODE *BiTreeNodePtr02 = NULL;
-	BINARY_TREE_NODE_DATA Data02[] = { {10, 1, 1}, {20, 0, 1}, {40, 0, 0}, {30, 0, 0} };
-	int Index02 = 0;
-	int IfExistNodeFlag02 = 1;
-	int CmpBiTreeNodeData02[] = {10, 20, 40, 30};
+	BINARY_TREE_NODE_DATA Data02[] = { {'A', 1, 1}, {'B', 0, 1}, {'D', 0, 0}, {'C', 0, 0} };
+	char Index02 = 0;
+	char NodeNum02 = 4;
+	char IfExistNodeFlag02 = 1;
+	char CmpBiTreeNodeData02[] = { 'A', 'B', 'D', 'C' };
+
+	/*Test03*/
+	//    A
+	//  B    E
+	// C  D  F  G
+	BINARY_TREE_NODE *BiTreeNodePtr03 = NULL;
+	BINARY_TREE_NODE_DATA Data03[] = { {'A', 1, 1}, {'B', 1, 1}, {'C', 0, 0}, {'D', 0, 0}, {'E', 1, 1}, {'F', 0, 0}, {'G', 0, 0} };
+	char Index03 = 0;
+	char NodeNum03 = 7;
+	char IfExistNodeFlag03 = 1;
+	char CmpBiTreeNodeData03[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
 
 	printf("-------Test start----------\n");
 	InitNum();
+
 	/*Test01*/
-	printf("-------Test 01----------\n");
-	PreOderBuildBinaryTree01(&BiTreeNodePtr01, Data01, Index01);
+	printf("\n-------Test 01----------\n");
+	BuildBinaryTree(&BiTreeNodePtr01, Data01, IfExistNodeFlag01);
 	printf("PreOrderTraversePrintBinaryTree\n");
 	PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
 	printf("InOrderTraversePrintBinaryTree\n");
 	InOrderTraversePrintBinaryTree(BiTreeNodePtr01);
 	printf("PostOrderTraversePrintBinaryTree\n");
 	PostOrderTraversePrintBinaryTree(BiTreeNodePtr01);
-	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
+	printf("\nCmpPreOderBuildBinaryTree\n");
+	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, NodeNum01);
+
 
 	/*Test02*/
 	printf("\n-------Test 02----------\n");
-	PreOderBuildBinaryTree02(&BiTreeNodePtr02, Data02, Index02, IfExistNodeFlag02);
+	BuildBinaryTree(&BiTreeNodePtr02, Data02, IfExistNodeFlag02);
 	printf("PreOrderTraversePrintBinaryTree\n");
 	PreOrderTraversePrintBinaryTree(BiTreeNodePtr02);
 	printf("InOrderTraversePrintBinaryTree\n");
 	InOrderTraversePrintBinaryTree(BiTreeNodePtr02);
 	printf("PostOrderTraversePrintBinaryTree\n");
 	PostOrderTraversePrintBinaryTree(BiTreeNodePtr02);
-	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData02, BiTreeNodePtr02, Index02);
+	printf("\nCmpPreOderBuildBinaryTree\n");
+	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData02, BiTreeNodePtr02, NodeNum02);
 
-	/*Test Result*/
-	printf("\n-------Test result----------\n");
-	TestResult();
-}
-
-
-void TestInOrderBuildBinaryTree(void) {
-	/*Test01*/
-	BINARY_TREE_NODE *BiTreeNodePtr01 = NULL;
-	BINARY_TREE_NODE_DATA Data01[] = { {20, 0, 1}, {40, 0, 0}, {10, 1, 1}, {30, 0, 0} };
-	int Index01 = 0;
-	int IfExistNodeFlag01 = 1;
-	int CmpBiTreeNodeData01[] = { 20, 40, 10, 30 };
-
-	/*Test01*/
-	printf("\n-------Test 01----------\n");
-	InOrderBuildBinaryTree(&BiTreeNodePtr01, Data01, Index01, IfExistNodeFlag01);
-	//printf("PreOrderTraversePrintBinaryTree\n");
-	//PreOrderTraversePrintBinaryTree(BiTreeNodePtr01);
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	BuildBinaryTree(&BiTreeNodePtr03, Data03, IfExistNodeFlag03);
+	printf("PreOrderTraversePrintBinaryTree\n");
+	PreOrderTraversePrintBinaryTree(BiTreeNodePtr03);
 	printf("InOrderTraversePrintBinaryTree\n");
-	InOrderTraversePrintBinaryTree(BiTreeNodePtr01);
-	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
+	InOrderTraversePrintBinaryTree(BiTreeNodePtr03);
+	printf("PostOrderTraversePrintBinaryTree\n");
+	PostOrderTraversePrintBinaryTree(BiTreeNodePtr03);
+	printf("\nCmpPreOderBuildBinaryTree\n");
+	CmpPreOderBuildBinaryTree(CmpBiTreeNodeData03, BiTreeNodePtr03, NodeNum03);
+
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
 
-
-/*BINARY_THREAD_TREE_NODE*/
-void TestPreOderBuildBinaryThreadTree(void) {
+/*BINARY_THREAD_TREE*/
+void TestBuildBinaryThreadTree(void) {
 	/*Test01*/
-	BINARY_THREAD_TREE_NODE *BiTreeNodePtr01 = NULL;
-	char Data01[] = { 'A', 'B', 'D', 'H', '\0', '\0','I', '\0', '\0', 'E', 'J', '\0', '\0', '\0', 'C', 'F', '\0', '\0', 'G', '\0', '\0' };
+	//    A
+	//  B    C
+	BINARY_THREAD_TREE_NODE  *BiThrTreeNodePtr01 = NULL;
+	BINARY_THREAD_TREE_NODE_DATA  BiThrTreeNodeData01[] = { {'A', 1, 1, 1, 1}, {'B', 0, 0, 0, 0}, {'C', 0, 0, 0, 0} };
+	int NodeNum01 = 3;
+	char IfExistNodeFlag01 = 1;
+	BINARY_THREAD_TREE_NODE_DATA  CmpBiThrTreeNodeData01[] = { {'B', 0, 0, 0, 0}, {'A', 1, 1, 1, 1}, {'C', 0, 0, 0, 0} };
 	int Index01 = 0;
-	int CmpBiTreeNodeData01[] = { 'A', 'B', 'D', 'H', 'I', 'E', 'J', 'C', 'F', 'G' };
+
+	//    A
+	//  B    E
+	// C  D  F  G
+	BINARY_THREAD_TREE_NODE  *BiThrTreeNodePtr02 = NULL;
+	BINARY_THREAD_TREE_NODE_DATA  BiThrTreeNodeData02[] = { {'A', 1, 1, 1, 1}, {'B', 1, 1, 1, 1}, {'C', 0, 0, 0, 0}, {'D', 0, 0, 0, 0},
+				 {'E', 1, 1, 1, 1}, {'F', 0, 0, 0, 0}, {'G', 0, 0, 0, 0} };
+	int NodeNum02 = 7;
+
+	BINARY_THREAD_TREE_NODE_DATA  CmpBiThrTreeNodeData02[] = { {'C', 0, 0, 0, 0}, {'B', 0, 0, 0, 0}, {'D', 0, 0, 0, 0}, {'A', 1, 1, 1, 1},
+				   {'F', 0, 0, 0, 0}, {'E', 1, 1, 1, 1}, {'G', 0, 0, 0, 0} };
+	int Index02 = 0;
+
+	//    A
+	//  B    C
+	//   D    
+	BINARY_THREAD_TREE_NODE  *BiThrTreeNodePtr03 = NULL;
+	BINARY_THREAD_TREE_NODE_DATA BiThrTreeNodeData03[] = { {'A', 1, 1, 1, 1}, {'B', 0, 1, 0, 1}, {'D', 0, 0, 0, 0}, {'C', 0, 0, 0, 0} };
+	int NodeNum03 = 4;
+	BINARY_THREAD_TREE_NODE_DATA  CmpBiThrTreeNodeData03[] = { {'B', 0, 0, 0, 0}, {'D', 0, 0, 0, 0}, {'A', 1, 1, 1, 1}, {'C', 0, 0, 0, 0} };
+	int Index03 = 0;
+
 
 	printf("-------Test start----------\n");
 	InitNum();
+
 	/*Test01*/
-	//printf("-------Test 01----------\n");
-	//PreOderBuildBinaryThreadTree01(&BiTreeNodePtr01, Data01, Index01);
-	//printf("PreOrderTraversePrintBinaryTree\n");
-	//PreOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
-	//printf("InOrderTraversePrintBinaryTree\n");
-	//InOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
-	//printf("PostOrderTraversePrintBinaryTree\n");
-	//PostOrderTraversePrintBinaryThreadTree(BiTreeNodePtr01);
-	//CmpPreOderBuildBinaryTree(CmpBiTreeNodeData01, BiTreeNodePtr01, Index01);
+	printf("\n-------Test 01----------\n");
+	BuildBinaryThreadTree(&BiThrTreeNodePtr01, BiThrTreeNodeData01);
+	CmpPreOderBuildBiThrTree(CmpBiThrTreeNodeData01, Index01, BiThrTreeNodePtr01, NodeNum01);
 
 
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildBinaryThreadTree(&BiThrTreeNodePtr02, BiThrTreeNodeData02);
+	CmpPreOderBuildBiThrTree(CmpBiThrTreeNodeData02, Index02, BiThrTreeNodePtr02, NodeNum02);
 
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	BuildBinaryThreadTree(&BiThrTreeNodePtr03, BiThrTreeNodeData03);
+	CmpPreOderBuildBiThrTree(CmpBiThrTreeNodeData03, Index03, BiThrTreeNodePtr03, NodeNum03);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
