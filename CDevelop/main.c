@@ -93,7 +93,10 @@ int main() {
 	//TestInOrderBuildBinaryTree();
 
 	/*BINARY_TREE_NODE*/
-	TestPreOderBuildBinaryTree();
+	//TestPreOderBuildBinaryTree();
+
+	/*BINARY_THREAD_TREE_NODE*/
+	//TestBuildBinaryThreadTree();
 
 	/*BINARY_THREAD_TREE_NODE*/
 	//TestBuildBinaryThreadTree();
@@ -103,7 +106,7 @@ int main() {
 	//TestBinarySearch();
 
 	/*TestBubbleRank*/
-	//TestBubbleRank();
+	TestBubbleRank();
 	system("pause");
 	return 0;
 }

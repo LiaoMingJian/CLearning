@@ -3424,7 +3424,6 @@ void BuildBinaryThreadTree(BINARY_THREAD_TREE_NODE **BiThrTreeNode, BINARY_THREA
 	printf("BuildBinaryThreadTree end\n");
 }
 
-
 /*BinarySearch*/
 //int Arr01[] = {0, 1, 2, 3, 4, 5};
 //2, 1, 5, 7, {0}
