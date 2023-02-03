@@ -187,11 +187,6 @@ void PreOrderBuildBiThrTree(BINARY_THREAD_TREE_NODE **BiThrTreeNodePtr, BINARY_T
 void BuildBinaryThreadTree(BINARY_THREAD_TREE_NODE **BiThrTreeNode, BINARY_THREAD_TREE_NODE_DATA *DataPtr);
 
 
-
-
-
-
-
 LIST_STATUS OperatorList();
 
 LIST_STATUS CreatList(SQ_LIST *const L);
@@ -333,16 +328,11 @@ OP_STATUS BuildChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode, c
 
 void PrintChildSibParentTree(CHILD_SIBLING_PARENT_TREE_NODE *CSPTreeNode);
 
-///*BINARY_TREE_NODE*/
-//void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
-//void InOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
-//void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode);
-//
-//void PreOderBuildBinaryTree01(BINARY_TREE_NODE **BiTreeNodePtr, int *DataPtr, int Index);
-//void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
-//
-//void InOrderBuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, int Index, int IfExistNodeFlag);
-//
-///*BINARY_THREAD_TREE_NODE*/
-//void PreOderBuildBinaryThreadTree01(BINARY_THREAD_TREE_NODE **BiThrNode, char *DataPtr, int Index);
+/*BinarySearch*/
+int BinarySearch(int *Arr, int Num, int SearchValue);
+
+/*BubbleRank*/
+//{1, 3, 2, 5, 4, 0};
+//3, 2, 4, 1, 5
+void BubbleRank(int *Arr, int Num);
 #endif

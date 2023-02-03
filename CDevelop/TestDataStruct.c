@@ -1202,3 +1202,147 @@ void TestBuildBinaryThreadTree(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+/*TestBinarySearch*/
+void TestCmpRes(int CmpRes01, int Res01) {
+	TestNum++;
+
+	if (CmpRes01 != Res01) {
+		FaildNum++;
+	}
+	else {
+		PassNum++;
+	}
+}
+
+void TestBinarySearch(void) {
+	/*Test01: Normal*/
+	int Arr01[] = { 0, 1, 2, 3, 4, 5 };
+	int SearchValue01 = 2;
+	int Res01 = 0;
+	int CmpRes01 = 2;
+	int Num01 = 6;
+
+	/*Test02: Bounary*/
+	int Arr02[] = { 0, 1, 2, 3, 4, 5 };
+	int SearchValue02 = 0;
+	int Res02 = 0;
+	int CmpRes02 = 0;
+	int Num02 = 6;
+
+	/*Test03: Bounary*/
+	int Arr03[] = { 0, 1, 2, 3, 4, 5 };
+	int SearchValue03 = 5;
+	int Res03 = 0;
+	int CmpRes03 = 5;
+	int Num03 = 6;
+
+	/*Test04: Don't exit*/
+	int Arr04[] = { 0, 1, 2, 3, 4, 5 };
+	int SearchValue04 = 7;
+	int Res04 = 0;
+	int CmpRes04 = -1;
+	int Num04 = 6;
+
+	/*Test05: Only a Mem and exit*/
+	int Arr05[] = { 0 };
+	int SearchValue05 = 0;
+	int Res05 = 0;
+	int CmpRes05 = 0;
+	int Num05 = 1;
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	Res01 = BinarySearch(Arr01, Num01, SearchValue01);
+	TestCmpRes(CmpRes01, Res01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	Res02 = BinarySearch(Arr02, Num02, SearchValue02);
+	TestCmpRes(CmpRes02, Res02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	Res03 = BinarySearch(Arr03, Num03, SearchValue03);
+	TestCmpRes(CmpRes03, Res03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	Res04 = BinarySearch(Arr04, Num04, SearchValue04);
+	TestCmpRes(CmpRes04, Res04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	Res05 = BinarySearch(Arr05, Num05, SearchValue05);
+	TestCmpRes(CmpRes05, Res05);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+
+/*BubbleRank*/
+void TestCmpArr(int *CmpArr, int Num, int *Arr) {
+	int Index = 0;
+	int CmpNum = 0;
+
+	TestNum++;
+
+	for (Index = 0; Index < Num; ++Index) {
+		if (CmpArr[Index] == Arr[Index]) {
+			CmpNum++;
+		}
+	}
+
+	if (CmpNum != Num) {
+		FaildNum++;
+	}
+	else {
+		PassNum++;
+	}
+}
+
+void PrintArr(int *Arr, int Num) {
+	int i = 0;
+	for (i = 0; i < Num; i++) {
+		printf("Arr[%d] = %d\n", i, Arr[i]);
+	}
+}
+
+/*TestBubbleRank*/
+void TestBubbleRank(void) {
+	/*Test01: Normal*/
+	int Arr01[] = { 1, 3, 2, 5, 4, 0 };
+	int Num01 = 6;
+	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
+
+	/*Test02: Only 1 Mem*/
+	int Arr02[] = { 0 };
+	int Num02 = 1;
+	int CmpArr02[] = { 0 };
+
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BubbleRank(Arr01, Num01);
+	PrintArr(Arr01, Num01);
+	TestCmpArr(CmpArr01, Num01, Arr01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BubbleRank(Arr02, Num02);
+	PrintArr(Arr02, Num02);
+	TestCmpArr(CmpArr02, Num02, Arr02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}

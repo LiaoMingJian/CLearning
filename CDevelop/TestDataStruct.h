@@ -43,4 +43,9 @@ void TestBuildChildSibParentTree(void);
 void TestPreOderBuildBinaryTree(void);
 void TestBuildBinaryThreadTree(void);
 
+/*TestBinarySearch*/
+void TestBinarySearch(void);
+
+/*TestBubbleRank*/
+void TestBubbleRank(void);
 #endif

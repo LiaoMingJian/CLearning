@@ -98,6 +98,12 @@ int main() {
 	/*BINARY_THREAD_TREE_NODE*/
 	//TestBuildBinaryThreadTree();
 
+
+	/*TestBinarySearch*/
+	//TestBinarySearch();
+
+	/*TestBubbleRank*/
+	//TestBubbleRank();
 	system("pause");
 	return 0;
 }

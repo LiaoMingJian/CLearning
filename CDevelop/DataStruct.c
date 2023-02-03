@@ -3424,3 +3424,54 @@ void BuildBinaryThreadTree(BINARY_THREAD_TREE_NODE **BiThrTreeNode, BINARY_THREA
 	printf("BuildBinaryThreadTree end\n");
 }
 
+
+/*BinarySearch*/
+//int Arr01[] = {0, 1, 2, 3, 4, 5};
+//2, 1, 5, 7, {0}
+int BinarySearch(int *Arr, int Num, int SearchValue) {
+	int Low = 0;
+	int High = Num - 1;
+	int Mid = 0;
+
+	if (Arr == NULL || Num <= 0 || SearchValue < Arr[Low] || SearchValue > Arr[High]) {
+		return -1;
+	}
+
+	while (Low <= High) {
+		Mid = (Low + High) / 2;
+		
+		if (SearchValue < Arr[Mid]) {
+			High = Mid - 1;
+		} else if (SearchValue > Arr[Mid]) {
+			Low = Mid + 1;
+		} else {
+			return Mid;
+		}
+	}
+	
+	return -1;
+}
+
+
+/*BubbleRank*/
+//{1, 3, 2, 5, 4, 0};
+//3, 2, 4, 1, 5
+void BubbleRank(int *Arr, int Num) {
+	int i = 0;
+	int j = 0;
+	int Tmp = 0;
+
+	if (Arr == NULL || Num <= 1) {
+		return ;
+	}
+
+	for (i = 0; i < Num - 1; ++i) {
+		for (j = 0; j < Num - i - 1; ++j) {
+			if (Arr[j] > Arr[j + 1]) {
+				Tmp = Arr[j];
+				Arr[j] = Arr[j + 1];
+				Arr[j + 1] = Tmp;
+			}
+		}
+	}
+}
