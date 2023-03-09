@@ -48,4 +48,7 @@ void TestBinarySearch(void);
 
 /*TestBubbleRank*/
 void TestBubbleRank(void);
+
+/*TestQuickSort*/
+void TestQuickSort(void);
 #endif

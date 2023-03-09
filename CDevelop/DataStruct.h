@@ -335,4 +335,7 @@ int BinarySearch(int *Arr, int Num, int SearchValue);
 //{1, 3, 2, 5, 4, 0};
 //3, 2, 4, 1, 5
 void BubbleRank(int *Arr, int Num);
+
+/*QuickSort*/
+void QuickSort(int *Arr, int Low, int High);
 #endif
