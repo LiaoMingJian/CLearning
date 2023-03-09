@@ -106,7 +106,12 @@ int main() {
 	//TestBinarySearch();
 
 	/*TestBubbleRank*/
-	TestBubbleRank();
+	//TestBubbleRank();
+
+
+	/*QuickSort*/
+	TestQuickSort();
+
 	system("pause");
 	return 0;
 }

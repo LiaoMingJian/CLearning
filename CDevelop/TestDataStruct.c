@@ -1346,3 +1346,54 @@ void TestBubbleRank(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+/*TestQuickSort*/
+void TestQuickSort(void) {
+	/*Test01: Normal*/
+	int Arr01[] = { 5, 2, 6, 3, 1, 4 };
+	int Num01 = 6;
+	int Low01 = 0;
+	int High01 = Num01 - 1;
+	int CmpArr01[] = { 1, 2, 3, 4, 5, 6 };
+
+	/*Test02: Normal*/
+	int Arr02[] = { 8, 7, 6, 5, 4, 3, 2, 1};
+	int Num02 = 8;
+	int Low02 = 0;
+	int High02 = Num02 - 1;
+	int CmpArr02[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+	/*Test03: Normal*/
+	int Arr03[] = { 0};
+	int Num03 = 1;
+	int Low03 = 0;
+	int High03 = Num03 - 1;
+	int CmpArr03[] = { 0};
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	QuickSort(Arr01, Low01, High01);
+	PrintArr(Arr01, Num01);
+	TestCmpArr(CmpArr01, Num01, Arr01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	QuickSort(Arr02, Low02, High02);
+	PrintArr(Arr02, Num02);
+	TestCmpArr(CmpArr02, Num02, Arr02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	QuickSort(Arr03, Low03, High03);
+	PrintArr(Arr03, Num03);
+	TestCmpArr(CmpArr03, Num03, Arr03);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
