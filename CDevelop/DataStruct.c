@@ -3478,7 +3478,7 @@ void BubbleRank(int *Arr, int Num) {
 
 /*QuickSort*/
 //{ 5, 2, 6, 3, 1, 4 }
-void QuickSort(int *Arr, int Low, int High) {
+void QuickSort01(int *Arr, int Low, int High) {
 	int i = Low;
 	int j = High;
 	int FlagValue = Arr[Low];
@@ -3510,3 +3510,37 @@ void QuickSort(int *Arr, int Low, int High) {
 	QuickSort(Arr, Low, i - 1);
 	QuickSort(Arr, i + 1, High);
 }
+
+void QuickSort(int *Arr, int Low, int High) {
+	int i = Low;
+	int j = High;
+	int FlagValue = Arr[High];
+	int Tmp;
+
+	if ((Arr == NULL) || (i > j)) {
+		return;
+	}
+
+	while (i < j) {
+		while ((Arr[i] <= FlagValue) && (i < j)) {
+			++i;
+		}
+
+		while ((Arr[j] >= FlagValue) && (i < j)) {
+			--j;
+		}
+
+		if (i < j) {
+			Tmp = Arr[i];
+			Arr[i] = Arr[j];
+			Arr[j] = Tmp;
+		}
+	}
+
+	Arr[High] = Arr[j];
+	Arr[j] = FlagValue;
+
+	QuickSort(Arr, Low, j - 1);
+	QuickSort(Arr, j + 1, High);
+}
+
