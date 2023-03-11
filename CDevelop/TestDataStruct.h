@@ -51,4 +51,7 @@ void TestBubbleRank(void);
 
 /*TestQuickSort*/
 void TestQuickSort(void);
+
+/*InterpolationSearch*/
+void TesInterpolationSearchSearch(void);
 #endif
