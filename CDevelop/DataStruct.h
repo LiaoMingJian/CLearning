@@ -338,4 +338,7 @@ void BubbleRank(int *Arr, int Num);
 
 /*QuickSort*/
 void QuickSort(int *Arr, int Low, int High);
+
+/*InterpolationSearch*/
+int InterpolationSearch(int *Arr, int Num, int SearchValue);
 #endif

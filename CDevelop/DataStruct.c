@@ -3544,3 +3544,33 @@ void QuickSort(int *Arr, int Low, int High) {
 	QuickSort(Arr, j + 1, High);
 }
 
+
+
+/*InterpolationSearch*/
+int InterpolationSearch(int *Arr, int Num, int SearchValue) {
+	int Low = 0;
+	int High = Num - 1;
+	int Mid;
+
+	if ((Arr == NULL) || (Num <= 0) || (SearchValue < Arr[Low]) || (SearchValue > Arr[High])) {
+		return -1;
+	}
+
+	if (Num == 1) {
+		return 0;
+	}
+
+	while (Low < High) {
+		Mid = Low + (int)(((SearchValue - Arr[Low]) / (Arr[High] - Arr[Low])) * (High - Low));
+		if (SearchValue < Arr[Mid]) {
+			High = Mid - 1;
+		} else if (SearchValue > Arr[Mid]) {
+			Low = Mid + 1;
+		} else {
+			return Mid;
+		}
+	}
+
+	return -1;
+}
+

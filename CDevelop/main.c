@@ -110,7 +110,11 @@ int main() {
 
 
 	/*QuickSort*/
-	TestQuickSort();
+	//TestQuickSort();
+
+
+	/*InterpolationSearch*/
+	TesInterpolationSearchSearch();
 
 	system("pause");
 	return 0;
