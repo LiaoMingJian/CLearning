@@ -341,4 +341,8 @@ void QuickSort(int *Arr, int Low, int High);
 
 /*InterpolationSearch*/
 int InterpolationSearch(int *Arr, int Num, int SearchValue);
+
+
+/*SelectSort*/
+void SelectSort(int *Arr, int Num);
 #endif

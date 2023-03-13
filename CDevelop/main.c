@@ -114,7 +114,11 @@ int main() {
 
 
 	/*InterpolationSearch*/
-	TesInterpolationSearchSearch();
+	//TesInterpolationSearchSearch();
+
+	/*TestSelectSort*/
+	TestSelectSort();
+
 
 	system("pause");
 	return 0;

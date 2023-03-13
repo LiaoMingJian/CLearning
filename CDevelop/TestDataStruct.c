@@ -1468,3 +1468,37 @@ void TesInterpolationSearchSearch(void) {
 	TestResult();
 }
 
+
+
+/*TestSelectSort*/
+void TestSelectSort(void) {
+	/*Test01: Normal*/
+	int Arr01[] = { 1, 3, 2, 5, 4, 0 };
+	int Num01 = 6;
+	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
+
+	/*Test02: Only 1 Mem*/
+	int Arr02[] = { 0 };
+	int Num02 = 1;
+	int CmpArr02[] = { 0 };
+
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	SelectSort(Arr01, Num01);
+	PrintArr(Arr01, Num01);
+	TestCmpArr(CmpArr01, Num01, Arr01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	SelectSort(Arr02, Num02);
+	PrintArr(Arr02, Num02);
+	TestCmpArr(CmpArr02, Num02, Arr02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
