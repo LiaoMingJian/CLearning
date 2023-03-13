@@ -3478,7 +3478,7 @@ void BubbleRank(int *Arr, int Num) {
 
 /*QuickSort*/
 //{ 5, 2, 6, 3, 1, 4 }
-void QuickSort01(int *Arr, int Low, int High) {
+void QuickSort(int *Arr, int Low, int High) {
 	int i = Low;
 	int j = High;
 	int FlagValue = Arr[Low];
@@ -3511,7 +3511,7 @@ void QuickSort01(int *Arr, int Low, int High) {
 	QuickSort(Arr, i + 1, High);
 }
 
-void QuickSort(int *Arr, int Low, int High) {
+void QuickSort02(int *Arr, int Low, int High) {
 	int i = Low;
 	int j = High;
 	int FlagValue = Arr[High];
@@ -3545,7 +3545,6 @@ void QuickSort(int *Arr, int Low, int High) {
 }
 
 
-
 /*InterpolationSearch*/
 int InterpolationSearch(int *Arr, int Num, int SearchValue) {
 	int Low = 0;
@@ -3574,3 +3573,33 @@ int InterpolationSearch(int *Arr, int Num, int SearchValue) {
 	return -1;
 }
 
+
+void Swap(int *Mem01, int *Mem02) {
+	int Tmp = *Mem01;
+	*Mem01 = *Mem02;
+	*Mem02 = Tmp;
+}
+
+/*SelectSort*/
+void SelectSort(int *Arr, int Num) {
+	int i = 0;
+	int j = 0;;
+	int MinIndex;
+
+	if ((Arr == NULL) || (Num <= 1)) {
+		return ;
+	}
+
+	for (i = 0; i < Num - 1; ++i) {
+		MinIndex = i;
+		for (j = i + 1; j < Num; ++j) {
+			if (Arr[j] < Arr[MinIndex]) {
+				MinIndex = j;
+			}
+		}
+
+		if (i != MinIndex) {
+			Swap(&Arr[i], &Arr[MinIndex]);
+		}
+	}
+}
