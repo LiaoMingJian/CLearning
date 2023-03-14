@@ -345,4 +345,7 @@ int InterpolationSearch(int *Arr, int Num, int SearchValue);
 
 /*SelectSort*/
 void SelectSort(int *Arr, int Num);
+
+/*InsertSort*/
+void InsertSort(int *Arr, int Num);
 #endif
