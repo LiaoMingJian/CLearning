@@ -57,4 +57,7 @@ void TesInterpolationSearchSearch(void);
 
 /*TestSelectSort*/
 void TestSelectSort(void);
+
+/*TestInsertSort*/
+void TestInsertSort(void);
 #endif

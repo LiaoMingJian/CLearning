@@ -3603,3 +3603,26 @@ void SelectSort(int *Arr, int Num) {
 		}
 	}
 }
+
+
+/*InsertSort*/
+void InsertSort(int *Arr, int Num) {
+	int i = 0;
+	int j = 0;
+	int Tmp;
+
+	if ((Arr == NULL) || (Num <= 1)) {
+		return ;
+	}
+
+	for (i = 1; i < Num; ++i) {
+		Tmp = Arr[i];
+		if (Arr[i] < Arr[i - 1]) {
+			for (j = i - 1; Arr[j] > Tmp; --j) {
+				Arr[j + 1] = Arr[j];
+			}
+
+			Arr[j + 1] = Tmp;
+		}
+	}
+}
