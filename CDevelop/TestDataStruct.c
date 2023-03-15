@@ -1204,7 +1204,7 @@ void TestBuildBinaryThreadTree(void) {
 }
 
 
-/*TestBinarySearch*/
+
 void TestCmpRes(int CmpRes01, int Res01) {
 	TestNum++;
 
@@ -1216,6 +1216,7 @@ void TestCmpRes(int CmpRes01, int Res01) {
 	}
 }
 
+/*TestBinarySearch*/
 void TestBinarySearch(void) {
 	/*Test01: Normal*/
 	int Arr01[] = { 0, 1, 2, 3, 4, 5 };
@@ -1286,7 +1287,6 @@ void TestBinarySearch(void) {
 }
 
 
-/*BubbleRank*/
 void TestCmpArr(int *CmpArr, int Num, int *Arr) {
 	int Index = 0;
 	int CmpNum = 0;
@@ -1513,11 +1513,20 @@ void TestInsertSort(void) {
 	int Num01 = 6;
 	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
 
-	/*Test02: Only 1 Mem*/
-	int Arr02[] = { 0 };
-	int Num02 = 1;
-	int CmpArr02[] = { 0 };
+	/*Test02: Normal*/
+	int Arr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num02 = 8;
+	int CmpArr02[] = { 0, 1, 2, 3, 4, 5, 6, 7};
 
+	/*Test03: Two Mem*/
+	int Arr03[] = { 1, 0 };
+	int Num03 = 2;
+	int CmpArr03[] = { 0, 1 };
+
+	/*Test04: Only 1 Mem*/
+	int Arr04[] = { 0 };
+	int Num04 = 1;
+	int CmpArr04[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1533,6 +1542,73 @@ void TestInsertSort(void) {
 	InsertSort(Arr02, Num02);
 	PrintArr(Arr02, Num02);
 	TestCmpArr(CmpArr02, Num02, Arr02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	InsertSort(Arr03, Num03);
+	PrintArr(Arr03, Num03);
+	TestCmpArr(CmpArr03, Num03, Arr03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	InsertSort(Arr04, Num04);
+	PrintArr(Arr04, Num04);
+	TestCmpArr(CmpArr04, Num04, Arr04);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+
+/*TestShellSort*/
+void TestShellSort(void) {
+	/*Test01: Normal*/
+	int Arr01[] = { 1, 3, 2, 5, 4, 0 };
+	int Num01 = 6;
+	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
+
+	/*Test02: Normal*/
+	int Arr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num02 = 8;
+	int CmpArr02[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+	/*Test03: Two Mem*/
+	int Arr03[] = { 1, 0 };
+	int Num03 = 2;
+	int CmpArr03[] = { 0, 1 };
+
+	/*Test04: Only 1 Mem*/
+	int Arr04[] = { 0 };
+	int Num04 = 1;
+	int CmpArr04[] = { 0 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	ShellSort(Arr01, Num01);
+	PrintArr(Arr01, Num01);
+	TestCmpArr(CmpArr01, Num01, Arr01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	ShellSort(Arr02, Num02);
+	PrintArr(Arr02, Num02);
+	TestCmpArr(CmpArr02, Num02, Arr02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	ShellSort(Arr03, Num03);
+	PrintArr(Arr03, Num03);
+	TestCmpArr(CmpArr03, Num03, Arr03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	ShellSort(Arr04, Num04);
+	PrintArr(Arr04, Num04);
+	TestCmpArr(CmpArr04, Num04, Arr04);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");

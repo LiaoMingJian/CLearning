@@ -60,4 +60,7 @@ void TestSelectSort(void);
 
 /*TestInsertSort*/
 void TestInsertSort(void);
+
+/*TestShellSort*/
+void TestShellSort(void);
 #endif

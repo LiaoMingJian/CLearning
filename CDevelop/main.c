@@ -120,8 +120,10 @@ int main() {
 	//TestSelectSort();
 
 	/*TestInsertSort*/
-	TestInsertSort();
+	//TestInsertSort();
 
+	/*TestShellSort*/
+	TestShellSort();
 	system("pause");
 	return 0;
 }

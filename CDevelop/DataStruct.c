@@ -3626,3 +3626,25 @@ void InsertSort(int *Arr, int Num) {
 		}
 	}
 }
+
+/*ShellSort*/
+void ShellSort(int *Arr, int Num) {
+	int i, j, Tmp, Incre;
+
+	if ((Arr == NULL) || (Num <= 1)) {
+		return ;
+	}
+
+	for (Incre = Num / 2; Incre > 0; Incre /= 2) {
+		for (i = Incre; i < Num; i++) {
+			if (Arr[i] < Arr[i - Incre]) {
+				Tmp = Arr[i];
+				for (j = i - Incre; (Arr[j] > Tmp) && (j >= 0); j -= Incre) {
+					Arr[j + Incre] = Arr[j];
+				}
+				
+				Arr[j + Incre] = Tmp;
+			}
+		}
+	}
+}
