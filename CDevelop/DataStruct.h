@@ -348,4 +348,7 @@ void SelectSort(int *Arr, int Num);
 
 /*InsertSort*/
 void InsertSort(int *Arr, int Num);
+
+/*ShellSort*/
+void ShellSort(int *Arr, int Num);
 #endif
