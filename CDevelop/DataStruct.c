@@ -3632,6 +3632,7 @@ void ShellSort(int *Arr, int Num) {
 	int i, j, Tmp, Incre;
 
 	if ((Arr == NULL) || (Num <= 1)) {
+
 		return ;
 	}
 
@@ -3646,5 +3647,43 @@ void ShellSort(int *Arr, int Num) {
 				Arr[j + Incre] = Tmp;
 			}
 		}
+	}
+}
+
+
+void HeapAdjust(int *Arr, int NodeIndex, int Num) {
+	int LeftCh;
+
+	for (LeftCh = 2 * NodeIndex + 1; LeftCh < Num; LeftCh = 2 * LeftCh + 1) {
+		if (((LeftCh + 1) < Num) && (Arr[LeftCh] < Arr[LeftCh + 1])) {
+			LeftCh++;
+		}
+
+		if (Arr[LeftCh] < Arr[NodeIndex]) {
+			break;
+		} else {
+			Swap(&Arr[LeftCh], &Arr[NodeIndex]);
+		}
+
+		NodeIndex = LeftCh;
+	}
+}
+
+/*HeapSort*/
+// { 1, 3, 2, 5, 4, 0 }
+void HeapSort(int *Arr, int Num) {
+	int NodeIndex;
+
+	if ((Arr == NULL) || (Num <= 1)) {
+		return ;
+	}
+
+	for (NodeIndex = (Num - 1) / 2; NodeIndex >= 0; --NodeIndex) {
+		HeapAdjust(Arr, NodeIndex, Num);
+	}
+
+	for (NodeIndex = Num - 1; NodeIndex > 0; --NodeIndex) {
+		Swap(&Arr[0], &Arr[NodeIndex]);
+		HeapAdjust(Arr, 0, NodeIndex);
 	}
 }

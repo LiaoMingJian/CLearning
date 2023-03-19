@@ -63,4 +63,8 @@ void TestInsertSort(void);
 
 /*TestShellSort*/
 void TestShellSort(void);
+
+
+/*TestHeapSort*/
+void TestHeapSort(void);
 #endif

@@ -123,7 +123,11 @@ int main() {
 	//TestInsertSort();
 
 	/*TestShellSort*/
-	TestShellSort();
+	//TestShellSort();
+
+	/*TestHeapSort*/
+	TestHeapSort();
+
 	system("pause");
 	return 0;
 }
