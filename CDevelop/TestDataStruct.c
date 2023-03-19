@@ -1649,10 +1649,6 @@ void TestShellSort(void) {
 	TestResult();
 }
 
-
-
-
-
 /*TestHeapSort*/
 void TestHeapSort(void) {
 	/*Test01: Normal*/
