@@ -351,4 +351,8 @@ void InsertSort(int *Arr, int Num);
 
 /*ShellSort*/
 void ShellSort(int *Arr, int Num);
+
+
+/*HeapSort*/
+void HeapSort(int *Arr, int Num);
 #endif
