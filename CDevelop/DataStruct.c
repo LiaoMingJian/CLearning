@@ -3652,20 +3652,20 @@ void ShellSort(int *Arr, int Num) {
 
 
 void HeapAdjust(int *Arr, int NodeIndex, int Num) {
-	int LeftCh;
+	int i;
 
-	for (LeftCh = 2 * NodeIndex + 1; LeftCh < Num; LeftCh = 2 * LeftCh + 1) {
-		if (((LeftCh + 1) < Num) && (Arr[LeftCh] < Arr[LeftCh + 1])) {
-			LeftCh++;
+	for (i = 2 * NodeIndex + 1; i < Num; i = 2 * i + 1) {
+		if (((i + 1) < Num) && (Arr[i] < Arr[i + 1])) {
+			i++;
 		}
 
-		if (Arr[LeftCh] < Arr[NodeIndex]) {
+		if (Arr[i] < Arr[NodeIndex]) {
 			break;
 		} else {
-			Swap(&Arr[LeftCh], &Arr[NodeIndex]);
+			Swap(&Arr[i], &Arr[NodeIndex]);
 		}
 
-		NodeIndex = LeftCh;
+		NodeIndex = i;
 	}
 }
 
