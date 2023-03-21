@@ -126,8 +126,10 @@ int main() {
 	//TestShellSort();
 
 	/*TestHeapSort*/
-	TestHeapSort();
+	//TestHeapSort();
 
+	/*TestMergeSort*/
+	TestMergeSort();
 	system("pause");
 	return 0;
 }

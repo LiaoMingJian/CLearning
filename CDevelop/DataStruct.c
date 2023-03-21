@@ -3669,6 +3669,7 @@ void HeapAdjust(int *Arr, int NodeIndex, int Num) {
 	}
 }
 
+
 /*HeapSort*/
 // { 1, 3, 2, 5, 4, 0 }
 void HeapSort(int *Arr, int Num) {
@@ -3687,3 +3688,54 @@ void HeapSort(int *Arr, int Num) {
 		HeapAdjust(Arr, 0, NodeIndex);
 	}
 }
+
+
+/*MergeSort*/
+void Merge(int *Arr02, int *Arr01, int Low, int Mid, int High) {
+	int i, j, k;
+
+	for (i = Low, j = Mid + 1; (Low <= Mid) && (j <= High); i++) {
+		if (Arr02[Low] <= Arr02[j]) {
+			Arr01[i] = Arr02[Low++];
+		} else {
+			Arr01[i] = Arr02[j++];
+		}
+	}
+
+	if (Low <= Mid) {
+		for (k = 0; k <= Mid - Low; k++) {
+			Arr01[i + k] = Arr02[Low + k];
+		}
+	}
+
+	if (j <= High) {
+		for (k = 0; k <= High - j; k++) {
+			Arr01[i + k] = Arr02[j + k];
+		}
+	}
+}
+
+void MSort(int *Arr, int *Arr01, int Low, int High) {
+	int Mid;
+	int Arr02[10];
+
+	if (Low == High) {
+		Arr01[Low] = Arr[High];
+	} else {
+		Mid = (Low + High) / 2;
+		MSort(Arr, Arr02, Low, Mid);
+		MSort(Arr, Arr02, Mid + 1, High);
+		Merge(Arr02, Arr01, Low, Mid, High);
+	}
+}
+
+/*MergeSort*/
+void MergeSort(int *Arr, int Num) {
+	if ((Arr == NULL) || (Num <= 1)) {
+		return;
+	}
+
+	MSort(Arr, Arr, 0, Num - 1);
+}
+
+
