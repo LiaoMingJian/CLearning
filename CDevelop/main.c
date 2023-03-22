@@ -9,7 +9,6 @@
 #include "TestDataStruct.h"
 
 int main() {
-
 	//OperatorList();
 
 	/*
@@ -101,17 +100,14 @@ int main() {
 	/*BINARY_THREAD_TREE_NODE*/
 	//TestBuildBinaryThreadTree();
 
-
 	/*TestBinarySearch*/
 	//TestBinarySearch();
 
 	/*TestBubbleRank*/
 	//TestBubbleRank();
 
-
 	/*QuickSort*/
 	//TestQuickSort();
-
 
 	/*InterpolationSearch*/
 	//TesInterpolationSearchSearch();
@@ -130,6 +126,7 @@ int main() {
 
 	/*TestMergeSort*/
 	TestMergeSort();
+
 	system("pause");
 	return 0;
 }
