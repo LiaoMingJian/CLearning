@@ -3632,7 +3632,6 @@ void ShellSort(int *Arr, int Num) {
 	int i, j, Tmp, Incre;
 
 	if ((Arr == NULL) || (Num <= 1)) {
-
 		return ;
 	}
 
@@ -3737,5 +3736,6 @@ void MergeSort(int *Arr, int Num) {
 
 	MSort(Arr, Arr, 0, Num - 1);
 }
+
 
 

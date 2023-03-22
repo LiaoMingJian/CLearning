@@ -1492,20 +1492,25 @@ void TestSelectSort(void) {
 	int Num01 = 6;
 	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
 
-	/*Test02: Normal*/
-	int Arr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
-	int Num02 = 8;
-	int CmpArr02[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
 
-	/*Test03: Two Mem*/
-	int Arr03[] = { 1, 0 };
-	int Num03 = 2;
-	int CmpArr03[] = { 0, 1 };
+	/*Test03: Normal*/
+	int Arr03[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num03 = 8;
+	int CmpArr03[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	/*Test04: Only 1 Mem*/
-	int Arr04[] = { 0 };
-	int Num04 = 1;
-	int CmpArr04[] = { 0 };
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Only 1 Mem*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int CmpArr05[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1534,6 +1539,12 @@ void TestSelectSort(void) {
 	PrintArr(Arr04, Num04);
 	TestCmpArr(CmpArr04, Num04, Arr04);
 
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	SelectSort(Arr05, Num05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
+
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
@@ -1547,20 +1558,25 @@ void TestInsertSort(void) {
 	int Num01 = 6;
 	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
 
-	/*Test02: Normal*/
-	int Arr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
-	int Num02 = 8;
-	int CmpArr02[] = { 0, 1, 2, 3, 4, 5, 6, 7};
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
 
-	/*Test03: Two Mem*/
-	int Arr03[] = { 1, 0 };
-	int Num03 = 2;
-	int CmpArr03[] = { 0, 1 };
+	/*Test03: Normal*/
+	int Arr03[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num03 = 8;
+	int CmpArr03[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	/*Test04: Only 1 Mem*/
-	int Arr04[] = { 0 };
-	int Num04 = 1;
-	int CmpArr04[] = { 0 };
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Only 1 Mem*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int CmpArr05[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1589,6 +1605,12 @@ void TestInsertSort(void) {
 	PrintArr(Arr04, Num04);
 	TestCmpArr(CmpArr04, Num04, Arr04);
 
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	InsertSort(Arr05, Num05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
+
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
@@ -1602,20 +1624,25 @@ void TestShellSort(void) {
 	int Num01 = 6;
 	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
 
-	/*Test02: Normal*/
-	int Arr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
-	int Num02 = 8;
-	int CmpArr02[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
 
-	/*Test03: Two Mem*/
-	int Arr03[] = { 1, 0 };
-	int Num03 = 2;
-	int CmpArr03[] = { 0, 1 };
+	/*Test03: Normal*/
+	int Arr03[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num03 = 8;
+	int CmpArr03[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	/*Test04: Only 1 Mem*/
-	int Arr04[] = { 0 };
-	int Num04 = 1;
-	int CmpArr04[] = { 0 };
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Only 1 Mem*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int CmpArr05[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1644,6 +1671,12 @@ void TestShellSort(void) {
 	PrintArr(Arr04, Num04);
 	TestCmpArr(CmpArr04, Num04, Arr04);
 
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	ShellSort(Arr05, Num05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
+
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
@@ -1655,24 +1688,26 @@ void TestHeapSort(void) {
 	int Arr01[] = { 1, 3, 2, 5, 4, 0 };
 	int Num01 = 6;
 	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
-	//int CmpArr01[] = { 5, 4, 2, 3, 1, 0 };
 
-	/*Test02: Normal*/
-	int Arr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
-	int Num02 = 8;
-	int CmpArr02[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
-	//int CmpArr02[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
 
-	/*Test03: Two Mem*/
-	int Arr03[] = { 1, 0 };
-	int Num03 = 2;
-	int CmpArr03[] = { 0, 1 };
-	//int CmpArr03[] = { 1, 0 };
+	/*Test03: Normal*/
+	int Arr03[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num03 = 8;
+	int CmpArr03[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	/*Test04: Only 1 Mem*/
-	int Arr04[] = { 0 };
-	int Num04 = 1;
-	int CmpArr04[] = { 0 };
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Only 1 Mem*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int CmpArr05[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1700,6 +1735,12 @@ void TestHeapSort(void) {
 	HeapSort(Arr04, Num04);
 	PrintArr(Arr04, Num04);
 	TestCmpArr(CmpArr04, Num04, Arr04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	HeapSort(Arr05, Num05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
