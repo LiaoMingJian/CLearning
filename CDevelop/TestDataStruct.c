@@ -1812,3 +1812,4 @@ void TestMergeSort(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
