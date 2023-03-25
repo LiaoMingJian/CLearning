@@ -3740,7 +3740,6 @@ void MergeSort(int *Arr, int Num) {
 
 void MergePass(int *Arr02, int *Arr01, int Incre, int Num) {
 	int i = 0;
-	int j = 0;
 
 	while ((i + 2 * Incre - 1) < Num) {
 		Merge(Arr02, Arr01, i, i + Incre - 1, i + 2 * Incre - 1);
@@ -3750,8 +3749,9 @@ void MergePass(int *Arr02, int *Arr01, int Incre, int Num) {
 	if ((i + Incre - 1) < Num) {
 		Merge(Arr02, Arr01, i, i + Incre - 1, Num - 1);
 	} else {
-		for (j = i; j < Num; j++) {
-			Arr01[j] = Arr02[j];
+		while (i < Num) {
+			Arr01[i] = Arr02[i];
+			i++;
 		}
 	}
 }
