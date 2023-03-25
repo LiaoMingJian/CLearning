@@ -359,4 +359,7 @@ void HeapSort(int *Arr, int Num);
 
 /*MergeSort*/
 void MergeSort(int *Arr, int Num);
+
+/*MergeSorByCycle*/
+void MergeSorByCycle(int *Arr, int Num);
 #endif

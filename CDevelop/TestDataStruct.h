@@ -69,4 +69,7 @@ void TestHeapSort(void);
 
 /*TestMergeSort*/
 void TestMergeSort(void);
+
+/*TestMergeSorByCycle*/
+void TestMergeSorByCycle(void);
 #endif
