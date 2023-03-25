@@ -1813,3 +1813,68 @@ void TestMergeSort(void) {
 	TestResult();
 }
 
+
+/*TestMergeSorByCycle*/
+void TestMergeSorByCycle(void) {
+	/*Test01: Normal*/
+	int Arr01[] = { 1, 3, 2, 5, 4, 0 };
+	int Num01 = 6;
+	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
+
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
+
+	/*Test03: Normal*/
+	int Arr03[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num03 = 8;
+	int CmpArr03[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Only 1 Mem*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int CmpArr05[] = { 0 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	MergeSorByCycle(Arr01, Num01);
+	PrintArr(Arr01, Num01);
+	TestCmpArr(CmpArr01, Num01, Arr01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	MergeSorByCycle(Arr02, Num02);
+	PrintArr(Arr02, Num02);
+	TestCmpArr(CmpArr02, Num02, Arr02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	MergeSorByCycle(Arr03, Num03);
+	PrintArr(Arr03, Num03);
+	TestCmpArr(CmpArr03, Num03, Arr03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	MergeSorByCycle(Arr04, Num04);
+	PrintArr(Arr04, Num04);
+	TestCmpArr(CmpArr04, Num04, Arr04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	MergeSorByCycle(Arr05, Num05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}

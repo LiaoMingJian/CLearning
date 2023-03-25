@@ -3658,7 +3658,7 @@ void HeapAdjust(int *Arr, int NodeIndex, int Num) {
 			i++;
 		}
 
-		if (Arr[i] < Arr[NodeIndex]) {
+		if (Arr[i] <= Arr[NodeIndex]) {
 			break;
 		} else {
 			Swap(&Arr[i], &Arr[NodeIndex]);
@@ -3667,7 +3667,6 @@ void HeapAdjust(int *Arr, int NodeIndex, int Num) {
 		NodeIndex = i;
 	}
 }
-
 
 /*HeapSort*/
 // { 1, 3, 2, 5, 4, 0 }
@@ -3737,5 +3736,52 @@ void MergeSort(int *Arr, int Num) {
 	MSort(Arr, Arr, 0, Num - 1);
 }
 
+
+
+void MergePass(int *Arr02, int *Arr01, int Incre, int Num) {
+	int i = 0;
+	int j = 0;
+
+	while ((i + 2 * Incre - 1) < Num) {
+		Merge(Arr02, Arr01, i, i + Incre - 1, i + 2 * Incre - 1);
+		i += 2 * Incre;
+	}
+
+	if ((i + Incre - 1) < Num) {
+		Merge(Arr02, Arr01, i, i + Incre - 1, Num - 1);
+	} else {
+		for (j = i; j < Num; j++) {
+			Arr01[j] = Arr02[j];
+		}
+	}
+}
+
+/*MergeSorByCycle*/
+void MergeSorByCycle(int *Arr, int Num) {
+	int Incre = 1;
+	int *Arr01 = NULL;
+
+	if ((Arr == NULL) || (Num <= 1)) {
+		return;
+	}
+
+	Arr01 = (int *)malloc(sizeof(int) * Num);
+	if (Arr01 == NULL) {
+		goto EXIT;
+	}
+
+	while (Incre < Num) {
+		MergePass(Arr, Arr01, Incre, Num);
+		Incre *= 2;
+		MergePass(Arr01, Arr, Incre, Num);
+		Incre *= 2;
+	}	
+
+EXIT:
+	if (Arr01 != NULL) {
+		free(Arr01);
+		Arr01 = NULL;
+	}
+}
 
 
