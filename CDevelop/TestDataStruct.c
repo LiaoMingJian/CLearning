@@ -1246,12 +1246,19 @@ void TestBinarySearch(void) {
 	int CmpRes04 = -1;
 	int Num04 = 6;
 
-	/*Test05: Only a Mem and exit*/
-	int Arr05[] = { 0 };
-	int SearchValue05 = 0;
+	/*Test05: Two Mem*/
+	int Arr05[] = { 0, 1 };
+	int SearchValue05 = 1;
 	int Res05 = 0;
-	int CmpRes05 = 0;
-	int Num05 = 1;
+	int CmpRes05 = 1;
+	int Num05 = 2;
+
+	/*Test06: Only a Mem and exit*/
+	int Arr06[] = { 0 };
+	int SearchValue06 = 0;
+	int Res06 = 0;
+	int CmpRes06 = 0;
+	int Num06 = 1;
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1280,6 +1287,11 @@ void TestBinarySearch(void) {
 	printf("\n-------Test 05----------\n");
 	Res05 = BinarySearch(Arr05, Num05, SearchValue05);
 	TestCmpRes(CmpRes05, Res05);
+
+	/*Test06*/
+	printf("\n-------Test 06----------\n");
+	Res06 = BinarySearch(Arr06, Num06, SearchValue06);
+	TestCmpRes(CmpRes06, Res06);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -1488,12 +1500,19 @@ void TesInterpolationSearchSearch(void) {
 	int CmpRes04 = -1;
 	int Num04 = 6;
 
-	/*Test05: Only a Mem and exit*/
-	int Arr05[] = { 0 };
-	int SearchValue05 = 0;
+	/*Test05: Two Mem*/
+	int Arr05[] = { 0, 1 };
+	int SearchValue05 = 1;
 	int Res05 = 0;
-	int CmpRes05 = 0;
-	int Num05 = 1;
+	int CmpRes05 = 1;
+	int Num05 = 2;
+
+	/*Test06: Only a Mem and exit*/
+	int Arr06[] = { 0 };
+	int SearchValue06 = 0;
+	int Res06 = 0;
+	int CmpRes06 = 0;
+	int Num06 = 1;
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1522,6 +1541,11 @@ void TesInterpolationSearchSearch(void) {
 	printf("\n-------Test 05----------\n");
 	Res05 = InterpolationSearch(Arr05, Num05, SearchValue05);
 	TestCmpRes(CmpRes05, Res05);
+
+	/*Test06*/
+	printf("\n-------Test 06----------\n");
+	Res06 = InterpolationSearch(Arr06, Num06, SearchValue06);
+	TestCmpRes(CmpRes06, Res06);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
