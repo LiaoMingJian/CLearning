@@ -24,55 +24,50 @@
 
 ​	因为if (Arr02[Low] <= Arr02[j])的结果不过成功与否肯定会执行下面的语句，不会跳过。
 
-## 2 代码
+## （5）代码
 
 ```c
-void Swap(int *Mem01, int *Mem02) {
-	int Tmp = *Mem01;
-	*Mem01 = *Mem02;
-	*Mem02 = Tmp;
-}
-
 /*MergeSort*/
-void Merge(int *Arr02, int *Arr01, int Low, int Mid, int High) {
+void Merge(int *Arr01, int *Arr02, int Low, int Mid, int High) {
 	int i, j, k;
 
 	for (i = Low, j = Mid + 1; (Low <= Mid) && (j <= High); i++) {
 		if (Arr02[Low] <= Arr02[j]) {
 			Arr01[i] = Arr02[Low++];
-		} else {
+		}
+		else {
 			Arr01[i] = Arr02[j++];
 		}
 	}
 
 	if (Low <= Mid) {
-		for (k = 0; k <= Mid - Low; k++) {
+		for (k = 0; k <= (Mid - Low); k++) {
 			Arr01[i + k] = Arr02[Low + k];
 		}
 	}
 
 	if (j <= High) {
-		for (k = 0; k <= High - j; k++) {
+		for (k = 0; k <= (High - j); k++) {
 			Arr01[i + k] = Arr02[j + k];
 		}
 	}
 }
 
-void MSort(int *Arr, int *Arr01, int Low, int High) {
+void MSort(int *Arr01, int *Arr, int Low, int High) {
 	int Mid;
 	int Arr02[10];
 
 	if (Low == High) {
-		Arr01[Low] = Arr[High];
-	} else {
+		Arr01[Low] = Arr[Low];
+	}
+	else {
 		Mid = (Low + High) / 2;
-		MSort(Arr, Arr02, Low, Mid);
-		MSort(Arr, Arr02, Mid + 1, High);
-		Merge(Arr02, Arr01, Low, Mid, High);
+		MSort(Arr02, Arr, Low, Mid);
+		MSort(Arr02, Arr, Mid + 1, High);
+		Merge(Arr01, Arr02, Low, Mid, High);
 	}
 }
 
-/*MergeSort*/
 void MergeSort(int *Arr, int Num) {
 	if ((Arr == NULL) || (Num <= 1)) {
 		return;
@@ -82,7 +77,7 @@ void MergeSort(int *Arr, int Num) {
 }
 ```
 
-##  3 测试用例
+##  （5）测试用例
 
 ```c
 void TestCmpArr(int *CmpArr, int Num, int *Arr) {
@@ -284,16 +279,18 @@ void TestMergeSort(void) {
 
 ​	只申请了一个大小为Sizeof(int) * Num 的空间，没有额外的栈空间.
 
-**代码：**
+## （4）代码
 
 ```c
-void Merge(int *Arr02, int *Arr01, int Low, int Mid, int High) {
+/*MergeSort*/
+void Merge02(int *Arr02, int *Arr01, int Low, int Mid, int High) {
 	int i, j, k;
 
 	for (i = Low, j = Mid + 1; (Low <= Mid) && (j <= High); i++) {
 		if (Arr02[Low] <= Arr02[j]) {
 			Arr01[i] = Arr02[Low++];
-		} else {
+		}
+		else {
 			Arr01[i] = Arr02[j++];
 		}
 	}
@@ -315,12 +312,12 @@ void MergePass(int *Arr02, int *Arr01, int Incre, int Num) {
 	int i = 0;
 
 	while ((i + 2 * Incre - 1) < Num) {
-		Merge(Arr02, Arr01, i, i + Incre - 1, i + 2 * Incre - 1);
+		Merge02(Arr02, Arr01, i, i + Incre - 1, i + 2 * Incre - 1);
 		i += 2 * Incre;
 	}
 
-	if ((i + Incre - 1) < Num) {
-		Merge(Arr02, Arr01, i, i + Incre - 1, Num - 1);
+	if ((i + Incre - 1) < (Num - 1)) {
+		Merge02(Arr02, Arr01, i, i + Incre - 1, Num - 1);
 	} else {
 		while (i < Num) {
 			Arr01[i] = Arr02[i];
@@ -358,9 +355,7 @@ EXIT:
 }
 ```
 
-
-
-**测试用例：**
+## （5）测试用例
 
 ```c
 /*TestMergeSorByCycle*/

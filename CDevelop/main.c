@@ -125,10 +125,10 @@ int main() {
 	//TestHeapSort();
 
 	/*TestMergeSort*/
-	//TestMergeSort();
+	TestMergeSort();
 
 	/*TestMergeSorByCycle*/
-	TestMergeSorByCycle();
+	//TestMergeSorByCycle();
 
 	system("pause");
 	return 0;
