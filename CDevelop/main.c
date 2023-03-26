@@ -110,7 +110,7 @@ int main() {
 	//TestQuickSort();
 
 	/*InterpolationSearch*/
-	//TesInterpolationSearchSearch();
+	TesInterpolationSearchSearch();
 
 	/*TestSelectSort*/
 	//TestSelectSort();
@@ -125,7 +125,7 @@ int main() {
 	//TestHeapSort();
 
 	/*TestMergeSort*/
-	TestMergeSort();
+	//TestMergeSort();
 
 	/*TestMergeSorByCycle*/
 	//TestMergeSorByCycle();

@@ -1246,12 +1246,19 @@ void TestBinarySearch(void) {
 	int CmpRes04 = -1;
 	int Num04 = 6;
 
-	/*Test05: Only a Mem and exit*/
-	int Arr05[] = { 0 };
-	int SearchValue05 = 0;
+	/*Test05: Two Mem*/
+	int Arr05[] = { 0, 1 };
+	int SearchValue05 = 1;
 	int Res05 = 0;
-	int CmpRes05 = 0;
-	int Num05 = 1;
+	int CmpRes05 = 1;
+	int Num05 = 2;
+
+	/*Test06: Only a Mem and exit*/
+	int Arr06[] = { 0 };
+	int SearchValue06 = 0;
+	int Res06 = 0;
+	int CmpRes06 = 0;
+	int Num06 = 1;
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1280,6 +1287,11 @@ void TestBinarySearch(void) {
 	printf("\n-------Test 05----------\n");
 	Res05 = BinarySearch(Arr05, Num05, SearchValue05);
 	TestCmpRes(CmpRes05, Res05);
+
+	/*Test06*/
+	printf("\n-------Test 06----------\n");
+	Res06 = BinarySearch(Arr06, Num06, SearchValue06);
+	TestCmpRes(CmpRes06, Res06);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -1323,11 +1335,25 @@ void TestBubbleRank(void) {
 	int Num01 = 6;
 	int CmpArr01[] = { 0, 1, 2, 3, 4, 5 };
 
-	/*Test02: Only 1 Mem*/
-	int Arr02[] = { 0 };
-	int Num02 = 1;
-	int CmpArr02[] = { 0 };
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
 
+	/*Test03: Normal*/
+	int Arr03[] = { 7, 6, 5, 4, 3, 2, 1, 0 };
+	int Num03 = 8;
+	int CmpArr03[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Only 1 Mem*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int CmpArr05[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1344,6 +1370,24 @@ void TestBubbleRank(void) {
 	PrintArr(Arr02, Num02);
 	TestCmpArr(CmpArr02, Num02, Arr02);
 
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	BubbleRank(Arr03, Num03);
+	PrintArr(Arr03, Num03);
+	TestCmpArr(CmpArr03, Num03, Arr03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	BubbleRank(Arr04, Num04);
+	PrintArr(Arr04, Num04);
+	TestCmpArr(CmpArr04, Num04, Arr04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	BubbleRank(Arr05, Num05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
+
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
@@ -1359,26 +1403,33 @@ void TestQuickSort(void) {
 	int High01 = Num01 - 1;
 	int CmpArr01[] = { 1, 2, 3, 4, 5, 6 };
 
-	/*Test02: Normal*/
-	int Arr02[] = { 8, 7, 6, 5, 4, 3, 2, 1};
-	int Num02 = 8;
+	/*Test02: Exist same mem*/
+	int Arr02[] = { 5, 3, 0, 3, 4 };
+	int Num02 = 5;
 	int Low02 = 0;
-	int High02 = Num02 - 1;
-	int CmpArr02[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	int High02 = 4;
+	int CmpArr02[] = { 0, 3, 3, 4, 5 };
 
-	/*Test03: Two Mem*/
-	int Arr03[] = { 1, 0 };
-	int Num03 = 2;
+	/*Test03: Normal*/
+	int Arr03[] = { 8, 7, 6, 5, 4, 3, 2, 1};
+	int Num03 = 8;
 	int Low03 = 0;
 	int High03 = Num03 - 1;
-	int CmpArr03[] = { 0, 1 };
+	int CmpArr03[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-	/*Test04: Normal*/
-	int Arr04[] = { 0 };
-	int Num04 = 1;
+	/*Test04: Two Mem*/
+	int Arr04[] = { 1, 0 };
+	int Num04 = 2;
 	int Low04 = 0;
 	int High04 = Num04 - 1;
-	int CmpArr04[] = { 0 };
+	int CmpArr04[] = { 0, 1 };
+
+	/*Test05: Normal*/
+	int Arr05[] = { 0 };
+	int Num05 = 1;
+	int Low05 = 0;
+	int High05 = Num05 - 1;
+	int CmpArr05[] = { 0 };
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1406,6 +1457,12 @@ void TestQuickSort(void) {
 	QuickSort(Arr04, Low04, High04);
 	PrintArr(Arr04, Num04);
 	TestCmpArr(CmpArr04, Num04, Arr04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	QuickSort(Arr05, Low05, High05);
+	PrintArr(Arr05, Num05);
+	TestCmpArr(CmpArr05, Num05, Arr05);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -1443,12 +1500,19 @@ void TesInterpolationSearchSearch(void) {
 	int CmpRes04 = -1;
 	int Num04 = 6;
 
-	/*Test05: Only a Mem and exit*/
-	int Arr05[] = { 0 };
-	int SearchValue05 = 0;
+	/*Test05: Two Mem*/
+	int Arr05[] = { 0, 1 };
+	int SearchValue05 = 1;
 	int Res05 = 0;
-	int CmpRes05 = 0;
-	int Num05 = 1;
+	int CmpRes05 = 1;
+	int Num05 = 2;
+
+	/*Test06: Only a Mem and exit*/
+	int Arr06[] = { 0 };
+	int SearchValue06 = 0;
+	int Res06 = 0;
+	int CmpRes06 = 0;
+	int Num06 = 1;
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -1477,6 +1541,11 @@ void TesInterpolationSearchSearch(void) {
 	printf("\n-------Test 05----------\n");
 	Res05 = InterpolationSearch(Arr05, Num05, SearchValue05);
 	TestCmpRes(CmpRes05, Res05);
+
+	/*Test06*/
+	printf("\n-------Test 06----------\n");
+	Res06 = InterpolationSearch(Arr06, Num06, SearchValue06);
+	TestCmpRes(CmpRes06, Res06);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
