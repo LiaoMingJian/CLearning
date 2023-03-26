@@ -107,7 +107,7 @@ int main() {
 	//TestBubbleRank();
 
 	/*QuickSort*/
-	//TestQuickSort();
+	TestQuickSort();
 
 	/*InterpolationSearch*/
 	//TesInterpolationSearchSearch();
@@ -125,7 +125,7 @@ int main() {
 	//TestHeapSort();
 
 	/*TestMergeSort*/
-	TestMergeSort();
+	//TestMergeSort();
 
 	/*TestMergeSorByCycle*/
 	//TestMergeSorByCycle();

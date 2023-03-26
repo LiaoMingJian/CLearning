@@ -3426,7 +3426,6 @@ void BuildBinaryThreadTree(BINARY_THREAD_TREE_NODE **BiThrTreeNode, BINARY_THREA
 
 /*BinarySearch*/
 //int Arr01[] = {0, 1, 2, 3, 4, 5};
-//2, 1, 5, 7, {0}
 int BinarySearch(int *Arr, int Num, int SearchValue) {
 	int Low = 0;
 	int High = Num - 1;
@@ -3451,10 +3450,7 @@ int BinarySearch(int *Arr, int Num, int SearchValue) {
 	return -1;
 }
 
-
 /*BubbleRank*/
-//{1, 3, 2, 5, 4, 0};
-//3, 2, 4, 1, 5
 void BubbleRank(int *Arr, int Num) {
 	int i = 0;
 	int j = 0;
@@ -3475,9 +3471,7 @@ void BubbleRank(int *Arr, int Num) {
 	}
 }
 
-
 /*QuickSort*/
-//{ 5, 2, 6, 3, 1, 4 }
 void QuickSort(int *Arr, int Low, int High) {
 	int i = Low;
 	int j = High;
@@ -3809,8 +3803,6 @@ EXIT:
 		Arr01 = NULL;
 	}
 }
-
-
 
 
 
