@@ -107,10 +107,10 @@ int main() {
 	//TestBubbleRank();
 
 	/*QuickSort*/
-	TestQuickSort();
+	//TestQuickSort();
 
 	/*InterpolationSearch*/
-	//TesInterpolationSearchSearch();
+	TesInterpolationSearchSearch();
 
 	/*TestSelectSort*/
 	//TestSelectSort();
