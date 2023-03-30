@@ -1,6 +1,8 @@
 //#pragma once
 #ifndef _DATA_STRUCT_H
 #define _DATA_STRUCT_H
+#include <stdbool.h>
+
 
 #define SUCCESS					0
 #define ERROR					1
@@ -362,4 +364,10 @@ void MergeSort(int *Arr, int Num);
 
 /*MergeSorByCycle*/
 void MergeSorByCycle(int *Arr, int Num);
+
+/*BSTSearch*/
+bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key, BINARY_TREE_NODE **RtNode);
+
+/*AddBSTNode*/
+void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode);
 #endif

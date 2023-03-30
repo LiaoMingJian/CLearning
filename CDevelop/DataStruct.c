@@ -3254,8 +3254,6 @@ void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *Da
 }
 
 
-
-
 /*BINARY_THREAD_TREE_NODE*/
 void PreOrderTraversePrintBinaryThreadTree(const BINARY_THREAD_TREE_NODE *BiThrTreeNode) {
 	//printf("BiThrTreeNode = 0x%lx\n", BiThrTreeNode);
@@ -3807,5 +3805,44 @@ EXIT:
 
 
 
+/*BSTSearch*/
+bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key, BINARY_TREE_NODE **RtNode) {
+	if (BSTNode == NULL) {
+		*RtNode = PreBSTNode;
+		return false;
+	}
 
+	if (Key < BSTNode->Data) {
+		BSTSearch(BSTNode->LeftChild, BSTNode, Key, RtNode);
+	}
+	else if (Key > BSTNode->Data) {
+		BSTSearch(BSTNode->RightChild, BSTNode, Key, RtNode);
+	}
+	else {
+		*RtNode = BSTNode;
+		return true;
+	}
+}
 
+/*AddBSTNode*/
+void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
+	int Key;
+	BINARY_TREE_NODE *PreBSTNode = NULL;
+
+	if ((BSTNode == NULL) || (AddNode == NULL)) {
+		return;
+	}
+
+	Key = AddNode->Data;
+
+	if (!BSTSearch(BSTNode, BSTNode, Key, &PreBSTNode)) {
+		AddNode->LeftChild = NULL;
+		AddNode->RightChild = NULL;
+		if (Key < PreBSTNode->Data) {
+			PreBSTNode->LeftChild = AddNode;
+		}
+		else {
+			PreBSTNode->RightChild = AddNode;
+		}
+	}
+}
