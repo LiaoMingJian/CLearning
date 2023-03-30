@@ -1,6 +1,7 @@
 //#pragma once
 #ifndef _TEST_DATA_STRUCT
 #define _TEST_DATA_STRUCT
+#include <stdbool.h>
 
 void TestArrCreatList(void);
 void TestGetElem(void);
@@ -72,4 +73,11 @@ void TestMergeSort(void);
 
 /*TestMergeSorByCycle*/
 void TestMergeSorByCycle(void);
+
+
+/*BSTSearch*/
+void TestBSTSearch(void);
+
+/*AddBSTNode*/
+void TestAddBSTNode(void);
 #endif
