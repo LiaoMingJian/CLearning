@@ -92,7 +92,7 @@ int main() {
 	//TestInOrderBuildBinaryTree();
 
 	/*BINARY_TREE_NODE*/
-	//TestPreOderBuildBinaryTree();
+	TestPreOderBuildBinaryTree();
 
 	/*BINARY_THREAD_TREE_NODE*/
 	//TestBuildBinaryThreadTree();
@@ -110,7 +110,7 @@ int main() {
 	//TestQuickSort();
 
 	/*InterpolationSearch*/
-	TesInterpolationSearchSearch();
+	//TesInterpolationSearchSearch();
 
 	/*TestSelectSort*/
 	//TestSelectSort();

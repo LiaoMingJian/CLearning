@@ -3187,7 +3187,7 @@ void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 		return;
 	}
 	else {
-		printf("BiTreeNode->Data = %c\n", BiTreeNode->Data);
+		printf("BiTreeNode->Data = %d\n", BiTreeNode->Data);
 		PreOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
 		PreOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
 	}
@@ -3198,9 +3198,9 @@ void InOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 		return;
 	}
 	else {
-		PreOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
-		printf("BiTreeNode->Data = %c\n", BiTreeNode->Data);
-		PreOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
+		InOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
+		printf("BiTreeNode->Data = %d\n", BiTreeNode->Data);
+		InOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
 	}
 }
 
@@ -3209,9 +3209,9 @@ void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 		return;
 	}
 	else {
-		PreOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
-		PreOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
-		printf("BiTreeNode->Data = %c\n", BiTreeNode->Data);
+		PostOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
+		PostOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
+		printf("BiTreeNode->Data = %d\n", BiTreeNode->Data);
 	}
 }
 
@@ -3252,6 +3252,8 @@ void BuildBinaryTree(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *Da
 	TraIndex = 0;
 	PreOderBuildBinaryTree02(BiTreeNodePtr, DataPtr, IfExistNodeFlag);
 }
+
+
 
 
 /*BINARY_THREAD_TREE_NODE*/
@@ -3663,7 +3665,6 @@ void HeapAdjust(int *Arr, int NodeIndex, int Num) {
 }
 
 /*HeapSort*/
-// { 1, 3, 2, 5, 4, 0 }
 void HeapSort(int *Arr, int Num) {
 	int NodeIndex;
 
@@ -3803,6 +3804,7 @@ EXIT:
 		Arr01 = NULL;
 	}
 }
+
 
 
 
