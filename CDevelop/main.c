@@ -134,8 +134,10 @@ int main() {
 	//TestBSTSearch();
 
 	/*AddBSTNode*/
-	TestAddBSTNode();
+	//TestAddBSTNode();
 
+	/*TestDelBSTNdoe*/
+	TestDelBSTNdoe();
 
 	system("pause");
 	return 0;

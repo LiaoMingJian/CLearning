@@ -145,14 +145,14 @@ typedef struct {
 /*BINARY_TREE_NODE*/
 #pragma pack(1)
 typedef struct _BINARY_TREE_NODE {
-	char Data;
+	int Data;
 	struct _BINARY_TREE_NODE *LeftChild;
 	struct _BINARY_TREE_NODE *RightChild;
 }BINARY_TREE_NODE;
 
 typedef struct _BINARY_TREE_NODE_DATA {
-	char BiTreeNodeData;
-	char IsExistLeftChildFlag;
+	int BiTreeNodeData;
+	int IsExistLeftChildFlag;
 	char IsExistRightChildFlag;
 }BINARY_TREE_NODE_DATA;
 
@@ -370,4 +370,7 @@ bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key,
 
 /*AddBSTNode*/
 void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode);
+
+/*DelBSTNdoe*/
+void DelBSTNdoe(BINARY_TREE_NODE **BSTNode, int Key);
 #endif

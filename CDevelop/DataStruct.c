@@ -3803,8 +3803,6 @@ EXIT:
 	}
 }
 
-
-
 /*BSTSearch*/
 bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key, BINARY_TREE_NODE **RtNode) {
 	if (BSTNode == NULL) {
@@ -3846,3 +3844,53 @@ void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
 		}
 	}
 }
+
+
+
+void DelNode(BINARY_TREE_NODE **BSTNode) {
+	BINARY_TREE_NODE *P = NULL;
+	BINARY_TREE_NODE *S = NULL;
+
+	if ((*BSTNode)->LeftChild == NULL) {
+		P = *BSTNode;
+		*BSTNode = (*BSTNode)->RightChild;
+		free(P);
+	} else if ((*BSTNode)->RightChild == NULL) {
+		P = *BSTNode;
+		*BSTNode = (*BSTNode)->LeftChild;
+		free(P);
+	} else {
+		P = *BSTNode;
+		S = (*BSTNode)->LeftChild;
+
+		while (S->RightChild != NULL) {
+			P = S;
+			S = S->RightChild;
+		}
+
+		(*BSTNode)->Data = S->Data;
+
+		if (P != *BSTNode) {
+			P->RightChild = S->LeftChild;
+		} else {
+			P->LeftChild = S->LeftChild;
+		}
+		free(S);
+	}
+}
+
+void DelBSTNdoe(BINARY_TREE_NODE **BSTNode, int Key) {
+	if ((*BSTNode == NULL)) {
+		return;
+	}
+
+	if (Key < (*BSTNode)->Data) {
+		DelBSTNdoe(&((*BSTNode)->LeftChild), Key);
+	} else if (Key > (*BSTNode)->Data) {
+		DelBSTNdoe(&(*BSTNode)->RightChild, Key);
+	} else {
+		DelNode(BSTNode);
+	}
+}
+
+
