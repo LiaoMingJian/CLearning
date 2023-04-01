@@ -2086,3 +2086,85 @@ void TestAddBSTNode(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+/*DelBSTNdoe*/
+void TestDelBSTNdoe(void) {
+	//          50
+	//    20           70
+	// 10    30    60	  90
+	BINARY_TREE_NODE *BiTreeNodePtr = NULL;
+	BINARY_TREE_NODE_DATA Data[] = { {50, 1, 1}, {20, 1, 1}, {10, 0, 0}, {30, 0, 0}, {70, 1, 1}, {60, 0, 0}, {90, 0, 0} };
+	char IfExistNodeFlag = 1;
+
+	/*Test01*/
+	//          50
+	//    20           70
+	//        30    60    90
+	int Key01 = 10;
+	int Num01 = 6;
+	int CmpBSTNode01[] = { 50, 20, 30, 70, 60, 90 };
+
+	/*Test02*/
+	//          50
+	//    30           70
+	//              60    90
+	int Key02 = 20;
+	int Num02 = 5;
+	int CmpBSTNode02[] = { 50, 30, 70, 60, 90 };
+
+	/*Test03*/
+	//          50
+	//    30           60
+	//						90
+	int Key03 = 70;
+	int Num03 = 4;
+	int CmpBSTNode03[] = { 50, 30, 60, 90 };
+
+	/*Test04*/
+	//          30
+	//                60
+	//						90
+	int Key04 = 50;
+	int Num04 = 3;
+	int CmpBSTNode04[] = { 30, 60, 90 };
+
+	BuildBinaryTree(&BiTreeNodePtr, Data, IfExistNodeFlag);
+	printf("PreOrderTraversePrintBinaryTree\n");
+	PreOrderTraversePrintBinaryTree(BiTreeNodePtr);
+	// printf("InOrderTraversePrintBinaryTree\n");
+	// InOrderTraversePrintBinaryTree(BiTreeNodePtr);
+	// printf("PostOrderTraversePrintBinaryTree\n");
+	// PostOrderTraversePrintBinaryTree(BiTreeNodePtr);
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	DelBSTNdoe(&BiTreeNodePtr, Key01);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode01, BiTreeNodePtr, Num01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	DelBSTNdoe(&BiTreeNodePtr, Key02);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode02, BiTreeNodePtr, Num02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	DelBSTNdoe(&BiTreeNodePtr, Key03);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode03, BiTreeNodePtr, Num03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	DelBSTNdoe(&BiTreeNodePtr, Key04);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode04, BiTreeNodePtr, Num04);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
