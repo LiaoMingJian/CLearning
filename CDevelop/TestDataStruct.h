@@ -81,6 +81,6 @@ void TestBSTSearch(void);
 /*AddBSTNode*/
 void TestAddBSTNode(void);
 
-/*DelBSTNdoe*/
-void TestDelBSTNdoe(void);
+/*TestDelBSTNode*/
+void TestDelBSTNode(void);
 #endif

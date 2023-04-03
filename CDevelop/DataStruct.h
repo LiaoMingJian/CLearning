@@ -371,6 +371,6 @@ bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key,
 /*AddBSTNode*/
 void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode);
 
-/*DelBSTNdoe*/
-void DelBSTNdoe(BINARY_TREE_NODE **BSTNode, int Key);
+/*DelBSTNode*/
+void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key);
 #endif
