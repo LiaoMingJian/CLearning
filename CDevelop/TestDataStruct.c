@@ -2088,8 +2088,8 @@ void TestAddBSTNode(void) {
 }
 
 
-/*DelBSTNdoe*/
-void TestDelBSTNdoe(void) {
+/*TestDelBSTNode*/
+void TestDelBSTNode(void) {
 	//          50
 	//    20           70
 	// 10    30    60	  90
@@ -2142,25 +2142,25 @@ void TestDelBSTNdoe(void) {
 
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
-	DelBSTNdoe(&BiTreeNodePtr, Key01);
+	DelBSTNode(&BiTreeNodePtr, Key01);
 	printf("Compare\n");
 	CmpPreOderBuildBinaryTree(CmpBSTNode01, BiTreeNodePtr, Num01);
 
 	/*Test02*/
 	printf("\n-------Test 02----------\n");
-	DelBSTNdoe(&BiTreeNodePtr, Key02);
+	DelBSTNode(&BiTreeNodePtr, Key02);
 	printf("Compare\n");
 	CmpPreOderBuildBinaryTree(CmpBSTNode02, BiTreeNodePtr, Num02);
 
 	/*Test03*/
 	printf("\n-------Test 03----------\n");
-	DelBSTNdoe(&BiTreeNodePtr, Key03);
+	DelBSTNode(&BiTreeNodePtr, Key03);
 	printf("Compare\n");
 	CmpPreOderBuildBinaryTree(CmpBSTNode03, BiTreeNodePtr, Num03);
 
 	/*Test04*/
 	printf("\n-------Test 04----------\n");
-	DelBSTNdoe(&BiTreeNodePtr, Key04);
+	DelBSTNode(&BiTreeNodePtr, Key04);
 	printf("Compare\n");
 	CmpPreOderBuildBinaryTree(CmpBSTNode04, BiTreeNodePtr, Num04);
 
@@ -2168,3 +2168,4 @@ void TestDelBSTNdoe(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+

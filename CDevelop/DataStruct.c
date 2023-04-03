@@ -3846,7 +3846,6 @@ void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
 }
 
 
-
 void DelNode(BINARY_TREE_NODE **BSTNode) {
 	BINARY_TREE_NODE *P = NULL;
 	BINARY_TREE_NODE *S = NULL;
@@ -3879,15 +3878,15 @@ void DelNode(BINARY_TREE_NODE **BSTNode) {
 	}
 }
 
-void DelBSTNdoe(BINARY_TREE_NODE **BSTNode, int Key) {
+void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 	if ((*BSTNode == NULL)) {
 		return;
 	}
 
 	if (Key < (*BSTNode)->Data) {
-		DelBSTNdoe(&((*BSTNode)->LeftChild), Key);
+		DelBSTNode(&((*BSTNode)->LeftChild), Key);
 	} else if (Key > (*BSTNode)->Data) {
-		DelBSTNdoe(&(*BSTNode)->RightChild, Key);
+		DelBSTNode(&(*BSTNode)->RightChild, Key);
 	} else {
 		DelNode(BSTNode);
 	}

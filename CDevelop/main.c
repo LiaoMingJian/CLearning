@@ -136,8 +136,8 @@ int main() {
 	/*AddBSTNode*/
 	//TestAddBSTNode();
 
-	/*TestDelBSTNdoe*/
-	TestDelBSTNdoe();
+	/*TestDelBSTNode*/
+	TestDelBSTNode();
 
 	system("pause");
 	return 0;
