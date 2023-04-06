@@ -983,7 +983,8 @@ void PreOrderTraverseCompare(const int *CmpNode, const BINARY_TREE_NODE *BiTreeN
 		return;
 	}
 	else {
-		printf("BiTreeNode->Data = %d , CmpNode[%d] = %d\n", BiTreeNode->Data, BiIndex, CmpNode[BiIndex]);
+		//printf("BiTreeNode->Data = 0x%lx , CmpNode[%d] = %d, BiTreeNode->LeftChild = 0x%lx, BiTreeNode->RightChild = 0x%lx\n", BiTreeNode->Data, BiIndex, CmpNode[BiIndex], BiTreeNode->LeftChild, BiTreeNode->RightChild);
+		printf("BiTreeNode->Data = %d\n", BiTreeNode->Data);
 		if (BiTreeNode->Data == CmpNode[BiIndex]) {
 			//printf("BiTreeNode->Data = %d , CmpNode[%d] = %d\n", BiTreeNode->Data, Index, CmpNode[Index]);
 			PreOrderTraverseCompareNum++;
@@ -2142,29 +2143,29 @@ void TestDelBSTNode(void) {
 
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
-	//DelBSTNode(&BiTreeNodePtr, Key01);
-	DelBSTNode(BiTreeNodePtr, Key01);
+	DelBSTNode(&BiTreeNodePtr, Key01);
+	PreOrderTraversePrintBinaryTree(BiTreeNodePtr);
 	printf("Compare\n");
 	CmpPreOderBuildBinaryTree(CmpBSTNode01, BiTreeNodePtr, Num01);
 
 
-	///*Test02*/
-	//printf("\n-------Test 02----------\n");
-	//DelBSTNode(&BiTreeNodePtr, Key02);
-	//printf("Compare\n");
-	//CmpPreOderBuildBinaryTree(CmpBSTNode02, BiTreeNodePtr, Num02);
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	DelBSTNode(&BiTreeNodePtr, Key02);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode02, BiTreeNodePtr, Num02);
 
-	///*Test03*/
-	//printf("\n-------Test 03----------\n");
-	//DelBSTNode(&BiTreeNodePtr, Key03);
-	//printf("Compare\n");
-	//CmpPreOderBuildBinaryTree(CmpBSTNode03, BiTreeNodePtr, Num03);
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	DelBSTNode(&BiTreeNodePtr, Key03);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode03, BiTreeNodePtr, Num03);
 
-	///*Test04*/
-	//printf("\n-------Test 04----------\n");
-	//DelBSTNode(&BiTreeNodePtr, Key04);
-	//printf("Compare\n");
-	//CmpPreOderBuildBinaryTree(CmpBSTNode04, BiTreeNodePtr, Num04);
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	DelBSTNode(&BiTreeNodePtr, Key04);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode04, BiTreeNodePtr, Num04);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
