@@ -3186,7 +3186,8 @@ void PreOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 	if (BiTreeNode == NULL) {
 		return;
 	} else {
-		printf("BiTreeNode = 0x%lx, BiTreeNode->Data = %d\n", BiTreeNode, BiTreeNode->Data);
+		//printf("BiTreeNode = 0x%lx, BiTreeNode->Data = %d, BiTreeNode->LeftChild = 0x%lx, BiTreeNode->RightChild = 0x%lx\n", BiTreeNode, BiTreeNode->Data, BiTreeNode->LeftChild, BiTreeNode->RightChild);
+		printf("BiTreeNode->Data = %d\n", BiTreeNode->Data);
 		PreOrderTraversePrintBinaryTree(BiTreeNode->LeftChild);
 		PreOrderTraversePrintBinaryTree(BiTreeNode->RightChild);
 	}
@@ -3845,82 +3846,34 @@ void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
 }
 
 
-void DelNode01(BINARY_TREE_NODE **BSTNode) {
-	BINARY_TREE_NODE *P = NULL;
-	BINARY_TREE_NODE *S = NULL;
-
-	if ((*BSTNode)->LeftChild == NULL) {
-		P = *BSTNode;
-		*BSTNode = (*BSTNode)->RightChild;
-		free(P);
-	} else if ((*BSTNode)->RightChild == NULL) {
-		P = *BSTNode;
-		*BSTNode = (*BSTNode)->LeftChild;
-		free(P);
-	} else {
-		P = *BSTNode;
-		S = (*BSTNode)->LeftChild;
-
-		while (S->RightChild != NULL) {
-			P = S;
-			S = S->RightChild;
-		}
-
-		(*BSTNode)->Data = S->Data;
-
-		if (P != *BSTNode) {
-			P->RightChild = S->LeftChild;
-		} else {
-			P->LeftChild = S->LeftChild;
-		}
-		free(S);
-	}
-}
-
-void DelBSTNode01(BINARY_TREE_NODE **BSTNode, int Key) {
-	if ((*BSTNode == NULL)) {
-		return;
-	}
-
-	if (Key < (*BSTNode)->Data) {
-		DelBSTNode01(&((*BSTNode)->LeftChild), Key);
-	} else if (Key > (*BSTNode)->Data) {
-		DelBSTNode01(&(*BSTNode)->RightChild, Key);
-	} else {
-		DelNode01(BSTNode);
-	}
-}
-
-
-void DelNode(BINARY_TREE_NODE *BSTNode) {
+void DelNode(BINARY_TREE_NODE **BSTNode) {
 	BINARY_TREE_NODE *Tmp01 = NULL;
 	BINARY_TREE_NODE *Tmp02 = NULL;
 
-	printf("BSTNode = 0x%lx\n", BSTNode);
-	if (BSTNode->LeftChild == NULL) {
-		Tmp01 = BSTNode;
-		BSTNode = BSTNode->RightChild;
+	if ((*BSTNode)->LeftChild == NULL) {
+		Tmp01 = *BSTNode;
+		*BSTNode = (*BSTNode)->RightChild;
 		free(Tmp01);
 		Tmp01 = NULL;
-	} else if (BSTNode->RightChild == NULL) {
-		Tmp01 = BSTNode;
-		BSTNode = BSTNode->LeftChild;
+	} else if ((*BSTNode)->RightChild == NULL) {
+		Tmp01 = *BSTNode;
+		*BSTNode = (*BSTNode)->LeftChild;
 		free(Tmp01);
 		Tmp01 = NULL;
 	} else {
-		Tmp01 = BSTNode;
-		Tmp02 = BSTNode->LeftChild;
+		Tmp01 = *BSTNode;
+		Tmp02 = (*BSTNode)->LeftChild;
 
-		if (Tmp02->RightChild != NULL) {
+		while (Tmp02->RightChild != NULL) {
 			Tmp01 = Tmp02;
 			Tmp02 = Tmp02->RightChild;
 		}
 
-		BSTNode->Data = Tmp02->Data;
+		(*BSTNode)->Data = Tmp02->Data;
 
-		if (Tmp01 != BSTNode) {
+		if (Tmp01 != *BSTNode) {
 			Tmp01->RightChild = Tmp02->LeftChild;
-		} else {
+		}else {
 			Tmp01->LeftChild = Tmp02->LeftChild;
 		}
 
@@ -3929,16 +3882,17 @@ void DelNode(BINARY_TREE_NODE *BSTNode) {
 	}
 }
 
-void DelBSTNode(BINARY_TREE_NODE *BSTNode, int Key) {
-	if (BSTNode == NULL) {
+void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
+	if ((BSTNode == NULL) || (*BSTNode == NULL)) {
 		return;
 	}
 
-	if (Key < BSTNode->Data) {
-		DelBSTNode(BSTNode->LeftChild, Key);
-	} else if (Key > BSTNode->Data) {
-		DelBSTNode(BSTNode->RightChild, Key);
+	if (Key < (*BSTNode)->Data) {
+		DelBSTNode(&((*BSTNode)->LeftChild), Key);
+	} else if (Key > (*BSTNode)->Data) {
+		DelBSTNode(&((*BSTNode)->RightChild), Key);
 	} else {
 		DelNode(BSTNode);
 	}
 }
+ 
