@@ -10,13 +10,15 @@
 
 # 1 定义
 
-​	中序遍历是有序的序列（从小到大）
+​	树上每个左子树的结点均小于根结点，且根结点小于右子树的所有结点，中序遍历是从小到大序列。
 
 **构建二叉树链接：**
 
 https://blog.csdn.net/m0_59469991/article/details/127337105
 
 # 2 查找
+
+​	递归法查找，查到时把该结点返回，没查到时返回上一个结点。
 
 ## （1）代码
 
@@ -142,28 +144,34 @@ void TestBSTSearch(void) {
 
 # 3 增加结点
 
+​	先查找key值对应的结点是否存在，不存在的话，就增加结点。注意树原来就是空的情况。
+
 ## **（1）代码**
 
 ```c
-/*AddBSTNode*/
-void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
-	int Key;
-	BINARY_TREE_NODE *PreBSTNode = NULL;
+void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
+	BINARY_TREE_NODE *AddNode = NULL;
+	BINARY_TREE_NODE *PreNode = NULL;
 
-	if ((BSTNode == NULL) || (AddNode == NULL)) {
+	if (BSTNode == NULL) {
 		return;
 	}
 
-	Key = AddNode->Data;
-
-	if (!BSTSearch(BSTNode, BSTNode, Key, &PreBSTNode)) {
+	if (!BSTSearch(*BSTNode, *BSTNode, Key, &PreNode)) {
+		AddNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		if (AddNode == NULL) {
+			return;
+		}
+		AddNode->Data = Key;
 		AddNode->LeftChild = NULL;
 		AddNode->RightChild = NULL;
-		if (Key < PreBSTNode->Data) {
-			PreBSTNode->LeftChild = AddNode;
-		}
-		else {
-			PreBSTNode->RightChild = AddNode;
+
+		if (PreNode == NULL) {
+			*BSTNode = AddNode;
+		} else if (Key < PreNode->Data) {
+			PreNode->LeftChild = AddNode;
+		} else {
+			PreNode->RightChild = AddNode;
 		}
 	}
 }
@@ -174,68 +182,87 @@ void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
 ```c
 /*AddBSTNode*/
 void TestAddBSTNode(void) {
-	//     50
-	//  10     70
-	//    30  
-	BINARY_TREE_NODE *BiTreeNodePtr = NULL;
-	BINARY_TREE_NODE_DATA Data[] = { {50, 1, 1}, {10, 0, 1}, {30, 0, 0}, {70, 0, 0} };
-	char IfExistNodeFlag = 1;
+	BINARY_TREE_NODE *BSTNode = NULL;
+	BINARY_TREE_NODE *BSTNode11 = NULL;
 
 	/*Test01*/
-	//      50
-	//  10      70
-	//    30  
-	//   20
-	BINARY_TREE_NODE AddNode01 = { 20, NULL, NULL };
-	int Num01 = 5;
-	int CmpBSTNode01[] = { 50, 10, 30, 20, 70 };
+	//	20
+	int Key01 = 20;
+	int Num01 = 1;
+	int CmpBSTNode01[] = {20};
 
 	/*Test02*/
-	//          50
-	//    10         70
-	// 5     30  
-	//	  20
-	BINARY_TREE_NODE AddNode02 = { 5, NULL, NULL };
-	int Num02 = 6;
-	int CmpBSTNode02[] = { 50, 10, 5, 30, 20, 70 };
+	//	    20
+	//	10
+	int Key02 = 10;
+	int Num02 = 2;
+	int CmpBSTNode02[] = { 20, 10 };
 
 	/*Test03*/
-	//          50
-	//    10          70
-	// 5     30    60
-	//	  20
-	BINARY_TREE_NODE AddNode03 = { 60, NULL, NULL };
-	int Num03 = 7;
-	int CmpBSTNode03[] = { 50, 10, 5, 30, 20, 70, 60 };
+	//	    20
+	//	10		50
+	int Key03 = 50;
+	int Num03 = 3;
+	int CmpBSTNode03[] = { 20, 10, 50 };
 
-	BuildBinaryTree(&BiTreeNodePtr, Data, IfExistNodeFlag);
-	printf("PreOrderTraversePrintBinaryTree\n");
-	PreOrderTraversePrintBinaryTree(BiTreeNodePtr);
-	// printf("InOrderTraversePrintBinaryTree\n");
-	// InOrderTraversePrintBinaryTree(BiTreeNodePtr);
-	// printf("PostOrderTraversePrintBinaryTree\n");
-	// PostOrderTraversePrintBinaryTree(BiTreeNodePtr);
+	/*Test04*/
+	//  	    20
+	//	  10		 50
+	//			 30
+	int Key04 = 30;
+	int Num04 = 4;
+	int CmpBSTNode04[] = { 20, 10, 50, 30 };
+
+	/*Test05*/
+	//  	    20
+	//	   10		 50
+	//	5		 30
+	int Key05 = 5;
+	int Num05 = 5;
+	int CmpBSTNode05[] = { 20, 10, 5, 50, 30 };
 
 	printf("-------Test start----------\n");
 	InitNum();
-
+	
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
-	AddBSTNode(BiTreeNodePtr, &AddNode01);
+	AddBSTNode(&BSTNode, Key01);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryTree(BSTNode);
 	printf("Compare\n");
-	CmpPreOderBuildBinaryTree(CmpBSTNode01, BiTreeNodePtr, Num01);
+	CmpPreOderBuildBinaryTree(CmpBSTNode01, BSTNode, Num01);
 
 	/*Test02*/
 	printf("\n-------Test 02----------\n");
-	AddBSTNode(BiTreeNodePtr, &AddNode02);
+	AddBSTNode(&BSTNode, Key02);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryTree(BSTNode);
 	printf("Compare\n");
-	CmpPreOderBuildBinaryTree(CmpBSTNode02, BiTreeNodePtr, Num02);
+	CmpPreOderBuildBinaryTree(CmpBSTNode02, BSTNode, Num02);
 
 	/*Test03*/
 	printf("\n-------Test 03----------\n");
-	AddBSTNode(BiTreeNodePtr, &AddNode03);
+	AddBSTNode(&BSTNode, Key03);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryTree(BSTNode);
 	printf("Compare\n");
-	CmpPreOderBuildBinaryTree(CmpBSTNode03, BiTreeNodePtr, Num03);
+	CmpPreOderBuildBinaryTree(CmpBSTNode03, BSTNode, Num03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	AddBSTNode(&BSTNode, Key04);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryTree(BSTNode);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode04, BSTNode, Num04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	AddBSTNode(&BSTNode, Key05);
+	//printf("PreOrderTraversePrintBinaryTree\n");
+	//PreOrderTraversePrintBinaryTree(BSTNode);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode05, BSTNode, Num05);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -245,16 +272,6 @@ void TestAddBSTNode(void) {
 
 **结果：**
 
->PreOrderTraversePrintBinaryTree
->
->BiTreeNode->Data = 50
->
->BiTreeNode->Data = 10
->
->BiTreeNode->Data = 30
->
->BiTreeNode->Data = 70
->
 >-------Test start----------
 >
 > 
@@ -263,37 +280,21 @@ void TestAddBSTNode(void) {
 >
 >Compare
 >
->BiTreeNode->Data = 50 , CmpNode[0] = 50
+>BiTreeNode->Data = 20
 >
->BiTreeNode->Data = 10 , CmpNode[1] = 10
+>PreOrderTraverseCompareNum = 1, NodeNum = 1
 >
->BiTreeNode->Data = 30 , CmpNode[2] = 30
->
->BiTreeNode->Data = 20 , CmpNode[3] = 20
->
->BiTreeNode->Data = 70 , CmpNode[4] = 70
->
->PreOrderTraverseCompareNum = 5, NodeNum = 5
->
-> 
+>  
 >
 >-------Test 02----------
 >
 >Compare
 >
->BiTreeNode->Data = 50 , CmpNode[0] = 50
+>BiTreeNode->Data = 20
 >
->BiTreeNode->Data = 10 , CmpNode[1] = 10
+>BiTreeNode->Data = 10
 >
->BiTreeNode->Data = 5 , CmpNode[2] = 5
->
->BiTreeNode->Data = 30 , CmpNode[3] = 30
->
->BiTreeNode->Data = 20 , CmpNode[4] = 20
->
->BiTreeNode->Data = 70 , CmpNode[5] = 70
->
->PreOrderTraverseCompareNum = 6, NodeNum = 6
+>PreOrderTraverseCompareNum = 2, NodeNum = 2
 >
 > 
 >
@@ -301,33 +302,69 @@ void TestAddBSTNode(void) {
 >
 >Compare
 >
->BiTreeNode->Data = 50 , CmpNode[0] = 50
+> BiTreeNode->Data = 20
 >
->BiTreeNode->Data = 10 , CmpNode[1] = 10
+>BiTreeNode->Data = 10
 >
->BiTreeNode->Data = 5 , CmpNode[2] = 5
+>BiTreeNode->Data = 50
 >
->BiTreeNode->Data = 30 , CmpNode[3] = 30
->
->BiTreeNode->Data = 20 , CmpNode[4] = 20
->
->BiTreeNode->Data = 70 , CmpNode[5] = 70
->
->BiTreeNode->Data = 60 , CmpNode[6] = 60
->
->PreOrderTraverseCompareNum = 7, NodeNum = 7
+>PreOrderTraverseCompareNum = 3, NodeNum = 3
 >
 > 
+>
+>-------Test 04----------
+>
+>Compare
+>
+>BiTreeNode->Data = 20
+>
+>BiTreeNode->Data = 10
+>
+>BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 30
+>
+>PreOrderTraverseCompareNum = 4, NodeNum = 4
+>
+> 
+>
+>-------Test 05----------
+>
+>Compare
+>
+>BiTreeNode->Data = 20
+>
+>BiTreeNode->Data = 10
+>
+>BiTreeNode->Data = 5
+>
+>BiTreeNode->Data = 50
+>
+>BiTreeNode->Data = 30
+>
+>PreOrderTraverseCompareNum = 5, NodeNum = 5
+>
+>  
 >
 >-------Test result----------
 >
 >Print test result;
 >
->TestNum = 3, PassNum = 3, FaildNum = 0
+>TestNum = 5, PassNum = 5, FaildNum = 0
 
 
 
 # 4 删除结点
+
+​	先查找Key值对应的结点，然后进行删除操作，注意DelBSTNode函数入参结点为双重指针，因为要修改结点的地址。
+
+​	删除结点有三种情况：
+
+①   结点只有左子树为空，只需将右子树替换原来根结点的位置。
+
+②   结点只有右子树为空，只需将右子树替换原来根结点的位置。
+
+③   结点的左右子树均不为空，先找到该结点的直接前驱结点（即中序遍历该结点的前驱结点），操作方法为先找该结点的左孩子，然后再找到最右的孩子，并记录最右孩子的前驱结点。将待删除结点的数据等于最右孩子结点数据，并将最右孩子的左子树移到最右孩子前驱结点的右子树位置。
 
 ## （1）代码
 
@@ -490,7 +527,7 @@ void TestDelBSTNode(void) {
 >
 >-------Test start----------
 >
-> 
+>  
 >
 >-------Test 01----------
 >
@@ -510,7 +547,7 @@ void TestDelBSTNode(void) {
 >
 >PreOrderTraverseCompareNum = 6, NodeNum = 6
 >
-> 
+>  
 >
 >-------Test 02----------
 >
@@ -528,7 +565,7 @@ void TestDelBSTNode(void) {
 >
 >PreOrderTraverseCompareNum = 5, NodeNum = 5
 >
-> 
+>  
 >
 >-------Test 03----------
 >
@@ -544,7 +581,7 @@ void TestDelBSTNode(void) {
 >
 >PreOrderTraverseCompareNum = 4, NodeNum = 4
 >
-> 
+>  
 >
 >-------Test 04----------
 >
@@ -558,7 +595,7 @@ void TestDelBSTNode(void) {
 >
 >PreOrderTraverseCompareNum = 3, NodeNum = 3
 >
-> 
+>  
 >
 >-------Test result----------
 >
