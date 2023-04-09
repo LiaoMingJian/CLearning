@@ -83,4 +83,7 @@ void TestAddBSTNode(void);
 
 /*TestDelBSTNode*/
 void TestDelBSTNode(void);
+
+/*TestBuildBSTree*/
+void TestBuildBSTree(void);
 #endif
