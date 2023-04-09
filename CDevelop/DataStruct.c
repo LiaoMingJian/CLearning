@@ -3803,48 +3803,61 @@ EXIT:
 	}
 }
 
-/*BSTSearch*/
-bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key, BINARY_TREE_NODE **RtNode) {
+
+bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreNode, int Key, BINARY_TREE_NODE **RtNode) {
 	if (BSTNode == NULL) {
-		*RtNode = PreBSTNode;
+		*RtNode = PreNode;
 		return false;
 	}
 
 	if (Key < BSTNode->Data) {
 		BSTSearch(BSTNode->LeftChild, BSTNode, Key, RtNode);
-	}
-	else if (Key > BSTNode->Data) {
+	} else if (Key > BSTNode->Data) {
 		BSTSearch(BSTNode->RightChild, BSTNode, Key, RtNode);
-	}
-	else {
+	} else {
 		*RtNode = BSTNode;
 		return true;
 	}
 }
 
-/*AddBSTNode*/
-void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode) {
-	int Key;
-	BINARY_TREE_NODE *PreBSTNode = NULL;
+void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
+	BINARY_TREE_NODE *AddNode = NULL;
+	BINARY_TREE_NODE *PreNode = NULL;
 
-	if ((BSTNode == NULL) || (AddNode == NULL)) {
+	if (BSTNode == NULL) {
 		return;
 	}
 
-	Key = AddNode->Data;
-
-	if (!BSTSearch(BSTNode, BSTNode, Key, &PreBSTNode)) {
+	if (!BSTSearch(*BSTNode, *BSTNode, Key, &PreNode)) {
+		AddNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		if (AddNode == NULL) {
+			return;
+		}
+		AddNode->Data = Key;
 		AddNode->LeftChild = NULL;
 		AddNode->RightChild = NULL;
-		if (Key < PreBSTNode->Data) {
-			PreBSTNode->LeftChild = AddNode;
-		}
-		else {
-			PreBSTNode->RightChild = AddNode;
+
+		if (PreNode == NULL) {
+			*BSTNode = AddNode;
+		} else if (Key < PreNode->Data) {
+			PreNode->LeftChild = AddNode;
+		} else {
+			PreNode->RightChild = AddNode;
 		}
 	}
 }
 
+void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
+	int i = 0;
+
+	if ((BSTNode == NULL) || (Arr == NULL)) {
+		return;
+	}
+
+	for (i = 0; i < Num; i++) {
+		AddBSTNode(BSTNode, Arr[i]);
+	}
+}
 
 void DelNode(BINARY_TREE_NODE **BSTNode) {
 	BINARY_TREE_NODE *Tmp01 = NULL;
@@ -3895,4 +3908,4 @@ void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 		DelNode(BSTNode);
 	}
 }
- 
+

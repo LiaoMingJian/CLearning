@@ -369,9 +369,11 @@ void MergeSorByCycle(int *Arr, int Num);
 bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreBSTNode, int Key, BINARY_TREE_NODE **RtNode);
 
 /*AddBSTNode*/
-void AddBSTNode(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *AddNode);
+void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key);
 
 /*DelBSTNode*/
-void DelBSTNode(BINARY_TREE_NODE *BSTNode, int Key);
-void DelBSTNode01(BINARY_TREE_NODE **BSTNode, int Key);
+void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key);
+
+/*BuildBSTree*/
+void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num);
 #endif
