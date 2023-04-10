@@ -354,7 +354,251 @@ void TestAddBSTNode(void) {
 
 
 
-# 4 删除结点
+# 4 创建二叉排序树
+
+​	利用增加结点的函数进行创建。
+
+**代码：**
+
+```c
+void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
+	int i = 0;
+
+	if ((BSTNode == NULL) || (Arr == NULL)) {
+		return;
+	}
+
+	for (i = 0; i < Num; i++) {
+		AddBSTNode(BSTNode, Arr[i]);
+	}
+}
+```
+
+
+
+**测试用例：**
+
+```c
+/*TestBuildBSTree*/
+void TestBuildBSTree(void) {
+	/*Test01*/
+	//		   30
+	//	  20	    50
+	// 10		 40
+	int Arr01[] = { 30, 20, 50, 40, 10 };
+	int Num01 = 5;
+	BINARY_TREE_NODE *BSTNode01 = NULL;
+	int CmpBSTNode01[] = {30, 20, 10, 50, 40};
+
+	/*Test02*/
+	//		   20
+	//	  10	     50
+	//			 30
+	//				40	
+	int Arr02[] = { 20, 50, 10, 30, 40 };
+	int Num02 = 5;
+	BINARY_TREE_NODE *BSTNode02 = NULL;
+	int CmpBSTNode02[] = { 20, 10, 50, 30, 40 };
+
+	/*Test03*/
+	//		   30
+	//	  10	    50
+	//		20	 40
+	//				
+	int Arr03[] = { 30, 10, 50, 20, 40 };
+	int Num03 = 5;
+	BINARY_TREE_NODE *BSTNode03 = NULL;
+	int CmpBSTNode03[] = { 30, 10, 20, 50, 40 };
+
+	/*Test04*/
+	//	  10
+	//	     20
+	//	        30
+	//	           40
+	//                50
+	int Arr04[] = { 10, 20, 30, 40, 50 };
+	int Num04 = 5;
+	BINARY_TREE_NODE *BSTNode04 = NULL;
+	int CmpBSTNode04[] = { 10, 20, 30, 40, 50 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildBSTree(&BSTNode01, Arr01, Num01);
+	printf("PreOrderTraversePrintBinaryTree\n");
+	PreOrderTraversePrintBinaryTree(BSTNode01);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode01, BSTNode01, Num01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildBSTree(&BSTNode02, Arr02, Num02);
+	printf("PreOrderTraversePrintBinaryTree\n");
+	PreOrderTraversePrintBinaryTree(BSTNode02);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode02, BSTNode02, Num02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	BuildBSTree(&BSTNode03, Arr03, Num03);
+	printf("PreOrderTraversePrintBinaryTree\n");
+	PreOrderTraversePrintBinaryTree(BSTNode03);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode03, BSTNode03, Num03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	BuildBSTree(&BSTNode04, Arr04, Num04);
+	printf("PreOrderTraversePrintBinaryTree\n");
+	PreOrderTraversePrintBinaryTree(BSTNode04);
+	printf("Compare\n");
+	CmpPreOderBuildBinaryTree(CmpBSTNode04, BSTNode04, Num04);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+```
+
+
+
+**结果：**
+
+> -------Test start----------
+>
+>  
+>
+> -------Test 01----------
+>
+> PreOrderTraversePrintBinaryTree
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 40
+>
+> Compare
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 40
+>
+> PreOrderTraverseCompareNum = 5, NodeNum = 5
+>
+>  
+>
+> -------Test 02----------
+>
+> PreOrderTraversePrintBinaryTree
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 40
+>
+> Compare
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 40
+>
+> PreOrderTraverseCompareNum = 5, NodeNum = 5
+>
+>  
+>
+> -------Test 03----------
+>
+> PreOrderTraversePrintBinaryTree
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 40
+>
+> Compare
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 50
+>
+> BiTreeNode->Data = 40
+>
+> PreOrderTraverseCompareNum = 5, NodeNum = 5
+>
+>  
+>
+> -------Test 04----------
+>
+> PreOrderTraversePrintBinaryTree
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 40
+>
+> BiTreeNode->Data = 50
+>
+> Compare
+>
+> BiTreeNode->Data = 10
+>
+> BiTreeNode->Data = 20
+>
+> BiTreeNode->Data = 30
+>
+> BiTreeNode->Data = 40
+>
+> BiTreeNode->Data = 50
+>
+> PreOrderTraverseCompareNum = 5, NodeNum = 5
+>
+>  
+>
+> -------Test result----------
+>
+> Print test result;
+>
+> TestNum = 4, PassNum = 4, FaildNum = 0
+
+
+
+# 5 删除结点
 
 ​	先查找Key值对应的结点，然后进行删除操作，注意DelBSTNode函数入参结点为双重指针，因为要修改结点的地址。
 
