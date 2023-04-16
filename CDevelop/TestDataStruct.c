@@ -1015,7 +1015,7 @@ void PreOrderTraverseAVLCompare(const int *CmpNode, const AVL_TREE_NODE *AVLNode
 		return;
 	} else {
 		//printf("CmpNode[%d] = %d, AVLNode->Data = 0x%lx, AVLNode->BF = %d, BiTreeNode->LeftChild = 0x%lx, BiTreeNode->RightChild = 0x%lx\n", CmpNode[BiIndex], AVLNode->Data, AVLNode->BF, AVLNode->LeftChild, AVLNode->RightChild);
-		printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
+		//printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
 		if (AVLNode->Data == CmpNode[BiIndex]) {
 			PreOrderTraverseCompareNum++;
 		}
@@ -2585,8 +2585,6 @@ void TestAddAVLNode(void) {
 	int Num18 = 18;
 	bool Taller18 = false;
 	int CmpAVLNode18[] = { 9, 5, 3, 1, 4, 6, 7, 50, 30, 12, 10, 15, 40, 55, 53, 54, 60, 70 };
-
-
 
 	printf("-------Test start----------\n");
 	InitNum();
