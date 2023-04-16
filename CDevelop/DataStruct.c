@@ -3215,6 +3215,38 @@ void PostOrderTraversePrintBinaryTree(const BINARY_TREE_NODE *BiTreeNode) {
 	}
 }
 
+/*AVL_TREE_NODE*/
+void PreOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode) {
+	if (AVLNode == NULL) {
+		return;
+	} else {
+		printf("AVLNode = 0x%lx, AVLNode->Data = %d, AVLNode->BF = %d, AVLNode->LeftChild = 0x%lx, AVLNode->RightChild = 0x%lx\n", AVLNode, AVLNode->Data, AVLNode->BF, AVLNode->LeftChild, AVLNode->RightChild);
+		//printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
+		PreOrderTraversePrintAVLTree(AVLNode->LeftChild);
+		PreOrderTraversePrintAVLTree(AVLNode->RightChild);
+	}
+}
+
+void InOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode) {
+	if (AVLNode == NULL) {
+		return;
+	} else {
+		InOrderTraversePrintAVLTree(AVLNode->LeftChild);
+		printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
+		InOrderTraversePrintAVLTree(AVLNode->RightChild);
+	}
+}
+
+void PostOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode) {
+	if (AVLNode == NULL) {
+		return;
+	} else {
+		PostOrderTraversePrintAVLTree(AVLNode->LeftChild);
+		PostOrderTraversePrintAVLTree(AVLNode->RightChild);
+		printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
+	}
+}
+
 static int TraIndex = 0;
 void PreOderBuildBinaryTree02(BINARY_TREE_NODE **BiTreeNodePtr, BINARY_TREE_NODE_DATA *DataPtr, char IfExistNodeFlag) {
 	char IfExistLeftChildNodeFlag = 0;
@@ -3909,3 +3941,153 @@ void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 	}
 }
 
+
+void LeftRotate(AVL_TREE_NODE **AVLNode) {
+	AVL_TREE_NODE *AVLRightNode = NULL;
+
+	AVLRightNode = (*AVLNode)->RightChild;
+	(*AVLNode)->RightChild = AVLRightNode->LeftChild;
+	AVLRightNode->LeftChild = *AVLNode;
+	*AVLNode = AVLRightNode;
+}
+
+void RightRotate(AVL_TREE_NODE **AVLNode) {
+	AVL_TREE_NODE *AVLLeftNode = NULL;
+
+	AVLLeftNode = (*AVLNode)->LeftChild;
+	(*AVLNode)->LeftChild = AVLLeftNode->RightChild;
+	AVLLeftNode->RightChild = *AVLNode;
+	*AVLNode = AVLLeftNode;
+}
+
+void RightBalance(AVL_TREE_NODE **AVLNode) {
+	AVL_TREE_NODE *AVLRightNode = NULL;
+	AVL_TREE_NODE *AVLRightLeftNode = NULL;
+
+	AVLRightNode = (*AVLNode)->RightChild;
+
+	if (AVLRightNode->BF == RH) {
+		AVLRightNode->BF = EH;
+		(*AVLNode)->BF = EH;
+		LeftRotate(AVLNode);
+	} else if (AVLRightNode->BF == LH) {
+		AVLRightLeftNode = AVLRightNode->LeftChild;
+		switch (AVLRightLeftNode->BF) {
+			case LH:
+				AVLRightNode->BF = RH;
+				(*AVLNode)->BF = EH;
+				break;
+			case EH:
+				AVLRightNode->BF = EH;
+				(*AVLNode)->BF = EH;
+				break;
+			case RH:
+				AVLRightNode->BF = EH;
+				(*AVLNode)->BF = LH;
+				break;
+		}
+
+		AVLRightLeftNode->BF = EH;
+		RightRotate(&((*AVLNode)->RightChild));
+		LeftRotate(AVLNode);
+	}
+}
+
+void LeftBalance(AVL_TREE_NODE **AVLNode) {
+	AVL_TREE_NODE *AVLLeftNode = NULL;
+	AVL_TREE_NODE *AVLLeftRightNode = NULL;
+	
+	AVLLeftNode = (*AVLNode)->LeftChild;
+
+	if (AVLLeftNode->BF == LH) {
+		AVLLeftNode->BF = EH;
+		(*AVLNode)->BF = EH;
+		RightRotate(AVLNode);
+	} else if (AVLLeftNode->BF == RH) {
+		AVLLeftRightNode = AVLLeftNode->RightChild;
+		switch (AVLLeftRightNode->BF) {
+			case LH:
+				AVLLeftNode->BF = EH;
+				(*AVLNode)->BF = RH;
+				break;
+			case EH:
+				AVLLeftNode->BF = EH;
+				(*AVLNode)->BF = EH;
+				break;
+			case RH:
+				AVLLeftNode->BF = LH;
+				(*AVLNode)->BF = EH;
+				break;
+		}
+
+		AVLLeftRightNode->BF = EH;
+		LeftRotate(&((*AVLNode)->LeftChild));
+		RightRotate(AVLNode);
+	}
+}
+
+bool AddAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Taller) {
+	//printf("AVLNode = 0x%lx, *AVLNode = 0x%lx, *Taller = %d\n", AVLNode, *AVLNode, *Taller);
+	if ((*AVLNode) == NULL) {
+		//pritf("Test 01\n");
+		*AVLNode = (AVL_TREE_NODE *)malloc(sizeof(AVL_TREE_NODE));
+		if ((*AVLNode == NULL)) {
+			return false;
+		}
+		(*AVLNode)->Data = Key;
+		(*AVLNode)->BF = EH;
+		(*AVLNode)->LeftChild = NULL;
+		(*AVLNode)->RightChild = NULL;
+		*Taller = true;
+	} else {
+		//printf("Left\n");
+		if (Key < (*AVLNode)->Data) {
+			if (!AddAVLNode(&((*AVLNode)->LeftChild), Key, Taller)) {
+				return false;
+			}
+
+			if (*Taller == true) {
+				switch ((*AVLNode)->BF) {
+					case LH:
+						LeftBalance(AVLNode);
+						*Taller = false;
+						break;
+					case EH:
+						(*AVLNode)->BF = LH;
+						*Taller = true;
+						break;
+					case RH:
+						(*AVLNode)->BF = EH;
+						*Taller = false;
+						break;
+				}
+			}
+		} else if (Key > (*AVLNode)->Data) {
+			if (!AddAVLNode(&((*AVLNode)->RightChild), Key, Taller)) {
+				return false;
+			}
+
+			if (*Taller == true) {
+				switch ((*AVLNode)->BF) {
+					case LH:
+						(*AVLNode)->BF = EH;
+						*Taller = false;
+						break;
+					case EH:
+						(*AVLNode)->BF = RH;
+						*Taller = true;
+						break;
+					case RH:
+						RightBalance(AVLNode);
+						*Taller = false;
+						break;
+				}
+			}
+		} else {
+			*Taller = false;
+			return false;
+		}
+	}
+
+	return true;
+}

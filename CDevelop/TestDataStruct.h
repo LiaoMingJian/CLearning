@@ -86,4 +86,7 @@ void TestDelBSTNode(void);
 
 /*TestBuildBSTree*/
 void TestBuildBSTree(void);
+
+/*AddAVLNode*/
+void TestAddAVLNode(void);
 #endif
