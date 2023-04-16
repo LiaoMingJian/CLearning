@@ -3220,8 +3220,8 @@ void PreOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode) {
 	if (AVLNode == NULL) {
 		return;
 	} else {
-		printf("AVLNode = 0x%lx, AVLNode->Data = %d, AVLNode->BF = %d, AVLNode->LeftChild = 0x%lx, AVLNode->RightChild = 0x%lx\n", AVLNode, AVLNode->Data, AVLNode->BF, AVLNode->LeftChild, AVLNode->RightChild);
-		//printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
+		//printf("AVLNode = 0x%lx, AVLNode->Data = %d, AVLNode->BF = %d, AVLNode->LeftChild = 0x%lx, AVLNode->RightChild = 0x%lx\n", AVLNode, AVLNode->Data, AVLNode->BF, AVLNode->LeftChild, AVLNode->RightChild);
+		printf("AVLNode->Data = %d, AVLNode->BF = %d\n", AVLNode->Data, AVLNode->BF);
 		PreOrderTraversePrintAVLTree(AVLNode->LeftChild);
 		PreOrderTraversePrintAVLTree(AVLNode->RightChild);
 	}
