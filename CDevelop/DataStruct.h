@@ -15,6 +15,11 @@
 #define CHILDE_PARENT_TREE_MAXSIZE			100
 #define CHILD_TREE_CHILE_INDEX_SIZE			10
 
+/*AVL_TREE_NODE*/
+#define EH (0)
+#define LH (1)
+#define RH (-1)
+
 typedef int ElemType;
 typedef int LIST_STATUS;
 typedef char ElemCharType;
@@ -172,6 +177,13 @@ typedef struct _BINARY_THREAD_TREE_NODE_DATA {
 	char IsExistLeftChildFlag;
 	char IsExistRightChildFlag;
 }BINARY_THREAD_TREE_NODE_DATA;
+
+typedef struct _AVL_TREE_NODE {
+	int Data;
+	int BF;
+	struct _BINARY_TREE_NODE *LeftChild;
+	struct _BINARY_TREE_NODE *RightChild;
+}AVL_TREE_NODE;
 #pragma pack()
 
 /*BINARY_TREE_NODE*/
@@ -376,4 +388,14 @@ void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key);
 
 /*BuildBSTree*/
 void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num);
+
+/*AddAVLNode*/
+bool AddAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Taller);
+
+/*AVL_TREE_NODE*/
+void PreOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
+
+void InOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
+
+void PostOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
 #endif

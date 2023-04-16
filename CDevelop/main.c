@@ -140,7 +140,10 @@ int main() {
 	//TestDelBSTNode();
 
 	/*TestBuildBSTree*/
-	TestBuildBSTree();
+	//TestBuildBSTree();
+
+	/*AddAVLNode*/
+	TestAddAVLNode();
 
 	system("pause");
 	return 0;
