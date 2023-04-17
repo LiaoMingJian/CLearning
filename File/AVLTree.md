@@ -27,8 +27,8 @@
 typedef struct _AVL_TREE_NODE {
 	int Data;
 	int BF;
-	struct _BINARY_TREE_NODE *LeftChild;
-	struct _BINARY_TREE_NODE *RightChild;
+	struct _AVL_TREE_NODE *LeftChild;
+	struct _AVL_TREE_NODE *RightChild;
 }AVL_TREE_NODE;
 ```
 
@@ -1234,7 +1234,3 @@ void TestAddAVLNode(void) {
 > Print test result;
 >
 > TestNum = 18, PassNum = 18, FaildNum = 0
-
-
-
->
