@@ -178,11 +178,12 @@ typedef struct _BINARY_THREAD_TREE_NODE_DATA {
 	char IsExistRightChildFlag;
 }BINARY_THREAD_TREE_NODE_DATA;
 
+/*AVL_TREE_NODE*/
 typedef struct _AVL_TREE_NODE {
 	int Data;
 	int BF;
-	struct _BINARY_TREE_NODE *LeftChild;
-	struct _BINARY_TREE_NODE *RightChild;
+	struct _AVL_TREE_NODE *LeftChild;
+	struct _AVL_TREE_NODE *RightChild;
 }AVL_TREE_NODE;
 #pragma pack()
 
