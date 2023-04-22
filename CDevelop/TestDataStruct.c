@@ -2737,3 +2737,234 @@ void TestAddAVLNode(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+/*TestBuildAVLTree*/
+void TestBuildAVLTree(void) {
+	/*Test01*/
+	//         50
+	AVL_TREE_NODE *AVLNode01 = NULL;
+	int Arr01[] = { 50 };
+	int Num01 = 1;
+	int CmpAVLNode01[] = { 50 };
+
+	/*Test02*/
+	//  LeftBalance_LH
+	//         50
+	//      30
+	//   20
+	//  50_RightRotate
+	//		   30
+	//      20    50
+	AVL_TREE_NODE *AVLNode02 = NULL;
+	int Arr02[] = { 50, 30, 20 };
+	int Num02 = 3;
+	int CmpAVLNode02[] = { 30, 20, 50 };
+
+	/*Test03*/
+	//  LeftBalance_RH_EH
+	//         50
+	//     30
+	//       40
+	//  30_LeftRotate
+	//		   50
+	//      40
+	//   30
+	//  50_RightRotate
+	//         40
+	//      30    50
+	AVL_TREE_NODE *AVLNode03 = NULL;
+	int Arr03[] = { 50, 30, 40 };
+	int Num03 = 3;
+	int CmpAVLNode03[] = { 40, 30, 50 };
+
+	/*Test04*/
+	//  LeftBalance_RH_LH
+	//             50
+	//     30            60
+	//  20    40
+	//      35
+	//  30_LeftRotate
+	//		      50
+	//      40           60
+	//   30
+	// 20  35
+	//  50_RightRotate
+	//            40
+	//      30         50
+	//    20  35         60
+	AVL_TREE_NODE *AVLNode04 = NULL;
+	int Arr04[] = { 50, 30, 20, 40, 35, 60 };
+	int Num04 = 6;
+	int CmpAVLNode04[] = { 40, 30, 20, 35, 50, 60 };
+
+	/*Test05*/
+	//  LeftBalance_RH_RH
+	//             50
+	//     30            60
+	//  20    40
+	//          45
+	//  30_LeftRotate
+	//		      50
+	//      40           60
+	//   30   45
+	// 20
+	//  50_RightRotate
+	//            40
+	//      30         50
+	//    20        45    60
+	AVL_TREE_NODE *AVLNode05 = NULL;
+	int Arr05[] = { 50, 30, 60, 20, 40, 45 };
+	int Num05 = 6;
+	int CmpAVLNode05[] = { 40, 30, 20, 50, 45, 60 };
+
+	/*Test06*/
+	//  RightBalance_RH
+	//         50
+	//             60
+	//                70
+	//  50_LeftRotate
+	//		   60
+	//      50    70
+	AVL_TREE_NODE *AVLNode06 = NULL;
+	int Arr06[] = { 50, 60, 70 };
+	int Num06 = 3;
+	int CmpAVLNode06[] = { 60, 50, 70 };
+
+	/*Test07*/
+	//  RightBalance_LH_EH
+	//         50
+	//             60
+	//           55
+	//  60_RightRotate
+	//		   50
+	//             55
+	//                60
+	//  50_LeftRotate
+	//		   55
+	//      50    60
+	AVL_TREE_NODE *AVLNode07 = NULL;
+	int Arr07[] = { 50, 60, 55 };
+	int Num07 = 3;
+	int CmpAVLNode07[] = { 55, 50, 60 };
+
+	/*Test08*/
+	//  RightBalance_LH_LH
+	//         50
+	//    30         70
+	//            60    80
+	//           55
+	//  70_RightRotate
+	//		   50
+	//    30         60
+	//             55  70
+	//                   80
+	//  50_LeftRotate
+	//		   60
+	//    50         70
+	//  30  55          80
+	AVL_TREE_NODE *AVLNode08 = NULL;
+	int Arr08[] = { 50, 30, 70, 60, 55, 80 };
+	int Num08 = 6;
+	int CmpAVLNode08[] = { 60, 50, 30, 55, 70, 80 };
+
+	/*Test09*/
+	//  RightBalance_LH_RH
+	//         50
+	//    30         70
+	//            60    80
+	//             65
+	//  70_RightRotate
+	//		   50
+	//    30         60
+	//                  70
+	//                65  80
+	//  50_LeftRotate
+	//		   60
+	//    50         70
+	//  30         65  80
+	AVL_TREE_NODE *AVLNode09 = NULL;
+	int Arr09[] = { 50, 30, 70, 60, 80, 65 };
+	int Num09 = 6;
+	int CmpAVLNode09[] = { 60, 50, 30, 70, 65, 80 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildAVLTree(&AVLNode01, Arr01, Num01);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode01);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode01, AVLNode01, Num01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildAVLTree(&AVLNode02, Arr02, Num02);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode02);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode02, AVLNode02, Num02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	BuildAVLTree(&AVLNode03, Arr03, Num03);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode03);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode03, AVLNode03, Num03);
+
+	/*Test04*/
+	printf("\n-------Test 04----------\n");
+	BuildAVLTree(&AVLNode04, Arr04, Num04);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode04);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode04, AVLNode04, Num04);
+
+	/*Test05*/
+	printf("\n-------Test 05----------\n");
+	BuildAVLTree(&AVLNode05, Arr05, Num05);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode05);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode05, AVLNode05, Num05);
+
+	/*Test06*/
+	printf("\n-------Test 06----------\n");
+	BuildAVLTree(&AVLNode06, Arr06, Num06);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode06);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode06, AVLNode06, Num06);
+
+	/*Test07*/
+	printf("\n-------Test 07----------\n");
+	BuildAVLTree(&AVLNode07, Arr07, Num07);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode07);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode07, AVLNode07, Num07);
+
+	/*Test08*/
+	printf("\n-------Test 08----------\n");
+	BuildAVLTree(&AVLNode08, Arr08, Num08);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode08);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode08, AVLNode08, Num08);
+
+	/*Test09*/
+	printf("\n-------Test 09----------\n");
+	BuildAVLTree(&AVLNode09, Arr09, Num09);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode09);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode09, AVLNode09, Num09);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+

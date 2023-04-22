@@ -89,4 +89,7 @@ void TestBuildBSTree(void);
 
 /*AddAVLNode*/
 void TestAddAVLNode(void);
+
+/*TestBuildAVLTree*/
+void TestBuildAVLTree(void);
 #endif

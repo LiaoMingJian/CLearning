@@ -399,4 +399,7 @@ void PreOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
 void InOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
 
 void PostOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
+
+/*BuildAVLTree*/
+void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num);
 #endif

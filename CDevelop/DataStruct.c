@@ -3835,7 +3835,7 @@ EXIT:
 	}
 }
 
-
+/*BSTSearch*/
 bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreNode, int Key, BINARY_TREE_NODE **RtNode) {
 	if (BSTNode == NULL) {
 		*RtNode = PreNode;
@@ -3852,6 +3852,7 @@ bool BSTSearch(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreNode, int Key, BI
 	}
 }
 
+/*AddBSTNode*/
 void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 	BINARY_TREE_NODE *AddNode = NULL;
 	BINARY_TREE_NODE *PreNode = NULL;
@@ -3879,6 +3880,7 @@ void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 	}
 }
 
+/*BuildBSTree*/
 void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
 	int i = 0;
 
@@ -3891,6 +3893,7 @@ void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
 	}
 }
 
+/*DelBSTNode*/
 void DelNode(BINARY_TREE_NODE **BSTNode) {
 	BINARY_TREE_NODE *Tmp01 = NULL;
 	BINARY_TREE_NODE *Tmp02 = NULL;
@@ -3941,7 +3944,7 @@ void DelBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 	}
 }
 
-
+/*AddAVLNode*/
 void LeftRotate(AVL_TREE_NODE **AVLNode) {
 	AVL_TREE_NODE *AVLRightNode = NULL;
 
@@ -4094,4 +4097,19 @@ bool AddAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Taller) {
 	}
 
 	return true;
+}
+
+
+/*BuildAVLTree*/
+void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num) {
+	int Index = 0;
+	bool Taller = false;
+
+	if ((AVLNode == NULL) || (Arr == NULL)) {
+		return;
+	}
+
+	for (Index = 0; Index < Num; Index++) {
+		AddAVLNode(AVLNode, Arr[Index], &Taller);
+	}
 }
