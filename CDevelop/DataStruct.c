@@ -4027,6 +4027,10 @@ void LeftBalance(AVL_TREE_NODE **AVLNode) {
 }
 
 bool AddAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Taller) {
+	if ((AVLNode == NULL) || (Taller == NULL)) {
+		return false;
+	}
+
 	//printf("AVLNode = 0x%lx, *AVLNode = 0x%lx, *Taller = %d\n", AVLNode, *AVLNode, *Taller);
 	if ((*AVLNode) == NULL) {
 		//pritf("Test 01\n");
