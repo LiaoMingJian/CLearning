@@ -143,7 +143,10 @@ int main() {
 	//TestBuildBSTree();
 
 	/*AddAVLNode*/
-	TestAddAVLNode();
+	//TestAddAVLNode();
+
+	/*TestBuildAVLTree*/
+	TestBuildAVLTree();
 
 	system("pause");
 	return 0;
