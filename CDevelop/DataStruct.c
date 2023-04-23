@@ -4113,3 +4113,63 @@ void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num) {
 		AddAVLNode(AVLNode, Arr[Index], &Taller);
 	}
 }
+
+
+
+/*DelAVLNode*/
+bool DelAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
+	if (AVLNode == NULL) {
+		return false;
+	}
+
+	if (*AVLNode == NULL) {
+		return false;
+	}
+
+	if (Key < (*AVLNode)->Data) {
+		if (!DelAVLNode(&((*AVLNode)->LeftChild), Key, Shorter)) {
+			return false;
+		}
+
+		if (*Shorter) {
+			switch ((*AVLNode)->BF) {
+				case EH:
+					(*AVLNode)->BF = RH;
+					*Shorter = true;
+					break;				
+				case LH:
+					(*AVLNode)->BF = EH;
+					*Shorter = false;
+					break;
+				case RH:
+					RightBalance(AVLNode);
+					*Shorter = false;
+					break;
+			}
+		}	
+	} else if (Key > (*AVLNode)->Data) {
+		if (!DelAVLNode(&((*AVLNode)->RightChild), Key, Shorter)) {
+			return false;
+		}
+
+		if (*Shorter) {
+			switch ((*AVLNode)->BF) {
+				case EH:
+					(*AVLNode)->BF = LH;
+					*Shorter = true;
+					break;
+				case LH:
+					LeftBalance(AVLNode);
+					*Shorter = false;
+					break;
+				case RH:
+					(*AVLNode)->BF = EH;
+					*Shorter = false;
+					break;
+			}
+		}
+	} else {
+		DelNode(AVLNode);
+		return true;
+	}	
+}
