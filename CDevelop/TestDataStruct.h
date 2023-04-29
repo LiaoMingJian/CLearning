@@ -92,4 +92,7 @@ void TestAddAVLNode(void);
 
 /*TestBuildAVLTree*/
 void TestBuildAVLTree(void);
+
+/*TestDeleteAVLNode*/
+void TestDeleteAVLNode(void);
 #endif
