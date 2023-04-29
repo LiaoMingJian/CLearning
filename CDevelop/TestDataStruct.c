@@ -2968,3 +2968,642 @@ void TestBuildAVLTree(void) {
 	TestResult();
 }
 
+
+/*TestDeleteAVLNode*/
+void TestDeleteAVLNode(void) {
+	/*Test01*/
+	//         50
+	//      30     70
+	AVL_TREE_NODE *AVLNode01 = NULL;
+	int Arr01[] = { 50, 30, 70 };
+	int Num01 = 3;
+	//int CmpAVLNode01[] = { 50, 30, 70 };
+	int Key01 = 30;
+	bool Shorter01 = false;
+	int CmpNum01 = 2;
+	int CmpAVLNode01[] = { 50, 70 };
+
+	/*Test02*/
+	//         50
+	//      30     70
+	AVL_TREE_NODE *AVLNode02 = NULL;
+	int Arr02[] = { 50, 30, 70 };
+	int Num02 = 3;
+	//int CmpAVLNode02[] = { 50, 30, 70 };
+	int Key02 = 70;
+	bool Shorter02 = false;
+	int CmpNum02 = 2;
+	int CmpAVLNode02[] = { 50, 30 };
+
+	/*Test03*/
+	//         50
+	//      30     70
+	AVL_TREE_NODE *AVLNode03 = NULL;
+	int Arr03[] = { 50, 30, 70 };
+	int Num03 = 3;
+	//int CmpAVLNode03[] = { 50, 30, 70 };
+	int Key03 = 50;
+	bool Shorter03 = false;
+	int CmpNum03 = 2;
+	int CmpAVLNode03[] = { 30, 70 };
+
+	/*Test04*/
+	// Leaf_leftbalance_LH
+	//         50
+	//      30     70
+	//    20
+	// 70_Del
+	//         50
+	//      30
+	//    20
+	// 50_RightRotate
+	//         30
+	//      20    50
+	AVL_TREE_NODE *AVLNode04 = NULL;
+	int Arr04[] = { 50, 30, 70, 20 };
+	int Num04 = 4;
+	//int CmpAVLNode04[] = { 50, 30, 20, 70};
+	int Key04 = 70;
+	bool Shorter04 = false;
+	int CmpNum04 = 3;
+	int CmpAVLNode04[] = { 30, 20, 50 };
+
+	/*Test05*/
+	// Leaf_Leftbalance_RH_EH
+	//         50
+	//      30     70
+	//       40
+	// 70_Del
+	//         50
+	//      30
+	//       40
+	// 30_LeftRotate
+	//         50
+	//      40
+	//    30
+	// 50_RightRotate
+	//         40
+	//      30    50
+	AVL_TREE_NODE *AVLNode05 = NULL;
+	int Arr05[] = { 50, 30, 70, 40 };
+	int Num05 = 4;
+	//int CmpAVLNode05[] = { 50, 30, 40, 70};
+	int Key05 = 70;
+	bool Shorter05 = false;
+	int CmpNum05 = 3;
+	int CmpAVLNode05[] = { 40, 30, 50 };
+
+	/*Test06*/
+	// Leaf_Leftbalance_RH_LH
+	//         50
+	//      30     70
+	//    20  40     80
+	//       35
+	// 70_Del
+	//         50
+	//      30     80
+	//    20  40
+	//       35
+	// 30_LeftRotate
+	//         50
+	//      40   80
+	//    30
+	//  20 35
+	// 50_RightRotate
+	//         40
+	//      30    50
+	//    20 35    80
+	AVL_TREE_NODE *AVLNode06 = NULL;
+	int Arr06[] = { 50, 30, 70, 20, 40, 80, 35 };
+	int Num06 = 7;
+	//int CmpAVLNode06[] = { 50, 30, 20, 40, 35, 70, 80};
+	int Key06 = 70;
+	bool Shorter06 = false;
+	int CmpNum06 = 6;
+	int CmpAVLNode06[] = { 40, 30, 20, 35, 50, 80 };
+
+	/*Test07*/
+	// Leaf_Leftbalance_RH_RH
+	//         50
+	//      30     70
+	//    20  40     80
+	//         45
+	// 70_Del
+	//         50
+	//      30     80
+	//    20  40
+	//         45
+	// 30_LeftRotate
+	//         50
+	//      40   80
+	//    30 45
+	//  20 
+	// 50_RightRotate
+	//         40
+	//      30    50
+	//    20    45  80
+	AVL_TREE_NODE *AVLNode07 = NULL;
+	int Arr07[] = { 50, 30, 70, 20, 40, 80, 45 };
+	int Num07 = 7;
+	//int CmpAVLNode07[] = { 50, 30, 20, 40, 45, 70, 80};
+	int Key07 = 70;
+	bool Shorter07 = false;
+	int CmpNum07 = 6;
+	int CmpAVLNode07[] = { 40, 30, 20, 50, 45, 80 };
+
+
+	/*Test08*/
+	// Leaf_leftbalance_RH
+	//         50
+	//      30     70
+	//               80
+	// 30_Del
+	//         50
+	//             70
+	//               80
+	// 50_LeftRotate
+	//         70
+	//      50    80
+	AVL_TREE_NODE *AVLNode08 = NULL;
+	int Arr08[] = { 50, 30, 70, 80 };
+	int Num08 = 4;
+	//int CmpAVLNode08[] = { 50, 30, 70, 80};
+	int Key08 = 30;
+	bool Shorter08 = false;
+	int CmpNum08 = 3;
+	int CmpAVLNode08[] = { 70, 50, 80 };
+
+	/*Test09*/
+	// Leaf_leftbalance_LH_EH
+	//         50
+	//      30     70
+	//            60
+	// 30_Del
+	//         50
+	//             70
+	//            60
+	// 70_RightRotate
+	//         50
+	//            60
+	 //              70
+	// 50_LeftRotate
+	//         60
+	//      50    70
+	AVL_TREE_NODE *AVLNode09 = NULL;
+	int Arr09[] = { 50, 30, 70, 60 };
+	int Num09 = 4;
+	//int CmpAVLNode09[] = { 50, 30, 70, 60};
+	//int CmpNum09 = 4;
+	int Key09 = 30;
+	bool Shorter09 = false;
+	int CmpNum09 = 3;
+	int CmpAVLNode09[] = { 60, 50, 70 };
+
+
+	/*Test10*/
+	// Leaf_leftbalance_LH_LH
+	//         50
+	//      30     70
+	//    20     60  80
+	//          55
+	// 30_Del
+	//         50
+	//      20     70
+	//           60  80
+	//          55
+	// 70_RightRotate
+	//         50
+	//      20     60
+	//           55  70
+	//                80
+	// 50_LeftRotate
+	//         60
+	//      50     70
+	//    20  55     80
+	AVL_TREE_NODE *AVLNode10 = NULL;
+	int Arr10[] = { 50, 30, 70, 20, 60, 80, 55 };
+	int Num10 = 7;
+	// int CmpAVLNode10[] = { 50, 30, 20, 70, 60, 55, 80};
+	// int CmpNum10 = 7;
+	int Key10 = 30;
+	bool Shorter10 = false;
+	int CmpNum10 = 6;
+	int CmpAVLNode10[] = { 60, 50, 20, 55, 70, 80 };
+
+	/*Test11*/
+	// Leaf_leftbalance_LH_RH
+	//         50
+	//      30     70
+	//    20     60  80
+	//            65
+	// 30_Del
+	//         50
+	//      20     70
+	//           60  80
+	//            65
+	// 70_RightRotate
+	//         50
+	//      20     60
+	//               70
+	//              65 80
+	// 50_LeftRotate
+	//         60
+	//      50     70
+	//    20     65  80
+	AVL_TREE_NODE *AVLNode11 = NULL;
+	int Arr11[] = { 50, 30, 70, 20, 60, 80, 65 };
+	int Num11 = 7;
+	// int CmpAVLNode11[] = { 50, 30, 20, 70, 60, 65, 80};
+	// int CmpNum11 = 7;
+	int Key11 = 30;
+	bool Shorter11 = false;
+	int CmpNum11 = 6;
+	int CmpAVLNode11[] = { 60, 50, 20, 70, 65, 80 };
+
+
+	/*Test12*/
+	// OnlyDel_NoRotate
+	//             50
+	//       30          70
+	//    20    40     60  80
+	//  10     35
+	// 50_del
+	//             40
+	//       30          70
+	//    20    35     60  80 
+	//  10
+	AVL_TREE_NODE *AVLNode12 = NULL;
+	int Arr12[] = { 50, 30, 70, 20, 40, 60, 80, 10, 35 };
+	int Num12 = 9;
+	//int CmpAVLNode12[] = { 50, 30, 20, 10, 40, 35, 70, 60, 80 };
+	//int CmpNum12 = 9;
+	int Key12 = 50;
+	bool Shorter12 = false;
+	int CmpNum12 = 8;
+	int CmpAVLNode12[] = { 40, 30, 20, 10, 35, 70, 60, 80 };
+
+	/*Test13*/
+	// OnlyDel_NoRotate
+	//                            50
+	//            30                            70
+	//     20              40               60       80
+	//  10   25         35    45          55  65   75  90
+	// 5 15           33 37  43                         100
+	//              31
+	// 50_del
+	//                            45
+	//            30                            70
+	//     20              40               60       80
+	//  10   25         35    43          55  65   75  90
+	// 5 15           33 37                           100
+	//              31
+	// 40_RightRotate
+	//                            45
+	//            30                            70
+	//     20              35               60       80
+	//  10   25         33    40          55  65   75  90
+	// 5 15           31    37  43                      100
+	AVL_TREE_NODE *AVLNode13 = NULL;
+	int Arr13[] = { 50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 45, 55, 65, 75, 90, 5, 15, 33, 37, 43, 100, 31 };
+	int Num13 = 22;
+	//int CmpAVLNode13[] = { 50, 30, 20, 10, 5, 15, 25, 40, 35, 33, 31, 37, 45, 43, 70, 60, 55, 65, 80, 75, 90, 100 };
+	//int CmpNum13 = 22;
+	int Key13 = 50;
+	bool Shorter13 = false;
+	int CmpNum13 = 21;
+	int CmpAVLNode13[] = { 45, 30, 20, 10, 5, 15, 25, 35, 33, 31, 40, 37, 43, 70, 60, 55, 65, 80, 75, 90, 100 };
+
+	/*Test14*/
+	// Root_Tmp01_EH_RootRightbalance_RH
+	//          50
+	//    20          70
+	//      30     60   80
+	//                   90
+	// 50_Del
+	//          30
+	//    20          70
+	//             60   80
+	//                   90
+	// 30_LeftRotate
+	//          70
+	//    30          80
+	//   20 60         90
+	AVL_TREE_NODE *AVLNode14 = NULL;
+	int Arr14[] = { 50, 20, 70, 30, 60, 80, 90 };
+	int Num14 = 7;
+	// int CmpAVLNode14[] = { 50, 20, 30, 70, 60, 80, 90 };
+	// int CmpNum14 = 7;
+	int Key14 = 50;
+	bool Shorter14 = false;
+	int CmpNum14 = 6;
+	int CmpAVLNode14[] = { 70, 30, 20, 60, 80, 90 };
+
+
+	/*Test15*/
+	// Root_Tmp01Leftbalance_LH_RootRightbalance_RH
+	//          50
+	//    20          70
+	//  10   30     60   80
+	// 5           55   75  90
+	//                       100
+	// 50_Del
+	//          30
+	//    20          70
+	//  10         60   80
+	// 5           55  75  90
+	//                      100
+	// 20_RightRotate
+	//          30
+	//    10          70
+	//  5   20      60   80
+	//             55  75  90
+	//                      100
+	// 30_LeftRotate
+	//          70
+	//    30          80
+	//  10   60     75  90
+	// 5 20 55           100
+	AVL_TREE_NODE *AVLNode15 = NULL;
+	int Arr15[] = { 50, 20, 70, 10, 30, 60, 80, 5, 55, 75, 90, 100 };
+	int Num15 = 12;
+	// int CmpAVLNode15[] = { 50, 20, 10, 5, 30, 70, 60, 55, 80, 75, 90, 100 };
+	// int CmpNum15 = 12;
+	int Key15 = 50;
+	bool Shorter15 = false;
+	int CmpNum15 = 11;
+	int CmpAVLNode15[] = { 70, 30, 10, 5, 20, 60, 55, 80, 75, 90, 100 };
+
+
+	/*Test16*/
+	// Root_Tmp01Leftbalance_RH_RootRightbalance_RH
+	//          50
+	//    20          70
+	//  10   30     60   80
+	//   15       55   75  90
+	//                       100
+	// 50_Del
+	//          30
+	//    20          70
+	//  10         60   80
+	//   15       55  75  90
+	//                      100
+	// 10_LeftRotate
+	//          30
+	//    20          70
+	//  15         60   80
+	// 10         55  75  90
+	//                      100
+	// 20_RightRotate
+	//          30
+	//    15          70
+	//  10  20      60   80
+	//            55  75  90
+	//                      100
+	// 30_LeftRotate
+	//          70
+	//    30          80
+	//  15   60     75  90
+	//10 20 55           100
+	AVL_TREE_NODE *AVLNode16 = NULL;
+	int Arr16[] = { 50, 20, 70, 10, 30, 60, 80, 15, 55, 75, 90, 100 };
+	int Num16 = 12;
+	// int CmpAVLNode16[] = { 50, 20, 10, 15, 30, 70, 60, 55, 80, 75, 90, 100 };
+	// int CmpNum16 = 12;
+	int Key16 = 50;
+	bool Shorter16 = false;
+	int CmpNum16 = 11;
+	int CmpAVLNode16[] = { 70, 30, 15, 10, 20, 60, 55, 80, 75, 90, 100 };
+
+	/*Test17*/
+	// Root_Tmp01Leftbalance_LH_RootRightbalance_RH
+	//            50
+	//      20            70
+	//    10   30     60        80
+	//   5 15 25    55 67    75     90
+	//  3          53   68  73    85  100
+	//                                  110
+	// 50_Del
+	//            30
+	//      20            70
+	//    10   25     60        80
+	//   5 15       55 67    75     90
+	//  3          53   68  73    85  100
+	//                                  110
+	// 20_RightRotate
+	//            30
+	//      10            70
+	//    5    20     60       80
+	//   3   15 25  55 67    75    90
+	//             53   68  73    85  100
+	//                                  110
+	// 30_LeftRotate
+	//                     70
+	//          30                    80
+	//    10         60           75      90
+	//  5   20     55  67        73     85  100
+	// 3   15 25  53    68                   110
+	AVL_TREE_NODE *AVLNode17 = NULL;
+	int Arr17[] = { 50, 20, 70, 10, 30, 60, 80, 5, 15, 25, 55, 67, 75, 90, 3, 53, 68, 73, 85, 100, 110 };
+	int Num17 = 21;
+	// int CmpAVLNode15[] = { 50, 20, 10, 5, 3, 15, 30, 25, 70, 60, 55, 53, 67, 68, 80, 75, 73, 90, 85, 100, 110 };
+	// int CmpNum15 = 21;
+	int Key17 = 50;
+	bool Shorter17 = false;
+	int CmpNum17 = 20;
+	int CmpAVLNode17[] = { 70, 30, 10, 5, 3, 20, 15, 25, 60, 55, 53, 67, 68, 80, 75, 73, 90, 85, 100, 110 };
+
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	 /*Test01*/
+	 printf("\n-------Test 01----------\n");
+	 BuildAVLTree(&AVLNode01, Arr01, Num01);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode01);
+	 DeleteAVLNode(&AVLNode01, Key01, &Shorter01);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode01);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode01, AVLNode01, CmpNum01);
+
+	 /*Test02*/
+	 printf("\n-------Test 02----------\n");
+	 BuildAVLTree(&AVLNode02, Arr02, Num02);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode02);
+	 DeleteAVLNode(&AVLNode02, Key02, &Shorter02);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode02);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode02, AVLNode02, CmpNum02);
+
+	 /*Test03*/
+	 printf("\n-------Test 03----------\n");
+	 BuildAVLTree(&AVLNode03, Arr03, Num03);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode03);
+	 DeleteAVLNode(&AVLNode03, Key03, &Shorter03);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode03);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode03, AVLNode03, CmpNum03);
+
+	 /*Test04*/
+	 printf("\n-------Test 04----------\n");
+	 BuildAVLTree(&AVLNode04, Arr04, Num04);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode04);
+	 DeleteAVLNode(&AVLNode04, Key04, &Shorter04);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode04);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode04, AVLNode04, CmpNum04);
+
+	 /*Test05*/
+	 printf("\n-------Test 05----------\n");
+	 BuildAVLTree(&AVLNode05, Arr05, Num05);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode05);
+	 DeleteAVLNode(&AVLNode05, Key05, &Shorter05);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode05);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode05, AVLNode05, CmpNum05);
+
+	 /*Test06*/
+	 printf("\n-------Test 06----------\n");
+	 BuildAVLTree(&AVLNode06, Arr06, Num06);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode06);
+	 DeleteAVLNode(&AVLNode06, Key06, &Shorter06);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode06);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode06, AVLNode06, CmpNum06);
+
+	 /*Test07*/
+	 printf("\n-------Test 07----------\n");
+	 BuildAVLTree(&AVLNode07, Arr07, Num07);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode07);
+	 DeleteAVLNode(&AVLNode07, Key07, &Shorter07);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode07);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode07, AVLNode07, CmpNum07);
+
+	 /*Test08*/
+	 printf("\n-------Test 08----------\n");
+	 BuildAVLTree(&AVLNode08, Arr08, Num08);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode08);
+	 DeleteAVLNode(&AVLNode08, Key08, &Shorter08);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode08);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode08, AVLNode08, CmpNum08);
+
+	 /*Test09*/
+	 printf("\n-------Test 09----------\n");
+	 BuildAVLTree(&AVLNode09, Arr09, Num09);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode09);
+	 DeleteAVLNode(&AVLNode09, Key09, &Shorter09);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode09);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode09, AVLNode09, CmpNum09);
+
+	 /*Test10*/
+	 printf("\n-------Test 10----------\n");
+	 BuildAVLTree(&AVLNode10, Arr10, Num10);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode10);
+	 DeleteAVLNode(&AVLNode10, Key10, &Shorter10);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode10);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode10, AVLNode10, CmpNum10);
+
+	 /*Test11*/
+	 printf("\n-------Test 11----------\n");
+	 BuildAVLTree(&AVLNode11, Arr11, Num11);
+	 printf("PreOrderTraversePrintAVLTree\n");
+	 PreOrderTraversePrintAVLTree(AVLNode11);
+	 DeleteAVLNode(&AVLNode11, Key11, &Shorter11);
+	 printf("After DeleteAVLNode\n");
+	 PreOrderTraversePrintAVLTree(AVLNode11);
+	 printf("Compare\n");
+	 CmpPreOderBuildAVLTree(CmpAVLNode11, AVLNode11, CmpNum11);
+
+	/*Test12*/
+	printf("\n-------Test 12----------\n");
+	BuildAVLTree(&AVLNode12, Arr12, Num12);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode12);
+	DeleteAVLNode(&AVLNode12, Key12, &Shorter12);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode12);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode12, AVLNode12, CmpNum12);
+
+	/*Test13*/
+	printf("\n-------Test 13----------\n");
+	BuildAVLTree(&AVLNode13, Arr13, Num13);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode13);
+	DeleteAVLNode(&AVLNode13, Key13, &Shorter13);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode13);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode13, AVLNode13, CmpNum13);
+
+	/*Test14*/
+	printf("\n-------Test 14----------\n");
+	BuildAVLTree(&AVLNode14, Arr14, Num14);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode14);
+	DeleteAVLNode(&AVLNode14, Key14, &Shorter14);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode14);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode14, AVLNode14, CmpNum14);
+
+	/*Test15*/
+	printf("\n-------Test 15----------\n");
+	BuildAVLTree(&AVLNode15, Arr15, Num15);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode15);
+	DeleteAVLNode(&AVLNode15, Key15, &Shorter15);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode15);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode15, AVLNode15, CmpNum15);
+
+	/*Test16*/
+	printf("\n-------Test 16----------\n");
+	BuildAVLTree(&AVLNode16, Arr16, Num16);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode16);
+	DeleteAVLNode(&AVLNode16, Key16, &Shorter16);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode16);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode16, AVLNode16, CmpNum16);
+
+	/*Test17*/
+	printf("\n-------Test 17----------\n");
+	BuildAVLTree(&AVLNode17, Arr17, Num17);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode17);
+	DeleteAVLNode(&AVLNode17, Key17, &Shorter17);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode17);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode17, AVLNode17, CmpNum17);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}

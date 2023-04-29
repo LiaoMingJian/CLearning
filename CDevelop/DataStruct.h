@@ -402,4 +402,8 @@ void PostOrderTraversePrintAVLTree(const AVL_TREE_NODE *AVLNode);
 
 /*BuildAVLTree*/
 void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num);
+
+
+/*DelAVLNode*/
+bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter);
 #endif

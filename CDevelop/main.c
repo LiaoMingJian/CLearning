@@ -146,7 +146,10 @@ int main() {
 	//TestAddAVLNode();
 
 	/*TestBuildAVLTree*/
-	TestBuildAVLTree();
+	//TestBuildAVLTree();
+
+	/*TestDeleteAVLNode*/
+	TestDeleteAVLNode();
 
 	system("pause");
 	return 0;
