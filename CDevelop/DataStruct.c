@@ -4135,7 +4135,6 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 
 		free(Tmp03);
 		Tmp03 = NULL;
-		//Tmp01 = NULL;
 
 		*Shorter = true;
 	} else if ((*Tmp02)->RightChild != NULL) {
@@ -4165,9 +4164,7 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 	AVL_TREE_NODE *Tmp01 = NULL;
 	AVL_TREE_NODE *Tmp02 = NULL;
-	int LeftAVLNodeBF;
-	bool IfLeafNode = true;
-
+	LeftAVLNodeBF, IfLeafNode
 	if ((*AVLNode)->LeftChild == NULL) {
 		Tmp01 = *AVLNode;
 		*AVLNode = (*AVLNode)->RightChild;
@@ -4183,17 +4180,10 @@ void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 		Tmp01 = NULL;
 		*Shorter = true;
 	} else {
-		LeftAVLNodeBF = (*AVLNode)->LeftChild->BF;
-
-		if (((*AVLNode)->LeftChild->LeftChild != NULL) && ((*AVLNode)->LeftChild->RightChild != NULL)) {
-			IfLeafNode = false;
-		}
-
 		printf("(*AVLNode) = 0x%lx, (*AVLNode)->Data = %d, (*AVLNode)->BF = %d, (*AVLNode)->LeftChild = 0x%lx, (*AVLNode)->RightChild) = 0x%lx\n", (*AVLNode), (*AVLNode)->Data, (*AVLNode)->BF, (*AVLNode)->LeftChild, (*AVLNode)->RightChild);
-		printf("LeftAVLNodeBF = %d\n", LeftAVLNodeBF);
 		DelTwoChildNode(AVLNode, AVLNode, &((*AVLNode)->LeftChild), Shorter);
 
-		if (!((IfLeafNode == false) && (LeftAVLNodeBF == EH))) {
+		if (*Shorter) {
 			switch ((*AVLNode)->BF) {
 				case EH:
 					(*AVLNode)->BF = RH;
