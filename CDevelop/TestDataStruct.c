@@ -2972,8 +2972,12 @@ void TestBuildAVLTree(void) {
 /*TestDeleteAVLNode*/
 void TestDeleteAVLNode(void) {
 	/*Test01*/
+	// Only_Del
 	//         50
 	//      30     70
+	// 30_Del
+	//         50
+	//             70
 	AVL_TREE_NODE *AVLNode01 = NULL;
 	int Arr01[] = { 50, 30, 70 };
 	int Num01 = 3;
@@ -2984,8 +2988,12 @@ void TestDeleteAVLNode(void) {
 	int CmpAVLNode01[] = { 50, 70 };
 
 	/*Test02*/
+	// Only_Del
 	//         50
 	//      30     70
+	// 70_Del
+	//         50
+	//      30
 	AVL_TREE_NODE *AVLNode02 = NULL;
 	int Arr02[] = { 50, 30, 70 };
 	int Num02 = 3;
@@ -2996,8 +3004,12 @@ void TestDeleteAVLNode(void) {
 	int CmpAVLNode02[] = { 50, 30 };
 
 	/*Test03*/
+	// Only_Del
 	//         50
 	//      30     70
+	// 50_Del
+	//         30
+	//             70
 	AVL_TREE_NODE *AVLNode03 = NULL;
 	int Arr03[] = { 50, 30, 70 };
 	int Num03 = 3;

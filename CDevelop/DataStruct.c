@@ -4138,24 +4138,41 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 
 		*Shorter = true;
 	} else if ((*Tmp02)->RightChild != NULL) {
-		Tmp01 = Tmp02;
-		Tmp02 = &((*Tmp02)->RightChild);
-		DelTwoChildNode(AVLNode, Tmp01, Tmp02, Shorter);
+		DelTwoChildNode(AVLNode, Tmp02, &((*Tmp02)->RightChild), Shorter);
+	}
 
+	if (*Tmp01 != *AVLNode) {
 		if (*Shorter) {
 			switch ((*Tmp01)->BF) {
-			case EH:
-				(*Tmp01)->BF = LH;
-				*Shorter = false;
-				break;
-			case LH:
-				LeftBalance(Tmp01);
-				*Shorter = true;
-				break;
-			case RH:
-				(*Tmp01)->BF = EH;
-				*Shorter = true;
-				break;
+				case EH:
+					(*Tmp01)->BF = LH;
+					*Shorter = false;
+					break;
+				case LH:
+					LeftBalance(Tmp01);
+					*Shorter = true;
+					break;
+				case RH:
+					(*Tmp01)->BF = EH;
+					*Shorter = true;
+					break;
+				}
+		}
+	} else {
+		if (*Shorter) {
+			switch ((*AVLNode)->BF) {
+				case EH:
+					(*AVLNode)->BF = RH;
+					*Shorter = false;
+					break;
+				case LH:
+					(*AVLNode)->BF = EH;
+					*Shorter = true;
+					break;
+				case RH:
+					RightBalance(AVLNode);
+					*Shorter = true;
+					break;
 			}
 		}
 	}
@@ -4182,23 +4199,6 @@ void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 	} else {
 		printf("(*AVLNode) = 0x%lx, (*AVLNode)->Data = %d, (*AVLNode)->BF = %d, (*AVLNode)->LeftChild = 0x%lx, (*AVLNode)->RightChild) = 0x%lx\n", (*AVLNode), (*AVLNode)->Data, (*AVLNode)->BF, (*AVLNode)->LeftChild, (*AVLNode)->RightChild);
 		DelTwoChildNode(AVLNode, AVLNode, &((*AVLNode)->LeftChild), Shorter);
-
-		if (*Shorter) {
-			switch ((*AVLNode)->BF) {
-				case EH:
-					(*AVLNode)->BF = RH;
-					*Shorter = false;
-					break;
-				case LH:
-					(*AVLNode)->BF = EH;
-					*Shorter = true;
-					break;
-				case RH:
-					RightBalance(AVLNode);
-					*Shorter = true;
-					break;
-			}
-		}
 	}
 }
 
