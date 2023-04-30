@@ -4164,7 +4164,7 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 	AVL_TREE_NODE *Tmp01 = NULL;
 	AVL_TREE_NODE *Tmp02 = NULL;
-	LeftAVLNodeBF, IfLeafNode
+
 	if ((*AVLNode)->LeftChild == NULL) {
 		Tmp01 = *AVLNode;
 		*AVLNode = (*AVLNode)->RightChild;
