@@ -4120,9 +4120,9 @@ void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num) {
 void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NODE **Tmp02, bool *Shorter) {
 	AVL_TREE_NODE *Tmp03 = NULL;
 	if ((*Tmp02)->RightChild == NULL) {
-		printf("---(*AVLNode)->Data = %d\n", (*AVLNode)->Data);
-		printf("--- *Tmp01 = 0x%lx, (*Tmp01)->Data = %d, (*Tmp01)->BF = %d, (*Tmp01)->LeftChild = 0x%lx, (*Tmp01)->RightChild = 0x%lx\n", *Tmp01, (*Tmp01)->Data, (*Tmp01)->BF, (*Tmp01)->LeftChild, (*Tmp01)->RightChild);
-		printf("--- *Tmp02 = 0x%lx, (*Tmp02)->Data = %d, (*Tmp02)->BF = %d, (*Tmp02)->LeftChild = 0x%lx, (*Tmp02)->RightChild = 0x%lx\n", *Tmp02, (*Tmp02)->Data, (*Tmp02)->BF, (*Tmp02)->LeftChild, (*Tmp02)->RightChild);
+		//printf("(*AVLNode)->Data = %d\n", (*AVLNode)->Data);
+		//printf("*Tmp01 = 0x%lx, (*Tmp01)->Data = %d, (*Tmp01)->BF = %d, (*Tmp01)->LeftChild = 0x%lx, (*Tmp01)->RightChild = 0x%lx\n", *Tmp01, (*Tmp01)->Data, (*Tmp01)->BF, (*Tmp01)->LeftChild, (*Tmp01)->RightChild);
+		//printf("*Tmp02 = 0x%lx, (*Tmp02)->Data = %d, (*Tmp02)->BF = %d, (*Tmp02)->LeftChild = 0x%lx, (*Tmp02)->RightChild = 0x%lx\n", *Tmp02, (*Tmp02)->Data, (*Tmp02)->BF, (*Tmp02)->LeftChild, (*Tmp02)->RightChild);
 
 		(*AVLNode)->Data = (*Tmp02)->Data;
 		if (*Tmp01 != *AVLNode) {
@@ -4160,19 +4160,19 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 		}
 	} else {
 		if (*Shorter) {
-			switch ((*AVLNode)->BF) {
-				case EH:
-					(*AVLNode)->BF = RH;
-					*Shorter = false;
-					break;
-				case LH:
-					(*AVLNode)->BF = EH;
-					*Shorter = true;
-					break;
-				case RH:
-					RightBalance(AVLNode);
-					*Shorter = true;
-					break;
+			switch ((*Tmp01)->BF) {
+			case EH:
+				(*Tmp01)->BF = RH;
+				*Shorter = false;
+				break;
+			case LH:
+				(*Tmp01)->BF = EH;
+				*Shorter = true;
+				break;
+			case RH:
+				RightBalance(Tmp01);
+				*Shorter = true;
+				break;
 			}
 		}
 	}
@@ -4256,10 +4256,8 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 		}
 	} else {
 		DelAVLNode(AVLNode, Shorter);
-		//*Shorter = true;// Del Node Level, need
 		return true;
 	}
 }
-
 
 
