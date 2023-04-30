@@ -3448,6 +3448,25 @@ void TestDeleteAVLNode(void) {
 	int CmpAVLNode18[] = { 70, 50, 10, 5, 20, 60, 55, 80, 75, 90, 100 };
 
 
+	/*Test19*/
+	// No_Rotate
+	//          50
+	//    20          70
+	//  10   30
+	// 30_Del
+	//          50
+	//    20          70
+	//  10
+	AVL_TREE_NODE *AVLNode19 = NULL;
+	int Arr19[] = { 50, 20, 70, 10, 30 };
+	int Num19 = 5;
+	// int CmpAVLNode19[] = { 50, 20, 10, 30, 70 };
+	// int CmpNum19 = 5;
+	int Key19 = 30;
+	bool Shorter19 = false;
+	int CmpNum19 = 4;
+	int CmpAVLNode19[] = { 50, 20, 10, 70 };
+
 
 	printf("-------Test start----------\n");
 	InitNum();
@@ -3649,6 +3668,17 @@ void TestDeleteAVLNode(void) {
 	PreOrderTraversePrintAVLTree(AVLNode18);
 	printf("Compare\n");
 	CmpPreOderBuildAVLTree(CmpAVLNode18, AVLNode18, CmpNum18);
+
+	/*Test19*/
+	printf("\n-------Test 19----------\n");
+	BuildAVLTree(&AVLNode19, Arr19, Num19);
+	printf("PreOrderTraversePrintAVLTree\n");
+	PreOrderTraversePrintAVLTree(AVLNode19);
+	DeleteAVLNode(&AVLNode19, Key19, &Shorter19);
+	printf("After DeleteAVLNode\n");
+	PreOrderTraversePrintAVLTree(AVLNode19);
+	printf("Compare\n");
+	CmpPreOderBuildAVLTree(CmpAVLNode19, AVLNode19, CmpNum19);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
