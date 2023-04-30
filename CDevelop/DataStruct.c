@@ -4147,11 +4147,11 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 			switch ((*Tmp01)->BF) {
 			case EH:
 				(*Tmp01)->BF = LH;
-				*Shorter = true;
+				*Shorter = false;
 				break;
 			case LH:
-				*Shorter = true;
 				LeftBalance(Tmp01);
+				*Shorter = true;
 				break;
 			case RH:
 				(*Tmp01)->BF = EH;
@@ -4171,13 +4171,17 @@ void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 	if ((*AVLNode)->LeftChild == NULL) {
 		Tmp01 = *AVLNode;
 		*AVLNode = (*AVLNode)->RightChild;
+
 		free(Tmp01);
 		Tmp01 = NULL;
+		*Shorter = true;
 	} else if ((*AVLNode)->RightChild == NULL) {
 		Tmp01 = *AVLNode;
 		*AVLNode = (*AVLNode)->LeftChild;
+
 		free(Tmp01);
 		Tmp01 = NULL;
+		*Shorter = true;
 	} else {
 		LeftAVLNodeBF = (*AVLNode)->LeftChild->BF;
 
@@ -4193,7 +4197,7 @@ void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 			switch ((*AVLNode)->BF) {
 				case EH:
 					(*AVLNode)->BF = RH;
-					*Shorter = true;
+					*Shorter = false;
 					break;
 				case LH:
 					(*AVLNode)->BF = EH;
@@ -4203,7 +4207,7 @@ void DelAVLNode(AVL_TREE_NODE **AVLNode, bool *Shorter) {
 					RightBalance(AVLNode);
 					*Shorter = true;
 					break;
-			}			
+			}
 		}
 	}
 }
@@ -4225,18 +4229,18 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 
 		if (*Shorter) {
 			switch ((*AVLNode)->BF) {
-			case EH:
-				(*AVLNode)->BF = RH;
-				*Shorter = true;
-				break;
-			case LH:
-				(*AVLNode)->BF = EH;
-				*Shorter = true;
-				break;
-			case RH:
-				RightBalance(AVLNode);
-				*Shorter = true;
-				break;
+				case EH:
+					(*AVLNode)->BF = RH;
+					*Shorter = false;
+					break;
+				case LH:
+					(*AVLNode)->BF = EH;
+					*Shorter = true;
+					break;
+				case RH:
+					RightBalance(AVLNode);
+					*Shorter = true;
+					break;
 			}
 		}
 	} else if (Key > (*AVLNode)->Data) {
@@ -4248,7 +4252,7 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 			switch ((*AVLNode)->BF) {
 			case EH:
 				(*AVLNode)->BF = LH;
-				*Shorter = true;
+				*Shorter = false;
 				break;
 			case LH:
 				LeftBalance(AVLNode);
@@ -4262,7 +4266,7 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 		}
 	} else {
 		DelAVLNode(AVLNode, Shorter);
-		*Shorter = true;
+		//*Shorter = true;// Del Node Level, need
 		return true;
 	}
 }
