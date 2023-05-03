@@ -4123,19 +4123,16 @@ void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NO
 		//printf("(*AVLNode)->Data = %d\n", (*AVLNode)->Data);
 		//printf("*Tmp01 = 0x%lx, (*Tmp01)->Data = %d, (*Tmp01)->BF = %d, (*Tmp01)->LeftChild = 0x%lx, (*Tmp01)->RightChild = 0x%lx\n", *Tmp01, (*Tmp01)->Data, (*Tmp01)->BF, (*Tmp01)->LeftChild, (*Tmp01)->RightChild);
 		//printf("*Tmp02 = 0x%lx, (*Tmp02)->Data = %d, (*Tmp02)->BF = %d, (*Tmp02)->LeftChild = 0x%lx, (*Tmp02)->RightChild = 0x%lx\n", *Tmp02, (*Tmp02)->Data, (*Tmp02)->BF, (*Tmp02)->LeftChild, (*Tmp02)->RightChild);
-
+		Tmp03 = *Tmp02;
 		(*AVLNode)->Data = (*Tmp02)->Data;
 		if (*Tmp01 != *AVLNode) {
-			Tmp03 = *Tmp02;
 			(*Tmp01)->RightChild = (*Tmp02)->LeftChild;
 		} else {
-			Tmp03 = *Tmp02;
 			(*Tmp01)->LeftChild = (*Tmp02)->LeftChild;
 		}
 
 		free(Tmp03);
 		Tmp03 = NULL;
-
 		*Shorter = true;
 	} else if ((*Tmp02)->RightChild != NULL) {
 		DelTwoChildNode(AVLNode, Tmp02, &((*Tmp02)->RightChild), Shorter);
@@ -4259,4 +4256,6 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 		return true;
 	}
 }
+
+
 

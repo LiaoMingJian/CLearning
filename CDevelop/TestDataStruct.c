@@ -3125,7 +3125,7 @@ void TestDeleteAVLNode(void) {
 
 
 	/*Test08*/
-	// Leaf_leftbalance_RH
+	// Leaf_Rightbalance_RH
 	//         50
 	//      30     70
 	//               80
@@ -3146,7 +3146,7 @@ void TestDeleteAVLNode(void) {
 	int CmpAVLNode08[] = { 70, 50, 80 };
 
 	/*Test09*/
-	// Leaf_leftbalance_LH_EH
+	// Leaf_Rightbalance_LH_EH
 	//         50
 	//      30     70
 	//            60
@@ -3173,7 +3173,7 @@ void TestDeleteAVLNode(void) {
 
 
 	/*Test10*/
-	// Leaf_leftbalance_LH_LH
+	// Leaf_Rightbalance_LH_LH
 	//         50
 	//      30     70
 	//    20     60  80
@@ -3203,7 +3203,7 @@ void TestDeleteAVLNode(void) {
 	int CmpAVLNode10[] = { 60, 50, 20, 55, 70, 80 };
 
 	/*Test11*/
-	// Leaf_leftbalance_LH_RH
+	// Leaf_Rightbalance_LH_RH
 	//         50
 	//      30     70
 	//    20     60  80
