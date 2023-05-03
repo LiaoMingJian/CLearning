@@ -3880,8 +3880,31 @@ void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 	}
 }
 
+void AddBSTNode02(BINARY_TREE_NODE **BSTNode, int Key) {
+	if (*BSTNode == NULL) {
+		*BSTNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		if (*BSTNode == NULL) {
+			return;
+		}
+		(*BSTNode)->Data = Key;
+		(*BSTNode)->LeftChild = NULL;
+		(*BSTNode)->RightChild = NULL;
+	}
+	else {
+		if (Key < (*BSTNode)->Data) {
+			AddBSTNode02(&((*BSTNode)->LeftChild), Key);
+		}
+		else if (Key > (*BSTNode)->Data) {
+			AddBSTNode02(&((*BSTNode)->RightChild), Key);
+		}
+		else {
+			return;
+		}
+	}
+}
+
 /*BuildBSTree*/
-void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
+void BuildBSTree01(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
 	int i = 0;
 
 	if ((BSTNode == NULL) || (Arr == NULL)) {
@@ -4115,7 +4138,6 @@ void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num) {
 }
 
 
-
 /*DelAVLNode*/
 void DelTwoChildNode(AVL_TREE_NODE **AVLNode, AVL_TREE_NODE **Tmp01, AVL_TREE_NODE **Tmp02, bool *Shorter) {
 	AVL_TREE_NODE *Tmp03 = NULL;
@@ -4259,3 +4281,80 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 
 
 
+
+bool BSTSearch01(BINARY_TREE_NODE *BSTNode, BINARY_TREE_NODE *PreNode, int Key, BINARY_TREE_NODE **RtNode) {
+	if (BSTNode == NULL) {
+		*RtNode = PreNode;
+		return false;
+	} else {
+		if (Key < BSTNode->Data) {
+			BSTSearch01(BSTNode->LeftChild, BSTNode, Key, RtNode);
+		} else if (Key > BSTNode->Data) {
+			BSTSearch01(BSTNode->RightChild, BSTNode, Key, RtNode);
+		} else {
+			*RtNode = BSTNode;
+			return true;
+		}
+	}
+}
+
+void AddBSTNode01(BINARY_TREE_NODE **BSTNode, int Key) {
+	BINARY_TREE_NODE *AddNode = NULL;
+	BINARY_TREE_NODE *PreNode = NULL;
+
+	if (!BSTSearch01(*BSTNode, *BSTNode, Key, &PreNode)) {
+		AddNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		if (AddNode == NULL) {
+			return;
+		}
+		AddNode->Data = Key;
+		AddNode->LeftChild = NULL;
+		AddNode->RightChild = NULL;
+
+		if (*BSTNode == NULL) {
+			*BSTNode = AddNode;			
+		} else {
+			if (Key < PreNode->Data) {
+				PreNode->LeftChild = AddNode;
+			} else {
+				PreNode->RightChild = AddNode;
+			}
+		}
+	}
+}
+
+void AddBSTNode02(BINARY_TREE_NODE **BSTNode, int Key) {
+	if (*BSTNode == NULL) {
+		*BSTNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		if (*BSTNode == NULL) {
+			return;
+		}
+		(*BSTNode)->Data = Key;
+		(*BSTNode)->LeftChild = NULL;
+		(*BSTNode)->RightChild = NULL;
+	}
+	else {
+		if (Key < (*BSTNode)->Data) {
+			AddBSTNode02(&((*BSTNode)->LeftChild), Key);
+		}
+		else if (Key > (*BSTNode)->Data) {
+			AddBSTNode02(&((*BSTNode)->RightChild), Key);
+		}
+		else {
+			return;
+		}
+	}
+}
+
+
+void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
+	int Index = 0;
+
+	if ((BSTNode == NULL) || (Arr == NULL)) {
+		return;
+	}
+
+	for (Index = 0; Index < Num; Index++) {
+		AddBSTNode02(BSTNode, Arr[Index]);
+	}
+}
