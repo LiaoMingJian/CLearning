@@ -116,7 +116,7 @@ int main() {
 	//TestSelectSort();
 
 	/*TestInsertSort*/
-	//TestInsertSort();
+	TestInsertSort();
 
 	/*TestShellSort*/
 	//TestShellSort();
@@ -140,7 +140,7 @@ int main() {
 	//TestDelBSTNode();
 
 	/*TestBuildBSTree*/
-	TestBuildBSTree();
+	//TestBuildBSTree();
 
 	/*AddAVLNode*/
 	//TestAddAVLNode();

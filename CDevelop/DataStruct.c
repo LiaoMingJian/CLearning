@@ -3456,6 +3456,13 @@ void BuildBinaryThreadTree(BINARY_THREAD_TREE_NODE **BiThrTreeNode, BINARY_THREA
 	printf("BuildBinaryThreadTree end\n");
 }
 
+void Swap(int *Mem01, int *Mem02) {
+	int Tmp = *Mem01;
+	*Mem01 = *Mem02;
+	*Mem02 = Tmp;
+}
+
+
 /*BinarySearch*/
 //int Arr01[] = {0, 1, 2, 3, 4, 5};
 int BinarySearch(int *Arr, int Num, int SearchValue) {
@@ -3481,6 +3488,7 @@ int BinarySearch(int *Arr, int Num, int SearchValue) {
 	
 	return -1;
 }
+
 
 /*BubbleRank*/
 void BubbleRank(int *Arr, int Num) {
@@ -3515,11 +3523,11 @@ void QuickSort(int *Arr, int Low, int High) {
 	}
 
 	while (i < j) {
-		while ((Arr[j] >= FlagValue) && (i < j)) {
+		while ((i < j) && (Arr[j] >= FlagValue)) {
 			--j;
 		}
 
-		while ((Arr[i] <= FlagValue) && (i < j)) {
+		while ((i < j) && (Arr[i] <= FlagValue)) {
 			++i;
 		}
 
@@ -3548,11 +3556,11 @@ void QuickSort02(int *Arr, int Low, int High) {
 	}
 
 	while (i < j) {
-		while ((Arr[i] <= FlagValue) && (i < j)) {
+		while ((i < j) && (Arr[i] <= FlagValue)) {
 			++i;
 		}
 
-		while ((Arr[j] >= FlagValue) && (i < j)) {
+		while ((i < j) &&(Arr[j] >= FlagValue)) {
 			--j;
 		}
 
@@ -3600,12 +3608,6 @@ int InterpolationSearch(int *Arr, int Num, int SearchValue) {
 }
 
 
-void Swap(int *Mem01, int *Mem02) {
-	int Tmp = *Mem01;
-	*Mem01 = *Mem02;
-	*Mem02 = Tmp;
-}
-
 /*SelectSort*/
 void SelectSort(int *Arr, int Num) {
 	int i = 0;
@@ -3642,8 +3644,8 @@ void InsertSort(int *Arr, int Num) {
 	}
 
 	for (i = 1; i < Num; ++i) {
-		Tmp = Arr[i];
 		if (Arr[i] < Arr[i - 1]) {
+			Tmp = Arr[i];
 			for (j = i - 1; Arr[j] > Tmp; --j) {
 				Arr[j + 1] = Arr[j];
 			}
@@ -3652,6 +3654,26 @@ void InsertSort(int *Arr, int Num) {
 		}
 	}
 }
+
+void InsertSort01(int *Arr, int Num) {
+	int i, j, Tmp;
+
+	if ((Arr == NULL) || (Num <= 1)) {
+		return;
+	}
+
+	for (i = 1; i < Num; i++) {
+		if (Arr[i] < Arr[i - 1]) {
+			Tmp = Arr[i];
+			for (j = i; (j >= 1) && (Arr[j] > Tmp); j--) {
+				Arr[j] = Arr[j - 1];
+			}
+
+			Arr[j + 1] = Tmp;
+		}		
+	}
+}
+
 
 /*ShellSort*/
 void ShellSort(int *Arr, int Num) {
@@ -3904,7 +3926,7 @@ void AddBSTNode02(BINARY_TREE_NODE **BSTNode, int Key) {
 }
 
 /*BuildBSTree*/
-void BuildBSTree01(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
+void BuildBSTree(BINARY_TREE_NODE **BSTNode, int *Arr, int Num) {
 	int i = 0;
 
 	if ((BSTNode == NULL) || (Arr == NULL)) {
@@ -4278,6 +4300,7 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 		return true;
 	}
 }
+
 
 
 
