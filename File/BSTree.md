@@ -144,9 +144,11 @@ void TestBSTSearch(void) {
 
 # 3 增加结点
 
-​	先查找key值对应的结点是否存在，不存在的话，就增加结点。注意树原来就是空的情况。
-
 ## **（1）代码**
+
+**①方法一：**
+
+​	先查找key值对应的结点是否存在，不存在的话，就增加结点。注意树原来就是空的情况。
 
 ```c
 void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
@@ -172,6 +174,37 @@ void AddBSTNode(BINARY_TREE_NODE **BSTNode, int Key) {
 			PreNode->LeftChild = AddNode;
 		} else {
 			PreNode->RightChild = AddNode;
+		}
+	}
+}
+```
+
+**②方法二：**
+
+​	直接构建。
+
+**代码：**
+
+```c
+void AddBSTNode02(BINARY_TREE_NODE **BSTNode, int Key) {
+	if (*BSTNode == NULL) {
+		*BSTNode = (BINARY_TREE_NODE *)malloc(sizeof(BINARY_TREE_NODE));
+		if (*BSTNode == NULL) {
+			return;
+		}
+		(*BSTNode)->Data = Key;
+		(*BSTNode)->LeftChild = NULL;
+		(*BSTNode)->RightChild = NULL;
+	}
+	else {
+		if (Key < (*BSTNode)->Data) {
+			AddBSTNode02(&((*BSTNode)->LeftChild), Key);
+		}
+		else if (Key > (*BSTNode)->Data) {
+			AddBSTNode02(&((*BSTNode)->RightChild), Key);
+		}
+		else {
+			return;
 		}
 	}
 }
