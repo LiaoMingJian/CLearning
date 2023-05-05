@@ -3655,25 +3655,6 @@ void InsertSort(int *Arr, int Num) {
 	}
 }
 
-void InsertSort01(int *Arr, int Num) {
-	int i, j, Tmp;
-
-	if ((Arr == NULL) || (Num <= 1)) {
-		return;
-	}
-
-	for (i = 1; i < Num; i++) {
-		if (Arr[i] < Arr[i - 1]) {
-			Tmp = Arr[i];
-			for (j = i; (j >= 1) && (Arr[j] > Tmp); j--) {
-				Arr[j] = Arr[j - 1];
-			}
-
-			Arr[j + 1] = Tmp;
-		}		
-	}
-}
-
 
 /*ShellSort*/
 void ShellSort(int *Arr, int Num) {
@@ -3687,7 +3668,7 @@ void ShellSort(int *Arr, int Num) {
 		for (i = Incre; i < Num; i++) {
 			if (Arr[i] < Arr[i - Incre]) {
 				Tmp = Arr[i];
-				for (j = i - Incre; (Arr[j] > Tmp) && (j >= 0); j -= Incre) {
+				for (j = i - Incre; (j >= 0) && (Arr[j] > Tmp); j -= Incre) {
 					Arr[j + Incre] = Arr[j];
 				}
 				
@@ -3734,7 +3715,6 @@ void HeapSort(int *Arr, int Num) {
 	}
 }
 
-
 /*MergeSort*/
 void Merge(int *Arr01, int *Arr02, int Low, int Mid, int High) {
 	int i, j, k;
@@ -3747,6 +3727,8 @@ void Merge(int *Arr01, int *Arr02, int Low, int Mid, int High) {
 			Arr01[i] = Arr02[j++];
 		}
 	}
+
+	printf("i = %d, j = %d, Low = %d\n", i, j, Low);
 
 	if (Low <= Mid) {
 		for (k = 0; k <= (Mid - Low); k++) {
@@ -3776,12 +3758,61 @@ void MSort(int *Arr01, int *Arr, int Low, int High) {
 	}
 }
 
-void MergeSort(int *Arr, int Num) {
+void MergeSort01(int *Arr, int Num) {
 	if ((Arr == NULL) || (Num <= 1)) {
 		return;
 	}
 
 	MSort(Arr, Arr, 0, Num - 1);
+}
+
+
+void Merge01(int *Arr01, int *Arr02, int Low, int Mid, int High) {
+	int i, j, k, m;
+
+	for (k = Low, i = Low, j = Mid + 1; (i <= Mid) && (j <= High); k++) {
+		if (Arr01[i] <= Arr02[j]) {
+			Arr01[k] = Arr02[i++];
+		} else {
+			Arr01[k] = Arr02[j++];
+		}
+	}
+	printf("i = %d, j = %d, k = %d\n", i, j, k);
+
+	if (i <= Mid) {
+		for (m = 0; m <= (Mid - i); m++) {
+			Arr01[k + m] = Arr02[i + m];
+		}
+	}
+
+	if (j <= High) {
+		for (m = 0; m <= (High - j); m++) {
+			Arr01[k + m] = Arr02[j + m];
+		}
+	}
+}
+
+void MSort01(int *Arr01, int *Arr, int Low, int High){
+	int Mid;
+	int Arr02[10];
+
+	if (Low == High) {
+		Arr01[Low] = Arr[Low];
+	} else {
+		Mid = (Low + High) / 2;
+		MSort01(Arr02, Arr, Low, Mid);
+		MSort01(Arr02, Arr, Mid + 1, High);
+		Merge(Arr01, Arr02, Low, Mid, High);
+	}
+}
+
+
+void MergeSort(int *Arr, int Num) {	
+	if ((Arr == NULL) || (Num <= 1)) {
+		return;
+	}
+
+	MSort01(Arr, Arr, 0, Num - 1);
 }
 
 
@@ -4297,8 +4328,9 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 		}
 	} else {
 		DelAVLNode(AVLNode, Shorter);
-		return true;
 	}
+
+	return true;
 }
 
 

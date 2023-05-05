@@ -116,7 +116,7 @@ int main() {
 	//TestSelectSort();
 
 	/*TestInsertSort*/
-	TestInsertSort();
+	//TestInsertSort();
 
 	/*TestShellSort*/
 	//TestShellSort();
@@ -149,7 +149,7 @@ int main() {
 	//TestBuildAVLTree();
 
 	/*TestDeleteAVLNode*/
-	//TestDeleteAVLNode();
+	TestDeleteAVLNode();
 
 	system("pause");
 	return 0;
