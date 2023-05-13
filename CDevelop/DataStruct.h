@@ -406,4 +406,19 @@ void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num);
 
 /*DelAVLNode*/
 bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter);
+
+
+#define EMPTY_FLAG           (-1)
+#pragma pack(1)
+typedef struct _HASH_TABLE {
+	int *Table;
+	int Num;
+}HASH_TABLE;
+#pragma pack()
+
+void HashTableInit(HASH_TABLE **HTable, int Num);
+
+void InsertHash(HASH_TABLE *HTable, int *Arr, int Num);
+
+int SearchHash(HASH_TABLE *HTable, int Key);
 #endif

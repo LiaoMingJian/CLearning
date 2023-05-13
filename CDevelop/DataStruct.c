@@ -3758,61 +3758,12 @@ void MSort(int *Arr01, int *Arr, int Low, int High) {
 	}
 }
 
-void MergeSort01(int *Arr, int Num) {
+void MergeSort(int *Arr, int Num) {
 	if ((Arr == NULL) || (Num <= 1)) {
 		return;
 	}
 
 	MSort(Arr, Arr, 0, Num - 1);
-}
-
-
-void Merge01(int *Arr01, int *Arr02, int Low, int Mid, int High) {
-	int i, j, k, m;
-
-	for (k = Low, i = Low, j = Mid + 1; (i <= Mid) && (j <= High); k++) {
-		if (Arr01[i] <= Arr02[j]) {
-			Arr01[k] = Arr02[i++];
-		} else {
-			Arr01[k] = Arr02[j++];
-		}
-	}
-	printf("i = %d, j = %d, k = %d\n", i, j, k);
-
-	if (i <= Mid) {
-		for (m = 0; m <= (Mid - i); m++) {
-			Arr01[k + m] = Arr02[i + m];
-		}
-	}
-
-	if (j <= High) {
-		for (m = 0; m <= (High - j); m++) {
-			Arr01[k + m] = Arr02[j + m];
-		}
-	}
-}
-
-void MSort01(int *Arr01, int *Arr, int Low, int High){
-	int Mid;
-	int Arr02[10];
-
-	if (Low == High) {
-		Arr01[Low] = Arr[Low];
-	} else {
-		Mid = (Low + High) / 2;
-		MSort01(Arr02, Arr, Low, Mid);
-		MSort01(Arr02, Arr, Mid + 1, High);
-		Merge(Arr01, Arr02, Low, Mid, High);
-	}
-}
-
-
-void MergeSort(int *Arr, int Num) {	
-	if ((Arr == NULL) || (Num <= 1)) {
-		return;
-	}
-
-	MSort01(Arr, Arr, 0, Num - 1);
 }
 
 
@@ -4335,4 +4286,70 @@ bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter) {
 
 
 
+void HashTableInit(HASH_TABLE **HTable, int Num) {
+	int i = 0;
 
+	if (HTable == NULL) {
+		return;
+	}
+
+	*HTable = (HASH_TABLE *)malloc(sizeof(HASH_TABLE));
+	if (*HTable == NULL) {
+		return;
+	}
+
+	(*HTable)->Num = Num;
+	(*HTable)->Table = (int *)malloc(sizeof(int) * Num);
+	if ((*HTable)->Table == NULL) {
+		return;
+	}
+
+	for (i = 0; i < (*HTable)->Num; i++) {
+		(*HTable)->Table[i] = EMPTY_FLAG;
+	}
+}
+
+
+int Hash(HASH_TABLE *HTable, int Key) {
+	return Key % (HTable->Num);
+}
+
+
+void InsertKey(HASH_TABLE *HTable, int Key) {
+	int HashNum;
+
+	HashNum = Hash(HTable, Key);
+	while (HTable->Table[HashNum] != EMPTY_FLAG) {
+		HashNum = (HashNum + 1) % HTable->Num;
+	}
+
+	HTable->Table[HashNum] = Key;
+}
+
+void InsertHash(HASH_TABLE *HTable, int *Arr, int Num) {
+	int i = 0;
+
+	for (i = 0; i < Num; i++) {
+		InsertKey(HTable, Arr[i]);
+	}
+}
+
+
+int SearchHash(HASH_TABLE *HTable, int Key) {
+	int HashNum;
+
+	if (HTable == NULL) {
+		return -1;
+	}
+
+	HashNum = Hash(HTable, Key);
+
+	while (HTable->Table[HashNum] != Key) {
+		HashNum = (HashNum + 1) % HTable->Num;
+		if ((HashNum == (HTable->Num - 1)) || (HTable->Table[HashNum] == EMPTY_FLAG)) {
+			return -1;
+		}
+	}
+
+	return HTable->Table[HashNum];
+}
