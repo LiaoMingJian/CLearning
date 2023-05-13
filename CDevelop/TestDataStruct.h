@@ -95,4 +95,7 @@ void TestBuildAVLTree(void);
 
 /*TestDeleteAVLNode*/
 void TestDeleteAVLNode(void);
+
+/*TestSearchHash*/
+void TestSearchHash(void);
 #endif

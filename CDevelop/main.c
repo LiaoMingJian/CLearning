@@ -149,8 +149,10 @@ int main() {
 	//TestBuildAVLTree();
 
 	/*TestDeleteAVLNode*/
-	TestDeleteAVLNode();
+	//TestDeleteAVLNode();
 
+	/*TestSearchHash*/
+	TestSearchHash();
 	system("pause");
 	return 0;
 }

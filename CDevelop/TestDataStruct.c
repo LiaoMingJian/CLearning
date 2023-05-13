@@ -3697,3 +3697,73 @@ void TestDeleteAVLNode(void) {
 	TestResult();
 }
 
+
+
+void PrintHashTable(HASH_TABLE *HTable) {
+	int i = 0;
+
+	for (i = 0; i < HTable->Num; i++) {
+		printf("HTable->Table[%d] = %d\n", i, HTable->Table[i]);
+	}
+}
+
+/*TestSearchHash*/
+void TestSearchHash(void) {
+	/*Test01*/
+	// {5, 1, 2, 3, 4}
+	HASH_TABLE *HTable01 = NULL;
+	int Arr01[] = { 1, 3, 5, 2, 4 };
+	int Num01 = 5;
+	int Key01 = 3;
+	int Res01;
+	int CmpRes01 = 3;
+
+	/*Test02*/
+	// {5, 1, 10, 3, 8}
+	HASH_TABLE *HTable02 = NULL;
+	int Arr02[] = { 1, 3, 5, 10, 8 };
+	int Num02 = 5;
+	int Key02 = 10;
+	int Res02;
+	int CmpRes02 = 10;
+
+	/*Test03*/
+	// {5, 1, 10, 3, 8}
+	HASH_TABLE *HTable03 = NULL;
+	int Arr03[] = { 1, 3, 5, 10, 8 };
+	int Num03 = 5;
+	int Key03 = 4;
+	int Res03;
+	int CmpRes03 = -1;
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	HashTableInit(&HTable01, Num01);
+	InsertHash(HTable01, Arr01, Num01);
+	PrintHashTable(HTable01);
+	Res01 = SearchHash(HTable01, Key01);
+	TestCmpRes(CmpRes01, Res01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	HashTableInit(&HTable02, Num02);
+	InsertHash(HTable02, Arr02, Num02);
+	PrintHashTable(HTable02);
+	Res02 = SearchHash(HTable02, Key02);
+	TestCmpRes(CmpRes02, Res02);
+
+	/*Test03*/
+	printf("\n-------Test 03----------\n");
+	HashTableInit(&HTable03, Num03);
+	InsertHash(HTable03, Arr03, Num03);
+	PrintHashTable(HTable03);
+	Res03 = SearchHash(HTable03, Key03);
+	TestCmpRes(CmpRes03, Res03);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
