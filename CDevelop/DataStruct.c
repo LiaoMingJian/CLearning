@@ -4334,7 +4334,6 @@ void InsertHash(HASH_TABLE *HTable, int *Arr, int Num) {
 	}
 }
 
-
 int SearchHash(HASH_TABLE *HTable, int Key) {
 	int HashNum;
 
@@ -4353,3 +4352,4 @@ int SearchHash(HASH_TABLE *HTable, int Key) {
 
 	return HTable->Table[HashNum];
 }
+
