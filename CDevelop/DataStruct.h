@@ -407,7 +407,7 @@ void BuildAVLTree(AVL_TREE_NODE **AVLNode, int *Arr, int Num);
 /*DelAVLNode*/
 bool DeleteAVLNode(AVL_TREE_NODE **AVLNode, int Key, bool *Shorter);
 
-
+//Hash
 #define EMPTY_FLAG           (-1)
 #pragma pack(1)
 typedef struct _HASH_TABLE {
@@ -421,4 +421,12 @@ void HashTableInit(HASH_TABLE **HTable, int Num);
 void InsertHash(HASH_TABLE *HTable, int *Arr, int Num);
 
 int SearchHash(HASH_TABLE *HTable, int Key);
+
+//Graph
+#define MAX_VEXS_SIZE    (100)
+#define MAX_VALUE        (65535)
+typedef struct _GRAPH {
+	int Vexs[MAX_VEXS_SIZE];
+	int Arc[MAX_VEXS_SIZE][MAX_VEXS_SIZE];
+}GRAPH;
 #endif
