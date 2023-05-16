@@ -422,11 +422,14 @@ void InsertHash(HASH_TABLE *HTable, int *Arr, int Num);
 
 int SearchHash(HASH_TABLE *HTable, int Key);
 
-//Graph
+//MGraph
 #define MAX_VEXS_SIZE    (100)
 #define MAX_VALUE        (65535)
 typedef struct _GRAPH {
 	int Vexs[MAX_VEXS_SIZE];
 	int Arc[MAX_VEXS_SIZE][MAX_VEXS_SIZE];
-}GRAPH;
+}MGRAPH;
+
+
+//AdjustGraph
 #endif
