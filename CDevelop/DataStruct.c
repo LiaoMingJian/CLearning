@@ -4353,3 +4353,24 @@ int SearchHash(HASH_TABLE *HTable, int Key) {
 	return HTable->Table[HashNum];
 }
 
+
+
+
+void BuildMGraph(M_GRAPH *MGraph, int *Vector, int *Eadge, int VectorNum, int EadgeNum) {
+	int i = 0;
+	
+	if ((MGraph == NULL) || (Vector == NULL) || (Eadge == NULL)) {
+		return;
+	}
+
+	MGraph->VectorNum = VectorNum;
+	MGraph->EadgeNum = EadgeNum;
+
+	for (i = 0; i < VectorNum; i++) {
+		MGraph->Vector[i] = Vector[i];
+	}
+
+}
+
+
+
