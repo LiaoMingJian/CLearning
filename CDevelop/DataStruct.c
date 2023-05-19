@@ -4356,8 +4356,8 @@ int SearchHash(HASH_TABLE *HTable, int Key) {
 
 
 
-void BuildMGraph(M_GRAPH *MGraph, int *Vector, int *Eadge, int VectorNum, int EadgeNum) {
-	int i = 0;
+void BuildMGraph(M_GRAPH *MGraph, int *Vector, int (*Eadge)[MAX_VEXS_SIZE], int VectorNum, int EadgeNum) {
+	int i = 0, j = 0;
 	
 	if ((MGraph == NULL) || (Vector == NULL) || (Eadge == NULL)) {
 		return;
@@ -4368,6 +4368,12 @@ void BuildMGraph(M_GRAPH *MGraph, int *Vector, int *Eadge, int VectorNum, int Ea
 
 	for (i = 0; i < VectorNum; i++) {
 		MGraph->Vector[i] = Vector[i];
+	}
+
+	for (i = 0; i < EadgeNum; i++ ) {
+		for (j = 0; j < EadgeNum; j++) {
+			MGraph->Eadge[i][j] = Eadge[i][j];
+		}
 	}
 
 }
