@@ -425,13 +425,16 @@ int SearchHash(HASH_TABLE *HTable, int Key);
 //MGraph
 #define MAX_VEXS_SIZE    (100)
 #define MAX_VALUE        (65535)
+#pragma pack(1)
 typedef struct _M_GRAPH {
-	int Vector[MAX_VEXS_SIZE];
-	int Eadge[MAX_VEXS_SIZE][MAX_VEXS_SIZE];
 	int VectorNum;
 	int EadgeNum;
+	int Vector[MAX_VEXS_SIZE];
+	int Eadge[MAX_VEXS_SIZE][MAX_VEXS_SIZE];
 }M_GRAPH;
+#pragma pack()
 
+void BuildMGraph(M_GRAPH *MGraph, int *Vector, int(*Eadge)[4], int VectorNum, int EadgeNum);
 
 //AdjustGraph
 #endif

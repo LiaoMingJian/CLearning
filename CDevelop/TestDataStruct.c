@@ -3767,3 +3767,65 @@ void TestSearchHash(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+void TestMGraph(M_GRAPH *MGraph01, M_GRAPH *MGraph02) {
+	int i, j;
+	
+	TestNum++;
+
+	if ((MGraph01->VectorNum != MGraph02->VectorNum) || (MGraph01->EadgeNum != MGraph02->EadgeNum)) {
+		FaildNum++;
+		return;
+	}
+	
+	for (i = 0; i < MGraph01->VectorNum; i++) {
+		if (MGraph01->Vector[i] != MGraph02->Vector[i]) {
+			FaildNum++;
+			return;
+		}
+	}
+
+	for (i = 0; i < MGraph01->VectorNum; i++) {
+		for (j = 0; j < MGraph01->VectorNum; j++) {
+			if (MGraph01->Eadge[i][j] != MGraph02->Eadge[i][j]) {
+				FaildNum++;
+				return;
+			}
+		}
+	}
+
+	PassNum++;
+}
+
+void TestBuildMGraph(void) {
+	/*Test01*/
+	M_GRAPH  MGraph01;
+	int Vector01[]   = {0, 1, 2, 3};
+	int Eadge01[][4] = { {0, 1, 1, 1},
+                         {1, 0, 1, 0},
+	                     {1, 1, 0, 1},
+	                     {1, 0, 1, 0} };
+	int VectorNum01  = 4;
+	int EadgeNum01   = 5;
+	
+	M_GRAPH CmpGraph01 = { 4, 5, {0, 1, 2, 3}, 
+					     { {0, 1, 1, 1},
+					       {1, 0, 1, 0},
+					       {1, 1, 0, 1},
+					       {1, 0, 1, 0} }};
+	
+	printf("-------Test start----------\n");
+	InitNum();
+	BuildMGraph(&MGraph01, Vector01, Eadge01, VectorNum01, EadgeNum01);
+	PrintMGraph(&MGraph01);
+	TestMGraph(&CmpGraph01, &MGraph01);
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
