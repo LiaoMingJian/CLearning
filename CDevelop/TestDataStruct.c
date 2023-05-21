@@ -3817,15 +3817,16 @@ void TestBuildMGraph(void) {
 	
 	printf("-------Test start----------\n");
 	InitNum();
-	BuildMGraph(&MGraph01, Vector01, Eadge01, VectorNum01, EadgeNum01);
-	PrintMGraph(&MGraph01);
-	TestMGraph(&CmpGraph01, &MGraph01);
 
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
-
+	BuildMGraph(&MGraph01, Vector01, Eadge01, VectorNum01, EadgeNum01);
+	PrintMGraph(&MGraph01);
+	TestMGraph(&CmpGraph01, &MGraph01);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
