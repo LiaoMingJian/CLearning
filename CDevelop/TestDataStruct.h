@@ -98,4 +98,7 @@ void TestDeleteAVLNode(void);
 
 /*TestSearchHash*/
 void TestSearchHash(void);
+
+/*TestBuildMGraph*/
+void TestBuildMGraph(void);
 #endif

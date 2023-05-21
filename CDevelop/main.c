@@ -152,7 +152,10 @@ int main() {
 	//TestDeleteAVLNode();
 
 	/*TestSearchHash*/
-	TestSearchHash();
+	//TestSearchHash();
+
+	/*TestBuildMGraph*/
+	TestBuildMGraph();
 	system("pause");
 	return 0;
 }

@@ -4354,9 +4354,26 @@ int SearchHash(HASH_TABLE *HTable, int Key) {
 }
 
 
+void PrintMGraph(M_GRAPH *MGraph) {
+	int i, j;
 
+	printf("MGraph->VectorNum = %d\n", MGraph->VectorNum);
+	printf("MGraph->EadgeNum = %d\n", MGraph->EadgeNum);
 
-void BuildMGraph(M_GRAPH *MGraph, int *Vector, int (*Eadge)[MAX_VEXS_SIZE], int VectorNum, int EadgeNum) {
+	for (i = 0; i < MGraph->VectorNum; i++) {
+		printf("MGraph->Vector[%d] = %d\n", i, MGraph->Vector[i]);
+	}
+
+	for (i = 0; i < MGraph->VectorNum; i++) {
+		for (j = 0; j < MGraph->VectorNum; j++) {
+			printf("MGraph->Vector[%d][%d] = %d, ", i, j, MGraph->Eadge[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+/*BuildMGraph*/
+void BuildMGraph(M_GRAPH *MGraph, int *Vector, int (*Eadge)[4], int VectorNum, int EadgeNum) {
 	int i = 0, j = 0;
 	
 	if ((MGraph == NULL) || (Vector == NULL) || (Eadge == NULL)) {
@@ -4370,13 +4387,10 @@ void BuildMGraph(M_GRAPH *MGraph, int *Vector, int (*Eadge)[MAX_VEXS_SIZE], int 
 		MGraph->Vector[i] = Vector[i];
 	}
 
-	for (i = 0; i < EadgeNum; i++ ) {
-		for (j = 0; j < EadgeNum; j++) {
+	for (i = 0; i < VectorNum; i++ ) {
+		for (j = 0; j < VectorNum; j++) {
+			printf("Eadge[%d][%d] = %d\n", i, j, Eadge[i][j]);
 			MGraph->Eadge[i][j] = Eadge[i][j];
 		}
 	}
-
 }
-
-
-
