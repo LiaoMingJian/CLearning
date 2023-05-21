@@ -133,13 +133,12 @@ void TestBuildMGraph(void) {
 	
 	printf("-------Test start----------\n");
 	InitNum();
-	BuildMGraph(&MGraph01, Vector01, Eadge01, VectorNum01, EadgeNum01);
-	PrintMGraph(&MGraph01);
-	TestMGraph(&CmpGraph01, &MGraph01);
 
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
-
+	BuildMGraph(&MGraph01, Vector01, Eadge01, VectorNum01, EadgeNum01);
+	PrintMGraph(&MGraph01);
+	TestMGraph(&CmpGraph01, &MGraph01);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -151,66 +150,36 @@ void TestBuildMGraph(void) {
 
 ## （3）**打印结果**
 
-> Eadge[0][0] = 0
->
-> Eadge[0][1] = 1
->
-> Eadge[0][2] = 1
->
-> Eadge[0][3] = 1
->
-> Eadge[1][0] = 1
->
-> Eadge[1][1] = 0
->
-> Eadge[1][2] = 1
->
-> Eadge[1][3] = 0
->
-> Eadge[2][0] = 1
->
-> Eadge[2][1] = 1
->
-> Eadge[2][2] = 0
->
-> Eadge[2][3] = 1
->
-> Eadge[3][0] = 1
->
-> Eadge[3][1] = 0
->
-> Eadge[3][2] = 1
->
-> Eadge[3][3] = 0
->
-> MGraph->VectorNum = 4
->
-> MGraph->EadgeNum = 5
->
-> MGraph->Vector[0] = 0
->
-> MGraph->Vector[1] = 1
->
-> MGraph->Vector[2] = 2
->
-> MGraph->Vector[3] = 3
->
-> MGraph->Vector[0][0] = 0, MGraph->Vector[0][1] = 1, MGraph->Vector[0][2] = 1, MGraph->Vector[0][3] = 1,
->
-> MGraph->Vector[1][0] = 1, MGraph->Vector[1][1] = 0, MGraph->Vector[1][2] = 1, MGraph->Vector[1][3] = 0,
->
-> MGraph->Vector[2][0] = 1, MGraph->Vector[2][1] = 1, MGraph->Vector[2][2] = 0, MGraph->Vector[2][3] = 1,
->
-> MGraph->Vector[3][0] = 1, MGraph->Vector[3][1] = 0, MGraph->Vector[3][2] = 1, MGraph->Vector[3][3] = 0,
->
->  
+> -------Test start----------
 >
 > -------Test 01----------
->
->  
+> Eadge[0][0] = 0
+> Eadge[0][1] = 1
+> Eadge[0][2] = 1
+> Eadge[0][3] = 1
+> Eadge[1][0] = 1
+> Eadge[1][1] = 0
+> Eadge[1][2] = 1
+> Eadge[1][3] = 0
+> Eadge[2][0] = 1
+> Eadge[2][1] = 1
+> Eadge[2][2] = 0
+> Eadge[2][3] = 1
+> Eadge[3][0] = 1
+> Eadge[3][1] = 0
+> Eadge[3][2] = 1
+> Eadge[3][3] = 0
+> MGraph->VectorNum = 4
+> MGraph->EadgeNum = 5
+> MGraph->Vector[0] = 0
+> MGraph->Vector[1] = 1
+> MGraph->Vector[2] = 2
+> MGraph->Vector[3] = 3
+> MGraph->Vector[0][0] = 0, MGraph->Vector[0][1] = 1, MGraph->Vector[0][2] = 1, MGraph->Vector[0][3] = 1,
+> MGraph->Vector[1][0] = 1, MGraph->Vector[1][1] = 0, MGraph->Vector[1][2] = 1, MGraph->Vector[1][3] = 0,
+> MGraph->Vector[2][0] = 1, MGraph->Vector[2][1] = 1, MGraph->Vector[2][2] = 0, MGraph->Vector[2][3] = 1,
+> MGraph->Vector[3][0] = 1, MGraph->Vector[3][1] = 0, MGraph->Vector[3][2] = 1, MGraph->Vector[3][3] = 0,
 >
 > -------Test result----------
->
 > Print test result;
->
 > TestNum = 1, PassNum = 1, FaildNum = 0
