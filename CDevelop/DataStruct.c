@@ -4353,7 +4353,7 @@ int SearchHash(HASH_TABLE *HTable, int Key) {
 	return HTable->Table[HashNum];
 }
 
-
+/*BuildMGraph*/
 void PrintMGraph(M_GRAPH *MGraph) {
 	int i, j;
 
@@ -4372,10 +4372,9 @@ void PrintMGraph(M_GRAPH *MGraph) {
 	}
 }
 
-/*BuildMGraph*/
-void BuildMGraph(M_GRAPH *MGraph, int *Vector, int (*Eadge)[4], int VectorNum, int EadgeNum) {
+void BuildMGraph(M_GRAPH *MGraph, int *Vector, int(*Eadge)[4], int VectorNum, int EadgeNum) {
 	int i = 0, j = 0;
-	
+
 	if ((MGraph == NULL) || (Vector == NULL) || (Eadge == NULL)) {
 		return;
 	}
@@ -4387,10 +4386,85 @@ void BuildMGraph(M_GRAPH *MGraph, int *Vector, int (*Eadge)[4], int VectorNum, i
 		MGraph->Vector[i] = Vector[i];
 	}
 
-	for (i = 0; i < VectorNum; i++ ) {
+	for (i = 0; i < VectorNum; i++) {
 		for (j = 0; j < VectorNum; j++) {
 			printf("Eadge[%d][%d] = %d\n", i, j, Eadge[i][j]);
 			MGraph->Eadge[i][j] = Eadge[i][j];
 		}
+	}
+}
+
+
+/*BuildAdjustListGraph*/
+void PrintLstNode(const LIST_NODE *LstNode) {
+	if (LstNode == NULL) {
+		return;
+	}
+
+	while (LstNode != NULL) {
+		printf("LstNode = 0x%lx, LstNode->VectorIndex = %d, LstNode->Next = 0x%lx\n", LstNode, LstNode->VectorIndex, LstNode->Next);
+		LstNode = LstNode->Next;
+	}
+}
+
+void PrintAdjLstGraph(const ADJUST_LIST_GRAPH *AdjLstGraph) {
+	int i = 0;
+
+	if (AdjLstGraph == NULL) {
+		return;
+	}
+
+	printf("AdjLstGraph->VectorNum = %d\n", AdjLstGraph->VectorNum);
+	printf("AdjLstGraph->EadgeNum  = %d\n", AdjLstGraph->EadgeNum);
+
+	for (i = 0; i < AdjLstGraph->VectorNum; i++) {
+		printf("AdjLstGraph->AdjustGraph[%d].VectorIndex = %d\n", i, AdjLstGraph->AdjustGraph[i].VectorIndex);
+		printf("AdjLstGraph->AdjustGraph[%d].FirstEadge  = 0x%lx\n", i, AdjLstGraph->AdjustGraph[i].FirstEadge);
+		PrintLstNode(AdjLstGraph->AdjustGraph[i].FirstEadge);
+	}
+}
+
+void AddAdjLstNode(LIST_NODE **FirstEadge, LIST_NODE_DATA *LstNodeData) {
+	int i = 0;
+	LIST_NODE *AddNode = NULL;
+	LIST_NODE *PreNode = NULL;
+	
+	if ((FirstEadge == NULL) || (LstNodeData == NULL)) {
+		return;
+	}
+
+	for (i = 0; i < LstNodeData->Num; i++) {
+		AddNode = (LIST_NODE *)malloc(sizeof(LIST_NODE));
+		if (AddNode == NULL) {
+			return;
+		}
+		AddNode->VectorIndex = LstNodeData->Vector[i];
+		AddNode->Next = NULL;
+
+		if (*FirstEadge == NULL) {
+			*FirstEadge = AddNode;			
+			PreNode = AddNode;
+		} else {
+			AddNode->Next = PreNode->Next;
+			PreNode->Next = AddNode;
+			PreNode = PreNode->Next;
+		}
+	}
+}
+
+void BuildAdjustListGraph(ADJUST_LIST_GRAPH *AdjListGraph, ADJUST_LIST_GRAPH *AdjListGraphData, LIST_NODE_DATA *LstNodeData) {
+	int i = 0;
+
+	if ((AdjListGraph == NULL) || (AdjListGraphData == NULL) || (LstNodeData == NULL)) {
+		return;
+	}
+
+	AdjListGraph->VectorNum = AdjListGraphData->VectorNum;
+	AdjListGraph->EadgeNum = AdjListGraphData->EadgeNum;
+
+	for (i = 0; i < AdjListGraphData->VectorNum; i++) {
+		AdjListGraph->AdjustGraph[i].VectorIndex = AdjListGraphData->AdjustGraph[i].VectorIndex;
+		AdjListGraph->AdjustGraph[i].FirstEadge = NULL;
+		AddAdjLstNode(&(AdjListGraph->AdjustGraph[i].FirstEadge), &(LstNodeData[i]));
 	}
 }

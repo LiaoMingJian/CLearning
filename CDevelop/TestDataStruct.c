@@ -3830,3 +3830,22 @@ void TestBuildMGraph(void) {
 }
 
 
+/*TestBuildAdjustListGraph*/
+void TestBuildAdjustListGraph(void) {
+	/*Test01*/
+	ADJUST_LIST_GRAPH  AdjListGraph01;
+	ADJUST_LIST_GRAPH  AdjListGraphData01 = { 4, 5, {{0, NULL}, {1, NULL}, {2, NULL}, {3, NULL}} };
+	LIST_NODE_DATA     AdjListNodeData01[] = { {3, {1, 2, 3}}, {2, {0, 2}}, {3, {0, 1, 3}}, {2, {0, 2}} };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildAdjustListGraph(&AdjListGraph01, &AdjListGraphData01, AdjListNodeData01);
+	PrintAdjLstGraph(&AdjListGraph01);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}

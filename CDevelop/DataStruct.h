@@ -436,5 +436,30 @@ typedef struct _M_GRAPH {
 
 void BuildMGraph(M_GRAPH *MGraph, int *Vector, int(*Eadge)[4], int VectorNum, int EadgeNum);
 
-//AdjustGraph
+
+/*ADJUST_LIST_GRAPH*/
+typedef struct _LIST_NODE_DATA {
+	int  Num;
+	int  Vector[MAX_VEXS_SIZE];
+}LIST_NODE_DATA;
+
+typedef struct _LIST_NODE {
+	int               VectorIndex;
+	struct _LIST_NODE *Next;
+}LIST_NODE;
+
+typedef struct _ADJUST_LIST {
+	int       VectorIndex;
+	LIST_NODE *FirstEadge;
+}ADJUST_LIST;
+
+typedef struct _ADJUST_LIST_GRAPH {
+	int          VectorNum;
+	int          EadgeNum;
+	ADJUST_LIST  AdjustGraph[MAX_VEXS_SIZE];
+}ADJUST_LIST_GRAPH;
+
+void BuildAdjustListGraph(ADJUST_LIST_GRAPH *AdjListGraph, ADJUST_LIST_GRAPH *AdjListGraphData, LIST_NODE_DATA *LstNodeData);
+
+void PrintAdjLstGraph(const ADJUST_LIST_GRAPH *AdjListGraph01);
 #endif
