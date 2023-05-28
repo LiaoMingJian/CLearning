@@ -101,4 +101,7 @@ void TestSearchHash(void);
 
 /*TestBuildMGraph*/
 void TestBuildMGraph(void);
+
+/*TestBuildAdjustListGraph*/
+void TestBuildAdjustListGraph(void);
 #endif

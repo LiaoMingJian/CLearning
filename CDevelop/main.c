@@ -155,7 +155,11 @@ int main() {
 	//TestSearchHash();
 
 	/*TestBuildMGraph*/
-	TestBuildMGraph();
+	//TestBuildMGraph();
+
+	/*TestBuildAdjustListGraph*/
+	TestBuildAdjustListGraph();
+
 	system("pause");
 	return 0;
 }
