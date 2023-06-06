@@ -423,6 +423,7 @@ void InsertHash(HASH_TABLE *HTable, int *Arr, int Num);
 int SearchHash(HASH_TABLE *HTable, int Key);
 
 //MGraph
+/*M_GRAPH*/
 #define MAX_VEXS_SIZE    (100)
 #define MAX_VALUE        (65535)
 #pragma pack(1)
@@ -434,8 +435,8 @@ typedef struct _M_GRAPH {
 }M_GRAPH;
 #pragma pack()
 
-void BuildMGraph(M_GRAPH *MGraph, int *Vector, int(*Eadge)[4], int VectorNum, int EadgeNum);
-
+void PrintMGraph(M_GRAPH *MGraph);
+void BuildMGraph(M_GRAPH *MGraph, int *Vector, int *Eadge, int VectorNum, int EadgeNum);
 
 /*ADJUST_LIST_GRAPH*/
 typedef struct _LIST_NODE_DATA {
@@ -449,7 +450,7 @@ typedef struct _LIST_NODE {
 }LIST_NODE;
 
 typedef struct _ADJUST_LIST {
-	int       VectorIndex;
+	int       Data;
 	LIST_NODE *FirstEadge;
 }ADJUST_LIST;
 
@@ -462,4 +463,10 @@ typedef struct _ADJUST_LIST_GRAPH {
 void BuildAdjustListGraph(ADJUST_LIST_GRAPH *AdjListGraph, ADJUST_LIST_GRAPH *AdjListGraphData, LIST_NODE_DATA *LstNodeData);
 
 void PrintAdjLstGraph(const ADJUST_LIST_GRAPH *AdjListGraph01);
+
+/*MGraphDFS*/
+void MGraphDFS(M_GRAPH *MGraph, bool *Visited);
+
+/*AdjLstGraphDFS*/
+void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited);
 #endif

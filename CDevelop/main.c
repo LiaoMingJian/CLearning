@@ -158,7 +158,10 @@ int main() {
 	//TestBuildMGraph();
 
 	/*TestBuildAdjustListGraph*/
-	TestBuildAdjustListGraph();
+	//TestBuildAdjustListGraph();
+
+	/*TestMGraphDFS*/
+	//TestMGraphDFS();
 
 	system("pause");
 	return 0;
