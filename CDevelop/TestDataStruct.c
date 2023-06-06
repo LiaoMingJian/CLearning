@@ -3771,14 +3771,14 @@ void TestSearchHash(void) {
 
 void TestMGraph(M_GRAPH *MGraph01, M_GRAPH *MGraph02) {
 	int i, j;
-	
+
 	TestNum++;
 
 	if ((MGraph01->VectorNum != MGraph02->VectorNum) || (MGraph01->EadgeNum != MGraph02->EadgeNum)) {
 		FaildNum++;
 		return;
 	}
-	
+
 	for (i = 0; i < MGraph01->VectorNum; i++) {
 		if (MGraph01->Vector[i] != MGraph02->Vector[i]) {
 			FaildNum++;
@@ -3801,28 +3801,62 @@ void TestMGraph(M_GRAPH *MGraph01, M_GRAPH *MGraph02) {
 void TestBuildMGraph(void) {
 	/*Test01*/
 	M_GRAPH  MGraph01;
-	int Vector01[]   = {0, 1, 2, 3};
+	int Vector01[] = { 0, 1, 2, 3 };
 	int Eadge01[][4] = { {0, 1, 1, 1},
-                         {1, 0, 1, 0},
-	                     {1, 1, 0, 1},
-	                     {1, 0, 1, 0} };
-	int VectorNum01  = 4;
-	int EadgeNum01   = 5;
-	
-	M_GRAPH CmpGraph01 = { 4, 5, {0, 1, 2, 3}, 
-					     { {0, 1, 1, 1},
-					       {1, 0, 1, 0},
-					       {1, 1, 0, 1},
-					       {1, 0, 1, 0} }};
-	
+						  {1, 0, 1, 0},
+						{1, 1, 0, 1},
+						{1, 0, 1, 0} };
+	int VectorNum01 = 4;
+	int EadgeNum01 = 5;
+
+	M_GRAPH CmpGraph01 = { 4, 5, {0, 1, 2, 3},
+			{ {0, 1, 1, 1},
+			  {1, 0, 1, 0},
+			  {1, 1, 0, 1},
+			  {1, 0, 1, 0} } };
+
+	/*Test02*/
+	M_GRAPH  MGraph02;
+	int Vector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	// A  B  C  D  E  F  G  H  I  
+	int Eadge02[][9] = { {0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
+						 {1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+					   {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+					   {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+			  {0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+			  {1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+			  {0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+			  {0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+			  {0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+	};
+	int VectorNum02 = 9;
+	int EadgeNum02 = 15;
+	M_GRAPH CmpGraph02 = { 9, 15, { 0, 1, 2, 3, 4, 5, 6, 7, 8},
+								   {{0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
+									{1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+								  {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+								  {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+						{0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+						{1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+						{0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+						{0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+						{0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+						  }
+	};
 	printf("-------Test start----------\n");
 	InitNum();
 
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
-	BuildMGraph(&MGraph01, Vector01, Eadge01, VectorNum01, EadgeNum01);
+	BuildMGraph(&MGraph01, Vector01, (int *)Eadge01, VectorNum01, EadgeNum01);
 	PrintMGraph(&MGraph01);
 	TestMGraph(&CmpGraph01, &MGraph01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildMGraph(&MGraph02, Vector02, Eadge02, VectorNum02, EadgeNum02);
+	PrintMGraph(&MGraph02);
+	TestMGraph(&CmpGraph02, &MGraph02);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
@@ -3834,7 +3868,7 @@ void TestBuildMGraph(void) {
 void TestBuildAdjustListGraph(void) {
 	/*Test01*/
 	ADJUST_LIST_GRAPH  AdjListGraph01;
-	ADJUST_LIST_GRAPH  AdjListGraphData01 = { 4, 5, {{0, NULL}, {1, NULL}, {2, NULL}, {3, NULL}} };
+	ADJUST_LIST_GRAPH  AdjListGraphData01 = { 4, 5, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}} };
 	LIST_NODE_DATA     AdjListNodeData01[] = { {3, {1, 2, 3}}, {2, {0, 2}}, {3, {0, 1, 3}}, {2, {0, 2}} };
 
 	printf("-------Test start----------\n");
@@ -3842,6 +3876,7 @@ void TestBuildAdjustListGraph(void) {
 
 	/*Test01*/
 	printf("\n-------Test 01----------\n");
+
 	BuildAdjustListGraph(&AdjListGraph01, &AdjListGraphData01, AdjListNodeData01);
 	PrintAdjLstGraph(&AdjListGraph01);
 
@@ -3849,3 +3884,89 @@ void TestBuildAdjustListGraph(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
+
+
+/*TestMGraphDFS*/
+void TestMGraphDFS(void) {
+	/*Test01*/
+	M_GRAPH  MGraph01;
+	int Vector01[] = { 0, 1, 2, 3 };
+	// A  B  C  D  
+	int Eadge01[][4] = { {0, 1, 1, 1},  //A
+						 {1, 0, 1, 0},  //B
+					   {1, 1, 0, 1},  //C
+					   {1, 0, 1, 0},  //D
+	};
+	int VectorNum01 = 4;
+	int EadgeNum01 = 5;
+	M_GRAPH CmpGraph01 = { 4, 5, { 0, 1, 2, 3},
+								  {{0, 1, 1, 1},  //A
+								   {1, 0, 1, 0},  //B
+								 {1, 1, 0, 1},  //C
+								 {1, 0, 1, 0},  //D
+						 }
+	};
+	bool Visited01[4] = { 0 };
+	int CmpVector01[] = { 0, 1, 2, 3 };
+
+	/*Test02*/
+	M_GRAPH  MGraph02;
+	int Vector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	// A  B  C  D  E  F  G  H  I  
+	int Eadge02[][9] = { {0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
+						 {1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+					   {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+					   {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+			  {0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+			  {1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+			  {0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+			  {0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+			  {0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+	};
+	int VectorNum02 = 9;
+	int EadgeNum02 = 15;
+	M_GRAPH CmpGraph02 = { 9, 15, { 0, 1, 2, 3, 4, 5, 6, 7, 8},
+								   {{0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
+									{1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+								  {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+								  {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+						{0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+						{1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+						{0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+						{0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+						{0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+						  }
+	};
+	bool Visited02[9] = { 0 };
+	int CmpVector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildMGraph(&MGraph01, Vector01, (int *)Eadge01, VectorNum01, EadgeNum01);
+	PrintMGraph(&MGraph01);
+	//TestMGraph(&CmpGraph01, &MGraph01);
+	MGraphDFS(&MGraph01, Visited01);
+	TestCmpArr(CmpVector01, VectorNum01, MGraph01.Vector);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildMGraph(&MGraph02, Vector02, (int *)Eadge02, VectorNum02, EadgeNum02);
+	PrintMGraph(&MGraph02);
+	//TestMGraph(&CmpGraph02, &MGraph02);
+	MGraphDFS(&MGraph02, Visited02);
+	TestCmpArr(CmpVector02, VectorNum02, MGraph02.Vector);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+
+/*TestAdjLstGraphDFS*/
+void TestAdjLstGraphDFS(void) {
+
+}
+
