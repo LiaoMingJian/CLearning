@@ -163,6 +163,8 @@ int main() {
 	/*TestMGraphDFS*/
 	//TestMGraphDFS();
 
+	/*TestAdjLstGraphDFS*/
+	TestAdjLstGraphDFS();
 	system("pause");
 	return 0;
 }

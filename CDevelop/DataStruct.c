@@ -4479,29 +4479,34 @@ void BuildAdjustListGraph(ADJUST_LIST_GRAPH *AdjListGraph, ADJUST_LIST_GRAPH *Ad
 
 /*DFS*/
 /*MGraphDFS*/
-void MGrDFS(M_GRAPH *MGraph, bool *Visited, int i) {
+static int MGrResIndex = 0;
+void MGrDFS(M_GRAPH *MGraph, bool *Visited, int i, int *ResultArr) {
 	int j = 0;
 
-	if ((MGraph == NULL) || (Visited == NULL)) {
+	if ((MGraph == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
 		return;
 	}
 
 	Visited[i] = true;
+	ResultArr[MGrResIndex] = i;
+	MGrResIndex++;
 	printf("MGraph->Vector[%d] = %d\n", i, MGraph->Vector[i]);
 
 	for (j = 0; j < MGraph->VectorNum; j++) {
-		if ((MGraph->Eadge[i][j] == 1) && (Visited[i] == false)) {
-			MGrDFS(MGraph, Visited, j);
+		if ((MGraph->Eadge[i][j] == 1) && (Visited[j] == false)) {
+			MGrDFS(MGraph, Visited, j, ResultArr);
 		}
 	}
 }
 
-void MGraphDFS(M_GRAPH *MGraph, bool *Visited) {
+void MGraphDFS(M_GRAPH *MGraph, bool *Visited, int *ResultArr) {
 	int i = 0;
 
-	if ((MGraph == NULL) || (Visited == NULL)) {
+	if ((MGraph == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
 		return;
 	}
+
+	MGrResIndex = 0;
 
 	for (i = 0; i < MGraph->VectorNum; i++) {
 		Visited[i] = false;
@@ -4509,36 +4514,42 @@ void MGraphDFS(M_GRAPH *MGraph, bool *Visited) {
 
 	for (i = 0; i < MGraph->VectorNum; i++) {
 		if (Visited[i] == false) {
-			MGrDFS(MGraph, Visited, i);
+			MGrDFS(MGraph, Visited, i, ResultArr);
 		}
 	}
 }
 
+
 /*AdjLstGraphDFS*/
-void AdjLstGDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int i) {
+static int AdjLstResIndex = 0;
+void AdjLstGDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int i, int *ResultArr) {
 	LIST_NODE *LstNode = NULL;
-	if ((AdjLstGraph == NULL) || (Visited == NULL)) {
+	if ((AdjLstGraph == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
 		return;
 	}
 
 	Visited[i] = true;
+	ResultArr[AdjLstResIndex] = i;
+	AdjLstResIndex++;
 	printf("AdjLstGraph->AdjustGraph[%d].Data = %d\n", i, AdjLstGraph->AdjustGraph[i].Data);
 
 	LstNode = AdjLstGraph->AdjustGraph[i].FirstEadge;
 	while (LstNode != NULL) {
 		if (Visited[LstNode->VectorIndex] == false) {
-			AdjLstGDFS(AdjLstGraph, Visited, LstNode->VectorIndex);
+			AdjLstGDFS(AdjLstGraph, Visited, LstNode->VectorIndex, ResultArr);
 		}
 		LstNode = LstNode->Next;
 	}
 }
 
-void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited) {
+void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultArr) {
 	int i = 0;
 
-	if ((AdjLstGraph == NULL) || (Visited == NULL)) {
+	if ((AdjLstGraph == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
 		return;
 	}
+
+	AdjLstResIndex = 0;
 
 	for (i = 0; i < AdjLstGraph->VectorNum; i++) {
 		Visited[i] = false;
@@ -4546,9 +4557,8 @@ void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited) {
 
 	for (i = 0; i < AdjLstGraph->VectorNum; i++) {
 		if (Visited[i] == false) {
-			AdjLstGDFS(AdjLstGraph, Visited, i);
+			AdjLstGDFS(AdjLstGraph, Visited, i, ResultArr);
 		}
 	}
 }
-
 

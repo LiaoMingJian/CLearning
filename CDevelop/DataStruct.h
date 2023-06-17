@@ -465,8 +465,8 @@ void BuildAdjustListGraph(ADJUST_LIST_GRAPH *AdjListGraph, ADJUST_LIST_GRAPH *Ad
 void PrintAdjLstGraph(const ADJUST_LIST_GRAPH *AdjListGraph01);
 
 /*MGraphDFS*/
-void MGraphDFS(M_GRAPH *MGraph, bool *Visited);
+void MGraphDFS(M_GRAPH *MGraph, bool *Visited, int *ResultArr);
 
 /*AdjLstGraphDFS*/
-void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited);
+void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultArr);
 #endif
