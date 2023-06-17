@@ -107,4 +107,7 @@ void TestBuildAdjustListGraph(void);
 
 /*TestMGraphDFS*/
 void TestMGraphDFS(void);
+
+/*TestAdjLstGraphDFS*/
+void TestAdjLstGraphDFS(void);
 #endif

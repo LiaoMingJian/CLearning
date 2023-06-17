@@ -3867,40 +3867,126 @@ void TestBuildMGraph(void) {
 	TestResult();
 }
 
-
 /*TestBuildAdjustListGraph*/
+/*TestBuildAdjustListGraph*/
+bool TestAdjLst(const LIST_NODE *CmpAdjLst, const LIST_NODE *AdjLst) {
+	LIST_NODE *PCmpNode = CmpAdjLst;
+	LIST_NODE *PNode = AdjLst;
+
+	if ((CmpAdjLst == NULL) || (AdjLst == NULL)) {
+		return false;
+	}
+
+	while ((PCmpNode != NULL) && (PNode != NULL)) {
+		if (CmpAdjLst->VectorIndex != AdjLst->VectorIndex) {
+			return false;
+		}
+		else {
+			PCmpNode = PCmpNode->Next;
+			PNode = PNode->Next;
+		}
+	}
+
+	if (PCmpNode != PNode) {
+		return false;
+	}
+
+	return true;
+}
+
+void TestAdjLstGraph(const ADJUST_LIST_GRAPH *CmpAdjLstGraph, const ADJUST_LIST_GRAPH *AdjLstGraph) {
+	int i = 0;
+
+	TestNum++;
+
+	if ((CmpAdjLstGraph == NULL) || (AdjLstGraph == NULL)) {
+		FaildNum++;
+		return;
+	}
+
+	if ((CmpAdjLstGraph->VectorNum != AdjLstGraph->VectorNum) || (CmpAdjLstGraph->EadgeNum != AdjLstGraph->EadgeNum)) {
+		FaildNum++;
+		return;
+	}
+
+	for (i = 0; i < CmpAdjLstGraph->VectorNum; i++) {
+		if (CmpAdjLstGraph->AdjustGraph[i].Data != AdjLstGraph->AdjustGraph[i].Data) {
+			FaildNum++;
+			return;
+		}
+	}
+
+	for (i = 0; i < CmpAdjLstGraph->VectorNum; i++) {
+		if (TestAdjLst(CmpAdjLstGraph->AdjustGraph[i].FirstEadge, AdjLstGraph->AdjustGraph[i].FirstEadge) == false) {
+			FaildNum++;
+			return;
+		}
+	}
+
+	PassNum++;
+}
+
+void BuildCmpAdjListGraph(ADJUST_LIST_GRAPH *AdjLstGraph, LIST_NODE_DATA *LstNodeData) {
+	int i = 0;
+
+	if ((AdjLstGraph == NULL) || (LstNodeData == NULL)) {
+		return;
+	}
+
+	for (i = 0; i < AdjLstGraph->VectorNum; i++) {
+		AddAdjLstNode(&(AdjLstGraph->AdjustGraph[i].FirstEadge), &LstNodeData[i]);
+	}
+}
+
 void TestBuildAdjustListGraph(void) {
 	/*Test01*/
-	ADJUST_LIST_GRAPH  AdjListGraph01;
-	ADJUST_LIST_GRAPH  AdjListGraphData01 = { 4, 5, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}} };
-	LIST_NODE_DATA     AdjListNodeData01[] = { {3, {1, 2, 3}}, {2, {0, 2}}, {3, {0, 1, 3}}, {2, {0, 2}} };
+	ADJUST_LIST_GRAPH  AdjLstGraph01;
+	ADJUST_LIST_GRAPH  AdjLstGraphData01 = { 4, 5, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}} };
+	LIST_NODE_DATA     AdjLstNodeData01[] = { {3, {1, 2, 3}}, {2, {0, 2}}, {3, {0, 1, 3}}, {2, {0, 2}} };
+	ADJUST_LIST_GRAPH  CmpAdjLstGraph01 = { 4, 5, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}} };
+
+	/*Test02*/
+	ADJUST_LIST_GRAPH  AdjLstGraph02;               //A          B           C           D           E           F           G           H           I
+	ADJUST_LIST_GRAPH  AdjLstGraphData02 = { 9, 15, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}, {40, NULL}, {50, NULL}, {60, NULL}, {70, NULL}, {80, NULL},
+													}
+	};
+	//A            B                  C               D                     E               F               G                  H               I
+	LIST_NODE_DATA     AdjLstNodeData02[] = { {2, {1, 5}}, {4, {0, 2, 6, 8}}, {3, {1, 3, 8}}, {5, {2, 4, 6, 7, 8}}, {3, {3, 5, 7}}, {3, {0, 4, 6}}, {4, {1, 3, 5, 7}}, {3, {3, 4, 6}}, {3, {1, 2, 3}}
+	};
+	ADJUST_LIST_GRAPH  CmpAdjLstGraph02 = { 9, 15, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}, {40, NULL}, {50, NULL}, {60, NULL}, {70, NULL}, {80, NULL},
+													}
+	};
 
 	printf("-------Test start----------\n");
 	InitNum();
+	printf("-------Test01----------\n");
+	BuildAdjustListGraph(&AdjLstGraph01, &AdjLstGraphData01, AdjLstNodeData01);
+	PrintAdjLstGraph(&AdjLstGraph01);
+	BuildCmpAdjListGraph(&CmpAdjLstGraph01, AdjLstNodeData01);
+	TestAdjLstGraph(&CmpAdjLstGraph01, &AdjLstGraph01);
 
-	/*Test01*/
-	printf("\n-------Test 01----------\n");
-
-	BuildAdjustListGraph(&AdjListGraph01, &AdjListGraphData01, AdjListNodeData01);
-	PrintAdjLstGraph(&AdjListGraph01);
+	printf("-------Test02----------\n");
+	BuildAdjustListGraph(&AdjLstGraph02, &AdjLstGraphData02, AdjLstNodeData02);
+	PrintAdjLstGraph(&AdjLstGraph02);
+	BuildCmpAdjListGraph(&CmpAdjLstGraph02, AdjLstNodeData02);
+	TestAdjLstGraph(&CmpAdjLstGraph02, &AdjLstGraph02);
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
 
-
 /*TestMGraphDFS*/
 void TestMGraphDFS(void) {
 	/*Test01*/
 	M_GRAPH  MGraph01;
-	int Vector01[]   =  { 0, 1, 2, 3 };
-	                   // A  B  C  D  
+	int Vector01[] = { 0, 1, 2, 3 };
+	// A  B  C  D  
 	int Eadge01[][4] = { {0, 1, 1, 1},  //A
-						 {1, 0, 1, 0},  //B
-					     {1, 1, 0, 1},  //C
-					     {1, 0, 1, 0},  //D
-	                   };
+						{1, 0, 1, 0},  //B
+						{1, 1, 0, 1},  //C
+						{1, 0, 1, 0},  //D
+	};
 	int VectorNum01 = 4;
 	int EadgeNum01 = 5;
 	M_GRAPH CmpGraph01 = { 4, 5, { 0, 1, 2, 3},
@@ -3908,25 +3994,26 @@ void TestMGraphDFS(void) {
 								  {1, 0, 1, 0},  //B
 								  {1, 1, 0, 1},  //C
 								  {1, 0, 1, 0},  //D
-						         }
-	                     };
+								 }
+	};
 	bool Visited01[4] = { 0 };
+	int DFSResult01[4] = { 0 };
 	int CmpVector01[] = { 0, 1, 2, 3 };
 
 	/*Test02*/
 	M_GRAPH  MGraph02;
-	int Vector02[]    = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	int Vector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	// A  B  C  D  E  F  G  H  I  
 	int Eadge02[][9] = { {0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
-						 {1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
-					     {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
-					     {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
-			             {0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
-			             {1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
-			             {0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
-			             {0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
-			             {0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
-	                   };
+						{1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+						{0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+						{0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+						{0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+						{1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+						{0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+						{0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+						{0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+	};
 	int VectorNum02 = 9;
 	int EadgeNum02 = 15;
 	M_GRAPH CmpGraph02 = { 9, 15, { 0, 1, 2, 3, 4, 5, 6, 7, 8},
@@ -3934,14 +4021,15 @@ void TestMGraphDFS(void) {
 								   {1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
 								   {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
 								   {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
-						           {0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
-						           {1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
-						           {0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
-						           {0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
-						           {0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
-						          }
-	                     };
+								   {0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+								   {1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+								   {0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+								   {0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+								   {0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+								  }
+	};
 	bool Visited02[9] = { 0 };
+	int DFSResult02[9] = { 0 };
 	int CmpVector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 
 	printf("-------Test start----------\n");
@@ -3952,25 +4040,68 @@ void TestMGraphDFS(void) {
 	BuildMGraph(&MGraph01, Vector01, (int *)Eadge01, VectorNum01, EadgeNum01);
 	PrintMGraph(&MGraph01);
 	//TestMGraph(&CmpGraph01, &MGraph01);
-	MGraphDFS(&MGraph01, Visited01);
-	TestCmpArr(CmpVector01, VectorNum01, MGraph01.Vector);
+	MGraphDFS(&MGraph01, Visited01, DFSResult01);
+	TestCmpArr(CmpVector01, VectorNum01, DFSResult01);
 
 	/*Test02*/
 	printf("\n-------Test 02----------\n");
 	BuildMGraph(&MGraph02, Vector02, (int *)Eadge02, VectorNum02, EadgeNum02);
 	PrintMGraph(&MGraph02);
 	//TestMGraph(&CmpGraph02, &MGraph02);
-	MGraphDFS(&MGraph02, Visited02);
-	TestCmpArr(CmpVector02, VectorNum02, MGraph02.Vector);
+	MGraphDFS(&MGraph02, Visited02, DFSResult02);
+	TestCmpArr(CmpVector02, VectorNum02, DFSResult02);
+
 
 	/*Test Result*/
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
 
-
 /*TestAdjLstGraphDFS*/
 void TestAdjLstGraphDFS(void) {
+	/*Test01*/
+	ADJUST_LIST_GRAPH  AdjListGraph01;
+	ADJUST_LIST_GRAPH  AdjListGraphData01 = { 4, 5, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}} };
+	LIST_NODE_DATA     AdjListNodeData01[] = { {3, {1, 2, 3}}, {2, {0, 2}}, {3, {0, 1, 3}}, {2, {0, 2}} };
+	bool Visited01[4] = { 0 };
+	int VectorNum01 = 4;
+	int DFSResult01[4] = { 0 };
+	int CmpVector01[] = { 0, 1, 2, 3 };
 
+	/*Test02*/
+	ADJUST_LIST_GRAPH  AdjListGraph02;               //A          B           C           D           E           F           G           H           I
+	ADJUST_LIST_GRAPH  AdjListGraphData02 = { 9, 15, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}, {40, NULL}, {50, NULL}, {60, NULL}, {70, NULL}, {80, NULL},
+													}
+	};
+	//A            B                  C               D                     E               F               G                  H               I
+	LIST_NODE_DATA     AdjListNodeData02[] = { {2, {1, 5}}, {4, {0, 2, 6, 8}}, {3, {1, 3, 8}}, {5, {2, 4, 6, 7, 8}}, {3, {3, 5, 7}}, {3, {0, 4, 6}}, {4, {1, 3, 5, 7}}, {3, {3, 4, 6}}, {3, {1, 2, 3}}
+	};
+	ADJUST_LIST_GRAPH  CmpAdjListGraph02 = { 9, 15, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}, {40, NULL}, {50, NULL}, {60, NULL}, {70, NULL}, {80, NULL},
+													}
+	};
+	bool Visited02[9] = { 0 };
+	int VectorNum02 = 9;
+	int DFSResult02[9] = { 0 };
+	int CmpVector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildAdjustListGraph(&AdjListGraph01, &AdjListGraphData01, AdjListNodeData01);
+	PrintAdjLstGraph(&AdjListGraph01);
+	AdjLstGraphDFS(&AdjListGraph01, Visited01, DFSResult01);
+	TestCmpArr(CmpVector01, VectorNum01, DFSResult01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildAdjustListGraph(&AdjListGraph02, &AdjListGraphData02, AdjListNodeData02);
+	PrintAdjLstGraph(&AdjListGraph02);
+	AdjLstGraphDFS(&AdjListGraph02, Visited02, DFSResult02);
+	TestCmpArr(CmpVector02, VectorNum02, DFSResult02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
 }
-
