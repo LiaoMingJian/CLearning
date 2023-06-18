@@ -2183,6 +2183,19 @@ void OperateQueue(void) {
 
 
 /*LinkQueue*/
+void InitLinkQueue(LINK_QUEUE **LinkQueue) {
+	if (LinkQueue == NULL) {
+		return;
+	}
+
+	*LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
+	if (*LinkQueue == NULL) {
+		return;
+	}
+	(*LinkQueue)->Front = NULL;
+	(*LinkQueue)->Rear = NULL;
+}
+
 LIST_STATUS CreateLinkQueue(LINK_QUEUE *LinkQueue, Node *HeadNode, int CreateNum) {
 	LINK_QUEUE *TraLinkQueue = LinkQueue;
 	Node *TraNode = HeadNode;
@@ -2239,72 +2252,69 @@ LIST_STATUS DelLinkQueue(LINK_QUEUE * LinkQueue, Node *HeadNode) {
 	return SUCCESS;
 }
 
-LIST_STATUS PrintLinkQueue(LINK_QUEUE * LinkQueue) {
-	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *NodeHead = LinkQueue->Front;
+LIST_STATUS PrintLinkQueue(LINK_QUEUE *LinkQueue) {
+	Node *NodeHead = NULL;
 
-	printf("PrintLinkQueue start!\n");
-
-	if (NULL == TraLinkQueue) {
+	if (NULL == LinkQueue) {
 		printf("LinkQueue = NULL\n");
 		return ERROR;
 	}
 
-	printf("TraLinkQueue->Front = %x\n",TraLinkQueue->Front);
-	printf("TraLinkQueue->Rear = %x\n", TraLinkQueue->Rear);
-
+	Node *NodeHead = LinkQueue->Front;
+	printf("LinkQueue->Front = 0x%lx\n", LinkQueue->Front);
+	printf("LinkQueue->Rear = 0x%lx\n", LinkQueue->Rear);
 	while (NodeHead != NULL) {
 		printf("NodeHead = 0x%lx, NodeHead->Data = %d, NodeHead->Next = 0x%lx\n", NodeHead, NodeHead->Data, NodeHead->Next);
 		NodeHead = NodeHead->Next;
 	}
 
-	printf("PrintLinkQueue end!\n\n");
 	return SUCCESS;
 }
 
-LIST_STATUS EnterLinkQueue(LINK_QUEUE * LinkQueue, int AddData) {
-	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *AddNode = (Node *)malloc(sizeof(Node));
+LIST_STATUS EnterLinkQueue(LINK_QUEUE *LinkQueue, int AddData) {
+	Node *AddNode = NULL;
 
-	printf("EnterLinkQueue start!\n");
-
-	if (NULL == TraLinkQueue) {
+	if (NULL == LinkQueue) {
 		return ERROR;
 	}
 
+	AddNode = (Node *)malloc(sizeof(Node));
+	if (AddNode == NULL) {
+		return ERROR;
+	}
 	AddNode->Data = AddData;
 	AddNode->Next = NULL;
 
-	TraLinkQueue->Rear->Next = AddNode;
-	TraLinkQueue->Rear = AddNode;
+	if (LinkQueue->Front == NULL) {
+		LinkQueue->Front = AddNode;
+		LinkQueue->Rear = AddNode;
+	} else {
+		AddNode->Next = LinkQueue->Rear->Next;
+		LinkQueue->Rear->Next = AddNode;		
+		LinkQueue->Rear = AddNode;
+	}
 
-	printf("EnterLinkQueue end!\n");
 	return SUCCESS;
 }
 
-LIST_STATUS ExitLinkQueue(LINK_QUEUE * LinkQueue, int *DelData) {
-	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *DelNode;
+LIST_STATUS ExitLinkQueue(LINK_QUEUE *LinkQueue, int *DelData) {
+	Node *DelNode = NULL;
 
-	printf("ExitLinkQueue start!\n");
-
-	if (NULL == TraLinkQueue) {
+	if ((NULL == LinkQueue) || (DelData == NULL)) {
 		return ERROR;
 	}
 	
-	if (TraLinkQueue->Front == TraLinkQueue->Rear) {
+	if (LinkQueue->Front == NULL) {
 		printf("LinkQueue is empty!\n");
 		return ERROR;	
 	}
 
-	*DelData = TraLinkQueue->Front->Data;
-	DelNode = TraLinkQueue->Front;
-
-	TraLinkQueue->Front = TraLinkQueue->Front->Next;
+	*DelData = LinkQueue->Front->Data;
+	DelNode = LinkQueue->Front;
+	LinkQueue->Front = LinkQueue->Front->Next;
 	free(DelNode);
 	DelNode = NULL;
 
-	printf("ExitLinkQueue end!\n");
 	return SUCCESS;
 }
 
@@ -4564,3 +4574,62 @@ void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultAr
 
 
 
+/*MGraghBFS*/
+//InitQueue(&LstQueue);
+//IsLinkQueueEmpty(LstQueue);
+//EnterLinkQueue(MGraph, MGraph->Vector[i]);
+//ExitLinkQueue(LstQueue, i);
+
+
+
+
+static int MGrBFSResIndex = 0;
+void MGrBFS(M_GRAPH *MGraph, LINK_QUEUE *LstQueue, bool *Visited, int i, int *ResultArr) {
+	int QIndex = 0;
+	int j = 0;
+
+	if ((MGraph == NULL) || (LstQueue == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
+		return;
+	}
+
+	Visited[i] = true;
+	ResultArr[MGrBFSResIndex] = i;
+	MGrBFSResIndex++;
+	printf("MGraph->Vector[%d] = %d\n", i, MGraph->Vector[i]);
+
+	EnterLinkQueue(MGraph, MGraph->Vector[i]);
+	while(IsLinkQueueEmpty(LstQueue) == false) {
+		ExitLinkQueue(LstQueue, &QIndex);
+		for (j = 0; j < MGraph->VectorNum; ++j) {
+			if ((MGraph->Eadge[QIndex][j] == 1) && (Visited[j] == false)) {
+				Visited[j] = true;
+				ResultArr[MGrBFSResIndex] = j;
+				MGrBFSResIndex++;
+				printf("MGraph->Vector[%d] = %d\n", j, MGraph->Vector[j]);
+			}
+		}
+	}
+}
+
+void MGraghBFS(M_GRAPH *MGraph, bool *Visited, int *ResultArr) {
+	int i = 0;
+	LINK_QUEUE *LstQueue = NULL;
+
+	if ((MGraph == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
+		return;
+	}
+
+	MGrBFSResIndex = 0;
+
+	for (i = 0; i < MGraph->VectorNum; i++) {
+		Visited[i] = false;
+	}
+
+	InitQueue(&LstQueue);
+
+	for (i = 0; i < MGraph->VectorNum; i++) {
+		if (Visited[i] == false) {
+			MGrBFS(MGraph, LstQueue, Visited, i, ResultArr);
+		}
+	}
+}

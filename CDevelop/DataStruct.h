@@ -82,6 +82,7 @@ typedef struct _SQ_QUEUE {
 	int Rear;
 }SQ_QUEUE;
 
+/*LINK_QUEUE*/
 typedef struct _LINK_QUEUE {
 	Node *Front;
 	Node *Rear;
