@@ -474,10 +474,6 @@ void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultAr
 
 
 /*LINK_QUEUE*/
-#define SUCCESS (0)
-#define ERROR   (1)
-typedef int LIST_STATUS;
-
 typedef struct _LINK_NODE {
 	int Data;
 	struct _LINK_NODE *Next;

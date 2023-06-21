@@ -3769,6 +3769,7 @@ void TestSearchHash(void) {
 }
 
 
+/*TestBuildMGraph*/
 void TestMGraph(M_GRAPH *MGraph01, M_GRAPH *MGraph02) {
 	int i, j;
 
@@ -3867,7 +3868,6 @@ void TestBuildMGraph(void) {
 	TestResult();
 }
 
-/*TestBuildAdjustListGraph*/
 /*TestBuildAdjustListGraph*/
 bool TestAdjLst(const LIST_NODE *CmpAdjLst, const LIST_NODE *AdjLst) {
 	LIST_NODE *PCmpNode = CmpAdjLst;
@@ -4105,7 +4105,6 @@ void TestAdjLstGraphDFS(void) {
 	printf("\n-------Test result----------\n");
 	TestResult();
 }
-
 
 
 /*TestBuildLinkQueue*/
