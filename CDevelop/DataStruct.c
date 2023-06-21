@@ -2183,75 +2183,76 @@ void OperateQueue(void) {
 
 
 /*LinkQueue*/
-void InitLinkQueue(LINK_QUEUE **LinkQueue) {
-	if (LinkQueue == NULL) {
-		return;
-	}
+//void InitLinkQueue(LINK_QUEUE **LinkQueue) {
+//	if (LinkQueue == NULL) {
+//		return;
+//	}
+//
+//	*LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
+//	if (*LinkQueue == NULL) {
+//		return;
+//	}
+//	(*LinkQueue)->Front = NULL;
+//	(*LinkQueue)->Rear = NULL;
+//}
+//
+//LIST_STATUS CreateLinkQueue(LINK_QUEUE *LinkQueue, Node *HeadNode, int CreateNum) {
+//	LINK_QUEUE *TraLinkQueue = LinkQueue;
+//	Node *TraNode = HeadNode;
+//	Node *CreateNode;
+//	int TraIndex = 0;	
+//
+//	printf("CreateLinkQueue start!\n");
+//
+//	if (NULL == LinkQueue || NULL == HeadNode) {
+//		return ERROR;
+//	}
+//
+//	for (TraIndex = 0; TraIndex < CreateNum - 1; ++TraIndex) {
+//		CreateNode = (Node *)malloc(sizeof(Node));
+//		CreateNode->Data = TraIndex;
+//
+//		CreateNode->Next = TraNode->Next;
+//		TraNode->Next = CreateNode;
+//
+//		TraLinkQueue->Rear = CreateNode;		
+//		TraNode = TraNode->Next;
+//	}
+//
+//	printf("CreateLinkQueue end!\n");
+//	return SUCCESS;
+//}
+//
+//LIST_STATUS DelLinkQueue(LINK_QUEUE * LinkQueue, Node *HeadNode) {
+//	LINK_QUEUE *TraLinkQueue = LinkQueue;
+//	Node *TraNode = HeadNode;
+//	Node *DelNode;
+//
+//	printf("DelLinkQueue start!\n");
+//
+//	if (NULL == LinkQueue || NULL == HeadNode) {
+//		return ERROR;
+//	}
+//
+//	TraNode = TraNode->Next;
+//
+//	TraLinkQueue->Rear = TraLinkQueue->Front;
+//
+//	while (TraNode != NULL) {
+//		DelNode = TraNode;
+//		TraNode = TraNode->Next;
+//		
+//		free(DelNode);
+//		DelNode = NULL;
+//	}
+//
+//	HeadNode->Next = NULL;
+//
+//	printf("DelLinkQueue end!\n");
+//	return SUCCESS;
+//}
 
-	*LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
-	if (*LinkQueue == NULL) {
-		return;
-	}
-	(*LinkQueue)->Front = NULL;
-	(*LinkQueue)->Rear = NULL;
-}
-
-LIST_STATUS CreateLinkQueue(LINK_QUEUE *LinkQueue, Node *HeadNode, int CreateNum) {
-	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *TraNode = HeadNode;
-	Node *CreateNode;
-	int TraIndex = 0;	
-
-	printf("CreateLinkQueue start!\n");
-
-	if (NULL == LinkQueue || NULL == HeadNode) {
-		return ERROR;
-	}
-
-	for (TraIndex = 0; TraIndex < CreateNum - 1; ++TraIndex) {
-		CreateNode = (Node *)malloc(sizeof(Node));
-		CreateNode->Data = TraIndex;
-
-		CreateNode->Next = TraNode->Next;
-		TraNode->Next = CreateNode;
-
-		TraLinkQueue->Rear = CreateNode;		
-		TraNode = TraNode->Next;
-	}
-
-	printf("CreateLinkQueue end!\n");
-	return SUCCESS;
-}
-
-LIST_STATUS DelLinkQueue(LINK_QUEUE * LinkQueue, Node *HeadNode) {
-	LINK_QUEUE *TraLinkQueue = LinkQueue;
-	Node *TraNode = HeadNode;
-	Node *DelNode;
-
-	printf("DelLinkQueue start!\n");
-
-	if (NULL == LinkQueue || NULL == HeadNode) {
-		return ERROR;
-	}
-
-	TraNode = TraNode->Next;
-
-	TraLinkQueue->Rear = TraLinkQueue->Front;
-
-	while (TraNode != NULL) {
-		DelNode = TraNode;
-		TraNode = TraNode->Next;
-		
-		free(DelNode);
-		DelNode = NULL;
-	}
-
-	HeadNode->Next = NULL;
-
-	printf("DelLinkQueue end!\n");
-	return SUCCESS;
-}
-
+/*
 LIST_STATUS PrintLinkQueue(LINK_QUEUE *LinkQueue) {
 	Node *NodeHead = NULL;
 
@@ -2270,7 +2271,9 @@ LIST_STATUS PrintLinkQueue(LINK_QUEUE *LinkQueue) {
 
 	return SUCCESS;
 }
+*/
 
+/*
 LIST_STATUS EnterLinkQueue(LINK_QUEUE *LinkQueue, int AddData) {
 	Node *AddNode = NULL;
 
@@ -2296,7 +2299,9 @@ LIST_STATUS EnterLinkQueue(LINK_QUEUE *LinkQueue, int AddData) {
 
 	return SUCCESS;
 }
+*/
 
+/*/
 LIST_STATUS ExitLinkQueue(LINK_QUEUE *LinkQueue, int *DelData) {
 	Node *DelNode = NULL;
 
@@ -2317,74 +2322,76 @@ LIST_STATUS ExitLinkQueue(LINK_QUEUE *LinkQueue, int *DelData) {
 
 	return SUCCESS;
 }
+*/
 
-void OperateLinkQueue(void) {
-	LINK_QUEUE *LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
-	LIST_STATUS Status;
 
-	int CreateNum = 3;
-	int AddData = 4;
-	int *DelData = (int *)malloc(sizeof(int));
-
-	/*Create empty linkQueue*/
-	Node *HeadNode = (Node *)malloc(sizeof(Node));
-	HeadNode->Data = CreateNum;
-	HeadNode->Next = NULL;
-	LinkQueue->Front = HeadNode;
-	LinkQueue->Rear = HeadNode;
-
-	Status = CreateLinkQueue(LinkQueue, HeadNode, CreateNum);
-	if (SUCCESS == Status) {
-		printf("CreateLinkQueue succeed!\n");
-	}
-	else {
-		printf("CreateLinkQueue failed!\n");
-	}
-	
-	PrintLinkQueue(LinkQueue);
-
-	
-	Status = EnterLinkQueue(LinkQueue, AddData);
-	if (SUCCESS == Status) {
-		printf("EnterLinkQueue succeed!\n");
-	}
-	else {
-		printf("EnterLinkQueue failed!\n");
-	}
-	
-	PrintLinkQueue(LinkQueue);
-	
-
-	/*
-	Status = ExitLinkQueue(LinkQueue, DelData);
-	if (SUCCESS == Status) {
-		printf("ExitLinkQueue succeed!\n");
-	}
-	else {
-		printf("ExitLinkQueue failed!\n");
-	}
-
-	PrintLinkQueue(LinkQueue);
-	*/
-
-	/*
-	Status = DelLinkQueue(LinkQueue, HeadNode);
-	if (SUCCESS == Status) {
-		printf("DelLinkQueue succeed!\n");
-	}
-	else {
-		printf("DelLinkQueue failed!\n");
-	}
-
-	PrintLinkQueue(LinkQueue);
-	*/
-	
-	free(DelData);
-
-	LinkQueue = NULL;
-	DelData = NULL;
-	HeadNode = NULL;
-}
+//void OperateLinkQueue(void) {
+//	LINK_QUEUE *LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
+//	LIST_STATUS Status;
+//
+//	int CreateNum = 3;
+//	int AddData = 4;
+//	int *DelData = (int *)malloc(sizeof(int));
+//
+//	/*Create empty linkQueue*/
+//	Node *HeadNode = (Node *)malloc(sizeof(Node));
+//	HeadNode->Data = CreateNum;
+//	HeadNode->Next = NULL;
+//	LinkQueue->Front = HeadNode;
+//	LinkQueue->Rear = HeadNode;
+//
+//	Status = CreateLinkQueue(LinkQueue, HeadNode, CreateNum);
+//	if (SUCCESS == Status) {
+//		printf("CreateLinkQueue succeed!\n");
+//	}
+//	else {
+//		printf("CreateLinkQueue failed!\n");
+//	}
+//	
+//	PrintLinkQueue(LinkQueue);
+//
+//	
+//	Status = EnterLinkQueue(LinkQueue, AddData);
+//	if (SUCCESS == Status) {
+//		printf("EnterLinkQueue succeed!\n");
+//	}
+//	else {
+//		printf("EnterLinkQueue failed!\n");
+//	}
+//	
+//	PrintLinkQueue(LinkQueue);
+//	
+//
+//	/*
+//	Status = ExitLinkQueue(LinkQueue, DelData);
+//	if (SUCCESS == Status) {
+//		printf("ExitLinkQueue succeed!\n");
+//	}
+//	else {
+//		printf("ExitLinkQueue failed!\n");
+//	}
+//
+//	PrintLinkQueue(LinkQueue);
+//	*/
+//
+//	/*
+//	Status = DelLinkQueue(LinkQueue, HeadNode);
+//	if (SUCCESS == Status) {
+//		printf("DelLinkQueue succeed!\n");
+//	}
+//	else {
+//		printf("DelLinkQueue failed!\n");
+//	}
+//
+//	PrintLinkQueue(LinkQueue);
+//	*/
+//	
+//	free(DelData);
+//
+//	LinkQueue = NULL;
+//	DelData = NULL;
+//	HeadNode = NULL;
+//}
 
 
 /*String*/
@@ -4573,16 +4580,128 @@ void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultAr
 }
 
 
+/*LinkQueue*/
+void InitLinkQueue(LINK_QUEUE **LinkQueue) {
+	if (LinkQueue == NULL) {
+		return;
+	}
+
+	*LinkQueue = (LINK_QUEUE *)malloc(sizeof(LINK_QUEUE));
+	if (*LinkQueue == NULL) {
+		return;
+	}
+	(*LinkQueue)->Front = NULL;
+	(*LinkQueue)->Rear = NULL;
+}
+
+void PrintLinkQueue(LINK_QUEUE *LinkQueue) {
+	LINK_NODE *PNode = NULL;
+
+	if (LinkQueue == NULL) {
+		return;
+	}
+
+	// printf("LinkQueue->Front = 0x%lx\n", LinkQueue->Front);
+	// printf("LinkQueue->Rear = 0x%lx\n", LinkQueue->Rear);
+
+	PNode = LinkQueue->Front;
+	while (PNode != NULL) {
+		//printf("PNode = 0x%lx, PNode->Data = %d, PNode->Next = 0x%lx\n", PNode, PNode->Data, PNode->Next);
+		printf("PNode->Data = %d\n", PNode->Data);
+		PNode = PNode->Next;
+	}
+
+	return;
+}
+
+void EnterLinkQueue(LINK_QUEUE *LinkQueue, int AddData) {
+	LINK_NODE *AddNode = NULL;
+
+	if (LinkQueue == NULL) {
+		return;
+	}
+
+	AddNode = (LINK_NODE *)malloc(sizeof(LINK_NODE));
+	if (AddNode == NULL) {
+		return;
+	}
+	AddNode->Data = AddData;
+	AddNode->Next = NULL;
+
+	if (LinkQueue->Front == NULL) {
+		LinkQueue->Front = AddNode;
+		LinkQueue->Rear = AddNode;
+	}
+	else {
+		AddNode->Next = LinkQueue->Rear->Next;
+		LinkQueue->Rear->Next = AddNode;
+		LinkQueue->Rear = LinkQueue->Rear->Next;
+	}
+}
+
+void BuildLinkQueue(LINK_QUEUE *LinkQueue, int Num, int *DataArr) {
+	int i = 0;
+
+	if ((LinkQueue == NULL) || (DataArr == NULL)) {
+		return;
+	}
+
+	for (i = 0; i < Num; ++i) {
+		EnterLinkQueue(LinkQueue, DataArr[i]);
+	}
+}
+
+void ExitLinkQueue(LINK_QUEUE *LinkQueue, int *ExitData) {
+	LINK_NODE *DelNode = NULL;
+
+	if ((LinkQueue == NULL) || (LinkQueue->Front == NULL)) {
+		return;
+	}
+
+	if (LinkQueue->Front == LinkQueue->Rear) {
+		LinkQueue->Rear = NULL;
+	}
+
+	*ExitData = LinkQueue->Front->Data;
+	DelNode = LinkQueue->Front;
+	LinkQueue->Front = LinkQueue->Front->Next;
+
+	free(DelNode);
+	DelNode = NULL;
+}
+
+void DestoryLinkQueue(LINK_QUEUE *LinkQueue) {
+	LINK_NODE *PNode = NULL;
+	LINK_NODE *DelNode = NULL;
+
+	if ((LinkQueue == NULL) || (LinkQueue->Front == NULL)) {
+		return;
+	}
+
+	PNode = LinkQueue->Front;
+	while (PNode != NULL) {
+		DelNode = PNode;
+		PNode = PNode->Next;
+
+		free(DelNode);
+		DelNode = NULL;
+	}
+
+	LinkQueue->Front = NULL;
+	LinkQueue->Rear = NULL;
+	return;
+}
+
+bool IsLinkQueueEmpty(LINK_QUEUE *LinkQueue) {
+	if (LinkQueue->Front == NULL) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 /*MGraghBFS*/
-//InitQueue(&LstQueue);
-//IsLinkQueueEmpty(LstQueue);
-//EnterLinkQueue(MGraph, MGraph->Vector[i]);
-//ExitLinkQueue(LstQueue, i);
-
-
-
-
 static int MGrBFSResIndex = 0;
 void MGrBFS(M_GRAPH *MGraph, LINK_QUEUE *LstQueue, bool *Visited, int i, int *ResultArr) {
 	int QIndex = 0;
@@ -4597,8 +4716,8 @@ void MGrBFS(M_GRAPH *MGraph, LINK_QUEUE *LstQueue, bool *Visited, int i, int *Re
 	MGrBFSResIndex++;
 	printf("MGraph->Vector[%d] = %d\n", i, MGraph->Vector[i]);
 
-	EnterLinkQueue(MGraph, MGraph->Vector[i]);
-	while(IsLinkQueueEmpty(LstQueue) == false) {
+	EnterLinkQueue(LstQueue, i);
+	while (IsLinkQueueEmpty(LstQueue) == false) {
 		ExitLinkQueue(LstQueue, &QIndex);
 		for (j = 0; j < MGraph->VectorNum; ++j) {
 			if ((MGraph->Eadge[QIndex][j] == 1) && (Visited[j] == false)) {
@@ -4606,6 +4725,8 @@ void MGrBFS(M_GRAPH *MGraph, LINK_QUEUE *LstQueue, bool *Visited, int i, int *Re
 				ResultArr[MGrBFSResIndex] = j;
 				MGrBFSResIndex++;
 				printf("MGraph->Vector[%d] = %d\n", j, MGraph->Vector[j]);
+
+				EnterLinkQueue(LstQueue, j);
 			}
 		}
 	}
@@ -4625,11 +4746,66 @@ void MGraghBFS(M_GRAPH *MGraph, bool *Visited, int *ResultArr) {
 		Visited[i] = false;
 	}
 
-	InitQueue(&LstQueue);
-
+	InitLinkQueue(&LstQueue);
 	for (i = 0; i < MGraph->VectorNum; i++) {
 		if (Visited[i] == false) {
 			MGrBFS(MGraph, LstQueue, Visited, i, ResultArr);
 		}
 	}
 }
+
+/*AdjLstGraphBFS*/
+static int AdjLStBFSResIndex = 0;
+void AdjLstGrBFS(ADJUST_LIST_GRAPH *AdjLstGraph, LINK_QUEUE *LstQueue, bool *Visited, int i, int *ResultArr) {
+	int QIndex = 0;
+	LIST_NODE *LstNode = NULL;
+
+	if ((AdjLstGraph == NULL) || (LstQueue == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
+		return;
+	}
+
+	Visited[i] = true;
+	ResultArr[AdjLStBFSResIndex] = i;
+	AdjLStBFSResIndex++;
+	printf("AdjLstGraph->AdjustGraph[%d].Data = %d\n", i, AdjLstGraph->AdjustGraph[i].Data);
+
+	EnterLinkQueue(LstQueue, i);
+	while (IsLinkQueueEmpty(LstQueue) == false) {
+		ExitLinkQueue(LstQueue, &QIndex);
+		LstNode = AdjLstGraph->AdjustGraph[QIndex].FirstEadge;
+
+		while (LstNode != NULL) {
+			if (Visited[LstNode->VectorIndex] == false) {
+				Visited[LstNode->VectorIndex] = true;
+				ResultArr[AdjLStBFSResIndex] = LstNode->VectorIndex;
+				AdjLStBFSResIndex++;
+				printf("AdjLstGraph->AdjustGraph[%d].Data = %d\n", LstNode->VectorIndex, AdjLstGraph->AdjustGraph[LstNode->VectorIndex].Data);
+
+				EnterLinkQueue(LstQueue, LstNode->VectorIndex);
+			}
+			LstNode = LstNode->Next;
+		}
+	}
+}
+
+void AdjLstGraphBFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultArr) {
+	int i = 0;
+	LINK_QUEUE *LstQueue = NULL;
+
+	if ((AdjLstGraph == NULL) || (Visited == NULL) || (ResultArr == NULL)) {
+		return;
+	}
+
+	AdjLStBFSResIndex = 0;
+	for (i = 0; i < AdjLstGraph->VectorNum; i++) {
+		Visited[i] = false;
+	}
+
+	InitLinkQueue(&LstQueue);
+	for (i = 0; i < AdjLstGraph->VectorNum; i++) {
+		if (Visited[i] == false) {
+			AdjLstGrBFS(AdjLstGraph, LstQueue, Visited, i, ResultArr);
+		}
+	}
+}
+

@@ -110,4 +110,17 @@ void TestMGraphDFS(void);
 
 /*TestAdjLstGraphDFS*/
 void TestAdjLstGraphDFS(void);
+
+
+/*TestBuildLinkQueue*/
+void TestBuildLinkQueue(void);
+
+/*TestExitLinkQueue*/
+void TestExitLinkQueue(void);
+
+/*TestMGraghBFS*/
+void TestMGraghBFS(void);
+
+/*TestAdjLstGraphBFS*/
+void TestAdjLstGraphBFS(void);
 #endif

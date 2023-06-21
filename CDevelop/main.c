@@ -164,7 +164,19 @@ int main() {
 	//TestMGraphDFS();
 
 	/*TestAdjLstGraphDFS*/
-	TestAdjLstGraphDFS();
+	//TestAdjLstGraphDFS();
+
+	/*TestBuildLinkQueue*/
+	//TestBuildLinkQueue();
+
+	/*TestExitLinkQueue*/
+	//TestExitLinkQueue();
+
+	/*TestMGraghBFS*/
+	//TestMGraghBFS();
+
+	/*TestAdjLstGraphBFS*/
+	TestAdjLstGraphBFS();
 
 	system("pause");
 	return 0;
