@@ -4108,3 +4108,260 @@ void TestAdjLstGraphDFS(void) {
 
 
 
+/*TestBuildLinkQueue*/
+void CmpLinkQueue(const int *CmpArr, const int Num, const LINK_NODE *LinkNode) {
+	int        i = 0;
+	LINK_NODE  *PNode = NULL;
+
+	TestNum++;
+	if ((CmpArr == NULL) || (LinkNode == NULL)) {
+		FaildNum++;
+		return;
+	}
+
+	PNode = (LINK_NODE *)LinkNode;
+	while ((i < Num) && (PNode != NULL)) {
+		if (CmpArr[i] != PNode->Data) {
+			FaildNum++;
+			return;
+		}
+
+		i++;
+		PNode = PNode->Next;
+	}
+
+	PassNum++;
+}
+
+void TestBuildLinkQueue(void) {
+	/*Test01*/
+	LINK_QUEUE  *LinkQueue01 = NULL;
+	int         Num01 = 3;
+	int         DataArr01[3] = { 0, 10, 20 };
+	int         CmpDataArr01[3] = { 0, 10, 20 };
+
+	/*Test02*/
+	LINK_QUEUE  *LinkQueue02 = NULL;
+	int         Num02 = 1;
+	int         DataArr02[1] = { 10 };
+	int         CmpDataArr02[1] = { 10 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	InitLinkQueue(&LinkQueue01);
+	BuildLinkQueue(LinkQueue01, Num01, DataArr01);
+	PrintLinkQueue(LinkQueue01);
+	CmpLinkQueue(CmpDataArr01, Num01, LinkQueue01->Front);
+	DestoryLinkQueue(LinkQueue01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	InitLinkQueue(&LinkQueue02);
+	BuildLinkQueue(LinkQueue02, Num02, DataArr02);
+	PrintLinkQueue(LinkQueue02);
+	CmpLinkQueue(CmpDataArr02, Num02, LinkQueue02->Front);
+	DestoryLinkQueue(LinkQueue02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+/*TestExitLinkQueue*/
+void CmpExitLinkQueue(const int *CmpDataArr, const int Num, const LINK_NODE *LinkNode, const int CmpValue, const int ResultValue) {
+	TestNum++;
+
+	if ((CmpDataArr == NULL) && (LinkNode == 0) && (Num == 0)) {
+		PassNum++;
+		return;
+	}
+
+	if (CmpValue != ResultValue) {
+		FaildNum++;
+		return;
+	}
+
+	TestNum--;
+	CmpLinkQueue(CmpDataArr, Num, LinkNode);
+}
+
+void TestExitLinkQueue(void) {
+	/*Test01*/
+	LINK_QUEUE  *LinkQueue01 = NULL;
+	int         Num01 = 3;
+	int         DataArr01[3] = { 10, 20, 30 };
+	int         ExitResultValue01 = 0;
+	int         CmpExitValue01 = 10;
+	int         CmpDataArr01[2] = { 20, 30 };
+
+	/*Test02*/
+	LINK_QUEUE  *LinkQueue02 = NULL;
+	int         Num02 = 1;
+	int         DataArr02[1] = { 10 };
+	int         ExitResultValue02 = 0;
+	int         CmpExitValue02 = 10;
+	int         *CmpDataArr02 = NULL;
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	InitLinkQueue(&LinkQueue01);
+	BuildLinkQueue(LinkQueue01, Num01, DataArr01);
+	PrintLinkQueue(LinkQueue01);
+	ExitLinkQueue(LinkQueue01, &ExitResultValue01);
+	CmpExitLinkQueue(CmpDataArr01, Num01 - 1, LinkQueue01->Front, CmpExitValue01, ExitResultValue01);
+	DestoryLinkQueue(LinkQueue01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	InitLinkQueue(&LinkQueue02);
+	BuildLinkQueue(LinkQueue02, Num02, DataArr02);
+	PrintLinkQueue(LinkQueue02);
+	ExitLinkQueue(LinkQueue02, &ExitResultValue02);
+	printf("\n");
+	printf("ExitResultValue02 = %d\n", ExitResultValue02);
+	PrintLinkQueue(LinkQueue02);
+	CmpExitLinkQueue(CmpDataArr02, Num02 - 1, LinkQueue02->Front, CmpExitValue02, ExitResultValue02);
+	DestoryLinkQueue(LinkQueue02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+/*TestMGraghBFS*/
+void TestMGraghBFS(void) {
+	/*Test01*/
+	M_GRAPH  MGraph01;
+	int Vector01[] = { 0, 1, 2, 3 };
+	// A  B  C  D  
+	int Eadge01[][4] = { {0, 1, 1, 1},  //A
+						{1, 0, 1, 0},  //B
+						{1, 1, 0, 1},  //C
+						{1, 0, 1, 0},  //D
+	};
+	int VectorNum01 = 4;
+	int EadgeNum01 = 5;
+	M_GRAPH CmpGraph01 = { 4, 5, { 0, 1, 2, 3},
+								 {{0, 1, 1, 1},  //A
+								  {1, 0, 1, 0},  //B
+								  {1, 1, 0, 1},  //C
+								  {1, 0, 1, 0},  //D
+								 }
+	};
+	bool Visited01[4] = { 0 };
+	int BFSResult01[4] = { 0 };
+	int CmpVector01[] = { 0, 1, 2, 3 };
+
+	/*Test02*/
+	M_GRAPH  MGraph02;
+	int Vector02[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	// A  B  C  D  E  F  G  H  I  
+	int Eadge02[][9] = { {0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
+						{1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+						{0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+						{0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+						{0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+						{1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+						{0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+						{0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+						{0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+	};
+	int VectorNum02 = 9;
+	int EadgeNum02 = 15;
+	M_GRAPH CmpGraph02 = { 9, 15, { 0, 1, 2, 3, 4, 5, 6, 7, 8},
+								  {{0, 1, 0, 0, 0, 1, 0, 0, 0},  //A
+								   {1, 0, 1, 0, 0, 0, 1, 0, 1},  //B
+								   {0, 1, 0, 1, 0, 0, 0, 0, 1},  //C
+								   {0, 0, 1, 0, 1, 0, 1, 1, 1},  //D
+								   {0, 0, 0, 1, 0, 1, 0, 1, 0},  //E
+								   {1, 0, 0, 0, 1, 0, 1, 0, 0},  //F
+								   {0, 1, 0, 1, 0, 1, 0, 1, 0},  //G
+								   {0, 0, 0, 1, 1, 0, 1, 0, 0},  //H
+								   {0, 1, 1, 1, 0, 0, 0, 0, 0},  //I
+								  }
+	};
+	bool Visited02[9] = { 0 };
+	int BFSResult02[9] = { 0 };
+	int CmpVector02[] = { 0, 1, 5, 2, 6, 8, 4, 3, 7 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildMGraph(&MGraph01, Vector01, (int *)Eadge01, VectorNum01, EadgeNum01);
+	PrintMGraph(&MGraph01);
+	//TestMGraph(&CmpGraph01, &MGraph01);
+	MGraghBFS(&MGraph01, Visited01, BFSResult01);
+	TestCmpArr(CmpVector01, VectorNum01, BFSResult01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildMGraph(&MGraph02, Vector02, (int *)Eadge02, VectorNum02, EadgeNum02);
+	PrintMGraph(&MGraph02);
+	printf("\nBFS\n");
+	//TestMGraph(&CmpGraph02, &MGraph02);
+	MGraghBFS(&MGraph02, Visited02, BFSResult02);
+	printf("\nCmp\n");
+	TestCmpArr(CmpVector02, VectorNum02, BFSResult02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
+
+/*TestAdjLstGraphBFS*/
+void TestAdjLstGraphBFS(void) {
+	/*Test01*/
+	ADJUST_LIST_GRAPH  AdjListGraph01;
+	ADJUST_LIST_GRAPH  AdjListGraphData01 = { 4, 5, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}} };
+	LIST_NODE_DATA     AdjListNodeData01[] = { {3, {1, 2, 3}}, {2, {0, 2}}, {3, {0, 1, 3}}, {2, {0, 2}} };
+	bool Visited01[4] = { 0 };
+	int VectorNum01 = 4;
+	int DFSResult01[4] = { 0 };
+	int CmpVector01[] = { 0, 1, 2, 3 };
+
+	/*Test02*/
+	ADJUST_LIST_GRAPH  AdjListGraph02;               //A          B           C           D           E           F           G           H           I
+	ADJUST_LIST_GRAPH  AdjListGraphData02 = { 9, 15, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}, {40, NULL}, {50, NULL}, {60, NULL}, {70, NULL}, {80, NULL},
+													}
+	};
+	//A            B                  C               D                     E               F               G                  H               I
+	LIST_NODE_DATA     AdjListNodeData02[] = { {2, {1, 5}}, {4, {0, 2, 6, 8}}, {3, {1, 3, 8}}, {5, {2, 4, 6, 7, 8}}, {3, {3, 5, 7}}, {3, {0, 4, 6}}, {4, {1, 3, 5, 7}}, {3, {3, 4, 6}}, {3, {1, 2, 3}}
+	};
+	ADJUST_LIST_GRAPH  CmpAdjListGraph02 = { 9, 15, {{0, NULL}, {10, NULL}, {20, NULL}, {30, NULL}, {40, NULL}, {50, NULL}, {60, NULL}, {70, NULL}, {80, NULL},
+													}
+	};
+	bool Visited02[9] = { 0 };
+	int VectorNum02 = 9;
+	int DFSResult02[9] = { 0 };
+	int CmpVector02[] = { 0, 1, 5, 2, 6, 8, 4, 3, 7 };
+
+	printf("-------Test start----------\n");
+	InitNum();
+
+	/*Test01*/
+	printf("\n-------Test 01----------\n");
+	BuildAdjustListGraph(&AdjListGraph01, &AdjListGraphData01, AdjListNodeData01);
+	PrintAdjLstGraph(&AdjListGraph01);
+	AdjLstGraphBFS(&AdjListGraph01, Visited01, DFSResult01);
+	TestCmpArr(CmpVector01, VectorNum01, DFSResult01);
+
+	/*Test02*/
+	printf("\n-------Test 02----------\n");
+	BuildAdjustListGraph(&AdjListGraph02, &AdjListGraphData02, AdjListNodeData02);
+	PrintAdjLstGraph(&AdjListGraph02);
+	printf("\nBFS\n");
+	AdjLstGraphBFS(&AdjListGraph02, Visited02, DFSResult02);
+	TestCmpArr(CmpVector02, VectorNum02, DFSResult02);
+
+	/*Test Result*/
+	printf("\n-------Test result----------\n");
+	TestResult();
+}
