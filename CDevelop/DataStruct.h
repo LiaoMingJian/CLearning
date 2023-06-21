@@ -83,11 +83,12 @@ typedef struct _SQ_QUEUE {
 }SQ_QUEUE;
 
 /*LINK_QUEUE*/
+/*
 typedef struct _LINK_QUEUE {
 	Node *Front;
 	Node *Rear;
 }LINK_QUEUE;
-
+*/
 
 /*Tree*/
 /*PARENT_TREE*/
@@ -470,4 +471,33 @@ void MGraphDFS(M_GRAPH *MGraph, bool *Visited, int *ResultArr);
 
 /*AdjLstGraphDFS*/
 void AdjLstGraphDFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultArr);
+
+
+/*LINK_QUEUE*/
+#define SUCCESS (0)
+#define ERROR   (1)
+typedef int LIST_STATUS;
+
+typedef struct _LINK_NODE {
+	int Data;
+	struct _LINK_NODE *Next;
+}LINK_NODE;
+
+typedef struct _LINK_QUEUE {
+	LINK_NODE *Front;
+	LINK_NODE *Rear;
+}LINK_QUEUE;
+
+void InitLinkQueue(LINK_QUEUE **LinkQueue);
+void BuildLinkQueue(LINK_QUEUE *LinkQueue, int Num, int *DataArr);
+void PrintLinkQueue(LINK_QUEUE *LinkQueue);
+void DestoryLinkQueue(LINK_QUEUE *LinkQueue);
+void EnterLinkQueue(LINK_QUEUE *LinkQueue, int AddData);
+void ExitLinkQueue(LINK_QUEUE *LinkQueue, int *ExitData);
+
+/*MGraghBFS*/
+void MGraghBFS(M_GRAPH *MGraph, bool *Visited, int *ResultArr);
+
+/*AdjLstGraphBFS*/
+void AdjLstGraphBFS(ADJUST_LIST_GRAPH *AdjLstGraph, bool *Visited, int *ResultArr);
 #endif
